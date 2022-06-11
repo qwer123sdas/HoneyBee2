@@ -3,6 +3,7 @@ package com.team.honeybee.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.team.honeybee.domain.DonationDto;
 
@@ -13,5 +14,6 @@ public interface DonationMapper {
 	
 	// 게시글 목록
 	List<DonationDto> selectOrder();
+
 	
 }
