@@ -1,5 +1,7 @@
 package com.team.honeybee.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,9 @@ public class DonationReplyService {
 	// 댓글 목록
 		// 로그인 안할 때
 	public List<DonationReplyDto> getReplyByBoardId(int donationId) {
-		return mapper.listReplyByBoardId(donationId, null);
+		List<DonationReplyDto> list = mapper.listReplyByBoardId(donationId, null);
+
+		return list;
 	}
 		// 로그인 한 상태일 때
 	public List<DonationReplyDto> listReplyWithOwnByBoardId(int donationId, String loginId) {
@@ -27,6 +31,8 @@ public class DonationReplyService {
 	public void addReply(DonationReplyDto reply) {
 		mapper.addReply(reply);
 	}
+	
+
 	
 
 }

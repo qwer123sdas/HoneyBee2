@@ -63,7 +63,7 @@
                                 <div class="fw-bold">\${list[i].nickname }</div>
                                 \${list[i].content}
                                     If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                <div class="mt-3">\${list[i].inserted}</div>    
+                                <div class="mt-3">\${list[i].inserted }</div>    
                                 </div>
                                     `);
     	    				replyListElement.append(replyElement);
