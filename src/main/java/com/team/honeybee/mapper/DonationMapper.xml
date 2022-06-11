@@ -3,13 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.DonationMapper">
-	<insert id="dontaionBoardWrite" parameterType="com.team.honeybee.DonationDto">
+	<!-- 게시글 목록 -->
+	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id,
+				d.title,
+				d.content,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.goal,
+				d.current_amount,
+				d.enable
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+		GROUP BY d.donation_id
+		ORDER BY donation_id DESC
+	</select>
+	
+	<!-- [임시] 작성 게시판 -->
+	<insert id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationDto">
 		INSERT INTO Donation(title,
 							content,
+							member_id,
 							expired,
 							goal)
 				VALUES(#{title}, 
-						#{content}, 
+						#{content},
+						#{memberId}, 
 						#{expired}, 
 						#{goal})
 	</insert>

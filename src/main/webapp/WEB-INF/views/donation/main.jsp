@@ -93,32 +93,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <c:forEach items="${boardList }" var="list">
+	                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+	                    <div class="service-item rounded overflow-hidden">
+	  <!-- aws전 임시 -->  	<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
+	                        <div class="position-relative p-4 pt-0">
+	                            <div class="service-icon">
+	                                <i class="fa fa-wind fa-3x"></i>
+	                            </div>
+	                            <h4 class="mb-3">${list.title }</h4>
+	                            <p>${list.nickname }</p>
+	                            <div class="progress">
+								  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+	                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
+                
+               	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
+  						<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-wind fa-3x"></i>
                             </div>
-                            <h4 class="mb-3">Wind Turbines</h4>
+                            <h4 class="mb-3">제목</h4>
                             <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
                             <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진 2.jpg" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-lightbulb fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Hydropower Plants</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
+
 
             </div>
         </div>

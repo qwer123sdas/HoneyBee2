@@ -1,5 +1,7 @@
 package com.team.honeybee.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,13 @@ public class DonationService {
 	DonationMapper mapper;
 	
 	// [임시] 도네이션 작성 게시판
-	public void dontaionBoardWrite(DonationDto dto) {
-		mapper.dontaionBoardWrite(dto);
+	public void dontaionBoardWrite(DonationDto dto, String memberId) {
+		mapper.dontaionBoardWrite(dto, memberId);
+	}
+	
+	// 게시글 목록
+	public List<DonationDto> findOrder() {
+		return mapper.selectOrder();
 	}
 
 }

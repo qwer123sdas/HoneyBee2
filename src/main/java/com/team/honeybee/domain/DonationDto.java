@@ -10,6 +10,7 @@ public class DonationDto {
 	
 	private String title;
 	private String content;
+	private String nickname;
 	
 	private LocalDateTime inserted;
 	private LocalDateTime expired;
