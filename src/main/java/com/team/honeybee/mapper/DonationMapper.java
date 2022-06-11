@@ -10,7 +10,7 @@ import com.team.honeybee.domain.DonationDto;
 @Mapper
 public interface DonationMapper {
 	// [임시] 작성 게시판
-	void dontaionBoardWrite(DonationDto dto, String memberId);
+	void dontaionBoardWrite(DonationDto dto);
 	
 	// 게시글 목록
 	List<DonationDto> selectOrder();

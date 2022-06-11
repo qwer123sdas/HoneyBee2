@@ -15,15 +15,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="">
+	<form action="${appRoot }/donation/write/finished" method="POST">
 		<label for="">제목</label>
 		<input type="text" name="title"/>
+		<br />
+		<label for="">테그 내용</label>
+		<input type="text" name="donation_tag_id"/>
 		<label for="">내용</label>
 		<input type="text" name="content"/>
+		<br />
 		<label for="">마감날짜</label>
 		<input type="date" name="expired"/>
+		<br />
 		<label for="">목표금액</label>
 		<input type="number" name="goal"/>
+
+		<br />
 		<button>제출</button>
 	</form>
 </body>

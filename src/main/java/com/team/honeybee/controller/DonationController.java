@@ -31,9 +31,16 @@ public class DonationController {
 		
 	}
 	// [임시] 입력 게시판
-	@RequestMapping("write")
+	@GetMapping("write")
+	public void wirte() {
+
+	}
+	@PostMapping("write/finished")
 	public String write(DonationDto dto, Principal principal) {
-		service.dontaionBoardWrite(dto, principal.getName());
+		System.out.println(dto.getExpired());
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		service.dontaionBoardWrite(dto);
 		return "donation/main";
 	}
 

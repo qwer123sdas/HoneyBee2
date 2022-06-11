@@ -106,7 +106,6 @@
 	                            <div class="progress">
 								  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
-	                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
 	                        </div>
 	                    </div>
 	                </div>
@@ -120,8 +119,10 @@
                                 <i class="fa fa-wind fa-3x"></i>
                             </div>
                             <h4 class="mb-3">제목</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                            <p>닉네임</p>
+                          	<div class="progress">
+								  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
                         </div>
                     </div>
                 </div>

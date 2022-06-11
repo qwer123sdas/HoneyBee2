@@ -24,11 +24,13 @@
 		INSERT INTO Donation(title,
 							content,
 							member_id,
+							donation_tag_id,
 							expired,
 							goal)
 				VALUES(#{title}, 
 						#{content},
-						#{memberId}, 
+						#{member_id}, 
+						#{donation_tag_id},
 						#{expired}, 
 						#{goal})
 	</insert>
