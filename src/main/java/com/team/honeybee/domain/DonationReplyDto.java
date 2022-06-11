@@ -1,5 +1,7 @@
 package com.team.honeybee.domain;
 
+
+
 import lombok.Data;
 
 @Data
@@ -11,5 +13,10 @@ public class DonationReplyDto {
 	private String nickname;
 	private String content;
 	private String inserted;
-	private boolean own;
+
+	public String koreanNamingInserted() {
+		
+		return "";
+	}
+	
 }

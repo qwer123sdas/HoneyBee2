@@ -10,8 +10,7 @@
 				m.nickname,
 				r.donation_id donationId,
 				r.content,
-				r.inserted,
-				IF(m.member_id = #{loginId}, 1, 0) own
+				r.inserted
 		FROM DonationReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.donation_id = #{donationId}
 		ORDER BY r.reply_id DESC
