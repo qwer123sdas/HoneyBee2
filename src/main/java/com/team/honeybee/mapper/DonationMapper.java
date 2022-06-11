@@ -15,7 +15,7 @@ public interface DonationMapper {
 	List<DonationDto> selectOrder();
 
 	// 기부 게시글 보기
-	DonationDto getBoard(int donation_id);
+	DonationDto getBoard(int donationId);
 
 	
 }

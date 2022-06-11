@@ -5,7 +5,7 @@
 <mapper namespace="com.team.honeybee.mapper.DonationMapper">
 	<!-- 게시글 목록 -->
 	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationDto">
-		SELECT d.donation_id,
+		SELECT d.donation_id donationId,
 				d.title,
 				m.nickname,
 				d.inserted,
@@ -19,17 +19,17 @@
 	
 	<!--기부 게시글 보기  -->
 	<select id="getBoard" resultType="com.team.honeybee.domain.DonationDto">
-		SELECT d.donation_id,
+		SELECT d.donation_id donationId,
 				d.title,
 				d.content,
 				m.nickname,
 				d.inserted,
 				d.expired,
 				d.goal,
-				d.current_amount,
+				d.current_amount currentAmount,
 				d.favorite
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
-		WHERE d.donation_id = #{donation_id}
+		WHERE d.donation_id = #{donationId}
 	</select>
 	
 	<!-- [임시] 작성 게시판 -->
@@ -42,8 +42,8 @@
 							goal)
 				VALUES(#{title}, 
 						#{content},
-						#{member_id}, 
-						#{donation_tag_id},
+						#{memberId}, 
+						#{donationTagId},
 						#{expired}, 
 						#{goal})
 	</insert>

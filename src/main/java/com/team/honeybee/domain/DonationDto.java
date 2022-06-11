@@ -7,9 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 @Data
 public class DonationDto {
-	private int donation_id;
-	private int donation_tag_id;
-	private String member_id;
+	private int donationId;
+	private int donationTagId;
+	private String memberId;
 	
 	private String title;
 	private String content;
@@ -19,7 +19,7 @@ public class DonationDto {
 	private String expired;
 	
 	private int goal;
-	private int current_amount;
+	private int currentAmount;
 	
 	private int favorite;
 	private int enable;

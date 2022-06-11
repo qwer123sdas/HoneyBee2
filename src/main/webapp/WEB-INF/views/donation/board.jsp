@@ -35,8 +35,47 @@
 	
 	    <!-- Template Stylesheet -->
 	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+	    
+	    <!-- Jquery -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
         
     </head>
+    <script>
+    	$(document).ready(function(){
+    		/* 댓글목록 */
+    		const replyList = function(){
+    			const data = {donationId : ${board.donationId}};
+    			
+    			$.ajax({
+    				url :'${appRoot}/donation/reply/list',
+    				type : 'POST',
+    				data : data,
+    				success : function(list){
+    					console.log(list);
+    					const replyListElement = $('#replyList');
+    	    			replyListElement.empty();
+    	    			
+    	    			for(let i = 0; i < list.length; i++){
+    	    				const replyElement = $("<div class='d-flex mb-4' />");
+    	    				replyElement.html(`
+    	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="ms-3">
+                                <div class="fw-bold">\${list[i].nickname }</div>
+                                \${list[i].content}
+                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                <div class="mt-3">\${list[i].inserted}</div>    
+                                </div>
+                                    `);
+    	    				replyListElement.append(replyElement);
+    	    			} // for문 끝
+    				} // ajax 끝
+    			}); // ajax 끝
+    		}// ready 끝
+    		
+    		replyList();
+    		
+    	});
+    </script>
     <body>
 	    <!-- Spinner Start -->
 	    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -84,6 +123,7 @@
                         <!-- 내용-->
                         <section class="mb-5">
                        		<p class="fs-5 mb-4">${board.content }</p>
+                       		
                             <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
                             <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                             <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
@@ -99,27 +139,26 @@
                                 <!-- 댓글 등록-->
                                 <div class="d-flex mb-4">
                                 	<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                	<form class="ms-3"><textarea class="form-control" rows="0" cols="80" placeholder="댓글만 써도 큰 힘이 됩니다. 같이 응원해요♥"></textarea></form>
-                                	<button class="rounded">등록</button>
+                                	<form class="ms-3" action="${appRoot }/donation/reply/add" method="POST">
+                                		<input type="hidden" name="donationId" value="${board.donationId }" />
+                                		<textarea class="form-control" rows="0" cols="80" name="content" placeholder="댓글만 써도 큰 힘이 됩니다. 같이 응원해요♥"></textarea>
+                                		<button class="rounded">등록</button>
+                                	</form>
                                 </div>
+                                <hr/>
+                                <container id="replyList">
                                 
+                                </container>
                                 <!-- 댓글 출력-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
+                              <div class="d-flex mb-4">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">Commenter Name</div>
                                         If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                    <div class="mt-3">2022년 04월 14일</div>
                                     </div>
                                 </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </section>
@@ -156,8 +195,6 @@
 
 
 	    <!-- JavaScript Libraries -->
-	    <!--Jquery -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	    <script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
 	    <script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>

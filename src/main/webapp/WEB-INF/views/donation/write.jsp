@@ -20,7 +20,7 @@
 		<input type="text" name="title"/>
 		<br />
 		<label for="">테그 내용</label>
-		<input type="text" name="donation_tag_id"/>
+		<input type="text" name="donationTagId"/>
 		<label for="">내용</label>
 		<input type="text" name="content"/>
 		<br />

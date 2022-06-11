@@ -4,9 +4,12 @@ import lombok.Data;
 
 @Data
 public class DonationReplyDto {
-	private int reply_id;
-	private int donation_id;
-	private int member_id;
+	private int replyId;
+	private int donationId;
+	private String memberId;
+	
+	private String nickname;
 	private String content;
-	private String date;
+	private String inserted;
+	private boolean own;
 }

@@ -20,8 +20,8 @@ public class DonationService {
 	}
 	
 	// 기부 게시글 보기
-	public DonationDto getBoard(int donation_id) {
-		return mapper.getBoard(donation_id);
+	public DonationDto getBoard(int donationId) {
+		return mapper.getBoard(donationId);
 	}
 
 	// [임시] 도네이션 작성 게시판

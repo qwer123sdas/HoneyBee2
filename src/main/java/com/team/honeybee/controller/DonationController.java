@@ -27,9 +27,9 @@ public class DonationController {
 		model.addAttribute("boardList", boardList);
 	}
 	// 기부 게시글 보기
-	@RequestMapping("board/{donation_id}")
-	public String board(@PathVariable int donation_id, Model model) {
-		DonationDto board = service.getBoard(donation_id);
+	@RequestMapping("board/{donationId}")
+	public String board(@PathVariable int donationId, Model model) {
+		DonationDto board = service.getBoard(donationId);
 		model.addAttribute("board", board);
 		return "donation/board";
 	}
@@ -42,8 +42,8 @@ public class DonationController {
 	@PostMapping("write/finished")
 	public String write(DonationDto dto, Principal principal) {
 		System.out.println(dto.getExpired());
-		String member_id = principal.getName();
-		dto.setMember_id(member_id);
+		String memberId = principal.getName();
+		dto.setMemberId(memberId);
 		service.dontaionBoardWrite(dto);
 		return "redirect:/donation/main";
 	}

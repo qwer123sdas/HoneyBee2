@@ -83,7 +83,7 @@
  
                 <c:forEach items="${boardList }" var="list">
 		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                			<a href="${appRoot }/donation/board/${list.donation_id }">
+                			<a href="${appRoot }/donation/board/${list.donationId }">
 		                    <div class="service-item rounded overflow-hidden">
 		  <!-- aws전 임시 -->  	<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
 		                        <div class="position-relative p-4 pt-0">
