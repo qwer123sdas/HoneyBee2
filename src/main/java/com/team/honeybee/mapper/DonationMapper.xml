@@ -7,16 +7,29 @@
 	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationDto">
 		SELECT d.donation_id,
 				d.title,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.goal,
+				d.current_amount
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+		GROUP BY d.donation_id
+		ORDER BY donation_id DESC
+	</select>
+	
+	<!--기부 게시글 보기  -->
+	<select id="getBoard" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id,
+				d.title,
 				d.content,
 				m.nickname,
 				d.inserted,
 				d.expired,
 				d.goal,
 				d.current_amount,
-				d.enable
+				d.favorite
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
-		GROUP BY d.donation_id
-		ORDER BY donation_id DESC
+		WHERE d.donation_id = #{donation_id}
 	</select>
 	
 	<!-- [임시] 작성 게시판 -->

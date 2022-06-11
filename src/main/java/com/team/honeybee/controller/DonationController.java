@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,11 +26,14 @@ public class DonationController {
 		List<DonationDto> boardList = service.findOrder();
 		model.addAttribute("boardList", boardList);
 	}
-	// 기부 게시판 출력
-	@RequestMapping("board")
-	public void board() {
-		
+	// 기부 게시글 보기
+	@RequestMapping("board/{donation_id}")
+	public String board(@PathVariable int donation_id, Model model) {
+		DonationDto board = service.getBoard(donation_id);
+		model.addAttribute("board", board);
+		return "donation/board";
 	}
+	
 	// [임시] 입력 게시판
 	@GetMapping("write")
 	public void wirte() {
@@ -41,7 +45,7 @@ public class DonationController {
 		String member_id = principal.getName();
 		dto.setMember_id(member_id);
 		service.dontaionBoardWrite(dto);
-		return "donation/main";
+		return "redirect:/donation/main";
 	}
 
 	

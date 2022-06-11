@@ -13,15 +13,20 @@ public class DonationService {
 	@Autowired
 	DonationMapper mapper;
 	
-	// [임시] 도네이션 작성 게시판
-	public void dontaionBoardWrite(DonationDto dto) {
-		mapper.dontaionBoardWrite(dto);
-	}
 	
 	// 게시글 목록
 	public List<DonationDto> findOrder() {
 		return mapper.selectOrder();
 	}
+	
+	// 기부 게시글 보기
+	public DonationDto getBoard(int donation_id) {
+		return mapper.getBoard(donation_id);
+	}
 
+	// [임시] 도네이션 작성 게시판
+	public void dontaionBoardWrite(DonationDto dto) {
+		mapper.dontaionBoardWrite(dto);
+	}
 
 }
