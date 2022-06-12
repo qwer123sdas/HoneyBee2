@@ -192,7 +192,30 @@
         </div>
 		<!-- foot bar -->
 		<nav:footbar></nav:footbar>
-
+		<div class="modal fade" id="modal1" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">삭제하기</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="form1" action="${appRoot }/member/remove" method="post">
+							<input type="hidden" value="${member.id }" name="id" />
+							<label for="passwordInput3" class="form-label">암호</label>
+							<input class="form-control"  id="passwordInput3" type="text" name="password" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button form="form1" type="submit" class="btn btn-danger">탈퇴</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	    <!-- JavaScript Libraries -->
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
