@@ -14,4 +14,8 @@ public class exampleController {
 	public void project() {
 		
 	}
+	@RequestMapping("category")
+	public void category() {
+		
+	}
 }

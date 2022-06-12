@@ -11,4 +11,9 @@ public class marketController {
 	public void market() {
 		
 	}
+	
+	@RequestMapping("get")
+	public void getBoard() {
+		
+	}
 }
