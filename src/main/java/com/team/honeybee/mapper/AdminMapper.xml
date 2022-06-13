@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.AdminMapper">
+	<select id="getMember" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT 
+			member_id memberId,
+		 	name,
+		 	email,
+		 	nickname,
+		 	postcode,
+		 	phone
+		 FROM Member
+		 ORDER BY create_date DESC
+	</select>
+	<update id="modifyMember">
+		UPDATE Member
+		SET member_id = #{memberId},
+			name = #{name},
+			email = #{email},
+			nickname = #{nickname},
+			postcode = #{postcode},
+			phone = #{phone}
+		WHERE member_id = #{memberId}
+	</update>
+	<delete id="deleteMember">
+		DELETE FROM Member
+		WHERE member_id = #{memberId}
+	</delete>
+</mapper>
