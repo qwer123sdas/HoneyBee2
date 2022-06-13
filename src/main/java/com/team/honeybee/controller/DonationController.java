@@ -37,23 +37,25 @@ public class DonationController {
 		DonationDto board = service.getBoard(donationId);
 		model.addAttribute("board", board);
 		model.addAttribute("principal", principal);
+		System.out.println("로그인 여부 확인 : " + principal.getName());
 		
-		// 좋아요 버튼 디비에서 찾기
+		// 좋아요 디비에서 정보 찾기
 		FavoriteDto favoriteDto = new FavoriteDto();
-		favoriteDto = favoriteService.findFavorite(board.getDonationId(), principal.getName());
+		if(principal != null) {
+			favoriteDto = favoriteService.findFavorite(board.getDonationId(), principal.getName());
+		}
+		int heart = 0;
+		if(favoriteDto != null) {
+			// 특정 계정이 하트 눌렀는지 여부 확인
+			heart = favoriteDto.getHeart();
+			model.addAttribute("heart", heart);
+		}
+		model.addAttribute("heart", heart);
 		
 		// 좋아요 갯수 세기
 		int count =  favoriteService.countHeart(board.getDonationId());
 		model.addAttribute("count", count);
 		
-		int heart = 0;
-		if(favoriteDto != null) {
-			heart = favoriteDto.getHeart();
-			model.addAttribute("heart", heart);
-		}
-		
-		model.addAttribute("heart", heart);
-		// model.addAttribute("heartCount", favoriteDto.getCount());
 		return "donation/board";
 	}
 	
