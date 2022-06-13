@@ -79,15 +79,12 @@
 					<!-- Post title Start -->
 					<header class="mb-4">
 						<!-- Post title-->
-						<h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+						<h1 class="fw-bolder mb-1">${meeting.title }</h1>
 						<!-- Post meta content-->
-						<div class="text-muted fst-italic mb-2">Posted on January 1,
-							2022 by Start Bootstrap</div>
+						<div class="text-muted fst-italic mb-2">${meeting.start_date } ~ ${meeting.end_date }</div>
 						<!-- Post categories-->
 						<a class="badge bg-secondary text-decoration-none link-light"
-							href="#!">Web Design</a>
-						<a class="badge bg-secondary text-decoration-none link-light"
-							href="#!">Freebies</a>
+							href="#!">${meeting.tag }</a>
 					</header>
 					<!-- Post title End -->
 
@@ -99,7 +96,7 @@
 
 					<!-- Post content-->
 					<section class="mb-5">
-						<p class="fs-5 mb-4">${board.content }</p>
+						<p class="fs-5 mb-4">${meeting.content }</p>
 						<p class="fs-5 mb-4">If you get asteroids about a kilometer in
 							size, those are large enough and carry enough energy into our
 							system to disrupt transportation, communication, the food chains,
@@ -117,6 +114,19 @@
 							happened there as well.</p>
 					</section>
 				</article>
+				
+				file :
+					<!-- 모임 이미지 aws s3 bucket upload -->
+					<c:forEach items="${meeting.files }" var="file">
+						<% 
+						/* 파일명 encoding */
+						String file = (String) pageContext.getAttribute("file");
+						String encodingFileName = java.net.URLEncoder.encode(file, "utf-8");
+						pageContext.setAttribute("encodingFileName", encodingFileName);
+						%>
+						<!-- img-fulid 이미지 크기 고정 -->
+						<img class="img-fulid" src="" alt="" />
+					</c:forEach>
 
 				<!-- 모임관련 사진모음 -->
 				<section class="mb-5">
@@ -152,8 +162,13 @@
 						<div class="card-body">
 							<!-- Comment form-->
 							<form class="mb-4">
-								<textarea class="form-control" rows="3"
-									placeholder="Join the discussion and leave a comment!"></textarea>
+								<div class="input-group">
+									<input class="form-control" type="text"
+										placeholder="아름다운 발걸음을 함께해요!"
+										aria-label="Enter search term..."
+										aria-describedby="button-search" />
+									<button class="btn btn-primary" id="button-search" type="button">댓글!</button>
+								</div>
 							</form>
 							<!-- Comment with nested comments-->
 							<div class="d-flex mb-4">
@@ -163,11 +178,8 @@
 										src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
 								</div>
 								<div class="ms-3">
-									<div class="fw-bold">Commenter Name</div>
-									If you're going to lead a space frontier, it has to be
-									government; it'll never be private enterprise. Because the
-									space frontier is dangerous, and it's expensive, and it has
-									unquantified risks.
+									<div class="fw-bold">닉네임 위치</div>
+									댓글 위치입니다.
 									<!-- Child comment 1-->
 									<div class="d-flex mt-4">
 										<div class="flex-shrink-0">
@@ -176,10 +188,8 @@
 												alt="..." />
 										</div>
 										<div class="ms-3">
-											<div class="fw-bold">Commenter Name</div>
-											And under those conditions, you cannot establish a
-											capital-market evaluation of that enterprise. You can't get
-											investors.
+											<div class="fw-bold">대댓글 닉네임</div>
+											대댓글 내용 위치입니다.
 										</div>
 									</div>
 									<!-- Child comment 2-->
@@ -266,10 +276,8 @@
 				</div>
 				<!-- Side widget-->
 				<div class="card mb-4">
-					<div class="card-header">Side Widget</div>
-					<div class="card-body">You can put anything you want inside
-						of these side widgets. They are easy to use, and feature the
-						Bootstrap 5 card component!</div>
+					<div class="card-header">함께해요!</div>
+					<div class="card-body">기부모임에 함께하시려면 신청하세요!</div>
 				</div>
 			</div>
 		</div>

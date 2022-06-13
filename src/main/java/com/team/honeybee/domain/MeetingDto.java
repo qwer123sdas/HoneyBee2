@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,11 +16,16 @@ public class MeetingDto{
 	private String postcode;
 	private String address;
 	private String detailAddress;
-	private String guest; // 게스트 DB 수정해야할듯 var(20)
+	private String guest; 
+	
+	private List<String> fileName;
 	
 	private LocalDateTime inserted;
 	private LocalDateTime start_date;
 	private LocalDateTime end_date;
+	private String tag;
+	
+	
 	
 	
 }

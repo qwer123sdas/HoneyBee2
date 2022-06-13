@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.MeetingMapper">
+	
+	<!-- 모임등록 -->
+	<insert id="insertMeeting">
+		INSERT INTO Meeting (member_id, tag, title, contents, postcode, address, detailAdderss, start_date, end_date)
+		VALUES (#{member_id}, #{tag}, #{title}, #{contents}, #{postcode}, #{address}, #{detailAdderss}, #{start_date}, #{end_date})
+	</insert>
+
+	<!-- file upload 추가 -->
+	<insert id="insertFile">
+		INSERT INTO MeetingFile (meeting_id, file)
+		VALUES (#{meeting_id}, #{files})
+	</insert>
+
+</mapper>

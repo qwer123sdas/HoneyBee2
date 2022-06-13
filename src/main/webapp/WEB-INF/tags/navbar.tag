@@ -1,7 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+	
+	<!-- 값 입력전용 추후 삭제 -->
+	<c:url value="/meeting/login" var="loginUrl"></c:url>
     
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s" style="background-color: white;">
@@ -17,6 +18,7 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Services</a>
                 <a href="product.html" class="nav-item nav-link">Products</a>
+                <a href="${loginUrl }" class="nav-item nav-link">로그인</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-0">
