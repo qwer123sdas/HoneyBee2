@@ -10,12 +10,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Blog Post - Start Bootstrap Template</title>
+        <title>기부 게시판</title>
         
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 	    <meta content="" name="keywords">
 	    <meta content="" name="description">
-
+	    
+	    
 	    <!-- Google Web Fonts -->
 	    <link rel="preconnect" href="https://fonts.googleapis.com">
 	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,28 +42,64 @@
         
     </head>
     <script>
+    	
     	$(document).ready(function(){
+    		// 좋아요가 있는지 확인한 값을 heartVal에 저장
+    		var heartVal = ${heart};
+    		var count = ${count};
+    		// heartVal이 1이면 좋아요가 이미 되있는것이므로 heart_full출력
+    		if(heartVal > 0){
+    	         console.log(heartVal);
+    	         $("#heart").prop("src", "${appRoot }/resources/heart_full.png");
+    		}else{
+                console.log(heartVal);
+                $("#heart").prop("src", "${appRoot }/resources/heart.png");
+    		}
+    		
+    		// 좋아요 버튼을 클릭 시 실행되는 코드
+    		$(".heart").click(function () {
+			    $.ajax({
+			    	url :'${appRoot}/favorite/click',
+			        type :'POST',
+			        data : {'donationId' : ${board.donationId}, 'memberId' : '${principal.name}'},
+			    	success : function(data){
+			    		
+			    		var countHeart = data.count;
+			    		var result = data.exit;
+			    		
+			    		$('#countHeart').text(countHeart);
+			        	if(result == 1) {
+			            	$('#heart').prop("src", "${appRoot }/resources/heart_full.png");
+			        	} else {
+		                	$('#heart').prop("src", "${appRoot }/resources/heart.png");
+			        	}
+		             }
+			    });
+	        });
+    		
+    		
     		/* 댓글목록 */
     		const replyList = function(){
     			const data = {donationId : ${board.donationId}};
     			
     			$.ajax({
+    				
     				url :'${appRoot}/donation/reply/list',
     				type : 'POST',
     				data : data,
     				success : function(list){
-    					console.log(list);
     					const replyListElement = $('#replyList');
     	    			replyListElement.empty();
+    	    			
+    	    			$('#countHeart').text(count);
     	    			
     	    			for(let i = 0; i < list.length; i++){
     	    				const replyElement = $("<div class='d-flex mb-4' />");
     	    				replyElement.html(`
     	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 <div class="ms-3">
-                                <div class="fw-bold">\${list[i].nickname }</div>
-                                \${list[i].content}
-                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                <div class="fw-bold">\${list[i].nickname } </div>
+                                	\${list[i].content}
                                 <div class="mt-3">\${list[i].inserted }</div>    
                                 </div>
                                     `);
@@ -72,7 +109,9 @@
     			}); // ajax 끝
     		}// ready 끝
     		
-    		replyList();
+    		replyList(); // 댓글 목록 리스트 함수 실행!
+    		
+    		
     		
     	});
     </script>
@@ -172,7 +211,8 @@
                         <div class="card-body">
                             <div class="row mb-4">
                                 <div class="col-sm-6">
-									<button type="button" class="btn btn-primary btn-lg">기부하러 가기</button>
+									<button type="button" class="btn btn-primary btn-lg" 
+											data-bs-toggle="modal" data-bs-target="#modal1" >기부하러 가기</button>
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -182,7 +222,11 @@
                             </div>
                             <div class="row mb-4">
                                 <div class="col-sm-6">
-									<button type="button" class="btn btn-outline-primary">좋아요  ${board.favorite }</button>
+									<a class="text-dark heart" style="text-decoration-line: none;">
+										<img id="heart" src="${appRoot }/resources/heart.png" />
+										<p><span id="countHeart"></span> 개   좋아요</p>
+										
+									</a>
                                 </div>
                             </div>
                         </div>
@@ -197,21 +241,25 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">삭제하기</h5>
+						<h5 class="modal-title" id="exampleModalLabel">기부금 결제</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<form id="form1" action="${appRoot }/member/remove" method="post">
 							<input type="hidden" value="${member.id }" name="id" />
-							<label for="passwordInput3" class="form-label">암호</label>
-							<input class="form-control"  id="passwordInput3" type="text" name="password" />
+							<label for="" class="form-label">결제금액</label>
+							<input class="form-control"  id="" type="text" name="" />
+						    <div class="mb-3">
+				            	<label for="message-text" class="col-form-label">응원 남기기</label>
+				            	<textarea class="form-control" id="message-text"></textarea>
+				          	</div>
 						</form>
 					</div>
 					<div class="modal-footer">
+						<button form="form1" type="submit" class="btn btn-danger">결제하기</button>
 						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Close</button>
-						<button form="form1" type="submit" class="btn btn-danger">탈퇴</button>
+							data-bs-dismiss="modal">나가기</button>
 					</div>
 				</div>
 			</div>

@@ -26,8 +26,7 @@
 				d.inserted,
 				d.expired,
 				d.goal,
-				d.current_amount currentAmount,
-				d.favorite
+				d.current_amount currentAmount
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 		WHERE d.donation_id = #{donationId}
 	</select>
@@ -37,13 +36,13 @@
 		INSERT INTO Donation(title,
 							content,
 							member_id,
-							donation_tag_id,
+							tag,
 							expired,
 							goal)
 				VALUES(#{title}, 
 						#{content},
 						#{memberId}, 
-						#{donationTagId},
+						#{tag},
 						#{expired}, 
 						#{goal})
 	</insert>

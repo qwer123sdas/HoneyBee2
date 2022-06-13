@@ -8,12 +8,12 @@ import lombok.Data;
 @Data
 public class DonationDto {
 	private int donationId;
-	private int donationTagId;
 	private String memberId;
 	
 	private String title;
 	private String content;
 	private String nickname;
+	private String tag;
 	
 	private LocalDateTime inserted;
 	private String expired;
