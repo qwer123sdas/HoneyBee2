@@ -18,9 +18,19 @@ public class DonationDto {
 	private LocalDateTime inserted;
 	private String expired;
 	
-	private int goal;
-	private int currentAmount;
+	private int goal;             // 목표 금액
+	private int currentAmount;    // 현재 모금액
+	//private int achievementRate;  // 달성률 
 	
 	private int favorite;
 	private int enable;
+	
+	
+	// 달성률 계산
+	public int getAchievementRate() {
+		System.out.println(goal);
+		System.out.println(currentAmount);
+		int result = (int)(goal / currentAmount);
+		return result;
+	}
 }

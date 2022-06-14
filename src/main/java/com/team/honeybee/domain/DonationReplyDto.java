@@ -20,6 +20,8 @@ public class DonationReplyDto {
 	private String nickname;
 	private String content;
 	
+	private int amount;
+	private int replyIdForPay;
 	// @DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일", timezone = "Asia/Seoul")
 	private LocalDate inserted;

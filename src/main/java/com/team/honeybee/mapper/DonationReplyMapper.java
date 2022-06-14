@@ -14,7 +14,7 @@ public interface DonationReplyMapper {
 	List<DonationReplyDto> listReplyByBoardId(@Param("donationId")int donationId, @Param("loginId")String loginId);
 	
 	// 댓글 추가
-	void addReply(DonationReplyDto reply);
-	
+	int addReply(DonationReplyDto reply);
+
 
 }

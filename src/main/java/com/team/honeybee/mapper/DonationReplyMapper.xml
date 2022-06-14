@@ -10,14 +10,18 @@
 				m.nickname,
 				r.donation_id donationId,
 				r.content,
-				r.inserted
+				r.inserted,
+				p.amount
+
 		FROM DonationReply r JOIN Member m ON r.member_id = m.member_id
+							 LEFT JOIN DonationPay p ON p.reply_id = r.reply_id 
 		WHERE r.donation_id = #{donationId}
 		ORDER BY r.reply_id DESC
 	</select>
 	
 	<!-- 댓글 추가 -->
-	<insert id="addReply">
+	<insert useGeneratedKeys="true"  id="addReply" 
+			keyColumn="reply_id" keyProperty="replyId">
 		INSERT INTO DonationReply (donation_id, content, member_id)
 		VALUE(#{donationId}, #{content}, #{memberId})
 	</insert>

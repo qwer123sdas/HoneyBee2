@@ -94,6 +94,10 @@
                             <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                             <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
+                           
+                            <div class="progress">
+								<div class="progress-bar bg-warning" role="progressbar" style="width: ${board.achievementRate}%" aria-valuenow="${board.achievementRate}" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
                         </section>
                     </article>
                     
@@ -107,8 +111,9 @@
                                 	<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 	<form class="ms-3" action="${appRoot }/donation/reply/add" method="POST">
                                 		<input type="hidden" name="donationId" value="${board.donationId }" />
-                                		<textarea class="form-control" rows="0" cols="80" name="content" placeholder="댓글만 써도 큰 힘이 됩니다. 같이 응원해요♥"></textarea>
-                                		<button class="rounded">등록</button>
+                                		<textarea class="form-control" rows="0" cols="80" name="content" 
+                                		id="loginConfirm" placeholder="댓글만 써도 큰 힘이 됩니다. 같이 응원해요♥"></textarea>
+                                		<button class="rounded" id="loginConfirm">등록</button>
                                 	</form>
                                 </div>
                                 <hr/>
@@ -130,25 +135,26 @@
                     </section>
                 </div>
                 <!-- Side widgets-->
-                <div class="col-lg-4">
+                
+                <div class="col-lg-4" >
                     <!-- 기부하기 공유하기 좋아요-->
-                    <div class="card ml-10 mb-4 position-fixed" style="min-width : 20%;">
+                    <div class="card ml-10 mb-4 position-fixed" id="loginConfirm" style="min-width : 20%;">
                         <div class="card-header"></div>
                         <div class="card-body">
                             <div class="row mb-4">
                                 <div class="col-sm-6">
-									<button type="button" class="btn btn-primary btn-lg" 
-											data-bs-toggle="modal" data-bs-target="#modal1" >기부하러 가기</button>
+									<button type="button" class="btn btn-primary btn-lg"  
+											id="loginConfirm" data-bs-toggle="modal" data-bs-target="#modal1" >기부하러 가기</button>
                                 </div>
                             </div>
                             <div class="row mb-4">
                             	<div class="col-sm-6">
-                            		<button type="button" class="btn btn-outline-primary">공유하기</button>
+                            		<button type="button" class="btn btn-outline-primary" id="loginConfirm">공유하기</button>
                             	</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-sm-6">
-									<a class="text-dark heart" style="text-decoration-line: none;">
+									<a class="text-dark heart" id="loginConfirm" style="text-decoration-line: none;">
 										<img id="heart" src="${appRoot }/resources/heart.png" />
 										<p><span id="countHeart"></span> 개   좋아요</p>
 										
@@ -158,6 +164,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- Side widgets END-->
+                
+                
             </div>
         </div>
 		<!-- foot bar -->
@@ -173,20 +182,19 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form id="form1" action="${appRoot }/member/remove" method="post">
+							<form id="donationModalForm" method="post">
+								<input type="hidden" name="donationId" value="${board.donationId }"/>
 								<input type="hidden" value="${member.id }" name="id" />
 								<label for="" class="form-label">결제금액</label>
-								<input class="form-control"  id="" type="text" name="" />
+								<input class="form-control"  id="" type="text" name="amount" />
 							    <div class="mb-3">
 					            	<label for="message-text" class="col-form-label">응원 남기기</label>
-					            	<textarea class="form-control" id="message-text"></textarea>
+					            	<textarea class="form-control" id="message-text" name="content"></textarea>
 					          	</div>
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button form="form1" type="submit" class="btn btn-danger">결제하기</button>
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">나가기</button>
+							<button id="modalDonation" form="form1" type="submit" class="btn btn-danger">결제하기</button>
 						</div>
 					</div>
 				</div>
@@ -253,26 +261,88 @@
     					const replyListElement = $('#replyList');
     	    			replyListElement.empty();
     	    			
+ 
     	    			$('#countHeart').text(count);
     	    			
     	    			for(let i = 0; i < list.length; i++){
+    	    				
     	    				const replyElement = $("<div class='d-flex mb-4' />");
     	    				replyElement.html(`
     	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 <div class="ms-3">
-                                <div class="fw-bold">\${list[i].nickname } </div>
-                                	\${list[i].content}
-                                <div class="mt-3">\${list[i].inserted }</div>    
+                                	<div class="fw-bold" id="replyDiv">
+                                	\${list[i].nickname }   \${list[i].amount }원
+                                	</div>
+                                		\${list[i].content}
+                                	<div class="mt-3">\${list[i].inserted }</div>    
                                 </div>
                                     `);
+    	    				
     	    				replyListElement.append(replyElement);
+    	    				
+    	    				/* 
+    	   	    			const element = document.getElementById('replyDiv');
+    	   	    			
+    	   	    			var name = list[i].nickname;
+        	    			var amount = 0;
+        	    			var amountStr = "";
+        	    			var result = "";
+        	    			console.log("기부액 " + list[i].amount);
+        	    			
+        	    			if(list[i].amount != 0){
+        	    				amount = list[i].amount;
+        	    				amountStr = amount + "원";
+        	    				console.log("not null");
+        	    				console.log("name");
+        	    				result =  name +"  " +  amountStr;
+        	    				element.innerHTML = result;
+        	    			}else{
+        	    				console.log("null");
+        	    				result =  name;
+        	    				element.innerHTML = result;
+        	    			}
+        	    			
+        	    			console.log(result);
+    	    				 */
+        	    			 
     	    			} // for문 끝
-    				} // ajax 끝
+    				} // success 끝
     			}); // ajax 끝
     		}// ready 끝
     		
     		replyList(); // 댓글 목록 리스트 함수 실행!
     		
+    		// 기부 결제 버튼
+    		$("#modalDonation").click(function(e) {
+    			e.preventDefault();
+    			
+    			if (confirm("기부해주셔서 감사합니다. 좋은 곳에 사용하겠습니다.")) {
+    				let form1 = $("#donationModalForm");
+    				let actionAttr = "${appRoot}/donation/give";
+    				form1.attr("action", actionAttr);
+    				
+    				form1.submit();
+    			}
+    			
+    		});
+    		
+    		// 로그인 여부 확인
+    		$('#loginConfirm').click(function(e){
+    			e.preventDefault();
+    			
+    			$.ajax({
+    				url : '${appRoot}/memberTemp/loginConfirm',
+    				type : 'POST',
+    				success : function(data){
+    					if(data == 0){
+    						//로그인 안한 상태
+    						confirm("로그인을 해야 합니다.");
+    					}else{
+    						// 로그인 한 상태
+    					}
+    				}
+    			})
+    		})
     		
     		
     	});

@@ -92,8 +92,9 @@
 		                            </div>
 		                            <h4 class="mb-3">${list.title }</h4>
 		                            <p>${list.nickname }</p>
+		                            <p>현재 모금액 : ${list.currentAmount}</p>
 		                            <div class="progress">
-									  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+									  <div class="progress-bar bg-warning" role="progressbar" style="width: ${list.achievementRate}%" aria-valuenow="${list.achievementRate}" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
 		                        </div>
 		                    </div>

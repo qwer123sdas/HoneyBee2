@@ -27,9 +27,15 @@ public class DonationController {
 	// 기부게시판 목록 : 메인 화면
 	@RequestMapping("main")
 	public void main(Model model) {
+		// 목록 가져오기
 		List<DonationDto> boardList = service.findOrder();
+		
+		// 기부금액 달성률
+		//service.achievementRate();
+		
 		model.addAttribute("boardList", boardList);
 	}
+	
 	// 기부 게시글 보기
 	@RequestMapping("board/{donationId}")
 	public String board(@PathVariable int donationId, Model model, Principal principal) {
@@ -37,13 +43,14 @@ public class DonationController {
 		DonationDto board = service.getBoard(donationId);
 		model.addAttribute("board", board);
 		model.addAttribute("principal", principal);
-		System.out.println("로그인 여부 확인 : " + principal.getName());
 		
 		// 좋아요 디비에서 정보 찾기
 		FavoriteDto favoriteDto = new FavoriteDto();
 		if(principal != null) {
+			System.out.println("로그인 여부 확인 : " + principal.getName());
 			favoriteDto = favoriteService.findFavorite(board.getDonationId(), principal.getName());
 		}
+		
 		int heart = 0;
 		if(favoriteDto != null) {
 			// 특정 계정이 하트 눌렀는지 여부 확인
@@ -59,11 +66,22 @@ public class DonationController {
 		return "donation/board";
 	}
 	
+	// 기부하기
+	@PostMapping("give")
+	public String donate(int donationId, int amount, String content, Principal principal) {
+		String memberId = principal.getName();
+		service.donate(donationId, amount, content, memberId);
+		
+		return "redirect:/donation/board/" + donationId;
+		
+	}
+	
 	// [임시] 입력 게시판
 	@GetMapping("write")
 	public void wirte() {
 
 	}
+	
 	@PostMapping("write/finished")
 	public String write(DonationDto dto, Principal principal) {
 		System.out.println(dto.getExpired());

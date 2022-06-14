@@ -11,7 +11,7 @@
 				d.inserted,
 				d.expired,
 				d.goal,
-				d.current_amount
+				d.current_amount currentAmount
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 		GROUP BY d.donation_id
 		ORDER BY donation_id DESC
