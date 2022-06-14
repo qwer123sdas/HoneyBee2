@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,7 +148,8 @@
 </head>
 <body>
 
-<!-- navBar 넣어야할 곳 -->
+<!-- 임시 navBar -->
+<my:navBar current="signup"></my:navBar>
 
 <div class="container">
 	<div class="row justify-content-center">

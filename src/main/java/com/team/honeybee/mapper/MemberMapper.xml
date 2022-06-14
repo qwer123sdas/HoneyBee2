@@ -27,4 +27,8 @@
 		WHERE nickname = #{nickname}
 	</select>
 
+	<insert id="insertAuth">
+		INSERT INTO Auth(member_id, role)
+		VALUES(#{memberId}, #{auth})
+	</insert>
 </mapper> 

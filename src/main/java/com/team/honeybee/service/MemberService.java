@@ -19,8 +19,14 @@ public class MemberService {
 	public boolean addMember(MemberDto member) {
 		
 		String encodedPassword = passwordEncoder.encode(member.getPw());
+		
 		member.setPw(encodedPassword);
-		return mapper.insertMember(member) == 1;
+		
+		int cnt1 = mapper.insertMember(member);
+		
+		int cnt2 = mapper.insertAuth(member.getMemberId(),"ROLE_USER");
+		
+		return cnt1 == 1 && cnt2 == 1;
 	}
 
 	public boolean hasMemberId(String memberId) {

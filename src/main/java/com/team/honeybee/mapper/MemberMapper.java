@@ -1,5 +1,7 @@
 package com.team.honeybee.mapper;
 
+import org.apache.ibatis.annotations.*;
+
 import com.team.honeybee.domain.*;
 
 public interface MemberMapper {
@@ -11,5 +13,7 @@ public interface MemberMapper {
 	int countMemberEmail(String email);
 
 	int countMemberNickName(String nickname);
+
+	int insertAuth(@Param("memberId") String memberId, @Param("auth") String auth);
 	
 }
