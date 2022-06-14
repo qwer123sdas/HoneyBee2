@@ -31,4 +31,17 @@
 		INSERT INTO Auth(member_id, role)
 		VALUES(#{memberId}, #{auth})
 	</insert>
+	
+	<select id="findId" resultType="int">
+		SELECT COUNT(member_id)
+		FROM Member
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="email" resultType="String">
+		SELECT member_id
+		FROM Member
+		WHERE email = #{email}
+	</select>
+	
 </mapper> 

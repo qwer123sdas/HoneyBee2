@@ -55,6 +55,10 @@
 							자동 로그인
 						</label>
 					</div>
+					
+					<button>아이디 찾기</button>
+					<button>비밀번호 찾기</button>
+					
 					<br />
 
 					<button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>

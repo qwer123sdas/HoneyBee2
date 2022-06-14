@@ -28,18 +28,27 @@ public class MemberService {
 		
 		return cnt1 == 1 && cnt2 == 1;
 	}
-
+	// 아이디 중복확인
 	public boolean hasMemberId(String memberId) {
-		
 		return mapper.countMemberId(memberId) > 0;
 	}
-
+	// 이메일 중복확인
 	public boolean hasMemberEmail(String email) {
 		return mapper.countMemberEmail(email) > 0;
 	}
-
+	// 닉네임 중복확인
 	public boolean hasMemberNickName(String nickname) {
 		return mapper.countMemberNickName(nickname) > 0;
+	}
+
+	// 아이디 찾기
+	public int findId(String name,String email) {
+		return mapper.findId(name, email);
+	}
+	
+	// 아이디 가져오기
+	public String findId2(String email) {
+		return mapper.findId2(email);
 	}
 	
 }

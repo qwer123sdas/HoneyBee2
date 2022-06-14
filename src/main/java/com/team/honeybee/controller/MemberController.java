@@ -2,6 +2,7 @@ package com.team.honeybee.controller;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.*;
 
@@ -15,8 +16,6 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	
-	
 	@GetMapping("signup")
 	public void signupForm() {
 		
@@ -26,14 +25,15 @@ public class MemberController {
 	public void signinPage() {
 		
 	}
+	
 	@RequestMapping("temp-mainPage") 
 	public void index() {
 		
 	}
 	
-	// 메인 페이지 경로 생기면 주석 풀고 기입할 것
+	// 메인 페이지 경로 생기면 임시 메인페이지 빼고 기입할 것
 	@PostMapping("signup")
-	public String signupProcess(MemberDto member, RedirectAttributes rttr) { // RedirectAttributes rttr 추가해야됨
+	public String signupProcess(MemberDto member, RedirectAttributes rttr) { 
 		boolean success = service.addMember(member);
 		
 		if(success) {
@@ -49,8 +49,6 @@ public class MemberController {
 			
 		}
 	}
-	
-	
 	
 	@GetMapping(path = "check", params = "memberId")
 	@ResponseBody
@@ -87,4 +85,27 @@ public class MemberController {
 			return "good";
 		}
 	}
+	@GetMapping("findId")
+	public void findIdPage() {
+		
+	}
+	
+	@GetMapping("findIdView")
+	public void findIdView() {
+		
+	}
+	
+	@PostMapping("findId")
+	public String findId(String name, String email, Model model) {
+		int exit = service.findId(name, email);
+		if(exit == 0) {
+			model.addAttribute("message", "회원이 아님.");
+			return "/member/findIdView";
+		}else {
+			String memberId = service.findId2(email);
+			model.addAttribute("message", memberId);
+			return "/member/findIdView";
+		}
+	}
+	
 }

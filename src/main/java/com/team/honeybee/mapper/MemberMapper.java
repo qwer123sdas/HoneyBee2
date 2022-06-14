@@ -15,5 +15,10 @@ public interface MemberMapper {
 	int countMemberNickName(String nickname);
 
 	int insertAuth(@Param("memberId") String memberId, @Param("auth") String auth);
+
+	// 아이디 찾기
+	int findId(@Param("name")String name, @Param("email") String email);
+	// 아이디 가져오기
+	String findId2(String email);
 	
 }
