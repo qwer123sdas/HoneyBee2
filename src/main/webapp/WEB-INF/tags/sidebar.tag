@@ -51,7 +51,7 @@
                         <a class="collapse-item" href="${appRoot }/admin/donation">기부게시판</a>
                         <a class="collapse-item" href="${appRoot }/admin/talent">재능판매게시판</a>
                         <a class="collapse-item" href="${appRoot }/admin/meeting">모임게시판</a>
-                        <a class="collapse-item" href="#">Other</a>
+                        <a class="collapse-item" href="${appRoot }/admin/market">기부마켓</a>
                     </div>
                 </div>
             </li>

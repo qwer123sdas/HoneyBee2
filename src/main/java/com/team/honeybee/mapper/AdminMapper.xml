@@ -28,4 +28,26 @@
 		DELETE FROM Member
 		WHERE member_id = #{memberId}
 	</delete>
+	<select id="getDonationAll" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id donationId, d.title, m.nickname, d.expired, d.enable
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+		ORDER BY enable ASC
+	</select>
+	
+	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT m.meeting_id, m.title, mem.nickname, m.start_date, m.end_date
+		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
+		ORDER BY m.meeting_id DESC
+	</select>
+	
+	<insert id="inserMarket">
+		INSERT INTO Market (member_id, title, content, price, product_name)
+		VALUES(#{member_id}, #{title}, #{content}, #{price}, #{product_name})
+	</insert>
+	
+	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">
+		SELECT question_id, member_id, title, content, inserted, email
+		FROM Faq
+		ORDER BY question_id
+	</select>
 </mapper>

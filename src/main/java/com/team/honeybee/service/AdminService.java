@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team.honeybee.domain.DonationDto;
+import com.team.honeybee.domain.FaqDto;
+import com.team.honeybee.domain.MarketDto;
+import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.MemberDto;
 import com.team.honeybee.mapper.AdminMapper;
 
@@ -24,6 +28,23 @@ public class AdminService {
 
 	public boolean deleteMember(String memberId) {
 		return mapper.deleteMember(memberId) == 1;
+	}
+
+	public List<DonationDto> getDonationList() {
+		return mapper.getDonationAll();
+	}
+
+	public List<FaqDto> getFaqList() {
+		return mapper.getFaqAll();
+	}
+
+	public List<MeetingDto> getMeetingList() {
+		return mapper.getMeetingAll();
+	}
+
+	public boolean insertMarket(MarketDto market) {
+		market.setMember_id("admin");
+		return mapper.inserMarket(market) == 1;
 	}
 
 }
