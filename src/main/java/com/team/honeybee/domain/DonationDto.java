@@ -28,8 +28,6 @@ public class DonationDto {
 	
 	// 달성률 계산
 	public int getAchievementRate() {
-		System.out.println(goal);
-		System.out.println(currentAmount);
 		int result = (int)(goal / currentAmount);
 		return result;
 	}

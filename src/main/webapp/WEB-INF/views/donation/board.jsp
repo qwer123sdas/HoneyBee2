@@ -95,13 +95,17 @@
                             <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
                            
-                            <div class="progress">
+                           	<h2>${board.currentAmount} 원</h2>
+                           	<h5>${board.goal}</h5>
+                            <div class="progress mb-2">
 								<div class="progress-bar bg-warning" role="progressbar" style="width: ${board.achievementRate}%" aria-valuenow="${board.achievementRate}" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
+							
+							<p>모금기간 : ${board.inserted} ~ ${board.expired}</p>
                         </section>
                     </article>
                     
-                    
+                   	<hr class="mb-4" />
                     <!-- 댓글 내용-->
                     <section class="mb-5">
                         <div class="card bg-light">

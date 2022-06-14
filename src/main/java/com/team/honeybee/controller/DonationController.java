@@ -84,7 +84,6 @@ public class DonationController {
 	
 	@PostMapping("write/finished")
 	public String write(DonationDto dto, Principal principal) {
-		System.out.println(dto.getExpired());
 		String memberId = principal.getName();
 		dto.setMemberId(memberId);
 		service.dontaionBoardWrite(dto);
