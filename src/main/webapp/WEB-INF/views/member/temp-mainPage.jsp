@@ -17,5 +17,9 @@
 	<my:navBar current="mainPage"></my:navBar>
 	
 	<h1>메인 페이지</h1>
+	
+	<c:if test="${! empty nickname }">
+		${nickname }님, 안녕하세요.
+	</c:if>
 </body>
 </html>

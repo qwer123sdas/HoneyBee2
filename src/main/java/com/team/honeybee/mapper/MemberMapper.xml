@@ -38,10 +38,10 @@
 		WHERE name = #{name} AND email = #{email}
 	</select>
 	
-	<select id="email" resultType="String">
+	<select id="findId2" resultType="String">
 		SELECT member_id
 		FROM Member
-		WHERE email = #{email}
+		WHERE name = #{name} AND email = #{email}
 	</select>
 	
 </mapper> 

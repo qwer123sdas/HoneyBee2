@@ -97,15 +97,33 @@ public class MemberController {
 	
 	@PostMapping("findId")
 	public String findId(String name, String email, Model model) {
-		int exit = service.findId(name, email);
-		if(exit == 0) {
+		int exist = service.findId(name, email);
+		if(exist == 0) {
 			model.addAttribute("message", "회원이 아님.");
 			return "/member/findIdView";
 		}else {
-			String memberId = service.findId2(email);
+			String memberId = service.findId2(name, email);
 			model.addAttribute("message", memberId);
 			return "/member/findIdView";
 		}
 	}
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

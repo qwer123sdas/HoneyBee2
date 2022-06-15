@@ -56,8 +56,8 @@
 						</label>
 					</div>
 					
-					<button>아이디 찾기</button>
-					<button>비밀번호 찾기</button>
+					<button type="button" class="btn btn-success" onclick="location.href='/honeybee/member/findIdView'">아이디 찾기</button>
+					<button class="btn btn-success">비밀번호 찾기</button>
 					
 					<br />
 

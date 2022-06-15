@@ -12,6 +12,18 @@
 <title>아이디 찾기</title>
 </head>
 <body>
-
+	<div class="card o-hidden border-0 shadow-lg my-5">
+		<div class="jumbotron">
+			<h2>아이디는 : </h2> <br />
+			<ul>
+				<c:forEach items="${memberId }" var="memberId">
+					<li>${memberId }</li> <br />
+				</c:forEach>
+			</ul>
+			<h2>입니다.</h2>
+			<button type="button" class="btn btn-primary" onclick="location.href='/member/login'">로그인하기</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/member/temp-mainPage'">메인페이지로</button>
+		</div>
+	</div>
 </body>
 </html>

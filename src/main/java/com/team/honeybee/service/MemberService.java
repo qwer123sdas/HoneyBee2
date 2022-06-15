@@ -47,8 +47,8 @@ public class MemberService {
 	}
 	
 	// 아이디 가져오기
-	public String findId2(String email) {
-		return mapper.findId2(email);
+	public String findId2(String name, String email) {
+		return mapper.findId2(name, email);
 	}
 	
 }
