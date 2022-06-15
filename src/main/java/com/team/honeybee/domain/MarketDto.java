@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,4 +16,7 @@ public class MarketDto {
 	private String product_name;
 	private int total;
 	private int enable;
+	private String thumbNailImage;
+	private List<String> fileName;
+	private boolean hasFile;
 }

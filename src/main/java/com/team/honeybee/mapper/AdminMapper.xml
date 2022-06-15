@@ -40,9 +40,47 @@
 		ORDER BY m.meeting_id DESC
 	</select>
 	
-	<insert id="inserMarket">
+	<select id="getMarketAll" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT m.market_id,
+			   m.member_id,
+			   m.title, 
+			   m.product_name, 
+			   m.price,
+			   f.file thumbNailImage,
+			   COUNT(f.market_id) hasFile
+		FROM Market m LEFT JOIN MarketFile f ON m.market_id = f.market_id
+		GROUP BY m.market_id
+		ORDER BY m.market_id DESC
+	</select>
+	
+	<select id="selectMarketById" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT market_id,
+			   member_id,
+			   title,
+			   content,
+			   inserted,
+			   price,
+			   product_name,
+			   total,
+			   enable
+		FROM Market
+		WHERE market_id = #{market_id}
+	</select>
+	
+	<select id="selectFileNameByMarketId" resultType="string">
+		SELECT file fileName
+		FROM MarketFile
+		WHERE market_id = #{market_id}
+	</select>
+	
+	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="market_id" keyProperty="market_id">
 		INSERT INTO Market (member_id, title, content, price, product_name)
 		VALUES(#{member_id}, #{title}, #{content}, #{price}, #{product_name})
+	</insert>
+	
+	<insert id="insertFile">
+		INSERT INTO MarketFile (market_id, file)
+		VALUES (#{market_id}, #{file})
 	</insert>
 	
 	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">

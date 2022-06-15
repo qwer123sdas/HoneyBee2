@@ -1,5 +1,6 @@
 package com.team.honeybee.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.honeybee.domain.DonationDto;
@@ -70,8 +73,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("market")
-	public void market() {
-		
+	public void market(Model model) {
+		List<MarketDto> marketList = service.getMarketList();
+		System.out.println(marketList);
+		model.addAttribute("market", marketList);
 	}
 	
 	@GetMapping("insert")
@@ -80,10 +85,32 @@ public class AdminController {
 	}
 	
 	@PostMapping("insert")
-	public String insertMarket(MarketDto dto, RedirectAttributes rttr) {
-		boolean success = service.insertMarket(dto);
+	public String insertMarket(MarketDto dto, @RequestParam("file") MultipartFile[] file, RedirectAttributes rttr) {
+		
+		if(file != null) {
+			List<String> fileList = new ArrayList<String>();
+			for (MultipartFile f : file) {
+				fileList.add(f.getOriginalFilename());
+			}
+			dto.setFileName(fileList);
+		}
+		
+		dto.setMember_id("admin");
+		boolean success = service.insertMarket(dto, file);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "판매시작");
+		} else {
+			rttr.addFlashAttribute("message", "판매글 등록 실패");
+		}
 		
 		return "redirect:/admin/market";
+	}
+	
+	@GetMapping("getMarket")
+	public void getMarket(int market_id, Model model) {
+		MarketDto dto = service.getMarketById(market_id);
+		model.addAttribute("market", dto);
 	}
 	
 	@RequestMapping("faq")

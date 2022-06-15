@@ -1,3 +1,4 @@
+<%@page import="com.team.honeybee.domain.MarketDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,13 +26,20 @@
 
 		<div class="container-fluid">
 			<nav:topbar></nav:topbar>
-			<a class="btn btn-primary" href="${appRoot }/admin/insert">기부글 작성</a>
+			<a class="btn btn-primary" href="${appRoot }/admin/insert">판매글 작성</a>
 			<c:forEach items="${market }" var="market">
 				<c:url value="/admin/getMarket" var="getUrl">
 					<c:param name="market_id" value="${market.market_id }"></c:param>
 				</c:url>
 				<div class="card" style="width: 18rem;">
-				  <img src="" class="card-img-top" alt="">
+				  <c:if test="${market.hasFile }">
+				  	<%
+				  	MarketDto market = (MarketDto) pageContext.getAttribute("market");
+					String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
+					pageContext.setAttribute("encodedFileName", encodedFileName);
+				  	%>
+			  		<img src="${imageUrl }/market/${market.market_id }/${encodedFileName }" class="card-img-top" alt="">
+			  	  </c:if>
 				  <div class="card-body">
 				    <h4 class="card-title">${market.title }</h4>
 				    <p><strong>상품명 : </strong> ${market.product_name }</p>
