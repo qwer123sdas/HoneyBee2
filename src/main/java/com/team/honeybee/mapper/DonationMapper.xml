@@ -11,10 +11,12 @@
 				d.inserted,
 				d.expired,
 				d.goal,
-				d.current_amount currentAmount
+				d.current_amount currentAmount,
+				f.file MPhoto
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
 		GROUP BY d.donation_id
-		ORDER BY donation_id DESC
+		ORDER BY d.donation_id DESC
 	</select>
 	
 	<!--기부 게시글 보기  -->
@@ -26,13 +28,16 @@
 				d.inserted,
 				d.expired,
 				d.goal,
-				d.current_amount currentAmount
+				d.current_amount currentAmount,
+				f.file MPhoto
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
 		WHERE d.donation_id = #{donationId}
 	</select>
 	
 	<!-- [임시] 작성 게시판 -->
-	<insert id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationDto">
+	<insert useGeneratedKeys="true" id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationDto"
+			keyColumn="donation_id" keyProperty="donationId">
 		INSERT INTO Donation(title,
 							content,
 							member_id,
@@ -45,6 +50,11 @@
 						#{tag},
 						#{expired}, 
 						#{goal})
+	</insert>
+	<!-- 메인 사진 등록  -->
+	<insert id="insertMainPhoto" >
+		INSERT INTO DonationFile(donation_id, file)
+		VALUES (#{donationId}, #{mainPhoto})
 	</insert>
 	
 

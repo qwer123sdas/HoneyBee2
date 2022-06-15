@@ -15,6 +15,8 @@ public class DonationDto {
 	private String nickname;
 	private String tag;
 	
+	private String MPhoto;  // 메인 사진
+	
 	private LocalDateTime inserted;
 	private String expired;
 	
@@ -22,13 +24,17 @@ public class DonationDto {
 	private int currentAmount;    // 현재 모금액
 	//private int achievementRate;  // 달성률 
 	
-	private int favorite;
-	private int enable;
+	private int favorite;  // 좋아요
+	private int enable;   // 게재 권한
 	
 	
 	// 달성률 계산
 	public int getAchievementRate() {
-		int result = (int)(goal / currentAmount);
+		int result = 0;
+		if(currentAmount != 0) {
+			result = (int)(currentAmount * 100 / goal );
+		}
+		
 		return result;
 	}
 }

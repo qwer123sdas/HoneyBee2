@@ -15,9 +15,10 @@
 			  donation_id = #{donationId}
 	</select>
 	<!-- 좋아요 갯수 -->
-	<select id="countHeart" resultType="int">
-		SELECT COUNT(#{donationID})
+	<select id="countHeart" resultType="com.team.honeybee.domain.FavoriteDto">
+		SELECT COUNT(donation_id) count
 		FROM Favorite
+		WHERE donation_id = #{donationId}
 	</select>
 	
 	<!-- 좋아요 저장 -->
@@ -25,8 +26,8 @@
 		INSERT INTO Favorite (member_id, donation_id, heart)
 				VALUES (#{memberId}, #{donationId}, 1)
 	</insert>
-	
-	<delete id="deleteFavorite">
+	<!-- 이미 있는 좋아요 삭제 -->
+	<delete id="deleteFavorite" parameterType="com.team.honeybee.domain.FavoriteDto">
 		DELETE FROM Favorite 
 		WHERE donation_id = #{donationId}
 				AND

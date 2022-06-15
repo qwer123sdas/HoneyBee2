@@ -4,7 +4,7 @@
 
     
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5 wow fadeIn" style="background-color: white;">
         <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
             <h1 class="text-primary m-0">Baker</h1>
         </a>

@@ -298,18 +298,29 @@
 
 /*** Project Portfolio ***/
 #portfolio-flters li {
-    display: inline-block;
+    display: block;
     font-weight: 500;
     color: var(--dark);
     cursor: pointer;
     transition: .5s;
     border-bottom: 2px solid transparent;
+    
 }
 
 #portfolio-flters li:hover,
 #portfolio-flters li.active {
     color: var(--primary);
     border-color: var(--primary);
+    
+}
+#portfolio-flters a {
+	display: block;
+	filter: grayscale(100%); 
+}
+/* 컬러이미지 */
+#portfolio-flters a.on{
+	filter: grayscale(0%);
+	font-family: KakaoBold;
 }
 
 .portfolio-img {

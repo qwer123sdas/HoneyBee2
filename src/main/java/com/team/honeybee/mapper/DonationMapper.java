@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 
@@ -11,6 +12,9 @@ import com.team.honeybee.domain.DonationDto;
 public interface DonationMapper {
 	// [임시] 작성 게시판
 	void dontaionBoardWrite(DonationDto dto);
+	// 메인 사진 등록
+	void insertMainPhoto(@Param("donationId")int donationId, @Param("mainPhoto")String mainPhoto);
+	
 	
 	// 게시글 목록
 	List<DonationDto> selectOrder();

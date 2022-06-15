@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.domain.FavoriteDto;
@@ -38,6 +40,7 @@ public class DonationController {
 	
 	// 기부 게시글 보기
 	@RequestMapping("board/{donationId}")
+	@Transactional
 	public String board(@PathVariable int donationId, Model model, Principal principal) {
 		// 게시글 정보 가져오기
 		DonationDto board = service.getBoard(donationId);
@@ -82,11 +85,11 @@ public class DonationController {
 
 	}
 	
-	@PostMapping("write/finished")
-	public String write(DonationDto dto, Principal principal) {
+	@PostMapping("board_write")
+	public String write(DonationDto dto, MultipartFile mainPhoto, Principal principal) {
 		String memberId = principal.getName();
 		dto.setMemberId(memberId);
-		service.dontaionBoardWrite(dto);
+		service.dontaionBoardWrite(dto, mainPhoto);
 		return "redirect:/donation/main";
 	}
 

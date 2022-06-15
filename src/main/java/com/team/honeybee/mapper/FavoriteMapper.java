@@ -14,6 +14,6 @@ public interface FavoriteMapper {
 	// 좋아요 삭제
 	void deleteFavorite(FavoriteDto dto);
 	// 좋아요 총 갯수 세기
-	int countHeart(int donationId);
+	FavoriteDto countHeart(int donationId);
 
 }

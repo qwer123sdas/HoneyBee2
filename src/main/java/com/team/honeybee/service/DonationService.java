@@ -1,15 +1,28 @@
 package com.team.honeybee.service;
 
+import java.io.IOException;
+import java.lang.annotation.Target;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.domain.DonationReplyDto;
 import com.team.honeybee.mapper.DonationMapper;
 import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.mapper.DonationReplyMapper;
+
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
 public class DonationService {
@@ -22,6 +35,23 @@ public class DonationService {
 	@Autowired
 	DonationPayMapper payMapper;
 	
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
+	private String bucketName;
+	
+	private S3Client amazonS3; 
+	
+	@PostConstruct   // s3 빈 생성
+	public void init() {
+		Region region = Region.AP_NORTHEAST_2;
+		this.amazonS3 = S3Client.builder()
+						.region(region)
+						.build();
+	}
+	@PreDestroy // s3 빈이 사라지기 전
+	public void destroy() {
+		this.amazonS3.close();
+	}
+	
 	// 게시글 목록
 	public List<DonationDto> findOrder() {
 		return mapper.selectOrder();
@@ -33,8 +63,67 @@ public class DonationService {
 	}
 
 	// [임시] 도네이션 작성 게시판
-	public void dontaionBoardWrite(DonationDto dto) {
+	@Transactional
+	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto) {
 		mapper.dontaionBoardWrite(dto);
+		
+		// 메인 사진 등록-----------------------
+		if(mainPhoto.getSize() > 0) {
+			// db 저장
+			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename());
+			
+			// s3 저장
+			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto); 
+		}
+		
+		// summernote 사진 등록
+		/*if() {
+			// db 저장
+			mapper.insertTextAreaPhoto();
+			// s3 저장
+			saveTextAreaPhotoAwsS3();
+		}*/
+	}
+	
+	// 메인 사진 등록 메소드
+	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto) {
+		// board/temp/12344.png
+		String key = "donation/mainPhoto/" + donationId + "/" + mainPhoto.getOriginalFilename();
+		
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
+				.bucket(bucketName) 					// bucket 위치 설정
+				.key(key)								// 키
+				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		
+		RequestBody requestBody;
+		try {
+			requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
+			amazonS3.putObject(putObjectRequest, requestBody);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
+		}
+	}
+	
+	// 서머노트 사진 등록 메소드
+	private void saveTextAreaPhotoAwsS3(int donationId, MultipartFile textAreaPhoto) {
+		String key = "donation/textArea/" + donationId + "/" + textAreaPhoto.getOriginalFilename();
+		
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
+				.bucket(bucketName) 					// bucket 위치 설정
+				.key(key)								// 키
+				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		
+		RequestBody requestBody;
+		try {
+			requestBody = RequestBody.fromInputStream(textAreaPhoto.getInputStream(), textAreaPhoto.getSize());
+			amazonS3.putObject(putObjectRequest, requestBody);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
+		}
 	}
 	
 	// 기부금 결제
