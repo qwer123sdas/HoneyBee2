@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class faqDto {
+public class FaqDto {
 
 	private int question_id;
 	private String member_id;
@@ -13,4 +13,5 @@ public class faqDto {
 	private String content;
 	private LocalDateTime inserted;
 	private String email;
+	private int enable;
 }

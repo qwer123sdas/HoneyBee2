@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("market")
-public class marketController {
+public class MarketController {
 	
 	@RequestMapping("list")
 	public void market() {
 		
 	}
-	
-	@RequestMapping("get")
-	public void getBoard() {
-		
-	}
+
 }

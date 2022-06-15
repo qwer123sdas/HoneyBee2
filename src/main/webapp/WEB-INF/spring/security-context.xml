@@ -10,8 +10,29 @@
 
 	<security:http>
 		<security:csrf disabled="true"/>
-		<security:form-login/>
+		<security:form-login always-use-default-target="true" default-target-url="/faq/question"/>
+		<security:logout/>
+		<security:remember-me/>
 	</security:http>
 	
-	<security:authentication-manager></security:authentication-manager>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+		<security:jdbc-user-service 
+			data-source-ref="dataSource"
+			users-by-username-query="
+				SELECT member_id, pw, 1
+				FROM Member
+				WHERE member_id = ?
+				"
+			authorities-by-username-query="
+				SELECT member_id, role
+				FROM Auth
+				WHERE member_id = ?	
+				"
+		/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	
 </beans>

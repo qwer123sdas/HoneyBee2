@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.honeybee.mapper.MemberMapper">
+
+	<insert id="insertMember" parameterType="com.team.honeybee.domain.MemberDto" >
+		INSERT INTO Member (member_id, pw, name, email, nickname, postcode, address, detail, birth, phone)
+		VALUES (#{memberId}, #{pw}, #{name}, #{email}, #{nickname}, #{postcode}, #{address}, #{detail}, #{birth}, #{phone})
+	</insert>
+
+	<select id="countMemberId" resultType="int">
+		SELECT COUNT(member_id) 
+		FROM Member 
+		WHERE member_id = #{memberId}
+	</select>
+
+	<select id="countMemberEmail" resultType="int">
+		SELECT COUNT(email) 
+		FROM Member 
+		WHERE email = #{email}
+	</select>
+
+	<select id="countMemberNickName" resultType="int">
+		SELECT COUNT(nickname)
+		FROM Member 
+		WHERE nickname = #{nickname}
+	</select>
+
+	<insert id="insertAuth">
+		INSERT INTO Auth(member_id, role)
+		VALUES(#{memberId}, #{auth})
+	</insert>
+	
+	<select id="findId" resultType="int">
+		SELECT COUNT(member_id)
+		FROM Member
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="findId2" resultType="String">
+		SELECT member_id
+		FROM Member
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="selectMemberBtId" resultType="com.team.honeybee.domain.MemberDto">
+	SELECT member_id, pw, name, email, nickname, postcode, address, detail, birth, phone
+		from Member
+		WHERE member_id = #{memberId}
+	
+	
+	</select>
+	
+</mapper> 
