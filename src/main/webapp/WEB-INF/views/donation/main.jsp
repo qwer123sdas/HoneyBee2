@@ -113,7 +113,7 @@
 							</a>
 						</li>
 						<li class="mx-4">
-							<a <c:if test="${param.subtopic=='B'}"> class="on"</c:if> href="/fund/now?subtopic=Bsort=1">
+							<a <c:if test="${param.subtopic=='B'}"> class="on"</c:if> href="/fund/now?subtopic=B&sort=1">
 								<img class="mb-3" src="${appRoot}/resources/webContents/img/ico_accessible.png">
 								<span>장애인</span>
 							</a>

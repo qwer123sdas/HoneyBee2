@@ -28,7 +28,6 @@ public class FavoriteController {
 		int count =  service.countHeart(dto.getDonationId());
 		dto.setCount(count);
 		dto.setExit(result);
-		System.out.println(dto);
 		return dto;
 	}
 }

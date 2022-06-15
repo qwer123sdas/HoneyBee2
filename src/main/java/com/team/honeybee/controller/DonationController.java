@@ -92,6 +92,13 @@ public class DonationController {
 		service.dontaionBoardWrite(dto, mainPhoto);
 		return "redirect:/donation/main";
 	}
+	
+	// 태그 검색
+	@RequestMapping
+	public void selectAllNow(String subtopic, int sort) {
+		
+	}
+	
 
 	
 }
