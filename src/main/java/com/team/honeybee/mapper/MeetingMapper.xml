@@ -4,16 +4,52 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.MeetingMapper">
 	
-	<!-- 모임등록 -->
-	<insert id="insertMeeting">
-		INSERT INTO Meeting (member_id, tag, title, contents, postcode, address, detailAdderss, start_date, end_date)
-		VALUES (#{member_id}, #{tag}, #{title}, #{contents}, #{postcode}, #{address}, #{detailAdderss}, #{start_date}, #{end_date})
+	<!-- 모임등록(임시) -->
+	<insert id="insertMeeting" useGeneratedKeys="true" keyColumn="meetingId" keyProperty="meetingId">
+		INSERT INTO Meeting (member_id, tag, title, content, postcode, address, detailAddress, start_date, end_date)
+		VALUES (#{memberId}, #{tag}, #{title}, #{content}, #{postcode}, #{address}, #{detailAddress}, #{startDate}, #{endDate})
 	</insert>
 
 	<!-- file upload 추가 -->
 	<insert id="insertFile">
 		INSERT INTO MeetingFile (meeting_id, file)
-		VALUES (#{meeting_id}, #{files})
+		VALUES (#{meetingId}, #{file})
 	</insert>
-
+	
+	<!-- 모임 목록 보기 -->
+	<select id="selectMeeting" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.tag,
+				m.nickname
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+		GROUP BY Meeting_id
+		ORDER BY inserted
+	</select>
+	
+	<!-- 기부모임 게시물 보기 -->
+	<select id="selectBoardByMeetingId" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.tag,
+				m.nickname
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+		WHERE mt.meeting_id = #{meetingId}
+	</select>
 </mapper>

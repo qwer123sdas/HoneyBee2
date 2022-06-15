@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class MeetingCommentDto {
 	// 후기
-	private int meeting_comment_id;
-	private int meeting_id;
-	private String memeber_id;
+	private int meetingCommentId;
+	private int meetingId;
+	private String memeberId;
 	private String content;
 	private LocalDateTime inserted;
 }

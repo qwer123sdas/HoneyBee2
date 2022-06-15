@@ -5,7 +5,6 @@
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
-<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -42,8 +41,7 @@
 	    <!-- Template Stylesheet -->
 	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 	    
-			    
-        
+
     </head>
     <body>
 	    <!-- Spinner Start -->
@@ -81,7 +79,7 @@
 						<!-- Post title-->
 						<h1 class="fw-bolder mb-1">${meeting.title }</h1>
 						<!-- Post meta content-->
-						<div class="text-muted fst-italic mb-2">${meeting.start_date } ~ ${meeting.end_date }</div>
+						<div class="text-muted fst-italic mb-2">${meeting.startDate } ~ ${meeting.endDate }</div>
 						<!-- Post categories-->
 						<a class="badge bg-secondary text-decoration-none link-light"
 							href="#!">${meeting.tag }</a>
@@ -96,11 +94,8 @@
 
 					<!-- Post content-->
 					<section class="mb-5">
-						<p class="fs-5 mb-4">${meeting.content }</p>
-						<p class="fs-5 mb-4">If you get asteroids about a kilometer in
-							size, those are large enough and carry enough energy into our
-							system to disrupt transportation, communication, the food chains,
-							and that can be a really bad day on Earth.</p>
+						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
+						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
 						<h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts
 							every day</h2>
 						<p class="fs-5 mb-4">For me, the most fascinating interface is
@@ -115,174 +110,106 @@
 					</section>
 				</article>
 				
-				file :
-					<!-- 모임 이미지 aws s3 bucket upload -->
-					<c:forEach items="${meeting.files }" var="file">
-						<% 
-						/* 파일명 encoding */
-						String file = (String) pageContext.getAttribute("file");
-						String encodingFileName = java.net.URLEncoder.encode(file, "utf-8");
-						pageContext.setAttribute("encodingFileName", encodingFileName);
-						%>
-						<!-- img-fulid 이미지 크기 고정 -->
-						<img class="img-fulid" src="" alt="" />
-					</c:forEach>
+				<!-- 카카오 지도 api -->
+				<div class="mb-5 container">
+					<div id="map" style="width:690 px; height:400px; margin:auto; margin-top:10px;"></div>
+				</div>
 
-				<!-- 모임관련 사진모음 -->
-				<section class="mb-5">
-					<div id="carouselExampleFade" class="carousel slide carousel-fade"
-						data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="..." class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="..." class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="..." class="d-block w-100" alt="...">
-							</div>
-						</div>
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExampleFade" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-					</div>
-				</section>
-
-				<!-- Comments section-->
-				<section class="mb-5">
-					<div class="card bg-light">
-						<div class="card-body">
-							<!-- Comment form-->
-							<form class="mb-4">
-								<div class="input-group">
-									<input class="form-control" type="text"
-										placeholder="아름다운 발걸음을 함께해요!"
-										aria-label="Enter search term..."
-										aria-describedby="button-search" />
-									<button class="btn btn-primary" id="button-search" type="button">댓글!</button>
+					<!-- Comments section-->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4" id="insertReplyForm1" action="${appRoot }/meeting/reply/insert" method="post">
+									<div class="input-group">
+									<input type="hidden" name="meetingId" value="${meeting.meetingId } }"/>
+									<input id="insertReplyContentInput1" class="form-control" type="text" name="content"
+											placeholder="아름다운 발걸음을 함께해요!"/>
+									<button class="btn btn-primary" id="insertReplyButton1" type="button">한걸음!</button>
+																		
 								</div>
 							</form>
-							<!-- Comment with nested comments-->
-							<div class="d-flex mb-4">
-								<!-- Parent comment-->
-								<div class="flex-shrink-0">
-									<img class="rounded-circle"
-										src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-								</div>
-								<div class="ms-3">
-									<div class="fw-bold">닉네임 위치</div>
-									댓글 위치입니다.
-									<!-- Child comment 1-->
-									<div class="d-flex mt-4">
-										<div class="flex-shrink-0">
-											<img class="rounded-circle"
-												src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-												alt="..." />
-										</div>
-										<div class="ms-3">
-											<div class="fw-bold">대댓글 닉네임</div>
-											대댓글 내용 위치입니다.
-										</div>
-									</div>
-									<!-- Child comment 2-->
-									<div class="d-flex mt-4">
-										<div class="flex-shrink-0">
-											<img class="rounded-circle"
-												src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-												alt="..." />
-										</div>
-										<div class="ms-3">
-											<div class="fw-bold">Commenter Name</div>
-											When you put money directly to a problem, it makes a good
-											headline.
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Single comment-->
-							<div class="d-flex">
-								<div class="flex-shrink-0">
-									<img class="rounded-circle"
-										src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-								</div>
-								<div class="ms-3">
-									<div class="fw-bold">Commenter Name</div>
-									When I look at the universe and all the ways the universe wants
-									to kill us, I find it hard to reconcile that with statements of
-									beneficence.
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                    <!-- Parent comment-->
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                        <!-- Child comment 1-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                            </div>
+                                        </div>
+                                        <!-- Child comment 2-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                When you put money directly to a problem, it makes a good headline.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single comment-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-			<!-- Side widgets-->
-			<div class="col-lg-4">
-				<!-- Search widget-->
-				<div class="card mb-4 position-fixed">
-					<div class="card-header">Search</div>
-					<div class="card-body">
-						<div class="input-group">
-							<input class="form-control" type="text"
-								placeholder="Enter search term..."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
-						</div>
-					</div>
-				</div>
-				<!-- Categories widget-->
-				<div class="card mb-4">
-					<div class="card-header">Categories</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li>
-										<a href="#!">Web Design</a>
-									</li>
-									<li>
-										<a href="#!">HTML</a>
-									</li>
-									<li>
-										<a href="#!">Freebies</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li>
-										<a href="#!">JavaScript</a>
-									</li>
-									<li>
-										<a href="#!">CSS</a>
-									</li>
-									<li>
-										<a href="#!">Tutorials</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Side widget-->
-				<div class="card mb-4">
-					<div class="card-header">함께해요!</div>
-					<div class="card-body">기부모임에 함께하시려면 신청하세요!</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- foot bar -->
+		<!-- foot bar -->
 		<nav:footbar></nav:footbar>
 
 
@@ -297,9 +224,58 @@
 	    <script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
 	    <script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
 	    <script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
-	
+	    
 	    <!-- Template Javascript -->
 	    <script src="${appRoot }/resources/webContents/js/main.js"></script>
-    </body>
+	    
+	   	<!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
+	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
+	    
+        
+	    <script>
+	    	/* 카카오 지도 api */
+		    var mapContainer = document.getElementById('map'); // 지도 div
+		    var option = { //지도를 생성할 때 필요한 기본 옵션
+		    	center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표
+		    	level: 3 //지도의 레벨(확대, 축소 정도)
+		    };
+			
+		 	 //지도 생성 및 객체 리턴	
+		    var map = new kakao.maps.Map(container, option); 
+		 	 
+			 // 주소, 좌표 변환 객체를 생성
+		    var geocoder = new kakao.maps.services.Geocoder();
+			
+			 // 주소로 좌표를 검색
+		    geocoder.addressSearch('서울시 광진구 천호대로 579', function(result, status) {
+
+		   	// 정상적으로 검색이 완료됐으면 
+		    if (status === kakao.maps.services.Status.OK) {
+
+		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		    // 결과값으로 받은 위치를 마커로 표시
+		    var marker = new kakao.maps.Marker({
+		        	map: map,
+		            position: coords
+		   	});
+
+		    // 인포윈도우로 장소에 대한 설명을 표시
+		    var infowindow = new kakao.maps.InfoWindow({
+		                content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비장소</div>'
+		    });
+		    infowindow.open(map, marker);
+
+		     // 지도의 중심을 결과값으로 받은 위치로 이동
+		    map.setCenter(coords);
+		     
+		    	} 
+			});    	
+			 
+			const
+	    
+</script>
+</body>
+	    
 
 </html>

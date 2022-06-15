@@ -125,19 +125,19 @@
 	<section class="loginForm">
 		<h1>Board Login</h1>
 		
-		<form action="${appRoot }/meeting/login" method="get">
+		<form action="${appRoot }/login" method="post">
 			<div class="userInfo">
 				<label for="usernameInput1" class="form-label">
 					아이디 
 				</label>
-				<input id="usernameInput1" type="text" name="member_id" autocomplete="off" required/>
+				<input id="usernameInput1" type="text" name="username" autocomplete="off" required/>
 			</div>
 			
 			<div class="userInfo">
 				<label for="passwordInput1">
 					비밀번호
 				</label>
-				<input id="passwordInput1" type="password" name="pw"  autocomplete="off" required/>
+				<input id="passwordInput1" type="password" name="password"  autocomplete="off" required/>
 			</div>
 			
 				<input type="checkbox" name="remember-me" id="rememberMeCheck1" />	

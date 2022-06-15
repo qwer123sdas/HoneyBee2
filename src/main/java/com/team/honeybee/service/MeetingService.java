@@ -2,6 +2,7 @@ package com.team.honeybee.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -9,6 +10,7 @@ import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.MeetingDto;
@@ -42,22 +44,25 @@ public class MeetingService {
 	public void destory() {
 		this.s3.close();
 	}
-
+	
+	// 게시물 등록
+	@Transactional
 	public boolean insertBoard(MeetingDto meeting, MultipartFile[] files) {
 		int cnt = mapper.insertMeeting(meeting);
-		
-		addFiles(meeting.getMeeting_id(), files);
+		System.out.println(files.length);
+		System.out.println(meeting.getMeetingId());
+		addFiles(meeting.getMeetingId(), files);
 		
 		return cnt == 1;
 	}
 	
 	// 파일 여러개
-	private void addFiles(int meeting_id, MultipartFile[] files) {
+	private void addFiles(int meetingId, MultipartFile[] files) {
 		if (files != null) {
 			for (MultipartFile file : files) {
 				if (file.getSize() > 0) {
-					mapper.insertFile(meeting_id, file.getOriginalFilename());
-					saveFileAwsS3(meeting_id, file);
+					mapper.insertFile(meetingId, file.getOriginalFilename());
+					saveFileAwsS3(meetingId, file);
 				}
 	
 			}
@@ -66,9 +71,9 @@ public class MeetingService {
 	}
 	
 	// s3 bucket
-	private void saveFileAwsS3(int meeting_id, MultipartFile file) {
+	private void saveFileAwsS3(int meetingId, MultipartFile file) {
 		
-		String key = "meeting/" + meeting_id + "/" + file.getOriginalFilename();
+		String key = "meeting/mainPhoto/" + meetingId + "/" + file.getOriginalFilename();
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 					.acl(ObjectCannedACL.PUBLIC_READ) 
@@ -89,10 +94,11 @@ public class MeetingService {
 			}
 		}
 	
+	/*
 	// 파일 저장 메소드
-	private void saveFile(int meeting_id, MultipartFile file) {
+	private void saveFile(int meetingId, MultipartFile file) {
 	
-		String pathStr = "C:/imgtmp/board/" + meeting_id + "/";
+		String pathStr = "C:/imgtmp/board/" + meetingId + "/";
 		File path = new File(pathStr);
 		path.mkdir();
 			
@@ -108,5 +114,19 @@ public class MeetingService {
 		}
 			
 	}
+	*/
+	
+	// 모임 리스트
+	public List<MeetingDto> meetingList() {
+		
+		return mapper.selectMeeting();
+	}
+
+	// 기부모임 게시물 보기
+	public MeetingDto getBoardByMeetingId(int meetingId) {
+		return mapper.selectBoardByMeetingId(meetingId);
+	}
+
+	
 
 }

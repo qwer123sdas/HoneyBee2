@@ -103,7 +103,7 @@
 	<!-- Page Header Start -->
 	<div class="container-fluid page-header py-5 mb-5">
 		<div class="container py-5">
-			<h1 class="display-3 text-white mb-3 animated slideInDown">기부 모임</h1>
+			<h1 class="display-3 text-white mb-3 animated slideInDown">꿀벌모집</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>
 	</div>
@@ -112,35 +112,32 @@
 	<!-- Nav bar -->
 	<nav:navbar></nav:navbar>
 	<!-- 모임 데이터 처리용(나중에 제안서로 변경예정) -->
-	<div class="container">
+	<div class="container mt-4">
 		<div class="row">
-			<div class="col">
-				<h1>모임 작성</h1>
-				<form action="${appRoot }/meeting/board" method="post"
+			<div class="col-lg-8">
+				<h1>꿀벌 모집 제안서</h1>
+				<form action="${appRoot }/meeting/insert" method="post"
 					enctype="multipart/form-data">
 					<!-- meeting_id : 자동생성
 					member_id : 권한처리 -->
-
-					<!-- 모임 카테고리 고르기 추가해야함 -->
 
 					<label for="titleInput" class="form-label">제목</label>
 					<input type="text" name="title" id="titleInput" /> 
 					
 					<br>
 
-					<select name="" id="form-select">
+					<select name="tag" id="form-select">
 						<option selected="selected">모임 주제를 선택해 주세요</option>
-						<option value="1">전체</option>
-						<option value="2">어린이</option>
-						<option value="3">장애인</option>
-						<option value="4">어려운 이웃</option>
-						<option value="5">환경</option>
+						<option value="어린이">어린이</option>
+						<option value="장애인">장애인</option>
+						<option value="어려운 이웃">어려운 이웃</option>
+						<option value="환경">환경</option>
 					</select>  
 					
 					<br>
 
 					<label for="contentsTextarea" class="form-label">본문</label>
-					<textarea name="contents" id="contentsTextarea" cols="30" rows="10"
+					<textarea name="content" id="contentsTextarea" cols="30" rows="10"
 						class="form-control"></textarea>
 					
 					<br>
@@ -155,7 +152,7 @@
 					<br>
 
 					모임사진
-					<input multiple="multiple" type="file" name="file" accept="image/*"/>
+					<input multiple="multiple" type="file" name="files" accept="image/*"/>
 					
 					<br>
 
@@ -164,13 +161,13 @@
 					<!-- inserted : 자동생성 -->
 					start_date :
 					<label for="start_date">모집 시작일</label>
-					<input type="date" name="start_date" id="start_date" />
+					<input type="date" name="startDate" id="startDate" />
 
 					end_date :
 					<label for="end_date">모집 종료일</label>
-					<input type="date" name="end_date" id="end_date" />
+					<input type="date" name="endDate" id="endDate" />
 
-					<button type="submit">전송</button>
+					<button class="btn btn-primary">전송</button>
 
 				</form>
 			</div>

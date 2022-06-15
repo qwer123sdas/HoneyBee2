@@ -11,8 +11,8 @@
 	<!-- 로그인 관련 인증 -->
 	<security:http>
 		<security:csrf disabled="true"/>
-		<security:form-login login-page="/meeting/login" always-use-default-target="true" default-target-url="/meeting/board" />
-		<security:logout logout-success-url="/meeting/board"/>
+		<security:form-login login-page="/meeting/login" always-use-default-target="true" default-target-url="/meeting/main" />
+		<security:logout logout-success-url="/meeting/main"/>
 	</security:http>
 	
 	<security:authentication-manager>
