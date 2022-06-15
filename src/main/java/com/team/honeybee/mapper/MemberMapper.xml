@@ -44,4 +44,10 @@
 		WHERE name = #{name} AND email = #{email}
 	</select>
 	
+	<select id="findPw" resultType="String">
+		SELECT email
+		FROM Member
+		WHERE name = #{name} AND member_id = #{memberId} AND email = #{email}
+	</select>
+	
 </mapper> 

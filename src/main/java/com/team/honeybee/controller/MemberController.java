@@ -95,11 +95,12 @@ public class MemberController {
 		
 	}
 	
+	// 아이디 찾기
 	@PostMapping("findId")
 	public String findId(String name, String email, Model model) {
 		int exist = service.findId(name, email);
 		if(exist == 0) {
-			model.addAttribute("message", "회원이 아님.");
+			model.addAttribute("message", "등록된 회원이 아니거나 잘못 입력하였습니다.");
 			return "/member/findIdView";
 		}else {
 			String memberId = service.findId2(name, email);
@@ -107,6 +108,24 @@ public class MemberController {
 			return "/member/findIdView";
 		}
 	}
+	
+	// 비밀번호 찾기
+	@GetMapping("findPw")
+	public void findPw() {
+		
+	}
+	
+//	@PostMapping("findPw")
+//	public String findPw(String name, String memberId, String email, Model model) {
+//		int exist = service.findPw(name, memberId, email);
+//		if(exist == 0) {
+//			model.addAttribute("message", "등록된 회원이 아니거나 잘못 입력하였습니다.");
+//			return "/member/findPw";
+//		}else {
+//			String memberId = service.findId2(name, email);
+//			model.addAttribute("message", memberId);
+//			return "/member/findPw";
+//	}
 }
 
 

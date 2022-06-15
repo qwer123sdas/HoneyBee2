@@ -25,6 +25,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+	
 <title>로그인 화면</title>
 </head>
 <body>
@@ -55,9 +56,8 @@
 							자동 로그인
 						</label>
 					</div>
-					
 					<button type="button" class="btn btn-success" onclick="location.href='/honeybee/member/findIdView'">아이디 찾기</button>
-					<button class="btn btn-success">비밀번호 찾기</button>
+					<button type="button" class="btn btn-success" onclick="location.href='/honeybee/member/findPw'">비밀번호 찾기</button>
 					
 					<br />
 

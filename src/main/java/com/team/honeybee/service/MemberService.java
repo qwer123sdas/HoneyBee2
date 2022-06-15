@@ -1,7 +1,7 @@
 package com.team.honeybee.service;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
 import com.team.honeybee.domain.*;
@@ -50,5 +50,25 @@ public class MemberService {
 	public String findId2(String name, String email) {
 		return mapper.findId2(name, email);
 	}
-	
+//	public int findPw(String name, String memberId, String email) {
+//		return mapper.findPw(name, memberId, email);
+//	}
+//	public String findPw2(String name, String memberId, String email) {
+//		return mapper.findPw(name, memberId, email);
+//	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

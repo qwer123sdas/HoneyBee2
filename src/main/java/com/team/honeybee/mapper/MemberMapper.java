@@ -19,6 +19,8 @@ public interface MemberMapper {
 	// 아이디 찾기
 	int findId(@Param("name")String name, @Param("email") String email);
 	// 아이디 가져오기
-	String findId2(@Param("name")String name, @Param("email") String email);
+	String findId2(@Param("name") String name, @Param("email") String email);
+
+	Object findPw(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
 	
 }
