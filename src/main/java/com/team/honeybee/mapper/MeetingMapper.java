@@ -14,8 +14,8 @@ public interface MeetingMapper {
 	// 파일 읽기
 	void insertFile(@Param("meetingId") int meeting_id, @Param("file") String originalFilename);
 	
-	// 게시글 목록 보기
-	List<MeetingDto> selectMeeting();
+	// 게시글 목록 보기(topic추가함)
+	List<MeetingDto> selectMeeting(@Param("sort") String sort, @Param("topic") String topic);
 
 	// 기부모임 게시물 보기
 	MeetingDto selectBoardByMeetingId(int meetingId);

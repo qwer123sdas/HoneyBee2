@@ -29,10 +29,21 @@
 				mt.start_date startDate,
 				mt.end_date endDate,
 				mt.tag,
+				mt.topic,
 				m.nickname
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
-		GROUP BY Meeting_id
-		ORDER BY inserted
+									<!-- 나중에 파일 입력 추가 해야함 -->
+		<if test='topic != ""'>
+		WHERE mt.topic = #{topic}
+		</if>
+		GROUP BY mt.Meeting_id
+		<if test='sort == "" || sort=="1"'>
+		ORDER BY mt.Meeting_id DESC
+		</if>
+		<if test='sort == "2"'>
+		ORDER BY mt.Meeting_id ASC
+		</if>
+
 	</select>
 	
 	<!-- 기부모임 게시물 보기 -->

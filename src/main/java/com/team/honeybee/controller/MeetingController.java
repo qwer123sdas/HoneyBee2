@@ -31,14 +31,18 @@ public class MeetingController {
 	@Autowired
 	private MeetingReplyService replyService;
 	
-	// 기부모임 메인
-	@GetMapping("main")
-	public void meetingMain(Model model) {
+	// 기부모임 메인(topic추가함)
+	@RequestMapping("main")
+	public void meetingMain(@RequestParam(name="sort", defaultValue = "") String sort, 
+							@RequestParam(name="topic_id", defaultValue = "") String topic, Model model) {
 		
 		// 모임 리스트 
-		List<MeetingDto> list = service.meetingList();
+		List<MeetingDto> list = service.meetingList(sort, topic);
 		
 		model.addAttribute("meetingList", list);
+		// sort, topic 추가
+		model.addAttribute("sort", sort);
+		model.addAttribute("topicId", topic);
 		
 	}
 	

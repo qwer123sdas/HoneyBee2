@@ -116,10 +116,10 @@ public class MeetingService {
 	}
 	*/
 	
-	// 모임 리스트
-	public List<MeetingDto> meetingList() {
+	// 모임 리스트(topic추가함)
+	public List<MeetingDto> meetingList(String sort, String topic) {
 		
-		return mapper.selectMeeting();
+		return mapper.selectMeeting(sort, topic);
 	}
 
 	// 기부모임 게시물 보기

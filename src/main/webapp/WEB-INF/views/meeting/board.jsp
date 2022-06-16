@@ -42,8 +42,8 @@
 	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 	    
 	    <style>
-	    
-	    body {
+		
+		body {
 		  margin: 0;
 		  font-size: var(--bs-body-font-size);
 		  font-weight: var(--bs-body-font-weight);
@@ -217,42 +217,17 @@
 								</div>
 							</form>
                                 <!-- 댓글 대댓글 -->
+                             <c:forEach items="${replyList }" var="reply">
                                 <div class="d-flex mb-4">
                                     <!-- 부모댓글 출력 -->
-                                    <c:forEach items="${replyList }" var="reply">
 	                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-	                                    <div class="ms-3">
-	                                        <div class="fw-bold">${reply.nickname } ${reply.inserted }</div>
-	                                        ${reply.content } 
+	                                    	<div class="ms-3">
+	                                       	 <div class="fw-bold">${reply.nickname } ${reply.inserted }</div>
+	                                       	 ${reply.content } 
 	                                        <hr>
-                                    </c:forEach>
-                                        <!-- 자식 댓글 출력 
-                                        -->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
+                               			 </div>  
+                              		</div>
+                              </c:forEach>
                             </div>
                         </div>
                     </section>
