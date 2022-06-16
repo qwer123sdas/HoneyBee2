@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.team.honeybee.domain.MeetingReplyDto;
 import com.team.honeybee.mapper.MeetingReplyMapper;
@@ -14,7 +15,7 @@ public class MeetingReplyService {
 	@Autowired
 	private MeetingReplyMapper mapper;
 
-	// 댓글 리스트 로그인 하지 않은 회원
+	// 로그인 하지 않은 회원 댓글 리스트만 보여주기
 	public List<MeetingReplyDto> getReplyByMeetingId(int meetingId) {
 		return mapper.selectAllMeetingId(meetingId, null);
 	}
@@ -23,8 +24,18 @@ public class MeetingReplyService {
 		return mapper.selectAllMeetingId(meetingId, memberId);
 	}
 	
+	// 로그인 회원 댓글입력 
+	@Transactional
 	public boolean insertMeetingReply(MeetingReplyDto reply) {
-		return mapper.insertMeetingReply(reply) == 1;
+		
+		int cnt = mapper.insertMeetingReply(reply);
+		// 댓글입력시 생성번호를 부모 댓글 번호로 넣기
+		reply.setMeetingReplyParent(reply.getMeetingReplyId());
+		reply.setMeetingReplyGnum(reply.getMeetingReplyId());
+		mapper.updateMeetingReplyParent(reply);
+
+	
+		return cnt == 1;
 	}
 	
 	

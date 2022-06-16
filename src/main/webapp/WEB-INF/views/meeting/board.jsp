@@ -41,6 +41,93 @@
 	    <!-- Template Stylesheet -->
 	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 	    
+	    <style>
+	    
+	    body {
+		  margin: 0;
+		  font-size: var(--bs-body-font-size);
+		  font-weight: var(--bs-body-font-weight);
+		  line-height: var(--bs-body-line-height);
+		  color: var(--bs-body-color);
+		  text-align: var(--bs-body-text-align);
+		  background-color: var(--bs-body-bg);
+		  -webkit-text-size-adjust: 100%;
+		  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+	    
+	    .container,
+		.container-fluid,
+		.container-xxl,
+		.container-xl,
+		.container-lg,
+		.container-md,
+		.container-sm {
+		  width: 100%;
+		  padding-right: var(--bs-gutter-x, 0.75rem);
+		  padding-left: var(--bs-gutter-x, 0.75rem);
+		  margin-right: auto;
+		  margin-left: auto;
+		}
+		
+		.mt-5 {
+		  margin-top: 3rem !important;
+		}
+		
+		.mb-4 {
+		  margin-bottom: 1.5rem !important;
+		}
+		
+		.mb-5 {
+		  margin-bottom: 3rem !important;
+		}
+		
+		.bg-light {
+		  --bs-bg-opacity: 1;
+		  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+		}
+		
+		.card-body {
+		  flex: 1 1 auto;
+		  padding: 1rem 1rem;
+		}
+		
+		.input-group {
+		  position: relative;
+		  display: flex;
+		  flex-wrap: wrap;
+		  align-items: stretch;
+		  width: 100%;
+		}
+		
+		.input-group-lg > .form-control,
+		.input-group-lg > .form-select,
+		.input-group-lg > .input-group-text,
+		.input-group-lg > .btn {
+		  padding: 0.5rem 1rem;
+		  font-size: 1.25rem;
+		  border-radius: 0.3rem;
+		}
+		
+		<!-- 대댓글 부분 -->
+		.d-flex {
+		  display: flex !important;
+		}
+		.flex-shrink-0 {
+		  flex-shrink: 0 !important;
+		}
+		.rounded-circle {
+		  border-radius: 50% !important;
+		}
+		.ms-3 {
+		  margin-left: 1rem !important;
+		}
+		.fw-bold {
+		  font-weight: 700 !important;
+		}
+				
+	    
+	    
+	    </style>
 
     </head>
     <body>
@@ -115,28 +202,32 @@
 					<div id="map" style="width:690 px; height:400px; margin:auto; margin-top:10px;"></div>
 				</div>
 
-					<!-- Comments section-->
-                    <section class="mb-5">
+					<!-- 댓글, 대댓글 -->
+                    <section class="mt-5 mb-5">
                         <div class="card bg-light">
                             <div class="card-body">
-                                <!-- Comment form-->
+                                <!-- 댓글 입력 form -->
                                 <form class="mb-4" id="insertReplyForm1" action="${appRoot }/meeting/reply/insert" method="post">
 									<div class="input-group">
-									<input type="hidden" name="meetingId" value="${meeting.meetingId } }"/>
+									<input type="hidden" name="meetingId" value="${meeting.meetingId }"/>
 									<input id="insertReplyContentInput1" class="form-control" type="text" name="content"
 											placeholder="아름다운 발걸음을 함께해요!"/>
-									<button class="btn btn-primary" id="insertReplyButton1" type="button">한걸음!</button>
-																		
+									<button class="btn btn-primary" id="insertReplyButton1" type="submit">한걸음!</button>
+									
 								</div>
 							</form>
-                                <!-- Comment with nested comments-->
+                                <!-- 댓글 대댓글 -->
                                 <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
+                                    <!-- 부모댓글 출력 -->
+                                    <c:forEach items="${replyList }" var="reply">
+	                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+	                                    <div class="ms-3">
+	                                        <div class="fw-bold">${reply.nickname } ${reply.inserted }</div>
+	                                        ${reply.content } 
+	                                        <hr>
+                                    </c:forEach>
+                                        <!-- 자식 댓글 출력 
+                                        -->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">

@@ -128,10 +128,10 @@
 
 					<select name="tag" id="form-select">
 						<option selected="selected">모임 주제를 선택해 주세요</option>
-						<option value="어린이">어린이</option>
-						<option value="장애인">장애인</option>
-						<option value="어려운 이웃">어려운 이웃</option>
-						<option value="환경">환경</option>
+						<option value="1">어린이</option>
+						<option value="2">장애인</option>
+						<option value="3">어려운 이웃</option>
+						<option value="4">환경</option>
 					</select>  
 					
 					<br>

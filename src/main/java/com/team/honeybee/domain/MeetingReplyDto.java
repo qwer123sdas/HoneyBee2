@@ -8,11 +8,10 @@ import lombok.Data;
 public class MeetingReplyDto {
 	// 댓글
 	private int meetingReplyId;
-	private int meetingCommentId;
-	private int meetingId;
-	
-	private String memberId;
-	private String nickname;
+	private int meetingId; // meeting
+	private String memberId; // member
+	private String nickname; // member
+	private String content;
 	private LocalDateTime inserted;
 	
 	// 부모 댓글

@@ -48,8 +48,9 @@ public class MeetingController {
 		// 게시물 정보 가져옴
 		MeetingDto board = service.getBoardByMeetingId(meetingId);
 		
-		// List<MeetingReplyDto> ReplyList = replyService.getReplyByMeetingId(meetingId);
+		List<MeetingReplyDto> replyList = replyService.getReplyByMeetingId(meetingId);
 		model.addAttribute("meeting", board);
+		model.addAttribute("replyList", replyList);
 		
 		return "/meeting/board";
 	}

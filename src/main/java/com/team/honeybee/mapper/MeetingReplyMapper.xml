@@ -4,12 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.MeetingReplyMapper">
 	
+	<!-- 댓글 목록 출력 -->
+	<select id="selectAllMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   m.nickname
+		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE r.meeting_id = #{meetingId}
+		ORDER BY inserted  
+	</select>
+	
+	
 	<!-- 회원 댓글 작성 -->
-	<insert id="insertMeetingReply">
-		INSERT INTO MeetingReply (member_id, meeting_id, content, meeting_reply_id)
-		VALUES (#{member_id}, #{content}, #{meeting_id}, #{meeting_reply_id})
+	<insert id="insertMeetingReply" useGeneratedKeys="true" keyColumn="meetingReplyId" keyProperty="meetingReplyId">
+		INSERT INTO MeetingReply (member_id, meeting_id, content)
+		VALUES (#{memberId}, #{meetingId}, #{content})
 	</insert>
-
+	
+	<!-- 댓글입력시 생성번호를 부모 댓글 번호로 넣기 -->
+	<update id="updateMeetingReplyParent">
+		UPDATE MeetingReply 
+		SET meeting_reply_parent = #{meetingReplyId},
+			meeting_reply_gnum = #{meetingReplyId}
+		WHERE meeting_reply_id = #{meetingReplyId}
+	</update>
 	
 
 </mapper>
