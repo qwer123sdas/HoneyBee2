@@ -66,6 +66,35 @@
 		/*filter: grayscale(0%);   */
 		font-family: KakaoBold;
 	}
+	
+	/* 최신순, 오래된 순  */
+	.group_fundlist {
+	    position: relative;
+	    width: 1300px;
+	    margin: 0 auto 10px;
+	}
+	
+	.group_fundlist .sort_cate {
+		text-align: right;
+	}
+	
+	.group_fundlist .sort_cate .inner_sort_cate {
+		padding-right: 16px;
+		display: inline-block;
+	}
+	.group_fundlist .sort_cate .box_sorting {
+		margin-left: 24px;
+		float: left;
+		font-size: 16px;
+	    padding-left: 19px;
+	    color: #aaa;
+	    font-family: KakaoBold;
+	    cursor: pointer;
+	}
+	
+	.group_fundlist .sort_cate .box_sorting.on {
+		color: #444;
+	}
 	</style>
 	<body>
     <!-- Spinner Start -->
@@ -101,31 +130,31 @@
 				<div class="inner_catelist">
 					<ul lass="mb-5" id="portfolio-flters">
 						<li class="mx-4">
-							<a <c:if test="${param.subtopic==null or param.subtopic==''}"> class="on"</c:if> href="/fund/now?sort=1">
+							<a <c:if test="${topic==null or topic==''}"> class="on"</c:if> href="${appRoot}/donation/main?sort=1">
 								<img class="mb-3" src="${appRoot}/resources/webContents/img/ico_all.png">
 								<span>전체</span>
 							</a>
 						</li>
 						<li class="mx-4">
-							<a <c:if test="${param.subtopic=='A'}"> class="on"</c:if> href="/fund/now?subtopic=A&sort=1">
+							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=1">
 								<img class="mb-3" src="${appRoot}/resources/webContents/img/ico_kidz.png">
 								<span>어린이</span>
 							</a>
 						</li>
 						<li class="mx-4">
-							<a <c:if test="${param.subtopic=='B'}"> class="on"</c:if> href="/fund/now?subtopic=B&sort=1">
+							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=2">
 								<img class="mb-3" src="${appRoot}/resources/webContents/img/ico_accessible.png">
 								<span>장애인</span>
 							</a>
 						</li>
 						<li class="mx-4">
-							<a <c:if test="${param.subtopic=='C'}"> class="on"</c:if> href="/fund/now?subtopic=C&sort=1">
+							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=3">
 								<img class="mb-3"src="${appRoot}/resources/webContents/img/ico_neighborhood.png">
 								어려운 이웃
 							</a>
 						</li>
 						<li class="mx-4" data-filter=".second">
-							<a <c:if test="${param.subtopic=='D'}"> class="on"</c:if> href="/fund/now?subtopic=D&sort=1">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
 								<img class="mb-3"src="${appRoot}/resources/webContents/img/ico_culture.png">
 								환경
 							</a>
@@ -133,26 +162,24 @@
 					</ul>
 				</div>
 			</div> <!-- end: group_catelist -->
-			<!--  
-			태그 부분 비울 것
-            <div class="row mt-n2 wow fadeInUp group_catelist" data-wow-delay="0.3s">
-                <div class="col-12 text-center inner_catelist">
-                    <ul class="mb-5" id="portfolio-flters">
-                        <li class="mx-2 active" >
-							<a <c:if test="${param.subtopic==null or param.subtopic==''}"> class="on"</c:if> href="/fund/now?sort=1">
-								<img src="${appRoot}/resources/webContents/img/ico_all.png">
-								<span>전체</span>
-							</a>
-						</li>
-                        <li class="mx-2" data-filter=".first">기부 종류 1</li>
-                        <li class="mx-2" data-filter=".second">기부 종류 2</li>
-                        <li class="mx-2" data-filter=".third">기부 종류3</li>
-                    </ul>
-                </div>
-            </div>
-            -->
+
             <div class="row g-4">
- 
+            	<!-- 최신순, 오래된 순 -->
+ 				<div class="group_fundlist" >
+ 					<div class="sort_cate">
+ 						<span class="inner_sort_cate">
+ 							<a href="${appRoot}/donation/main?sort=1&topic_id=${topic}">
+								<c:if test="${sort == 1 or sort == null}"><span class="box_sorting on">최신순</span></c:if>
+								<c:if test="${sort != 1 and sort != null}"><span class="box_sorting">최신순</span></c:if>
+							</a>
+							<a href="${appRoot}/donation/main?sort=2&topic_id=${topic}">
+								<c:if test="${sort == 2 }"><span class="box_sorting on">오래된 순</span></c:if>
+								<c:if test="${sort != 2 }"><span class="box_sorting">오래된 순</span></c:if>
+							</a>
+ 						</span>
+ 					</div>
+ 				</div>
+ 				<!-- 게시글 목록  -->
                 <c:forEach items="${boardList }" var="list">
 		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 			<a href="${appRoot }/donation/board/${list.donationId }">

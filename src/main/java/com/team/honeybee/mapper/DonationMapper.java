@@ -16,8 +16,8 @@ public interface DonationMapper {
 	void insertMainPhoto(@Param("donationId")int donationId, @Param("mainPhoto")String mainPhoto);
 	
 	
-	// 게시글 목록
-	List<DonationDto> selectOrder();
+	// 게시글 목록 + topic 과 등록순 
+	List<DonationDto> selectOrder(@Param("sort")String sort, @Param("topic")String topic);
 
 	// 기부 게시글 보기
 	DonationDto getBoard(int donationId);

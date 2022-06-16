@@ -53,8 +53,8 @@ public class DonationService {
 	}
 	
 	// 게시글 목록
-	public List<DonationDto> findOrder() {
-		return mapper.selectOrder();
+	public List<DonationDto> findOrder(String sort, String topic) {
+		return mapper.selectOrder(sort, topic);
 	}
 	
 	// 기부 게시글 보기

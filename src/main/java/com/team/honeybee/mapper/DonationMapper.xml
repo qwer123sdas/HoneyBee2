@@ -15,8 +15,18 @@
 				f.file MPhoto
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
+		<if test="topic != ''">
+		WHERE d.topic = #{topic}
+		</if>
 		GROUP BY d.donation_id
+		<if test='sort == "" || sort=="1"'>
 		ORDER BY d.donation_id DESC
+		</if>
+		<if test='sort == "2"'>
+		ORDER BY d.donation_id ASC
+		</if>
+		
+		
 	</select>
 	
 	<!--기부 게시글 보기  -->

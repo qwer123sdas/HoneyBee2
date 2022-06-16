@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
@@ -27,15 +28,22 @@ public class DonationController {
 	FavoriteService favoriteService;
 	
 	// 기부게시판 목록 : 메인 화면
+	// topic에 따른 분류
 	@RequestMapping("main")
-	public void main(Model model) {
+	public void main(@RequestParam(name="sort", defaultValue = "")String sort,
+					 @RequestParam(name="topic_id", defaultValue = "")String topic,
+																	 Model model) {
 		// 목록 가져오기
-		List<DonationDto> boardList = service.findOrder();
+		List<DonationDto> boardList = service.findOrder(sort, topic);
 		
 		// 기부금액 달성률
 		//service.achievementRate();
 		
+		System.out.println("토픽 " + topic);
+		System.out.println(sort);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("topic", topic);
+		model.addAttribute("sort", sort);
 	}
 	
 	// 기부 게시글 보기
@@ -93,11 +101,7 @@ public class DonationController {
 		return "redirect:/donation/main";
 	}
 	
-	// 태그 검색
-	@RequestMapping
-	public void selectAllNow(String subtopic, int sort) {
-		
-	}
+
 	
 
 	
