@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Solartec - Renewable Energy Website Template</title>
+    <title>도네이션 태그</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -35,68 +35,7 @@
     <!-- Template Stylesheet -->
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
-	<style>
-	.group_catelist {
-	    width: 1000px;
-	    margin: 0 auto;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist {
-		display:inline-block;
-	}
-	
-	.group_catelist .inner_catelist ul {
-	    overflow: hidden;
-	    padding: 57px 17px 48px;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist li {
-	    float: left;
-	    width: 80px;
-	}
-	
-	.group_catelist .inner_catelist a {
-		display: block;
-		filter: grayscale(100%); 
-	}
-	/* 컬러이미지 */
-	.group_catelist .inner_catelist a.on{
-		/*filter: grayscale(0%);   */
-		font-family: KakaoBold;
-	}
-	
-	/* 최신순, 오래된 순  */
-	.group_fundlist {
-	    position: relative;
-	    width: 1300px;
-	    margin: 0 auto 10px;
-	}
-	
-	.group_fundlist .sort_cate {
-		text-align: right;
-	}
-	
-	.group_fundlist .sort_cate .inner_sort_cate {
-		padding-right: 16px;
-		display: inline-block;
-	}
-	.group_fundlist .sort_cate .box_sorting {
-		margin-left: 24px;
-		float: left;
-		font-size: 16px;
-	    padding-left: 19px;
-	    color: #aaa;
-	    font-family: KakaoBold;
-	    cursor: pointer;
-	}
-	
-	.group_fundlist .sort_cate .box_sorting.on {
-		color: #444;
-	}
-	</style>
-	<body>
+<body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -107,79 +46,22 @@
 
 	<!-- Nav bar  -->
 	<nav:navbar></nav:navbar>
+	    <!-- Service Start -->
+	<!-- Page Header Start -->
 	
-    
-
-
-    <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">기부 게시판</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">#  ${hashTag }</h1>
             <nav aria-label="breadcrumb animated slideInDown">
             </nav>
         </div>
     </div>
-    <!-- Page Header End -->
-
-
-    <!-- Service Start -->
+    <!-- Page Header End -->    
+    
     <div class="container-xxl">
         <div class="container">
-            <!-- 카테고리(param.sort) -->
-			<div class="group_catelist  wow fadeInUp">
-				<div class="inner_catelist">
-					<ul lass="mb-5" id="portfolio-flters">
-						<li class="mx-4">
-							<a <c:if test="${topic==null or topic==''}"> class="on"</c:if> href="${appRoot}/donation/main?sort=1">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_all.png">
-								<span>전체</span>
-							</a>
-						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=1">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_1.png">
-								<span>어린이</span>
-							</a>
-						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=2">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_2.png">
-								<span>장애인</span>
-							</a>
-						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=3">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/donation_3.png">
-								어려운 이웃
-							</a>
-						</li>
-						<li class="mx-4" data-filter=".second">
-							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/donation_4.png">
-								환경
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div> <!-- end: group_catelist -->
-
-            <div class="row g-4">
-            	<!-- 최신순, 오래된 순 -->
- 				<div class="group_fundlist" >
- 					<div class="sort_cate">
- 						<span class="inner_sort_cate">
- 							<a href="${appRoot}/donation/main?sort=1&topic_id=${topic}">
-								<c:if test="${sort == 1 or sort == null}"><span class="box_sorting on">최신순</span></c:if>
-								<c:if test="${sort != 1 and sort != null}"><span class="box_sorting">최신순</span></c:if>
-							</a>
-							<a href="${appRoot}/donation/main?sort=2&topic_id=${topic}">
-								<c:if test="${sort == 2 }"><span class="box_sorting on">오래된 순</span></c:if>
-								<c:if test="${sort != 2 }"><span class="box_sorting">오래된 순</span></c:if>
-							</a>
- 						</span>
- 					</div>
- 				</div>
- 				<!-- 게시글 목록  -->
+        	<div class="row g-4">
+	 				<!-- 게시글 목록  -->
                 <c:forEach items="${boardList }" var="list">
 		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 			<a href="${appRoot }/donation/board/${list.donationId }">
@@ -192,7 +74,7 @@
 			  					  	</c:if> 
 			                        <div class="position-relative p-4 pt-0">
 			                            <div class="service-icon">
-			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/donation_${list.topic }.png">
+			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/ico_kidz.png">
 			                            </div>
 			                            <h4 class="mb-3">${list.title }</h4>
 			                            <p>${list.nickname }</p>
@@ -205,35 +87,15 @@
 	                		</a>
 		                </div>
                 </c:forEach>
-                
-               	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-  						<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-wind fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">임시 게시글제목</h4>
-                            <p>닉네임</p>
-                          	<div class="progress">
-								  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-    <!-- Service End -->
-
-
-    
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
-    
-
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -254,5 +116,4 @@
     <!-- Template Javascript -->
     <script src="${appRoot }/resources/webContents/js/main.js"></script>
 </body>
-
 </html>

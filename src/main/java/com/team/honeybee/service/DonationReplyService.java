@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.honeybee.domain.DonationReplyDto;
-import com.team.honeybee.mapper.DonationMapper;
+import com.team.honeybee.mapper.DonationBoardMapper;
 import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.mapper.DonationReplyMapper;
 

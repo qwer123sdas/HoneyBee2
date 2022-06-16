@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.domain.DonationReplyDto;
-import com.team.honeybee.mapper.DonationMapper;
+import com.team.honeybee.mapper.DonationBoardMapper;
 import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.mapper.DonationReplyMapper;
 
@@ -25,9 +25,9 @@ import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
-public class DonationService {
+public class DonationBoardService {
 	@Autowired
-	DonationMapper mapper;
+	DonationBoardMapper mapper;
 	
 	@Autowired
 	DonationReplyMapper replyMapper;
@@ -58,8 +58,15 @@ public class DonationService {
 	}
 	
 	// 기부 게시글 보기
+	@Transactional
 	public DonationDto getBoard(int donationId) {
-		return mapper.getBoard(donationId);
+		DonationDto dto = mapper.getBoard(donationId);
+		
+		// 해쉬태그 가져오기
+		List<String> hashTags = mapper.getHashTag(donationId);
+		dto.setHashTag(hashTags);
+		
+		return dto;
 	}
 
 	// [임시] 도네이션 작성 게시판

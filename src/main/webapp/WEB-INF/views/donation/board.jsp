@@ -304,7 +304,14 @@
 					knobs here on Earth without knowing the consequences of it. Mars
 					once had running water. It's bone dry today. Something bad happened
 					there as well.</p>
-
+					
+				<!-- 해쉬 태그 -->
+				<c:forEach items="${board.hashTag }" var="hashTag">
+					<a href="${appRoot}/donation/tags/${hashTag}">
+						<span class="badge rounded-pill bg-warning text-dark"># ${hashTag }</span>
+					</a>
+				</c:forEach>
+				
 				<p class="mb-4"></p>
 				<h2>${board.currentAmount}원</h2>
 				<h5>${board.goal}</h5>

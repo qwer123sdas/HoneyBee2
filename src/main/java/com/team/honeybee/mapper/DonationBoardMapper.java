@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team.honeybee.domain.DonationDto;
 
 @Mapper
-public interface DonationMapper {
+public interface DonationBoardMapper {
 	// [임시] 작성 게시판
 	void dontaionBoardWrite(DonationDto dto);
 	// 메인 사진 등록
@@ -21,6 +21,8 @@ public interface DonationMapper {
 
 	// 기부 게시글 보기
 	DonationDto getBoard(int donationId);
+	// 해쉬태그 가져오기
+	List<String> getHashTag(int donationId);
 	
 	
 }

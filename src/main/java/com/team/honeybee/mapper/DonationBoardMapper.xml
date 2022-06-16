@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.team.honeybee.mapper.DonationMapper">
+<mapper namespace="com.team.honeybee.mapper.DonationBoardMapper">
 	<!-- 게시글 목록 -->
 	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationDto">
 		SELECT d.donation_id donationId,
@@ -12,6 +12,7 @@
 				d.expired,
 				d.goal,
 				d.current_amount currentAmount,
+				d.topic,
 				f.file MPhoto
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
@@ -44,6 +45,13 @@
 						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
 		WHERE d.donation_id = #{donationId}
 	</select>
+	<!-- 해쉬태그 가져오기 -->
+	<select id="getHashTag" resultType="String">
+		SELECT hash_tag
+		FROM Tag
+		WHERE donation_id = #{donationId}
+	</select>
+	
 	
 	<!-- [임시] 작성 게시판 -->
 	<insert useGeneratedKeys="true" id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationDto"

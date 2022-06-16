@@ -16,14 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.domain.FavoriteDto;
-import com.team.honeybee.service.DonationService;
+import com.team.honeybee.service.DonationBoardService;
 import com.team.honeybee.service.FavoriteService;
 
 @Controller
 @RequestMapping("donation")
-public class DonationController {
+public class DonationBoardController {
 	@Autowired
-	DonationService service;
+	DonationBoardService service;
 	@Autowired
 	FavoriteService favoriteService;
 	
@@ -39,8 +39,6 @@ public class DonationController {
 		// 기부금액 달성률
 		//service.achievementRate();
 		
-		System.out.println("토픽 " + topic);
-		System.out.println(sort);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("topic", topic);
 		model.addAttribute("sort", sort);
@@ -54,6 +52,7 @@ public class DonationController {
 		DonationDto board = service.getBoard(donationId);
 		model.addAttribute("board", board);
 		model.addAttribute("principal", principal);
+		
 		
 		// 좋아요 디비에서 정보 찾기
 		FavoriteDto favoriteDto = new FavoriteDto();

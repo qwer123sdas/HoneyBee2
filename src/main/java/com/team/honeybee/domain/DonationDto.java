@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +14,9 @@ public class DonationDto {
 	private String title;
 	private String content;
 	private String nickname;
-	private String tag;
+	
+	private String topic;   // 카테고리 번호
+	private List<String> hashTag; // 해쉬테그
 	
 	private String MPhoto;  // 메인 사진
 	
