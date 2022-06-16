@@ -16,9 +16,9 @@ public class MemberDto {
 	private String nickname;
 	private String postcode;
 	private String address;
+	private String detail;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate birth;
 	private String phone;
-	private String detail;
 	
 }

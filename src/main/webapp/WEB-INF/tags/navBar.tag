@@ -7,6 +7,7 @@
 <c:url value="/member/mainPage" var="mainPageUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl" ></c:url>
 <c:url value="/member/list" var="memberListUrl"></c:url>
+<c:url value="/member/info" var="memberInfoUrl"></c:url>
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
@@ -14,8 +15,8 @@
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal"/>
-	<c:url value="/member/get" var="memberInfoUrl">
-		<c:param name="id" value="${principal.username }" />
+	<c:url value="/member/info" var="memberInfoUrl">
+		<c:param name="memberId" value="${principal.username }" />
 	</c:url>
 </sec:authorize>
 

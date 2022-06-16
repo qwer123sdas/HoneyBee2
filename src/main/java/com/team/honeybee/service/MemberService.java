@@ -50,12 +50,12 @@ public class MemberService {
 	public String findId2(String name, String email) {
 		return mapper.findId2(name, email);
 	}
-//	public int findPw(String name, String memberId, String email) {
-//		return mapper.findPw(name, memberId, email);
-//	}
-//	public String findPw2(String name, String memberId, String email) {
-//		return mapper.findPw(name, memberId, email);
-//	}
+	// 회원 정보 불러오기
+	public MemberDto memberInfo(String memberId, String name, String email, 
+			String nickname, String postcode, String address, String detail, String phone) {
+		return mapper.memberInfo(memberId, name, email, nickname, postcode, address, detail, phone);
+	}
+	
 }
 
 

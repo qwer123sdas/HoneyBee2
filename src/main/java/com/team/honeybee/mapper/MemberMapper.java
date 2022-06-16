@@ -21,6 +21,12 @@ public interface MemberMapper {
 	// 아이디 가져오기
 	String findId2(@Param("name") String name, @Param("email") String email);
 
-	Object findPw(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
+	int findPw(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
+
+	String findPw2(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
+
+	MemberDto memberInfo(@Param("memberId") String memberId,@Param("name") String name, 
+			@Param("email") String email, @Param("nickname") String nickname, @Param("postcode") String postcode, 
+			@Param("address")String address, @Param("detail") String detail, @Param("phone") String phone);
 	
 }

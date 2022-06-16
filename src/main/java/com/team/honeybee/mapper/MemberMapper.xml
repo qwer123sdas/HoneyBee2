@@ -44,10 +44,10 @@
 		WHERE name = #{name} AND email = #{email}
 	</select>
 	
-	<select id="findPw" resultType="String">
-		SELECT email
+	<select id="memberInfo" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT member_id memberId, name, email, nickname, postcode, address, detail, phone
 		FROM Member
-		WHERE name = #{name} AND member_id = #{memberId} AND email = #{email}
+		WHERE member_id = #{memberId}
 	</select>
 	
 </mapper> 

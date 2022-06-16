@@ -42,7 +42,7 @@
 	</form>
 	</c:if>
 	<c:if test="${not empty message }">
-		<h2>${message }</h2>
+		<h2 class="text-center">${message }로 임시 비밀번호를 보냈습니다.</h2>
 	</c:if>
 </body>
 </html>
