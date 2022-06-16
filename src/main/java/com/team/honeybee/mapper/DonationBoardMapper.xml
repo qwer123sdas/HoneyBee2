@@ -17,11 +17,14 @@
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
 		<if test="topic != ''">
-		WHERE d.topic = #{topic}
+		WHERE d.topic = #{topic} AND d.expired >= NOW() AND d.enable = 1
+		</if>
+		<if test="topic == ''">
+		WHERE d.expired >= NOW() AND d.enable = 1
 		</if>
 		GROUP BY d.donation_id
-		<if test='sort == "" || sort=="1"'>
-		ORDER BY d.donation_id DESC
+		<if test='sort == "" || sort=="1"'>  
+		ORDER BY d.donation_id DESC 
 		</if>
 		<if test='sort == "2"'>
 		ORDER BY d.donation_id ASC
@@ -59,15 +62,20 @@
 		INSERT INTO Donation(title,
 							content,
 							member_id,
-							tag,
+							topic,
 							expired,
 							goal)
 				VALUES(#{title}, 
 						#{content},
-						#{memberId}, 
-						#{tag},
+						#{memberId},
+						#{topic},
 						#{expired}, 
 						#{goal})
+	</insert>
+	<!-- 태그 넣기  -->
+	<insert id="setHashTag">
+		INSERT INTO Tag(hash_tag, donation_id)
+		VALUES(#{hashTag}, #{donationId})
 	</insert>
 	<!-- 메인 사진 등록  -->
 	<insert id="insertMainPhoto" >

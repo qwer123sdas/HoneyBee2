@@ -35,6 +35,36 @@
     <!-- Template Stylesheet -->
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
+<style>
+	/* 최신순, 오래된 순  */
+	.group_fundlist {
+	    position: relative;
+	    width: 1300px;
+	    margin: 0 auto 10px;
+	}
+	
+	.group_fundlist .sort_cate {
+		text-align: right;
+	}
+	
+	.group_fundlist .sort_cate .inner_sort_cate {
+		padding-right: 16px;
+		display: inline-block;
+	}
+	.group_fundlist .sort_cate .box_sorting {
+		margin-left: 24px;
+		float: left;
+		font-size: 16px;
+	    padding-left: 19px;
+	    color: #aaa;
+	    font-family: KakaoBold;
+	    cursor: pointer;
+	}
+	
+	.group_fundlist .sort_cate .box_sorting.on {
+		color: #444;
+	}
+</style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -61,8 +91,37 @@
     <div class="container-xxl">
         <div class="container">
         	<div class="row g-4">
-	 				<!-- 게시글 목록  -->
+        	    <!-- 최신순, 오래된 순 -->
+ 				<div class="group_fundlist" >
+ 					<div class="sort_cate">
+ 						<span class="inner_sort_cate">
+ 							<a href="${appRoot}/donation/tags/${hashTag }?sort=1">
+								<c:if test="${sort == 1 or sort == null}"><span class="box_sorting on">전체</span></c:if>
+								<c:if test="${sort != 1 and sort != null}"><span class="box_sorting">전체</span></c:if>
+							</a>
+							<a href="${appRoot}/donation/tags/${hashTag }?sort=2">
+								<c:if test="${sort == 2 }"><span class="box_sorting on">모금중</span></c:if>
+								<c:if test="${sort != 2 }"><span class="box_sorting">모금중</span></c:if>
+							</a>
+							<a href="${appRoot}/donation/tags/${hashTag }?sort=3">
+								<c:if test="${sort == 3 }"><span class="box_sorting on">모금 완료</span></c:if>
+								<c:if test="${sort != 3 }"><span class="box_sorting">모금 완료</span></c:if>
+							</a>
+							<a href="${appRoot}/donation/tags/${hashTag }?sort=4">
+								<c:if test="${sort == 4 }"><span class="box_sorting on">준비중</span></c:if>
+								<c:if test="${sort != 4 }"><span class="box_sorting">준비중</span></c:if>
+							</a>
+ 						</span>
+ 					</div>
+ 				</div>
+ 				
+	 			<!-- 게시글 목록  -->
+           		<c:if test="${boardList } == '' ">
+         			글이 없습니다
+         		</c:if>
+         		
                 <c:forEach items="${boardList }" var="list">
+
 		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 			<a href="${appRoot }/donation/board/${list.donationId }">
 			                    <div class="service-item rounded overflow-hidden">
@@ -74,7 +133,7 @@
 			  					  	</c:if> 
 			                        <div class="position-relative p-4 pt-0">
 			                            <div class="service-icon">
-			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/ico_kidz.png">
+			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/donation_${list.topic }.png">
 			                            </div>
 			                            <h4 class="mb-3">${list.title }</h4>
 			                            <p>${list.nickname }</p>

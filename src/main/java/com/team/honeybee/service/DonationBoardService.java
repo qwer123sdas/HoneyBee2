@@ -2,6 +2,7 @@ package com.team.honeybee.service;
 
 import java.io.IOException;
 import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -69,10 +70,15 @@ public class DonationBoardService {
 		return dto;
 	}
 
-	// [임시] 도네이션 작성 게시판
+	// [임시] 도네이션 작성 게시판----------------------------------------------------------------------------------------
 	@Transactional
-	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto) {
+	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto, String hashTagLump) {
 		mapper.dontaionBoardWrite(dto);
+		System.out.println("dto : " + dto);
+		// 해쉬 태그 분류하는 메소드
+		makeHashTagWithoutShop(hashTagLump, dto.getDonationId());
+		
+		
 		
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
@@ -91,6 +97,16 @@ public class DonationBoardService {
 			saveTextAreaPhotoAwsS3();
 		}*/
 	}
+	// 해쉬태그 분류하기
+	public void makeHashTagWithoutShop(String hashTagLump, int donationId) {
+		
+		String hashTag[] = hashTagLump.split("#");
+		for(int i = 1; i < hashTag.length; i++) {
+			// hashTags.add(hashTag[i].replaceAll(" ", "")); // 띄어쓰기 제거 후 넣기
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), donationId);
+		}
+	}
+	
 	
 	// 메인 사진 등록 메소드
 	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto) {
@@ -132,6 +148,7 @@ public class DonationBoardService {
 			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
 		}
 	}
+	//--------------------------------------------------------------------------------------------------------------------
 	
 	// 기부금 결제
 	public void donate(int donationId, int amount, String content, String memberId) {

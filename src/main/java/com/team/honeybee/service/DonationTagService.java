@@ -14,8 +14,8 @@ public class DonationTagService {
 	DonationTagMapper mapper;
 	
 	//해쉬 태그 별, 게시글 가져오기
-	public List<DonationDto> getDonationBoardByhashTag(String hashTag) {
-		return mapper.getDonationBoardByhashTag(hashTag);
+	public List<DonationDto> getDonationBoardByhashTag(String hashTag, String sort) {
+		return mapper.getDonationBoardByhashTag(hashTag, sort);
 	}
 
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.service.DonationTagService;
@@ -18,8 +19,10 @@ public class DonationTagController {
 	
 	//해쉬 태그 별, 게시글 가져오기
 	@RequestMapping("donation/tags/{hashTag}")
-	public String selectDonationBoardByhashTag(@PathVariable String hashTag, Model model) {
-		List<DonationDto> boardList = service.getDonationBoardByhashTag(hashTag);
+	public String selectDonationBoardByhashTag(@PathVariable String hashTag, 
+				@RequestParam(name="sort", defaultValue = "")String sort,
+															Model model) {
+		List<DonationDto> boardList = service.getDonationBoardByhashTag(hashTag, sort);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("hashTag", hashTag);
 		return "donation/tags";

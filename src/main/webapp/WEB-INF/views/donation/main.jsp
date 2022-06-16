@@ -205,24 +205,6 @@
 	                		</a>
 		                </div>
                 </c:forEach>
-                
-               	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-  						<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-wind fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">임시 게시글제목</h4>
-                            <p>닉네임</p>
-                          	<div class="progress">
-								  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>

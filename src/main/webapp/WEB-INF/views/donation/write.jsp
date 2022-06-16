@@ -16,13 +16,13 @@
 </head>
 <body>
 	
-	<form action="${appRoot }/donation/board_write" method="POST" enctype="multipart/form-data">
+	<form action="${appRoot }/donation/board/write" method="POST" enctype="multipart/form-data">
 		<label for="">제목</label>
 		<input type="text" name="title"/>
 		<br />
 		<label for="">주제 내용</label>
 		<!-- '모금중'일 경우 주제 선택 -->
-		<select id="subtopic" name="subtopic" class="subtopic">
+		<select id="subtopic" name="topic" class="subtopic">
 			<option value="0">주제 선택</option>
 			<option value="1">어린이</option>
 			<option value="2">장애인</option>
@@ -45,11 +45,7 @@
 		<input type="file" name="mainPhoto" accept="image/*" /> 
 		<br />
 		<label for="">태그</label>
-		<div class="input_tag"><input type="text" name="tag1" value="${tag1}" placeholder="태그1 (필수)"></div>
-		<div class="input_tag"><input type="text" name="tag2" value="${tag2}" placeholder="태그2 (선택)"></div>
-		<div class="input_tag"><input type="text" name="tag3" value="${tag3}" placeholder="태그3 (선택)"></div>
-		
-		<div class="input_tag"><input type="text" name="tagAll" placeholder="태그All"></div>
+		<div class="input_tag"><input type="text" name="hashTagLump" placeholder="태그All"></div>
 		<button>제출</button>
 	</form>
 </body>

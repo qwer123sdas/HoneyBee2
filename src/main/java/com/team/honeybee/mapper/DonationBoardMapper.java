@@ -12,6 +12,9 @@ import com.team.honeybee.domain.DonationDto;
 public interface DonationBoardMapper {
 	// [임시] 작성 게시판
 	void dontaionBoardWrite(DonationDto dto);
+	// 해쉬 태그 넣기
+	void setHashTag(@Param("hashTag")String hashTag, @Param("donationId")int donationId);
+	
 	// 메인 사진 등록
 	void insertMainPhoto(@Param("donationId")int donationId, @Param("mainPhoto")String mainPhoto);
 	
@@ -23,6 +26,7 @@ public interface DonationBoardMapper {
 	DonationDto getBoard(int donationId);
 	// 해쉬태그 가져오기
 	List<String> getHashTag(int donationId);
+
 	
 	
 }

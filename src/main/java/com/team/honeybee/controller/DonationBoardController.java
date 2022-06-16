@@ -1,6 +1,7 @@
 package com.team.honeybee.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,11 +93,16 @@ public class DonationBoardController {
 
 	}
 	
-	@PostMapping("board_write")
-	public String write(DonationDto dto, MultipartFile mainPhoto, Principal principal) {
+	@PostMapping("board/write")
+	public String write(DonationDto dto, 
+						@RequestParam(name="hashTagLump")String hashTagLump, 
+						@RequestParam(name="mainPhoto")MultipartFile mainPhoto, 
+						Principal principal) {
+		System.out.println("컨트롤러");
 		String memberId = principal.getName();
 		dto.setMemberId(memberId);
-		service.dontaionBoardWrite(dto, mainPhoto);
+		
+		service.dontaionBoardWrite(dto, mainPhoto, hashTagLump);
 		return "redirect:/donation/main";
 	}
 	
