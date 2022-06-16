@@ -24,22 +24,33 @@
 		<nav:sidebar></nav:sidebar>
 
 		<div class="container-fluid">
-		
 			<nav:topbar></nav:topbar>
-			<c:forEach items="${donation }" var="donation">
-				<c:url value="/admin/getDonation" var="getUrl">
-					<c:param name="donationId" value="${donation.donationId }"></c:param>
-				</c:url>
-				<div class="card" style="width: 18rem;">
-				  <img src="" class="card-img-top" alt="">
-				  <div class="card-body">
-				    <h4 class="card-title">${donation.title }</h4>
-				    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
-				    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
-				    <a href="${getUrl }" class="stretched-link"></a>
-				  </div>
-				</div>			
-			</c:forEach>
+			<div class="row">
+				<c:forEach items="${donation }" var="donation">
+					<c:url value="/admin/getDonation" var="getUrl">
+						<c:param name="donationId" value="${donation.donationId }"></c:param>
+					</c:url>
+					<div class="card" style="width: 18rem; margin: 1px;">
+					  <!-- 대표 이미지-->
+					  <c:if test="${empty donation.MPhoto }">
+						<figure class="img_ico mb-4">
+							<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+						</figure>
+					  </c:if>
+					  <c:if test="${not empty donation.MPhoto }">
+						<figure class="mb-4">
+							<img class="img-fluid" src="${imageUrl }/donation/mainPhoto/${donation.donationId }/${donation.MPhoto}" alt="">
+						</figure>
+					  </c:if>
+					  <div class="card-body">
+					    <h4 class="card-title">${donation.title }</h4>
+					    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
+					    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
+					    <a href="${getUrl }" class="stretched-link"></a>
+					  </div>
+					</div>			
+				</c:forEach>
+			</div>		
 		</div>
 	</div>		
 			

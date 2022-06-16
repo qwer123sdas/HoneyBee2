@@ -66,6 +66,11 @@ public class AdminController {
 		model.addAttribute("donation", donationList);
 	}
 	
+	@RequestMapping("talent")
+	public void talent() {
+		
+	}
+	
 	@RequestMapping("meeting")
 	public void meeting(Model model) {
 		List<MeetingDto> meetingList = service.getMeetingList();
@@ -103,6 +108,24 @@ public class AdminController {
 		} else {
 			rttr.addFlashAttribute("message", "판매글 등록 실패");
 		}
+		
+		return "redirect:/admin/market";
+	}
+	
+	@PostMapping("update")
+	public String updateMarket(MarketDto dto, 
+			@RequestParam(name = "removeFileList", required = false) ArrayList<String> removeFileList,
+			@RequestParam("addFileList") MultipartFile[] addFileList, 
+			Model model, 
+			RedirectAttributes rttr) {
+		boolean success = service.updateMarket(dto, removeFileList, addFileList);
+		
+		return "redirect:/admin/market";
+	}
+	
+	@PostMapping("delete")
+	public String deleteMarket(MarketDto dto, RedirectAttributes rttr) {
+		boolean success = service.deleteMarket(dto.getMarket_id());
 		
 		return "redirect:/admin/market";
 	}

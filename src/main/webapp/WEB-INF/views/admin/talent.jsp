@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <%@ page import="java.util.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
@@ -25,20 +26,6 @@
 		<div class="container-fluid">
 		
 			<nav:topbar></nav:topbar>
-			<c:forEach items="${donation }" var="donation">
-				<c:url value="/admin/getTalent" var="getUrl">
-					<c:param name="donationId" value="${donation.donationId }"></c:param>
-				</c:url>
-				<div class="card" style="width: 18rem;">
-				  <img src="" class="card-img-top" alt="">
-				  <div class="card-body">
-				    <h4 class="card-title">${donation.title }</h4>
-				    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
-				    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
-				    <a href="${getUrl }" class="stretched-link"></a>
-				  </div>
-				</div>			
-			</c:forEach>
 		</div>
 	</div>		
 			

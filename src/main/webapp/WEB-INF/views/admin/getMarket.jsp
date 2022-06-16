@@ -27,6 +27,18 @@
 			$("#input3").removeAttr("readonly");
 			$("#modify-button").removeClass("d-none");
 			$("#delete-button").removeClass("d-none");
+			$(".removeFileCheckbox").removeClass("d-none");
+		});
+		$("#delete-button").click(function(e) {
+			e.preventDefault();
+			
+			if(confirm("삭제하시겠습니까?")) {
+				let form1 = $("#form1");
+				let actionAttr = "${appRoot}/admin/delete";
+				form1.attr("action", actionAttr);
+				
+				form1.submit();
+			}
 		});
 	});
 </script>
@@ -48,15 +60,28 @@
 						<button id="edit-button" class="btn btn-secondary">
 							<i class="fa-solid fa-pen-to-square"></i>
 						</button>
-						<form action="${appRoot }/admin/update" method="post" enctype="multipart/form-data">
+						<form id="form1" action="${appRoot }/admin/update" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="market_id" value="${market.market_id }" />
 							<c:forEach items="${market.fileName }" var="file">
 								<%
 								String file = (String) pageContext.getAttribute("file");
 								String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
 								pageContext.setAttribute("encodedFileName", encodedFileName);
 								%>
-								<div>
-									<img src="${imageUrl }/market/${market.market_id }/${encodedFileName }" alt="" />
+								<div class="row">
+									<div class="col-lg-1 col-12 d-flex align-items-center">
+										<div class="d-none removeFileCheckbox">
+											<div class="form-check form-switch">
+												<label class="form-check-label text-danger">
+													<input class="form-check-input delete-checkbox" type="checkbox" name="removeFileList" value="${file }"/>
+													<i class="fa-solid fa-trash-can"></i>
+												</label>
+											</div>
+										</div>
+									</div>
+									<div>
+										<img src="${imageUrl }/market/${market.market_id }/${encodedFileName }" alt="" />
+									</div>
 								</div>
 							</c:forEach>
 							<div>
@@ -74,9 +99,9 @@
 							</div>
 							<div>
 								<label for="fileInput1" class="form-label">
-								파일
+								파일 추가
 								</label>
-								<input class="form-control mb-3" multiple="multiple" type="file" name="file" accept="image/*"/>
+								<input class="form-control mb-3" multiple="multiple" type="file" name="addFileList" accept="image/*"/>
 							</div>
 							<div>
 								<label for="input3" class="form-label">가격</label>

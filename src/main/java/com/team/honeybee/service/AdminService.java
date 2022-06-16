@@ -2,6 +2,7 @@ package com.team.honeybee.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,7 @@ import com.team.honeybee.mapper.AdminMapper;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -127,6 +129,53 @@ public class AdminService {
 		market.setFileName(fileNames);
 		
 		return market;
+	}
+
+	@Transactional
+	public boolean updateMarket(MarketDto dto, ArrayList<String> removeFileList, MultipartFile[] addFileList) {
+		if (removeFileList != null) {
+			for (String fileName : removeFileList) {
+				deleteFromAwsS3(dto.getMarket_id(), fileName);
+				mapper.deleteFileByMarketIdAndFileName(dto.getMarket_id(), fileName);
+			}
+		}
+		
+		if (addFileList != null) {
+			// File 테이블에 추가된 파일 insert
+			// s3에 upload
+			addFiles(dto.getMarket_id(), addFileList);
+		}
+		return mapper.updateMarket(dto) == 1;
+	}
+	
+	private void deleteFromAwsS3(int id, String fileName) {
+		String key = "market/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+
+	@Transactional
+	public boolean deleteMarket(int market_id) {
+		List<String> fileList = mapper.selectFileNameByMarketId(market_id);
+		
+		removeFiles(market_id, fileList);
+		
+		return mapper.deleteMarket(market_id) == 1;
+	}
+	
+	private void removeFiles(int id, List<String> fileList) {
+		// s3에서 지우기
+		for (String fileName : fileList) {
+			deleteFromAwsS3(id, fileName);
+		}
+		
+		// 파일테이블 삭제
+		mapper.deleteFileByMarketId(id);
 	}
 
 }

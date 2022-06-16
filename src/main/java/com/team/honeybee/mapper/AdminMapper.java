@@ -34,4 +34,12 @@ public interface AdminMapper {
 
 	List<String> selectFileNameByMarketId(int market_id);
 
+	int updateMarket(MarketDto dto);
+
+	void deleteFileByMarketIdAndFileName(@Param("market_id") int market_id, @Param("file") String fileName);
+
+	int deleteMarket(int market_id);
+
+	void deleteFileByMarketId(int id);
+
 }
