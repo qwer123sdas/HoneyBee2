@@ -155,9 +155,9 @@
 	    </div>
 	    <!-- Page Header End -->
         <!-- Page content-->
-	<div class="container mt-4">
-		<div class="row">
-			<div class="col-lg-8">
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-lg-8">
 
 				<!-- Post content Start -->
 				<article>
