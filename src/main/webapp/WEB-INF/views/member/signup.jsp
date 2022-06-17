@@ -29,8 +29,8 @@
 			$("#checkIdButton").attr("disabled", "");
 			memberIdOk = false;
 			$.ajax({
-				url : "${appRoot}/member/check",
-				type : "get",
+				url : "${appRoot}/member/memberId/check",
+				type : "post",
 				data : data,
 				success : function(data) {
 					switch(data) {
@@ -62,8 +62,8 @@
 			$("#checkEmailButton").attr("disabled", "");
 			emailOk = false;
 			$.ajax({
-				url : "${appRoot}/member/check",
-				type : "get",
+				url : "${appRoot}/member/email/check",
+				type : "post",
 				data : data,
 				success : function(data) {
 					switch(data) {
@@ -95,8 +95,8 @@
 			$("#checkNickNameButton").attr("disabled", "");
 			nickNameOk = false;
 			$.ajax({
-				url : "${appRoot}/member/check",
-				type : "get",
+				url : "${appRoot}/member/nickname/check",
+				type : "post",
 				data : data,
 				success : function(data) {
 					switch(data) {
@@ -183,10 +183,6 @@
 				상세주소 <input type="text" name="detail" /> <br />
 				생년월일 <input type="date" name="birth" /> <br />
 				전화 <input type="text" name="phone" /> <br />
-				<form action="uploadFormAction" method="post" enctype="multipart/form-data">
-					<input type="file" name="uploadFile" multiple />
-					<button>파일첨부</button>
-				</form>
 				<button id="submitButton1" disabled>회원가입</button>
 			</form>
 		</div>

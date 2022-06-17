@@ -45,9 +45,31 @@
 	</select>
 	
 	<select id="memberInfo" resultType="com.team.honeybee.domain.MemberDto">
-		SELECT member_id memberId, name, email, nickname, postcode, address, detail, phone
+		SELECT member_id memberId, pw, name, email, nickname, postcode, address, detail, phone
 		FROM Member
 		WHERE member_id = #{memberId}
 	</select>
+	
+ 	<!-- 회원 탈퇴 -->
+	<delete id="deleteMemberById">
+		DELETE FROM Member
+		WHERE member_id = #{memberId}
+	</delete>
+	
+	<!-- 회원 권한 삭제 -->
+	<delete id="deleteAuthById">
+		DELETE FROM Auth
+		WHERE member_id = #{memberId}
+	</delete>
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember">
+		UPDATE Member
+		SET pw = #{pw},
+			email = #{email},
+			nickname = #{nickname}
+		WHERE member_id = #{memberId}
+			
+	</update>
 	
 </mapper> 

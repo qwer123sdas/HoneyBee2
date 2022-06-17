@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,11 +19,6 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 
-	@GetMapping("index2")
-	public void index2() {
-
-	}
-	
 	@GetMapping("signup")
 	public void signupForm() {
 
@@ -59,7 +53,7 @@ public class MemberController {
 		}
 	}
 
-	@GetMapping(path = "check", params = "memberId")
+	@PostMapping("memberId/check")
 	@ResponseBody
 	public String idCheck(String memberId) {
 		boolean exist = service.hasMemberId(memberId);
@@ -71,7 +65,7 @@ public class MemberController {
 		}
 	}
 
-	@GetMapping(path = "check", params = "email")
+	@PostMapping("email/check")
 	@ResponseBody
 	public String emailCheck(String email) {
 		boolean exist = service.hasMemberEmail(email);
@@ -83,7 +77,7 @@ public class MemberController {
 		}
 	}
 
-	@GetMapping(path = "check", params = "nickname")
+	@PostMapping("nickname/check")
 	@ResponseBody
 	public String nickNameCheck(String nickname) {
 		boolean exist = service.hasMemberNickName(nickname);
@@ -121,8 +115,50 @@ public class MemberController {
 	
 	// 회원 정보
 	@GetMapping("info")
-	public void info(String memberId, String name, String email, String nickname, String postcode, String address, String detail, String phone, Model model) {
-		MemberDto info = service.memberInfo(memberId, name, email, nickname, postcode, address, detail, phone);
+	public void infoPage(String memberId, Model model) {
+		MemberDto info = service.memberInfo(memberId);
 		model.addAttribute("memberInfo", info);
 	}
+	@PostMapping("info")
+	public void info() {
+
+	}
+	
+	// 회원 탈퇴 
+	
+	@PostMapping("remove")
+	public String removeMember(MemberDto dto, RedirectAttributes rttr) {
+		boolean success = service.removeMember(dto);
+		
+		if(success) {
+			rttr.addFlashAttribute("message", "회원 탈퇴를 완료하였습니다.");
+			return "redirect:/member/temp-mainPage";
+		} else {
+			rttr.addFlashAttribute("memberId", dto.getMemberId());
+			return "redirect:/member/info";
+		}
+	}
+	
+	// 회원 정보 수정
+	@PostMapping("modify")
+	public String modifyMember(MemberDto dto, String oldPw, RedirectAttributes rttr) {
+		boolean success = service.modifyMember(dto, oldPw);
+		if(success) {
+			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
+		}
+		rttr.addAttribute("memberId", dto.getMemberId()); 
+		return "redirect:/member/info";
+	}
 }
+
+
+
+
+
+
+
+
+
+

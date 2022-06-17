@@ -14,6 +14,7 @@ public interface MemberMapper {
 
 	int countMemberNickName(String nickname);
 
+	// 회원 권한 주기
 	int insertAuth(@Param("memberId") String memberId, @Param("auth") String auth);
 
 	// 아이디 찾기
@@ -25,8 +26,13 @@ public interface MemberMapper {
 
 	String findPw2(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
 
-	MemberDto memberInfo(@Param("memberId") String memberId,@Param("name") String name, 
-			@Param("email") String email, @Param("nickname") String nickname, @Param("postcode") String postcode, 
-			@Param("address")String address, @Param("detail") String detail, @Param("phone") String phone);
+	MemberDto memberInfo(@Param("memberId") String memberId);
 	
+	// 회원 탈퇴
+	int deleteMemberById(String memberId);
+	// 회원 권한 삭제
+	void deleteAuthById(String memberId);
+	// 회원 정보 수정
+	int updateMember(MemberDto dto);
+
 }
