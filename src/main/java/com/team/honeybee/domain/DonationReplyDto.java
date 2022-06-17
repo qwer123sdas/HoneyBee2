@@ -1,5 +1,6 @@
 package com.team.honeybee.domain;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -25,5 +26,11 @@ public class DonationReplyDto {
 	// @DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일", timezone = "Asia/Seoul")
 	private LocalDate inserted;
+	
+	// 기부금액액수 단위 화면 표시
+	public String getAmountMakedDecimalFormat() {
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(amount);
+	}
 	
 }

@@ -21,10 +21,10 @@
 		WHERE t.hash_tag = #{hashTag}
 		</if>
 		<if test='sort == "2"'>
-		WHERE t.hash_tag = #{hashTag} AND d.expired > NOW() AND d.enable = 1
+		WHERE t.hash_tag = #{hashTag} AND d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1
 		</if>
 		<if test='sort == "3"'>
-		WHERE t.hash_tag = #{hashTag} AND NOT (d.expired > NOW()) AND d.enable = 1
+		WHERE t.hash_tag = #{hashTag} AND NOT (d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d')) AND d.enable = 1
 		</if>
 		<if test='sort == "4"'>
 		WHERE t.hash_tag = #{hashTag} AND d.enable = 0

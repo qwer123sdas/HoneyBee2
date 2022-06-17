@@ -313,8 +313,8 @@
 				</c:forEach>
 				
 				<p class="mb-4"></p>
-				<h2>${board.currentAmount}원</h2>
-				<h5>${board.goal}</h5>
+				<h2>${board.currentAmountMakedDecimalFormat}원</h2>
+				<h5>${board.goalMakedDecimalFormat}</h5>
 				<div class="progress mb-2">
 					<div class="progress-bar bg-warning" role="progressbar"
 						style="width: ${board.achievementRate}%" aria-valuenow="${board.achievementRate}" aria-valuemin="0"
@@ -509,7 +509,7 @@
     	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 <div class="ms-3">
                                 	<div class="fw-bold" id="replyDiv">
-                                	\${list[i].nickname }   \${list[i].amount }원
+                                	\${list[i].nickname }   \${list[i].amountMakedDecimalFormat }원
                                 	</div>
                                 		\${list[i].content}
                                 	<div class="mt-3">\${list[i].inserted }</div>    

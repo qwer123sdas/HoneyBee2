@@ -1,6 +1,7 @@
 package com.team.honeybee.controller;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class DonationReplyController {
 		}else {
 			// 로그인 한 상태일 때
 			System.out.println(principal.getName());
+			
 			return service.listReplyWithOwnByBoardId(donationId, principal.getName());
 		}
 	}

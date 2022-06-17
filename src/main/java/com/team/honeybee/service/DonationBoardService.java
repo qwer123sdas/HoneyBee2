@@ -8,6 +8,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +19,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
 import com.team.honeybee.domain.DonationReplyDto;
+import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.mapper.DonationBoardMapper;
 import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.mapper.DonationReplyMapper;
+import com.team.honeybee.mapper.SummerNoteMapper;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -35,6 +42,9 @@ public class DonationBoardService {
 	
 	@Autowired
 	DonationPayMapper payMapper;
+	
+	@Autowired
+	SummerNoteMapper summerNoteMapper;
 	
 	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
@@ -73,12 +83,14 @@ public class DonationBoardService {
 	// [임시] 도네이션 작성 게시판----------------------------------------------------------------------------------------
 	@Transactional
 	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto, String hashTagLump) {
+		// 게시글 항목 저장
 		mapper.dontaionBoardWrite(dto);
 		System.out.println("dto : " + dto);
-		// 해쉬 태그 분류하는 메소드
+		
+		// 해쉬 태그 분류 + db에 넣는 메소드
 		makeHashTagWithoutShop(hashTagLump, dto.getDonationId());
 		
-		
+	
 		
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
@@ -89,15 +101,30 @@ public class DonationBoardService {
 			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto); 
 		}
 		
-		// summernote 사진 등록
-		/*if() {
-			// db 저장
-			mapper.insertTextAreaPhoto();
-			// s3 저장
-			saveTextAreaPhotoAwsS3();
-		}*/
+		// Jsoup :  실제 이미지 업로드 판별
+		//List<String> uploadImageAtTestArea = new ArrayList<>();
+		Document doc;
+		doc = Jsoup.parse(dto.getContent());
+		Elements imgs = doc.select("img[src]");
+		
+		for(Element img : imgs) {
+			// uploadImageAtTestArea.add(img.attr("src"));
+			if(summerNoteMapper.compareImage(img.attr("src")) != 1 ) {
+				// 지우기
+				System.out.println("src 이름 : " +img.attr("src") );
+				summerNoteMapper.deleteImage(img.attr("src"));
+				
+				// s3 지우기
+				SummerNoteDto SND = summerNoteMapper.getImageDate(img.attr("src"));
+				int imageId = SND.getImageId();
+				String imageName = SND.getImageName();
+				deleteFromAwsS3(imageId, imageName);
+			}
+		}
+		
+
 	}
-	// 해쉬태그 분류하기
+	// 해쉬태그 분류하기 + db에 넣기 메소드
 	public void makeHashTagWithoutShop(String hashTagLump, int donationId) {
 		
 		String hashTag[] = hashTagLump.split("#");
@@ -129,25 +156,24 @@ public class DonationBoardService {
 		}
 	}
 	
-	// 서머노트 사진 등록 메소드
-	private void saveTextAreaPhotoAwsS3(int donationId, MultipartFile textAreaPhoto) {
-		String key = "donation/textArea/" + donationId + "/" + textAreaPhoto.getOriginalFilename();
+	// ++ aws의 s3에서 파일 삭제 메소드
+	private void deleteFromAwsS3(int id, String fileName) {
+		System.out.println("삭제 가동");
+		System.out.println(id);
+		System.out.println(fileName);
+		String key = "donation/image/temp/" + id + "/" + fileName;
 		
-		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
-				.bucket(bucketName) 					// bucket 위치 설정
-				.key(key)								// 키
-				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
 		
-		RequestBody requestBody;
-		try {
-			requestBody = RequestBody.fromInputStream(textAreaPhoto.getInputStream(), textAreaPhoto.getSize());
-			amazonS3.putObject(putObjectRequest, requestBody);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
-		}
+		amazonS3.deleteObject(deleteBucketRequest);
+		
 	}
+	
+
 	//--------------------------------------------------------------------------------------------------------------------
 	
 	// 기부금 결제

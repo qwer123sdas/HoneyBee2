@@ -17,10 +17,10 @@
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
 		<if test="topic != ''">
-		WHERE d.topic = #{topic} AND d.expired >= NOW() AND d.enable = 1
+		WHERE d.topic = #{topic} AND d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1
 		</if>
 		<if test="topic == ''">
-		WHERE d.expired >= NOW() AND d.enable = 1
+		WHERE d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1
 		</if>
 		GROUP BY d.donation_id
 		<if test='sort == "" || sort=="1"'>  
