@@ -41,11 +41,6 @@
 	    <!-- Template Stylesheet -->
 	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 	    
-	    <!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
-	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
-	    <!-- 카카오지도 라이브러리 불러오기 -->
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services,clusterer,drawing"></script>
-	    
 	    <style>
 		
 		body {
@@ -188,8 +183,8 @@
 					<section class="mb-5">
 						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
 						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
-						<h2 class="fw-bolder mb-4 mt-5">모임 장소 ${meeting.address } ${meeting.detailAddress }</h2>
-						<input type="hidden" id="address" value="${meeting.address }"/>
+						<h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts
+							every day</h2>
 						<p class="fs-5 mb-4">For me, the most fascinating interface is
 							Twitter. I have odd cosmic thoughts every day and I realized I
 							could hold them to myself or share them with people who might be
@@ -222,9 +217,8 @@
 								</div>
 							</form>
                             <!-- 댓글 대댓글 출력 ajax 처리 -->
-                       
-                            <div id="meetingReply" class="meetingReplyList"></div> 
-                            <%-- c:forEach items="${replyList }" var="reply">
+                            <div id="meetingReplyList"></div> 
+                             <<%-- c:forEach items="${replyList }" var="reply">
                                 <div class="d-flex mb-4">
                                     <!-- 부모댓글 출력 -->
 	                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
@@ -301,35 +295,31 @@
 	    <!-- Template Javascript -->
 	    <script src="${appRoot }/resources/webContents/js/main.js"></script>
 	    
+	   	<!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
+	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
 	    
         
 	    <script>
 		$(document).ready(function() {
-			
-			console.log(1);
-	    	
-			/* 카카오 지도 api */
-			/*
+	    	/* 카카오 지도 api */
 		    var mapContainer = document.getElementById('map'); // 지도 div
 		    var mapOption = { //지도를 생성할 때 필요한 기본 옵션
 		    	center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표
 		    	level: 3 //지도의 레벨(확대, 축소 정도)
 		    };
-		    console.log(4);			
+			
 		 	 //지도 생성 및 객체 리턴	
 		    var map = new kakao.maps.Map(mapContainer, mapOption); 
 		 	 
-		    console.log(5);
 			 // 주소, 좌표 변환 객체를 생성
 		    var geocoder = new kakao.maps.services.Geocoder();
 			
-		    console.log(6);
 			 // 주소로 좌표를 검색
-		    geocoder.addressSearch($('#address').val(), function(result, status) {
+		    geocoder.addressSearch('서울시 광진구 천호대로 579', function(result, status) {
 
-	    	console.log(3);
 		   	// 정상적으로 검색이 완료됐으면 
 		    if (status === kakao.maps.services.Status.OK) {
+
 		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
 		    // 결과값으로 받은 위치를 마커로 표시
@@ -350,60 +340,55 @@
 		    	} 
 			});    	
 			 
-		    
-				*/
+
 				
-				console.log(88)
 				const meetingReplyList = function() {
 					
 					const data = {meetingId : ${meeting.meetingId}};
 					
-					$.ajax({ // 댓글 출력
+					$.ajax({
 						
-						url : "${appRoot}/meeting/reply/list",
-						type : "get",
+						url:'${appRoot}/meeting/reply/list',
+						type : 'POST',
 						data : data,
 						success : function(list) {
-							
 							const replyListElement = $('#meetingReply');
-							replyListElement.empty(); // 초기화
+							replyListElement.empty();
 							
-							// 댓글 갯수
-							console.log(list);
+							// 댓글 갯수는 일단 킵
 							
 							for (let i = 0; i < list.length; i++) {
+								
 								const replyElement = $("<div class='d-flex mb-4' />");
-								replyElement.html(`
+								
+								replyElement.html('
 										 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
 	                                    	<div class="ms-3">
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
-	                                       	 \${list[i].content }
-	                                       	 \${list[i].inserted }
-	                                       	  <span><i class="fa-solid fa-pen"></i>댓글쓰기</span>
+	                                       	 <span class="content">\${list[i].content }</span>
+	                                       	 <span class="insert">\${list[i].inserted } </span>
+	                                       	  <span class="reply"><i class="fa-solid fa-pen"></i>댓글쓰기</span>
+	                                        <hr>
                             			 </div>  
-										`);
+                           			</div>
+										');
 								
-                           	
                            	replyListElement.append(replyElement);
+                           	
 							} // end of for
-						},// success end
-						
-						error : function() {
-							console.log("댓글 가져오기 실패")
-						}
+						} // success end
 						
 						
 					}); // 댓글 목록 ajax end
 					
-				}
 					
-			// 댓글 목록 실행
-			console.log(99);
-			meetingReplyList();
-			console.log(100);
+				}
 				
-
-		});
+			// 댓글 목록 실행
+			meetingReplyList();
+			
+			}); 
+			
 	    
 </script>
 </body>

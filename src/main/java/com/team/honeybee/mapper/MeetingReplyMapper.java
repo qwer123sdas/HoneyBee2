@@ -17,4 +17,6 @@ public interface MeetingReplyMapper {
 	// 댓글입력시 생성번호를 부모 댓글 번호로 넣기
 	void updateMeetingReplyParent(MeetingReplyDto reply);
 
+	List<MeetingReplyDto> selectAllChildrenByParentReplyId(int parentId);
+
 }

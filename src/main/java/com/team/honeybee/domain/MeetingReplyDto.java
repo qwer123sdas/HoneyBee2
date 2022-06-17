@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,4 +21,7 @@ public class MeetingReplyDto {
 	private int deep;
 	// 부모댓글 기준 그룹
 	private int meetingReplyGnum;
+	
+	// 자식댓글
+	private List<MeetingReplyDto> childen;
 }

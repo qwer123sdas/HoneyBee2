@@ -17,11 +17,26 @@ public class MeetingReplyService {
 
 	// 로그인 하지 않은 회원 댓글 리스트만 보여주기
 	public List<MeetingReplyDto> getReplyByMeetingId(int meetingId) {
-		return mapper.selectAllMeetingId(meetingId, null);
+		return getReplyWithOwnMeetingId(meetingId, null);
 	}
 	// 로그인 회원 정보 담은 댓글 리스트
 	public List<MeetingReplyDto> getReplyWithOwnMeetingId(int meetingId, String memberId) {
-		return mapper.selectAllMeetingId(meetingId, memberId);
+		List<MeetingReplyDto> list = mapper.selectAllMeetingId(meetingId, memberId);
+		
+		addChildren(list);
+		
+		return list;
+	}
+	private void addChildren(List<MeetingReplyDto> list) {
+		for (MeetingReplyDto dto : list) {
+			
+			List<MeetingReplyDto> childen = mapper.selectAllChildrenByParentReplyId(dto.getMeetingReplyId());
+			
+			dto.setChilden(childen);
+			
+			// 자식의자식
+			addChildren(childen);
+		}
 	}
 	
 	// 로그인 회원 댓글입력 
