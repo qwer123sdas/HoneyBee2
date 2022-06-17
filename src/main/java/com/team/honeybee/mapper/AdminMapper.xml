@@ -41,7 +41,7 @@
 				f.file MPhoto
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN DonationFile f ON d.donation_id = f.donation_id
-		ORDER BY enable ASC
+		ORDER BY enable ASC, expired ASC
 	</select>
 	
 	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">

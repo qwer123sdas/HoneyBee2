@@ -66,6 +66,12 @@ public class AdminController {
 		model.addAttribute("donation", donationList);
 	}
 	
+	@RequestMapping("getDonation")
+	public void getDonation(int donationId, Model model) {
+		DonationDto dto = service.getDonation(donationId);
+		model.addAttribute("donation", dto);
+	}
+	
 	@RequestMapping("talent")
 	public void talent() {
 		

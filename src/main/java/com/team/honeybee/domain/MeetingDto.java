@@ -1,26 +1,38 @@
 package com.team.honeybee.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Data;
 
 @Data
-public class MeetingDto {
-	private int meeting_id;
-	private String member_id;
+public class MeetingDto{
+	
+	private int meetingId;
+	private String memberId;
+	private String nickname;
 	
 	private String title;
-	private String contents;
+	private String content;
 	private String postcode;
 	private String address;
 	private String detailAddress;
 	private String guest; 
-	
-	private List<String> fileName;
+	private String topic; // 카테고리 번호
+	private List<String> hashTag; // 해쉬태그 hash_tag
 	
 	private LocalDateTime inserted;
-	private LocalDateTime start_date;
-	private LocalDateTime end_date;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate startDate;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate endDate;
 	private String tag;
+	
+	
+	
+	
 }

@@ -46,6 +46,8 @@
 					    <h4 class="card-title">${donation.title }</h4>
 					    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
 					    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
+					    <p><strong>등록여부</strong><c:if test="${donation.enable == 1 }">등록허용</c:if>
+					    <c:if test="${donation.enable == 0 }">등록전</c:if></p>
 					    <a href="${getUrl }" class="stretched-link"></a>
 					  </div>
 					</div>			

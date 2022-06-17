@@ -178,4 +178,10 @@ public class AdminService {
 		mapper.deleteFileByMarketId(id);
 	}
 
+	public DonationDto getDonation(int donationId) {
+		
+		
+		return null;
+	}
+
 }
