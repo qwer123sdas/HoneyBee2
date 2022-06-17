@@ -23,10 +23,13 @@ public class MeetingReplyService {
 	public List<MeetingReplyDto> getReplyWithOwnMeetingId(int meetingId, String memberId) {
 		List<MeetingReplyDto> list = mapper.selectAllMeetingId(meetingId, memberId);
 		
+		// 자식댓글 리스트 담기
 		addChildren(list);
 		
 		return list;
 	}
+	
+	// 자식 댓글 입력 메소드
 	private void addChildren(List<MeetingReplyDto> list) {
 		for (MeetingReplyDto dto : list) {
 			

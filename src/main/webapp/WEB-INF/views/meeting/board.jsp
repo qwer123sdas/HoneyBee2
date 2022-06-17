@@ -1,53 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% request.setCharacterEncoding("utf-8"); %>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Blog Post - Start Bootstrap Template</title>
-        
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-	    <meta content="" name="keywords">
-	    <meta content="" name="description">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Blog Post - Start Bootstrap Template</title>
 
-	    <!-- Google Web Fonts -->
-	    <link rel="preconnect" href="https://fonts.googleapis.com">
-	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
-	
-	    <!-- google font 추가함 -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-	    
-	    <!-- Icon Font Stylesheet -->
-	    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-	    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-	
-	    <!-- Libraries Stylesheet -->
-	    <link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
-	    <link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-	    <link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-	
-	    <!-- Customized Bootstrap Stylesheet -->
-	    <link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
-	
-	    <!-- Template Stylesheet -->
-	    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
-	    
-	    <!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
-	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
-	    <!-- 카카오지도 라이브러리 불러오기 -->
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services,clusterer,drawing"></script>
-	    
-	    <style>
-		
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+
+<!-- google font 추가함 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+
+<!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
+<!-- 카카오지도 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services,clusterer,drawing"></script>
+
+<style>
+/* 
 		body {
 		  margin: 0;
 		  font-size: var(--bs-body-font-size);
@@ -60,82 +62,85 @@
 		  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		}
 	    
-	    .container,
-		.container-fluid,
-		.container-xxl,
-		.container-xl,
-		.container-lg,
-		.container-md,
-		.container-sm {
-		  width: 100%;
-		  padding-right: var(--bs-gutter-x, 0.75rem);
-		  padding-left: var(--bs-gutter-x, 0.75rem);
-		  margin-right: auto;
-		  margin-left: auto;
-		}
-		
-		.mt-5 {
-		  margin-top: 3rem !important;
-		}
-		
-		.mb-4 {
-		  margin-bottom: 1.5rem !important;
-		}
-		
-		.mb-5 {
-		  margin-bottom: 3rem !important;
-		}
-		
-		.bg-light {
-		  --bs-bg-opacity: 1;
-		  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
-		}
-		
-		.card-body {
-		  flex: 1 1 auto;
-		  padding: 1rem 1rem;
-		}
-		
-		.input-group {
-		  position: relative;
-		  display: flex;
-		  flex-wrap: wrap;
-		  align-items: stretch;
-		  width: 100%;
-		}
-		
-		.input-group-lg > .form-control,
-		.input-group-lg > .form-select,
-		.input-group-lg > .input-group-text,
-		.input-group-lg > .btn {
-		  padding: 0.5rem 1rem;
-		  font-size: 1.25rem;
-		  border-radius: 0.3rem;
-		}
-		
-		<!-- 대댓글 부분 -->
-		.d-flex {
-		  display: flex !important;
-		}
-		.flex-shrink-0 {
-		  flex-shrink: 0 !important;
-		}
-		.rounded-circle {
-		  border-radius: 50% !important;
-		}
-		.ms-3 {
-		  margin-left: 1rem !important;
-		}
-		.fw-bold {
-		  font-weight: 700 !important;
-		}
-				
-	    
-	    
-	    </style>
+ */
+.container, .container-fluid, .container-xxl, .container-xl,
+	.container-lg, .container-md, .container-sm {
+	width: 100%;
+	padding-right: var(- -bs-gutter-x, 0.75rem);
+	padding-left: var(- -bs-gutter-x, 0.75rem);
+	margin-right: auto;
+	margin-left: auto;
+}
 
-    </head>
-    <body>
+.mt-5 {
+	margin-top: 3rem !important;
+}
+
+.mb-4 {
+	margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+	margin-bottom: 3rem !important;
+}
+
+.bg-light { -
+	-bs-bg-opacity: 1;
+	background-color: rgba(var(- -bs-light-rgb), var(- -bs-bg-opacity))
+		!important;
+}
+
+.card-body {
+	flex: 1 1 auto;
+	padding: 1rem 1rem;
+}
+
+.input-group {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	width: 100%;
+}
+
+.input-group-lg>.form-control, .input-group-lg>.form-select,
+	.input-group-lg>.input-group-text, .input-group-lg>.btn {
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	border-radius: 0.3rem;
+}
+
+<!--
+대댓글 부분 -->.replyForm {
+	height: auto;
+}
+
+.d-flex {
+	display: flex !important;
+}
+
+.flex-shrink-0 {
+	flex-shrink: 0 !important;
+}
+
+.rounded-circle {
+	border-radius: 50% !important;
+}
+
+.ms-3 {
+	margin-left: 1rem !important;
+}
+
+.fw-bold {
+	font-weight: 700 !important;
+}
+.card {
+	box-sizing: content-box;
+}
+</style>
+
+</head>
+<body>
 	    <!-- Spinner Start -->
 	    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
 	        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -190,15 +195,6 @@
 						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
 						<h2 class="fw-bolder mb-4 mt-5">모임 장소 ${meeting.address } ${meeting.detailAddress }</h2>
 						<input type="hidden" id="address" value="${meeting.address }"/>
-						<p class="fs-5 mb-4">For me, the most fascinating interface is
-							Twitter. I have odd cosmic thoughts every day and I realized I
-							could hold them to myself or share them with people who might be
-							interested.</p>
-						<p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I
-							kind of want to know what happened there because we're twirling
-							knobs here on Earth without knowing the consequences of it. Mars
-							once had running water. It's bone dry today. Something bad
-							happened there as well.</p>
 					</section>
 				</article>
 				
@@ -208,7 +204,7 @@
 				</div>
 
 					<!-- 댓글, 대댓글 -->
-                    <section class="mt-5 mb-5">
+                    <section class="replyForm">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- 댓글 입력 form -->
@@ -224,17 +220,6 @@
                             <!-- 댓글 대댓글 출력 ajax 처리 -->
                        
                             <div id="meetingReply" class="meetingReplyList"></div> 
-                            <%-- c:forEach items="${replyList }" var="reply">
-                                <div class="d-flex mb-4">
-                                    <!-- 부모댓글 출력 -->
-	                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-	                                    	<div class="ms-3">
-	                                       	 <div class="fw-bold">${reply.nickname } ${reply.inserted }</div>
-	                                       	 ${reply.content } 
-	                                        <hr>
-                               			 </div>  
-                              		</div>
-                              </c:forEach> --%>
                             </div>
                         </div>
                     </section>
@@ -286,27 +271,25 @@
 		<nav:footbar></nav:footbar>
 
 
-	    <!-- JavaScript Libraries -->
-	    <!--Jquery -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
-	    <script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
-	    
-	    <!-- Template Javascript -->
-	    <script src="${appRoot }/resources/webContents/js/main.js"></script>
-	    
-	    
-        
-	    <script>
+	<!-- JavaScript Libraries -->
+	<!--Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="${appRoot }/resources/webContents/js/main.js"></script>
+
+
+
+	<script>
 		$(document).ready(function() {
-			
-			console.log(1);
 	    	
 			/* 카카오 지도 api */
 			/*
@@ -364,12 +347,12 @@
 						type : "get",
 						data : data,
 						success : function(list) {
-							
+							console.log(list);
 							const replyListElement = $('#meetingReply');
 							replyListElement.empty(); // 초기화
 							
 							// 댓글 갯수
-							console.log(list);
+							console.log(list.length);
 							
 							for (let i = 0; i < list.length; i++) {
 								const replyElement = $("<div class='d-flex mb-4' />");
@@ -379,7 +362,7 @@
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
 	                                       	 \${list[i].content }
 	                                       	 \${list[i].inserted }
-	                                       	  <span><i class="fa-solid fa-pen"></i>댓글쓰기</span>
+	                                       	  <i class="fa-solid fa-pen"></i>댓글쓰기
                             			 </div>  
 										`);
 								

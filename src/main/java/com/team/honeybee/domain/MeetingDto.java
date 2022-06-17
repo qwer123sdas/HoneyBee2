@@ -25,7 +25,8 @@ public class MeetingDto{
 	private String topic; // 카테고리 번호
 	private List<String> hashTag; // 해쉬태그 hash_tag
 	
-	private LocalDateTime inserted;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate inserted;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate startDate;
 	@DateTimeFormat(iso = ISO.DATE)

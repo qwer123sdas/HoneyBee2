@@ -1,6 +1,10 @@
 package com.team.honeybee.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Data;
 
@@ -11,5 +15,6 @@ public class MeetingCommentDto {
 	private int meetingId;
 	private String memeberId;
 	private String content;
-	private LocalDateTime inserted;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate inserted;
 }
