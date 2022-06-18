@@ -26,6 +26,9 @@ public interface SummerNoteMapper {
 	
 	// 비교 후 없는 이름들 지우기
 	void deleteImage(String imageUrl);
+	//donationId 넣어주기
+	void setDonationId(@Param("donationId")int donationId, @Param("imageFolderId")String imageFolderId);
+	
 	
 	
 

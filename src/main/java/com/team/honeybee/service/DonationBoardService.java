@@ -128,12 +128,12 @@ public class DonationBoardService {
 				System.out.println("db 지우기");
 				summerNoteMapper.deleteImage(imageUrl);
 				
-				// donationId 넣어주기
-				
 				// s3 지우기
 				deleteFromAwsS3(imageUrl);
 			}
 		}
+		// donationId 넣어주기
+		summerNoteMapper.setDonationId(dto.getDonationId(), imageFolderId);
 		
 
 	}

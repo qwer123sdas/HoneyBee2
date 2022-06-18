@@ -30,10 +30,16 @@
 		WHERE image_folder_id = #{imageFolderId}
 	</select>
 	
-	
 	<!--비교 후 없는 이름들 지우기  -->
 	<delete id="deleteImage">
 		DELETE FROM BoardImage
 		WHERE image_url = #{imageUrl}
 	</delete>
+	
+	<!-- donationId 넣어주기  -->
+	<update id="setDonationId">
+		UPDATE BoardImage
+		SET donation_id = #{donationId}
+		WHERE image_folder_id = #{imageFolderId}
+	</update>
 </mapper>
