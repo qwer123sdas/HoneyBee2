@@ -2,6 +2,7 @@ package com.team.honeybee.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -47,13 +48,14 @@ public class SummerNoteService {
 
 	
 	// 서머노트 이미지 저장
-	public String uploadImageToS3ForSummerNote(MultipartFile multipartImage, String memberId) {
+	public String uploadImageToS3ForSummerNote(MultipartFile multipartImage, String folderId, String memberId) {
+		
 		// 파일 s3에 등록
 		if(multipartImage.getSize() > 0) {
 			// 이름의 겹치치 않게 파일명 전환, return 값은 바뀐 파일명
 			String savedImageName = summerNoteUploadImageName(multipartImage); 
 			
-			String imageUrl = saveTextAreaPhotoAwsS3(memberId, multipartImage, savedImageName);
+			String imageUrl = saveTextAreaPhotoAwsS3(memberId, multipartImage, savedImageName, folderId);
 			return imageUrl;
 		}
 		return "";
@@ -61,14 +63,15 @@ public class SummerNoteService {
 	}
 	
 	// 서머노트 사진 등록 메소드
-	private String saveTextAreaPhotoAwsS3(String memberId, MultipartFile multipartImage, String savedImageName) {
+	private String saveTextAreaPhotoAwsS3(String memberId, MultipartFile multipartImage, String savedImageName, String folderId) {
 		SummerNoteDto SND = new SummerNoteDto();
 		SND.setMemberId(memberId);
 		SND.setImageName(savedImageName);
-		// db에 저장
+		SND.setImageFolderId(folderId);
+		// db에 위 3가지 정보 저장
 		mapper.insertImage(SND);  
 		
-		String key = "donation/image/temp/" + SND.getImageId() + "/" + savedImageName;
+		String key = "donation/image/temp/" + folderId + "/" + savedImageName;
 		
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -80,7 +83,7 @@ public class SummerNoteService {
 		RequestBody requestBody;
 		
 		try {
-			// ulr만 저장
+			// image_url만 저장
 			mapper.uploadImageUrl(awsS3Url + key, SND.getImageId());
 			requestBody = RequestBody.fromInputStream(multipartImage.getInputStream(), multipartImage.getSize());
 			

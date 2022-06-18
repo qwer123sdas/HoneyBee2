@@ -91,7 +91,6 @@ public class DonationBoardService {
 		makeHashTagWithoutShop(hashTagLump, dto.getDonationId());
 		
 	
-		
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
 			// db 저장
@@ -101,24 +100,38 @@ public class DonationBoardService {
 			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto); 
 		}
 		
+		
 		// Jsoup :  실제 이미지 업로드 판별
 		//List<String> uploadImageAtTestArea = new ArrayList<>();
-		Document doc;
-		doc = Jsoup.parse(dto.getContent());
+		Document doc = Jsoup.parse(dto.getContent());
 		Elements imgs = doc.select("img[src]");
 		
+		// 정말 사용하는 이미지 리스트
+		List<String> isImage = new ArrayList<>();
 		for(Element img : imgs) {
-			// uploadImageAtTestArea.add(img.attr("src"));
-			if(summerNoteMapper.compareImage(img.attr("src")) != 1 ) {
-				// 지우기
-				System.out.println("src 이름 : " +img.attr("src") );
-				summerNoteMapper.deleteImage(img.attr("src"));
+			isImage.add(img.attr("src"));
+		}
+		System.out.println("isImage : "+ isImage);
+		
+		// 사용하지 않는 이미지 리스트
+		// image_folder_id로 해당 db에 있는 이미지 정보 가져오기
+		String imageFolderId = summerNoteMapper.getImageFolderIdImageUrl(isImage.get(0));  // 이미지url로, 관련 image_id가져오기 
+		System.out.println(" imageFolderId : " + imageFolderId); // 
+		
+		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);
+		System.out.println("사용하지 않는 이미지 리스트 dbImageUrlList : " + dbImageUrlList);
+		
+		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
+		for(String imageUrl : dbImageUrlList) {
+			if(! isImage.contains(imageUrl)) {
+				// db 지우기
+				System.out.println("db 지우기");
+				summerNoteMapper.deleteImage(imageUrl);
+				
+				// donationId 넣어주기
 				
 				// s3 지우기
-				SummerNoteDto SND = summerNoteMapper.getImageDate(img.attr("src"));
-				int imageId = SND.getImageId();
-				String imageName = SND.getImageName();
-				deleteFromAwsS3(imageId, imageName);
+				deleteFromAwsS3(imageUrl);
 			}
 		}
 		
@@ -156,12 +169,11 @@ public class DonationBoardService {
 		}
 	}
 	
-	// ++ aws의 s3에서 파일 삭제 메소드
-	private void deleteFromAwsS3(int id, String fileName) {
+	// ++ aws의 s3에서 사진 삭제 메소드
+	private void deleteFromAwsS3(String fileName) {
 		System.out.println("삭제 가동");
-		System.out.println(id);
-		System.out.println(fileName);
-		String key = "donation/image/temp/" + id + "/" + fileName;
+		System.out.println(fileName.substring(75));
+		String key = fileName.substring(75);
 		
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()

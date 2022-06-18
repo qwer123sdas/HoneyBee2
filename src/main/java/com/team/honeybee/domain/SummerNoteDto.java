@@ -9,4 +9,5 @@ public class SummerNoteDto {
 	private String imageUrl;
 	private String memberId;
 	private int donationId;
+	private String imageFolderId;
 }

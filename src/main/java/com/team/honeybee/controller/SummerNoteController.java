@@ -24,11 +24,12 @@ public class SummerNoteController {
 	@PostMapping(value="uploadImageToS3ForSummerNote",  produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadImageToS3ForSummerNote(@RequestParam("image") MultipartFile multipartImage,
+												@RequestParam("folderId") String folderId,
 																	Principal principal, 
 																	HttpServletRequest request) {
 		
 		JsonObject jsonObject = new JsonObject();
-		String imageUrl = service.uploadImageToS3ForSummerNote(multipartImage, principal.getName());
+		String imageUrl = service.uploadImageToS3ForSummerNote(multipartImage, folderId, principal.getName());
 		jsonObject.addProperty("url", awsS3Url + imageUrl);
 		
 		return jsonObject.toString();
