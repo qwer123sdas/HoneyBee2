@@ -10,6 +10,97 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 
+<style>
+
+*, body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+
+.form-holder {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+}
+
+.form-holder .form-content {
+    position: relative;
+    text-align: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.form-content .form-items {
+	background-color: #8F7CBC;
+    border: 3px solid #fff;
+    padding: 40px;
+    display: inline-block;
+    width: 100%;
+    min-width: 540px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    text-align: left;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.form-content h1 {
+    color: #f9c22d;
+    text-align: left;
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-bottom: 30px;
+}
+
+.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+    color: #fff;
+}
+
+.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+    width: 100%;
+    padding: 9px 20px;
+    text-align: left;
+    border: 0;
+    outline: 0;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    color: #8D8D8D;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+}
+
+.form-content button{
+	color: #fdd835;
+}
+
+</style>
+
 <title>회원 가입 화면</title>
 
 <script>
@@ -151,42 +242,113 @@
 <!-- 임시 navBar -->
 <my:navBar current="signup"></my:navBar>
 
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-12 col-lg-6">
-			<form id="form1" action="${appRoot }/member/signup" method="post">
-				<h1>회원 가입</h1>
-				
-				아이디 <input type="text" name="memberId" />
-				<button id="checkIdButton" type="button">중복 확인</button>
-				<p id="memberIdMessage"></p>
-				<br />
-				
-				비밀번호 <input id="pwInput1" type="password" name="pw" /> <br />
-				
-				비밀번호 확인 <input id="pwInput2" type="password" name="pwConfirm" /> <br />
-				<p id="pwMessage"></p>
-				
-				이름 <input type="text" name="name" /> <br />
-				이메일 <input type="email" name="email" /> 
-				<button id="checkEmailButton" type="button">중복 확인</button>
-				<p id="memberEmailMessage"></p>
-				<br />
-				
-				닉네임 <input type="text" name="nickname" />
-				<button id="checkNickNameButton" type="button">중복 확인</button>
-				<p id="memberNickNameMessage"></p>
-				<br />
-				
-				우편번호 <input type="text" name="postcode" /> <br />
-				주소 <input type="text" name="address" /> <br />
-				상세주소 <input type="text" name="detail" /> <br />
-				생년월일 <input type="date" name="birth" /> <br />
-				전화 <input type="text" name="phone" /> <br />
-				<button id="submitButton1" disabled>회원가입</button>
-			</form>
+<div class="form-body">
+	<div class="row">
+		<div class="form-holder">
+			<div class="form-content">
+				<div class="form-items">
+					<form id="form1" action="${appRoot }/member/signup" method="post" class="requires-validation" novalidate>
+						<h1>꿀비 회원 가입</h1>
+						
+						<div class="col-md-12">
+							<!-- 아이디 -->
+							<input type="text" name="memberId" placeholder="아이디"/>
+							<button id="checkIdButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+						</div>
+						<div class="form-text" id="memberIdMessage"></div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 비밀번호 -->
+							<input id="pwInput1" type="password" name="pw" placeholder="비밀번호"/>
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 비밀번호 확인 -->
+							<input id="pwInput2" type="password" name="pwConfirm" placeholder="비밀번호 확인"/>
+						</div>
+						<div class="form-text" id="pwMessage"></div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 이름 -->
+							<input type="text" name="name" placeholder="이름" /> 
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 이메일 -->
+							<input type="email" name="email" placeholder="이메일" /> 
+							<button id="checkEmailButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+						</div>
+						<div class="form-text" id="memberEmailMessage"></div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 닉네임 -->
+							<input type="text" name="nickname" placeholder="닉네임" />
+							<button id="checkNickNameButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+						</div>
+						<div class="form-text" id="memberNickNameMessage"></div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 우편번호 -->
+							<input type="text" name="postcode" placeholder="우편번호" />
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 주소 -->
+							<input type="text" name="address" placeholder="주소" />
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 상세주소 -->
+							<input type="text" name="detail" placeholder="상세주소" />
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 생년월일 -->
+							<input type="date" name="birth" placeholder="생년월일" />
+						</div>
+						<br />
+						
+						<div class="col-md-12">
+							<!-- 전화 -->
+							<input type="text" name="phone" placeholder="전화" />
+						</div>
+						<br />
+						
+						<div class="form-button mt-3">
+							<button id="submitButton1" class="btn btn-block create-account" disabled>회원가입</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
