@@ -32,7 +32,7 @@ public class MeetingReplyDto {
 	private int meetingReplyGnum;
 	
 	// 레퍼런스, 그룹 : id와 별도로 계층형 그룹 번호이다.
-	private long ref;
+	private long refNum;
 	// 레벨 :  들여쓰기, 처음 0으로 시작, 객층마다 1씩 증가
 	private long step;
 	// 같은 그룹안에 순서 0으로 시작

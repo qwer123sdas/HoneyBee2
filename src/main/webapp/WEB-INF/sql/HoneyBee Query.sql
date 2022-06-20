@@ -52,6 +52,8 @@ ADD topic INT(1) NOT NULL;
 
 SELECT * FROM MeetingReply ;
 
+set sql_safe_udpates=0;
+
 -- 원댓글
 SELECT * FROM MeetingReply 
 WHERE meeting_reply_id = meeting_reply_parent;
@@ -72,10 +74,19 @@ SELECT r.meeting_reply_id meetingReplyId,
 			   r.inserted,
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
-		WHERE r.meeting_id = '18'
-		  AND r.meeting_reply_id = r.meeting_reply_parent
+		WHERE r.meeting_reply_id = r.meeting_reply_parent
+		  AND r.meeting_id = '8'
 		ORDER BY meeting_reply_id;
-  
+        
+select *
+  from MeetingReply a
+     , Member b
+where a.member_id = b.member_id;
+
+
+select max(meeting_reply_id) -- 33
+  from MeetingReply;
+
 
 -- 모임날짜 추가
 ALTER TABLE Meeting
@@ -85,8 +96,17 @@ DESC MeetingFile;
 -- 6/20 컬럼 
 DESC MeetingReply;
 
+-- 삭제요망
 ALTER TABLE MeetingReply
-ADD COLUMN ref BIGINT(255) DEFAULT 0;
+add COLUMN ref BIGINT(255) DEFAULT 0;
+
+
+ALTER TABLE MeetingReply
+MODIFY COLUMN refNum BIGINT(255) DEFAULT 0;
+
+
+
+commit;
 
 ALTER TABLE MeetingReply
 ADD COLUMN step BIGINT(255) DEFAULT 0;

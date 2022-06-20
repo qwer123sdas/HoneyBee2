@@ -19,7 +19,7 @@
 		<div class="replyFormLayout">
 			<div class="replyUserInfoLayout" style="margin-top: 24px;">
 				<div class="replyinsertFormLayout1">
-				<form action="${appRoot }/meeting/reply/insert" method="post" style="margin-top: 16px; margin-bottom: 24px;">
+				<form action="${appRoot }/meeting/replyForm" method="get" style="margin-top: 16px; margin-bottom: 24px;">
 					<div class="replyInsertForm">
 						<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 						더하기 버튼 누르면 로그인 창으로 이동, 대댓글 입력
@@ -58,7 +58,7 @@
 			</div>
 			<!-- 대댓글용 insert -->
 			<div class="replyinsertFormLayout2">
-				<form action="${appRoot }/meeting/reply/insert" method="post" style="margin-top: 16px; margin-bottom: 24px;">
+				<form action="${appRoot }/meeting/replyform" method="post" style="margin-top: 16px; margin-bottom: 24px;">
 					<div class="replyInsertForm">
 						<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 						더하기 버튼 누르면 로그인 창으로 이동, 대댓글 입력

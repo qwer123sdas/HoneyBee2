@@ -20,4 +20,7 @@ public interface MeetingReplyMapper {
 	// 댓글 자식 댓글 모두 출력
 	List<MeetingReplyDto> selectAllChildrenByParentReplyId(int parentId);
 
+	// 자식 댓글 입력
+	void insertMeetingReplyChild(MeetingReplyDto reply);
+
 }

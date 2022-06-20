@@ -47,16 +47,17 @@ public class MeetingService {
 	
 	// 게시물 등록
 	@Transactional
-	public boolean insertBoard(MeetingDto meeting, MultipartFile[] files, String hashTagRaw) {
+	public boolean insertBoard(MeetingDto meeting, MultipartFile[] files) { //, String hashTagRaw
 		int cnt = mapper.insertMeeting(meeting);
 		System.out.println(files.length);
 		System.out.println(meeting.getMeetingId());
 		addFiles(meeting.getMeetingId(), files);
-		hashTagInsertBoardBymeetingId(hashTagRaw, meeting.getMeetingId()); // 해쉬태그 매소드에 태그랑 아이디값 넣기
+		// hashTagInsertBoardBymeetingId(hashTagRaw, meeting.getMeetingId()); // 해쉬태그 매소드에 태그랑 아이디값 넣기
 		
 		return cnt == 1;
 	}
 	
+	/*
 	// 해쉬태그 분리 로직 매소드
 	private void hashTagInsertBoardBymeetingId(String hashTagRaw, int meetingId) {
 		
@@ -66,6 +67,7 @@ public class MeetingService {
 		}
 		
 	}
+	*/
 
 	// 파일 여러개
 	private void addFiles(int meetingId, MultipartFile[] files) {
@@ -137,9 +139,10 @@ public class MeetingService {
 	// 기부모임 게시물 보기
 	public MeetingDto getBoardByMeetingId(int meetingId) {
 		MeetingDto meeting = mapper.selectBoardByMeetingId(meetingId);
+		/*
 		// 해쉬태그 가져오기
 		List<String> hashTag = mapper.getHashTag(meetingId);
-		meeting.setHashTag(hashTag);
+		meeting.setHashTag(hashTag); */
 		return meeting;
 	}
 

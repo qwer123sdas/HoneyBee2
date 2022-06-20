@@ -6,8 +6,49 @@
 	
 	<!-- 회원 댓글 작성 -->
 	<insert id="insertMeetingReply" useGeneratedKeys="true" keyColumn="meetingReplyId" keyProperty="meetingReplyId">
-		INSERT INTO MeetingReply (member_id, meeting_id, content)
-		VALUES (#{memberId}, #{meetingId}, #{content})
+		INSERT INTO MeetingReply (  member_id
+							      , meeting_id
+							      , content
+							      , refNum
+							      , step
+							      , refOrder
+							      , answerNum
+							      , parentNum
+				 			      )
+		        VALUES ( 
+		                  #{memberId}
+		                , #{meetingId}
+		                , #{content}
+		                , #{refNum}
+					    , 0
+					    , 0
+					    , #{meetingReplyId}
+					    , #{meetingReplyId}
+		               )
+	</insert>
+	
+	
+	<!-- 회원 댓글 작성 -->
+	<insert id="insertMeetingReplyChild" useGeneratedKeys="true" keyColumn="meetingReplyId" keyProperty="meetingReplyId">
+		INSERT INTO MeetingReply (  member_id
+							      , meeting_id
+							      , content
+							      , refNum
+							      , step
+							      , refOrder
+							      , answerNum
+							      , parentNum
+				 			      )
+		        VALUES ( 
+		                  #{memberId}
+		                , #{meetingId}
+		                , #{content}
+		                , #{refNum}
+					    , (select max(step)+1 from MeetingReply where #{meetingReplyId})
+					    , (select max(refOrder)+1 from MeetingReply where #{meetingReplyId})
+					    , #{meetingReplyId}
+					    , #{meetingReplyId}
+		               )
 	</insert>
 	
 	<!-- 댓글입력시 생성번호를 부모 댓글 번호로 넣기 -->

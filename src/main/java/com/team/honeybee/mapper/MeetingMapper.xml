@@ -16,11 +16,12 @@
 		VALUES (#{meetingId}, #{file})
 	</insert>
 	
-	<!-- 해쉬태그 넣기 추가 -->
+	<!-- 해쉬태그 넣기 추가 
 	<insert id="setHashTag">
 		INSERT INTO Tag(hash_tag, meeting_id)
 		VALUES(#{hashTag}, #{meetingId})
 	</insert>
+	-->
 	
 	<!-- 모임 목록 보기 -->
 	<select id="selectMeeting" resultType="com.team.honeybee.domain.MeetingDto">
@@ -73,10 +74,11 @@
 		WHERE mt.meeting_id = #{meetingId}
 	</select>
 	
-	<!-- 해쉬태그 가져오기 -->
+	<!-- 해쉬태그 가져오기 
 	<select id="getHashTag" resultType="String">
 		SELECT hash_tag hashTag
 		FROM Tag
 		WHERE meeting_id = #{meetingId}
 	</select>
+	-->
 </mapper>

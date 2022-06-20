@@ -56,6 +56,13 @@ public class MeetingReplyService {
 	
 		return cnt == 1;
 	}
+
+	// 자식 댓글 입력 메소드 
+	public void insertMeetingReplyChild(MeetingReplyDto reply) {
+		// TODO Auto-generated method stub
+		
+		mapper.insertMeetingReplyChild(reply);
+	}
 	
 	
 	

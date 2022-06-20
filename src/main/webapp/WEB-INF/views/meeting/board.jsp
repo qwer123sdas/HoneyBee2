@@ -230,8 +230,22 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
 	                                       	 \${list[i].content }
 	                                       	 \${list[i].inserted }
-	                                       	  <i class="fa-solid fa-pen"></i>답글 달기
-                            			 </div>  
+	                                       	<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>답글 달기</a>
+	                                   
+                            			 </div>
+                            			 
+                            			 <form class="mb-4" id="insertReplyForm2"
+             								action="${appRoot }/meeting/reply/insert" method="post">
+             								<div class="input-group">
+             									<input type="hidden" name="meetingReplyId"
+             										value="\${list[i].meetingReplyId }" />
+             									<input id="insertReplyContentInput1" class="form-control"
+             										type="text" name="content" placeholder="" />
+             									<button class="btn btn-primary" id="insertReplyButton1"
+             										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+
+             								</div>
+             							</form>
 										`);
 								
                            	
@@ -343,8 +357,9 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 								</div>
 							</form>
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
-
-							<div id="meetingReply" class="meetingReplyList"></div>
+	
+							<div id="meetingReply" class="meetingReplyList">
+							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ></div>
 						</div>
 					</div>
 				</section>
