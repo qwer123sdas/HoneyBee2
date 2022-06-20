@@ -38,8 +38,6 @@ public class DonationBoardController {
 		List<DonationDto> boardList = service.findOrder(sort, topic);
 		
 		// 기부금액 달성률
-		//service.achievementRate();
-		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("topic", topic);
 		model.addAttribute("sort", sort);

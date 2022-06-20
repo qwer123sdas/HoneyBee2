@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.TalentBoardMapper">
+	<insert  useGeneratedKeys="true"  id="setTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto"
+				keyColumn="talent_id" keyProperty="talentId">
+		INSERT INTO Talent(member_id, 
+							title, 
+							content,
+							 price, 
+							 expired, 
+							 topic,
+							 latitude,
+							 longitude,
+							 map_level,
+							 address)
+		VALUES (#{memberId}, 
+				#{title}, 
+				#{content}, 
+				#{price}, 
+				#{expired}, 
+				#{topic},
+				#{latitude},
+				#{longitude},
+				#{mapLevel},
+				#{address})
+	</insert>
+</mapper>	
