@@ -1,6 +1,8 @@
+ <%@page import="com.team.honeybee.domain.MarketDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,34 +32,52 @@
 	<my:navbar></my:navbar>
 
 <!-- Section-->
+
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                   <!--여기가 이미지. !>
+                   <div class="col mb-5">
+                    <c:forEach items="${list }" var="list">
+                        <div class="card">  
+                          <c:if test = "${not list.hasFile }">
+                            <img class="card-img-top" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+                           </c:if>
+                          	<c:if test= "${list.hasFile}">
+	                          	<%
+								MarketDto market = (MarketDto) pageContext.getAttribute("list");
+								String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
+								pageContext.setAttribute("encodedFileName", encodedFileName);
+								%>
+                          		<img src="${imageUrl}/market/${list.marketId}/${encodedFileName}">
+                          		
+                          	</c:if> 
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                            <div class="card-body">
                                 <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">이 자리는 타이틀 물건</h5>
+                                    <!-- Product name--> 
+                                    <h5 class="fw-bolder">${list.productName }
+                             </h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
-                                     <%--여기가 가격 --%>
+                                     <%--여기가 가격 --%>${list.price }
                                     
                                     </div>
                         		</div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">너를 눌렀을 때 겟으로.</a></div>
+                            <c:url value="/market/get" var="getUrl">
+								<c:param name="marketId" value="${list.marketId }"></c:param>
+							</c:url>
+                            
+                            <div class="card-footer p-1 pt-0 border-top-0">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${getUrl}"><i class="bi bi-bag-plus-fill"></i></a><i class="bi bi-bag-plus-fill"></i></div>
                             </div>
-                        </div>
+                       	</div>
+                       	
+                      </c:forEach>
                     </div>
-                    </div>                
-                </div>
-            </div>
+                   </div>                
+               </div>
         </section>
 <my:footbar></my:footbar>
   

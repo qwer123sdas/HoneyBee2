@@ -15,7 +15,7 @@ public class FaqService {
 	private FaqMapper mapper;
 
 	public boolean addBoard(FaqDto faq) {
-		faq.setMember_id("admin");
+		faq.setMemberId("admin");
 		int cnt = mapper.insertBoard(faq);
 		return cnt == 1;
 	}	

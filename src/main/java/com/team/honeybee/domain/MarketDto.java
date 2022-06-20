@@ -1,17 +1,23 @@
 package com.team.honeybee.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class MarketDto {
-
-	 private int marked_id;
-	 private String member_id;
-	 private String title;
-	 private String content;
-	 private LocalDateTime inserted;
-	 private int price;
-	 private String product_name;
-	 private int total;
-	 private int enable;
-	 
+	private int marketId;
+	private String memberId;
+	private String title;
+	private String content;
+	private LocalDate inserted;
+	private int price;
+	private String productName;
+	private int total;
+	private int enable;
+	private int viewCount;
+	private String thumbNailImage;
+	private List<String> fileName;
+	private boolean hasFile;
 }

@@ -46,7 +46,7 @@ public class FaqController {
 	public void questionBoard() {
 		
 	}
-	@RequestMapping("index")
+	@RequestMapping("notice")
 	public void indexBoard() {
 		
 	}

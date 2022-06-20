@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
@@ -38,23 +39,28 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
+			
 				<h1>1대1 문의</h1>
 				<form action="${appRoot }/faq/insert" method="post">
 					<div>
-						<label class="form-label" for="input1">제목</label> 
-						<input class= "form-control" type="text" name="title" value="새 제목" /> <br />
+						<label class="form-label" for="input1"></label> 
+						<input class= "form-control" type="text" name="title"  /> <br />
 
 					</div>
 					<div>
-						<label class="form-label" for="input1">Emali</label> 
-						<input class= "form-control" type="email" name="email" value="email" /> <br />
+						<label class="form-label" for="input1"></label> 
+						<input class= "form-control" type="email" name="email"  /> <br />
 
 					</div>
 		
 
 					<div>
 						<label for="textareal1">문의 내용 </label> 
-						<textarea class="form-control" name = "content" id="" cols="30" rows="10">새 글</textarea> <br />
+						<textarea class="form-control" name = "content" id="" cols="30" rows="10"></textarea> <br />
+					</div>
+					<div>
+						파일
+						<input multiple="multiple" type="file" name="file" accept="image/*" />
 					</div>
 					
 					<button class="btn btn-primary">취소</button>

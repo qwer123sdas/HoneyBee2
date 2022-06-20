@@ -7,7 +7,7 @@
 	
 	<insert id="insertBoard" >
 		INSERT INTO Faq (member_id, title, content, email)
-		values(#{member_id}, #{title}, #{content}, #{email})
+		values(#{memberId}, #{title}, #{content}, #{email})
 		
 	</insert>
 	

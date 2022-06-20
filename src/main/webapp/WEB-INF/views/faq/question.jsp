@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
@@ -74,7 +75,7 @@ $(documnet).ready(function(){
 							<li id="question"  class="list-group-item d-flex align-items-center ">
 							자주 묻는 질문
 							</li>
-							<li id="center" class="list-group-item d-flex align-items-center">공지 사항</li>
+							<li id="center" class="list-group-item d-flex align-items-center"><a href="${appRoot }faq/insert"></a>공지 사항</li>
 							<li id="consulting"
 								class="list-group-item d-flex align-items-center">1대1 문의</li>
 						</ul>
