@@ -46,4 +46,9 @@ public class MeetingReplyController {
 		
 		return "redirect:/meeting/board/" + reply.getMeetingId();
 	}
+	
+	@GetMapping("replyform")
+	public void replyform () {
+		
+	}
 }

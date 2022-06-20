@@ -33,6 +33,9 @@ public class MeetingDto{
 	private LocalDate endDate;
 	private String tag;
 	
+	// 게스트 숫자 파악 추가(progress용)
+	private int guestNum;
+	
 	
 	
 	

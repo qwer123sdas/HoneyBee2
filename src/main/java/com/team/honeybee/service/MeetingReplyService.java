@@ -19,6 +19,7 @@ public class MeetingReplyService {
 	public List<MeetingReplyDto> getReplyByMeetingId(int meetingId) {
 		return getReplyWithOwnMeetingId(meetingId, null);
 	}
+	
 	// 로그인 회원 정보 담은 댓글 리스트
 	public List<MeetingReplyDto> getReplyWithOwnMeetingId(int meetingId, String memberId) {
 		List<MeetingReplyDto> list = mapper.selectAllMeetingId(meetingId, memberId);

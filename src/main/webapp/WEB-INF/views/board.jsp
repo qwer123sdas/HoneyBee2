@@ -316,31 +316,25 @@
 			
 			 // 주소로 좌표를 검색
 		    geocoder.addressSearch('서울시 광진구 천호대로 579', function(result, status) {
-
 		   	// 정상적으로 검색이 완료됐으면 
 		    if (status === kakao.maps.services.Status.OK) {
-
 		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
 		    // 결과값으로 받은 위치를 마커로 표시
 		    var marker = new kakao.maps.Marker({
 		        	map: map,
 		            position: coords
 		   	});
-
 		    // 인포윈도우로 장소에 대한 설명을 표시
 		    var infowindow = new kakao.maps.InfoWindow({
 		                content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비장소</div>'
 		    });
 		    infowindow.open(map, marker);
-
 		     // 지도의 중심을 결과값으로 받은 위치로 이동
 		    map.setCenter(coords);
 		     
 		    	} 
 			});    	
 			 
-
 				
 				const meetingReplyList = function() {
 					
@@ -361,7 +355,7 @@
 								
 								const replyElement = $("<div class='d-flex mb-4' />");
 								
-								replyElement.html('
+								replyElement.html(`
 										 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
 	                                    	<div class="ms-3">
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
@@ -371,7 +365,7 @@
 	                                        <hr>
                             			 </div>  
                            			</div>
-										');
+										`);
 								
                            	replyListElement.append(replyElement);
                            	

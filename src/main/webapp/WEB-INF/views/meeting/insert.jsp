@@ -157,6 +157,8 @@
 					<br>
 
 					<!-- guest : 모임보드에서 넘겨줄 값 -->
+					<label for="guest_num">모임 인원</label>
+					<input type="number" name="guestNum" id="guestNum" />
 
 					<!-- inserted : 자동생성 -->
 					start_date :

@@ -30,7 +30,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -108,7 +107,7 @@
 	border-radius: 0.3rem;
 }
 
-/* 대댓글 */
+<!-- 대댓글 부분 -->
 .replyForm {
 	height: auto;
 }
@@ -136,24 +135,6 @@
 .card {
 	box-sizing: content-box;
 }
-
-/* 진행상황 바 */
-#progress {
-    appearance: none;
-}
-#progress::-webkit-progress-bar {
-    background:#f0f0f0;
-    border-radius:10px;
-    box-shadow: inset 3px 3px 10px #ccc;
-}
-#progress::-webkit-progress-value {
-    border-radius:10px;
-    background: #1D976C;
-    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);
-    background: linear-gradient(to right, #93F9B9, #1D976C);
-
-}
-출처: https://ordinary-code.tistory.com/137 [김평범's OrdinaryCode:티스토리]
 </style>
 
 <!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
@@ -242,7 +223,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 							for (let i = 0; i < list.length; i++) {
 								const replyElement = $("<div class='d-flex mb-4' />");
 								replyElement.html(`
-										 <div class="flex-shrink-0"><img class="rounded-circle" src="${appRoot}/resources/webContents/img/user_profile.png" alt="..." /></div>
+										 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
 	                                    	<div class="ms-3">
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
 	                                       	 \${list[i].content }
@@ -332,7 +313,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
 						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
 						<h4 class="fw-bolder mb-4 mt-5">모임 장소 : ${meeting.address }
-							${meeting.detailAddress }</h4>
+							${meeting.detailAddress }</h2>
 					</section>
 				</article>
 
@@ -343,7 +324,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 				</div>
 
 				<!-- 댓글, 대댓글 -->
-				<section class="replyForm"> <h4>커뮤니티</h4>
+				<section class="replyForm">
 					<div class="card bg-light">
 						<div class="card-body">
 							<!-- 댓글 입력 form -->
@@ -355,7 +336,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 									<input id="insertReplyContentInput1" class="form-control"
 										type="text" name="content" placeholder="아름다운 발걸음을 함께해요!" />
 									<button class="btn btn-primary" id="insertReplyButton1"
-										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+										type="submit">한걸음!</button>
 
 								</div>
 							</form>
@@ -370,7 +351,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="card mb-4">
-					<div class="card-header">꿀비 참여!</div>
+					<div class="card-header">Search</div>
 					<div class="card-body">
 						<div class="input-group">
 							<input class="form-control" type="text"
@@ -378,8 +359,6 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 								aria-label="Enter search term..."
 								aria-describedby="button-search" />
 							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
-						
-						
 						</div>
 					</div>
 				</div>
@@ -419,12 +398,10 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 				</div>
 				<!-- Side widget-->
 				<div class="card mb-4">
-					<div class="card-header">꿀비 참여!</div>
-					<div class="card-body">
-					<progress id="progress" value="50" min="1" max="100"></progress>
-						<%-- <progress id="progress" value="${meeting.accept }" min="1" max="${meeting.guestNum }"></progress> --%>
-					</div>
-					</div>
+					<div class="card-header">Side Widget</div>
+					<div class="card-body">You can put anything you want inside
+						of these side widgets. They are easy to use, and feature the
+						Bootstrap 5 card component!</div>
 				</div>
 			</div>
 		</div>
