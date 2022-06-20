@@ -26,19 +26,19 @@ public interface AdminMapper {
 
 	int inserMarket(MarketDto market);
 
-	void insertFile(@Param("market_id") int market_id, @Param("file") String file);
+	void insertFile(@Param("marketId") int marketId, @Param("file") String file);
 
 	List<MarketDto> getMarketAll();
 
-	MarketDto selectMarketById(int market_id);
+	MarketDto selectMarketById(int marketId);
 
-	List<String> selectFileNameByMarketId(int market_id);
+	List<String> selectFileNameByMarketId(int marketId);
 
 	int updateMarket(MarketDto dto);
 
-	void deleteFileByMarketIdAndFileName(@Param("market_id") int market_id, @Param("file") String fileName);
+	void deleteFileByMarketIdAndFileName(@Param("marketId") int marketId, @Param("file") String fileName);
 
-	int deleteMarket(int market_id);
+	int deleteMarket(int marketId);
 
 	void deleteFileByMarketId(int id);
 

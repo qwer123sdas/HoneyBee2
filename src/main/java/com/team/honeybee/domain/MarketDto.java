@@ -7,13 +7,13 @@ import lombok.Data;
 
 @Data
 public class MarketDto {
-	private int market_id;
-	private String member_id;
+	private int marketId;
+	private String memberId;
 	private String title;
 	private String content;
 	private LocalDate inserted;
 	private int price;
-	private String product_name;
+	private String productName;
 	private int total;
 	private int enable;
 	private String thumbNailImage;

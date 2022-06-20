@@ -79,7 +79,7 @@ public class AdminService {
 	public boolean insertMarket(MarketDto market, MultipartFile[] files) {
 		int cnt = mapper.inserMarket(market);
 		
-		addFiles(market.getMarket_id(), files);
+		addFiles(market.getMarketId(), files);
 		
 		return cnt == 1;
 	}
@@ -127,6 +127,7 @@ public class AdminService {
 		List<String> fileNames = mapper.selectFileNameByMarketId(id);
 		
 		market.setFileName(fileNames);
+		System.out.println(market);
 		
 		return market;
 	}
@@ -135,15 +136,15 @@ public class AdminService {
 	public boolean updateMarket(MarketDto dto, ArrayList<String> removeFileList, MultipartFile[] addFileList) {
 		if (removeFileList != null) {
 			for (String fileName : removeFileList) {
-				deleteFromAwsS3(dto.getMarket_id(), fileName);
-				mapper.deleteFileByMarketIdAndFileName(dto.getMarket_id(), fileName);
+				deleteFromAwsS3(dto.getMarketId(), fileName);
+				mapper.deleteFileByMarketIdAndFileName(dto.getMarketId(), fileName);
 			}
 		}
 		
 		if (addFileList != null) {
 			// File 테이블에 추가된 파일 insert
 			// s3에 upload
-			addFiles(dto.getMarket_id(), addFileList);
+			addFiles(dto.getMarketId(), addFileList);
 		}
 		return mapper.updateMarket(dto) == 1;
 	}
@@ -160,12 +161,11 @@ public class AdminService {
 	}
 
 	@Transactional
-	public boolean deleteMarket(int market_id) {
-		List<String> fileList = mapper.selectFileNameByMarketId(market_id);
-		
-		removeFiles(market_id, fileList);
-		
-		return mapper.deleteMarket(market_id) == 1;
+	public boolean deleteMarket(int marketId) {
+		List<String> fileList = mapper.selectFileNameByMarketId(marketId);
+		removeFiles(marketId, fileList);
+		int cnt = mapper.deleteMarket(marketId);
+		return cnt == 1;
 	}
 	
 	private void removeFiles(int id, List<String> fileList) {
@@ -180,7 +180,10 @@ public class AdminService {
 
 	public DonationDto getDonation(int donationId) {
 		
-		
+		return null;
+	}
+
+	public MeetingDto getMeeting(int meetingId) {
 		return null;
 	}
 

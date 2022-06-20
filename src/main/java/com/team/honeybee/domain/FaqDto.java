@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class FaqDto {
-	private int question_id;
-	private String member_id;
+	private int questionId;
+	private String memberId;
 	private String title;
 	private String content;
 	private LocalDateTime inserted;

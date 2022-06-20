@@ -83,6 +83,12 @@ public class AdminController {
 		model.addAttribute("meeting", meetingList);
 	}
 	
+	@RequestMapping("getMeeting")
+	public void getMeeting(int meetingId, Model model) {
+		MeetingDto dto = service.getMeeting(meetingId);
+		model.addAttribute("meeting", dto);
+	}
+	
 	@RequestMapping("market")
 	public void market(Model model) {
 		List<MarketDto> marketList = service.getMarketList();
@@ -106,7 +112,7 @@ public class AdminController {
 			dto.setFileName(fileList);
 		}
 		
-		dto.setMember_id("admin");
+		dto.setMemberId("admin");
 		boolean success = service.insertMarket(dto, file);
 		
 		if (success) {
@@ -118,7 +124,7 @@ public class AdminController {
 		return "redirect:/admin/market";
 	}
 	
-	@PostMapping("update")
+	@PostMapping("updateMarket.do")
 	public String updateMarket(MarketDto dto, 
 			@RequestParam(name = "removeFileList", required = false) ArrayList<String> removeFileList,
 			@RequestParam("addFileList") MultipartFile[] addFileList, 
@@ -129,16 +135,16 @@ public class AdminController {
 		return "redirect:/admin/market";
 	}
 	
-	@PostMapping("delete")
+	@PostMapping("deleteMarket.do")
 	public String deleteMarket(MarketDto dto, RedirectAttributes rttr) {
-		boolean success = service.deleteMarket(dto.getMarket_id());
+		boolean success = service.deleteMarket(dto.getMarketId());
 		
 		return "redirect:/admin/market";
 	}
 	
 	@GetMapping("getMarket")
-	public void getMarket(int market_id, Model model) {
-		MarketDto dto = service.getMarketById(market_id);
+	public void getMarket(int marketId, Model model) {
+		MarketDto dto = service.getMarketById(marketId);
 		model.addAttribute("market", dto);
 	}
 	

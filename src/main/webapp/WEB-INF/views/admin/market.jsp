@@ -30,11 +30,11 @@
 			<div class="row">
 				<c:forEach items="${market }" var="market">
 					<c:url value="/admin/getMarket" var="getUrl">
-						<c:param name="market_id" value="${market.market_id }"></c:param>
+						<c:param name="marketId" value="${market.marketId }"></c:param>
 					</c:url>
-					<div class="card" style="width: 18rem;">
+					<div class="card" style="width: 18rem; margin: 1px;">
 					  <c:if test="${not market.hasFile }">
-					  	<figure class="img_ico mb-2">
+					  	<figure class="img_ico mb-4">
 					  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
 					  	</figure>
 					  </c:if>
@@ -44,13 +44,13 @@
 						String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
 						pageContext.setAttribute("encodedFileName", encodedFileName);
 					  	%>
-					  	<figure class="img_ico mb-2">
-				  			<img src="${imageUrl }/market/${market.market_id }/${encodedFileName }" class="img-fluid rounded" alt="">
+					  	<figure class="mb-6">
+				  			<img src="${imageUrl }/market/${market.marketId }/${encodedFileName }" class="img-fluid" alt="">
 				  	  	</figure>
 				  	  </c:if>
 					  <div class="card-body">
 					    <h4 class="card-title">${market.title }</h4>
-					    <p><strong>상품명 : </strong> ${market.product_name }</p>
+					    <p><strong>상품명 : </strong> ${market.productName }</p>
 					    <p><strong>가격 : </strong> ${market.price }</p>
 					    <a href="${getUrl }" class="stretched-link"></a>
 					  </div>

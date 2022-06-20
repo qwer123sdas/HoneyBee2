@@ -26,6 +26,9 @@
 		<div class="container-fluid">
 		
 			<nav:topbar></nav:topbar>
+			<div class="row">
+			
+			</div>
 		</div>
 	</div>		
 			

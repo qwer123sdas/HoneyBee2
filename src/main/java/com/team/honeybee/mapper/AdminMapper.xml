@@ -45,16 +45,16 @@
 	</select>
 	
 	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
-		SELECT m.meeting_id, m.title, mem.nickname, m.start_date, m.end_date
+		SELECT m.meeting_id meetingId, m.title, mem.nickname, m.start_date startDate, m.end_date endDate
 		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
 		ORDER BY m.meeting_id DESC
 	</select>
 	
 	<select id="getMarketAll" resultType="com.team.honeybee.domain.MarketDto">
-		SELECT m.market_id,
-			   m.member_id,
+		SELECT m.market_id marketId,
+			   m.member_id memberId,
 			   m.title, 
-			   m.product_name, 
+			   m.product_name productName, 
 			   m.price,
 			   f.file thumbNailImage,
 			   COUNT(f.market_id) hasFile
@@ -64,62 +64,62 @@
 	</select>
 	
 	<select id="selectMarketById" resultType="com.team.honeybee.domain.MarketDto">
-		SELECT market_id,
-			   member_id,
+		SELECT market_id marketId,
+			   member_id memberId,
 			   title,
 			   content,
 			   inserted,
 			   price,
-			   product_name,
+			   product_name productName,
 			   total,
 			   enable
 		FROM Market
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 	</select>
 	
 	<select id="selectFileNameByMarketId" resultType="string">
 		SELECT file fileName
 		FROM MarketFile
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 	</select>
 	
-	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="market_id" keyProperty="market_id">
-		INSERT INTO Market (member_id, title, content, price, product_name)
-		VALUES(#{member_id}, #{title}, #{content}, #{price}, #{product_name})
+	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="marketId" keyProperty="marketId">
+		INSERT INTO Market (memberId, title, content, price, product_name)
+		VALUES(#{memberId}, #{title}, #{content}, #{price}, #{productName})
 	</insert>
 	
 	<update id="updateMarket">
 		UPDATE Market
 		SET title = #{title},
 			content = #{content},
-			product_name = #{product_name},
+			product_name = #{productName},
 			price = #{price}
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 	</update>
 	
 	<delete id="deleteMarket">
 		DELETE FROM Market
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 	</delete>
 	
 	<insert id="insertFile">
 		INSERT INTO MarketFile (market_id, file)
-		VALUES (#{market_id}, #{file})
+		VALUES (#{marketId}, #{file})
 	</insert>
 	
 	<delete id="deleteFileByMarketId">
 		DELETE FROM MarketFile
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 	</delete>
 	
 	<delete id="deleteFileByMarketIdAndFileName">
 		DELETE FROM MarketFile
-		WHERE market_id = #{market_id}
+		WHERE market_id = #{marketId}
 			AND file = #{file}
 	</delete>
 	
 	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">
-		SELECT question_id, member_id, title, content, inserted, email
+		SELECT question_id questionId, member_id memberId, title, content, inserted, email
 		FROM Faq
 		ORDER BY question_id
 	</select>

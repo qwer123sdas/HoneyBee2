@@ -26,21 +26,23 @@
 		<div class="container-fluid">
 		
 			<nav:topbar></nav:topbar>
-			<c:forEach items="${donation }" var="donation">
-				<c:url value="/admin/getMeeting" var="getUrl">
-					<c:param name="meeting_id" value="${meeting.meeting_id }"></c:param>
-				</c:url>
-				<div class="card" style="width: 18rem;">
-				  <img src="" class="card-img-top" alt="">
-				  <div class="card-body">
-				    <h4 class="card-title">${meeting.title }</h4>
-				    <p><strong>닉네임 : </strong> ${meeting.nickname }</p>
-				    <p><strong>마감날짜 : </strong> ${meeting.start_date }</p>
-				    <p><strong>마감날짜 : </strong> ${meeting.end_date }</p>
-				    <a href="${getUrl }" class="stretched-link"></a>
-				  </div>
-				</div>			
-			</c:forEach>
+			<div class="row">
+				<c:forEach items="${meeting }" var="meeting">
+					<c:url value="/admin/getMeeting" var="getUrl">
+						<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
+					</c:url>
+					<div class="card" style="width: 18rem; margin: 1px;">
+					  <img src="" class="card-img-top" alt="">
+					  <div class="card-body">
+					    <h4 class="card-title">${meeting.title }</h4>
+					    <p><strong>닉네임 : </strong> ${meeting.nickname }</p>
+					    <p><strong>시작일 : </strong> ${meeting.startDate }</p>
+					    <p><strong>종료일 : </strong> ${meeting.endDate }</p>
+					    <a href="${getUrl }" class="stretched-link"></a>
+					  </div>
+					</div>			
+				</c:forEach>
+			</div>
 		</div>
 	</div>		
 			
