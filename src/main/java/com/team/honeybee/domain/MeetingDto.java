@@ -22,18 +22,21 @@ public class MeetingDto{
 	private String address;
 	private String detailAddress;
 	private String guest; 
+
 	private String topic; // 카테고리 번호
 	private List<String> hashTag; // 해쉬태그 hash_tag
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate inserted;
 	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate startDate;
+	private LocalDate meetingDate; // 모임 날짜
 	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate endDate;
+	private LocalDate startDate; // 모집 시작일
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate endDate; // 모임 종료일
 	private String tag;
 	
-	// 게스트 숫자 파악 추가(progress용)
+	// 게스트 숫자 파악 추가
 	private int guestNum;
 	
 	

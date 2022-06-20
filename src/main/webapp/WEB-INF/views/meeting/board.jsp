@@ -137,31 +137,14 @@
 	box-sizing: content-box;
 }
 
-/* 진행상황 바 */
-#progress {
-    appearance: none;
-}
-#progress::-webkit-progress-bar {
-    background:#f0f0f0;
-    border-radius:10px;
-    box-shadow: inset 3px 3px 10px #ccc;
-}
-#progress::-webkit-progress-value {
-    border-radius:10px;
-    background: #1D976C;
-    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);
-    background: linear-gradient(to right, #93F9B9, #1D976C);
 
-}
-출처: https://ordinary-code.tistory.com/137 [김평범's OrdinaryCode:티스토리]
 </style>
 
 <!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
 <!-- 카카오지도 라이브러리 불러오기 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services&autoload=false"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
 <!-- JavaScript Libraries -->
 <!--Jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
@@ -218,8 +201,8 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
         map.setCenter(coords);
     } 
 }); 
-	*/		 
-
+	 
+*/
 				
 				
 				const meetingReplyList = function() {
@@ -370,65 +353,27 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="card mb-4">
-					<div class="card-header">꿀비 참여!</div>
-					<div class="card-body">
-						<div class="input-group">
-							<input class="form-control" type="text"
-								placeholder="Enter search term..."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
-						
-						
-						</div>
-					</div>
-				</div>
-				<!-- Categories widget-->
-				<div class="card mb-4">
-					<div class="card-header">Categories</div>
+					<div class="card-header">꿀비 모임 신청</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li>
-										<a href="#!">Web Design</a>
-									</li>
-									<li>
-										<a href="#!">HTML</a>
-									</li>
-									<li>
-										<a href="#!">Freebies</a>
-									</li>
-								</ul>
+							<div class="col">
+							
+							<form id="guestInsertForm" method="post">
+								<input type="hidden" name="memberId" value="${member.memberId }" />
+							  	<button type="submit" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal"><i class="fa-solid fa-heart-circle-check"></i>함께할께요!</button>
+							</form>
+							  
+				
+				
 							</div>
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li>
-										<a href="#!">JavaScript</a>
-									</li>
-									<li>
-										<a href="#!">CSS</a>
-									</li>
-									<li>
-										<a href="#!">Tutorials</a>
-									</li>
-								</ul>
-							</div>
+						
 						</div>
-					</div>
-				</div>
-				<!-- Side widget-->
-				<div class="card mb-4">
-					<div class="card-header">꿀비 참여!</div>
-					<div class="card-body">
-					<progress id="progress" value="50" min="1" max="100"></progress>
-						<%-- <progress id="progress" value="${meeting.accept }" min="1" max="${meeting.guestNum }"></progress> --%>
-					</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>

@@ -68,6 +68,7 @@ public class MeetingController {
 	@PostMapping("insert")
 	public String meetingInsertProcess(MeetingDto meeting, 
 						@RequestParam("files") MultipartFile[] files, 
+						@RequestParam("hashTagRaw") String hashTagRaw, // 해쉬태그 추가함
 						Principal principal, 
 						RedirectAttributes rttr) {
 		System.out.println(files.length);
@@ -83,7 +84,7 @@ public class MeetingController {
 		String memberId = principal.getName();
 		meeting.setMemberId(memberId);
 
-		boolean success = service.insertBoard(meeting, files);
+		boolean success = service.insertBoard(meeting, files, hashTagRaw);
 		
 		if (success) {
 			rttr.addAttribute("message", "새 글이 등록되었습니다.");

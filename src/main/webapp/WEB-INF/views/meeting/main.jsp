@@ -207,7 +207,9 @@
 		                            <p class="mb-2">${meeting.nickname }</p>
 		                            <h4>${meeting.title }</h4>
 		                            <a class="small fw-medium" href="${appRoot }/meeting/board/${meeting.meetingId}" >모임신청<i class="fa fa-arrow-right ms-2"></i></a>
-		                    		<p>${meeting.endDate } 신청 종료!</p>
+			                    	<div>
+				                    	<p class="timeLimit" style="margin:30px; width:400px; text-align:center; font-weight: 600;"><i class="fa-solid fa-clock"></i>${meeting.endDate }까지 신청하세요</p>
+			                    	</div>
 		                        </div>
 		                    </div>
 		                </div>

@@ -11,13 +11,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	referrerpolicy="no-referrer"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Blog Post - Start Bootstrap Template</title>
@@ -36,26 +48,41 @@
 <!-- google font 추가함 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
-<link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-<link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
-<link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
 
 
 <!-- daum 주소검색 api 추가 -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function daumPostCode() {
 		new daum.Postcode({
@@ -122,8 +149,8 @@
 					member_id : 권한처리 -->
 
 					<label for="titleInput" class="form-label">제목</label>
-					<input type="text" name="title" id="titleInput" /> 
-					
+					<input type="text" name="title" id="titleInput" />
+
 					<br>
 
 					<select name="tag" id="form-select">
@@ -132,14 +159,14 @@
 						<option value="2">장애인</option>
 						<option value="3">어려운 이웃</option>
 						<option value="4">환경</option>
-					</select>  
-					
+					</select>
+
 					<br>
 
 					<label for="contentsTextarea" class="form-label">본문</label>
 					<textarea name="content" id="contentsTextarea" cols="30" rows="10"
 						class="form-control"></textarea>
-					
+
 					<br>
 
 					<label for="address">모임장소</label>
@@ -148,17 +175,25 @@
 					<input type="text" id="address" name="address" placeholder="주소">
 					<input type="text" id="detailAddress" name="detailAddress"
 						placeholder="상세주소">
-						
+
 					<br>
 
 					모임사진
-					<input multiple="multiple" type="file" name="files" accept="image/*"/>
-					
+					<input multiple="multiple" type="file" name="files"
+						accept="image/*" />
+
 					<br>
+					<!-- 태그 입력 -->
+					<label for="hashTagRaw">태그</label>
+					<input type="text" name="hashTagRaw" placeholder="태그를 입력해주세요" />
+
 
 					<!-- guest : 모임보드에서 넘겨줄 값 -->
-					<label for="guest_num">모임 인원</label>
+					<label for="guest_num">모집 인원</label>
 					<input type="number" name="guestNum" id="guestNum" />
+
+					<label for="meeting_date">모임 날짜</label>
+					<input type="date" name="meetingDate" id="meetingDate" />
 
 					<!-- inserted : 자동생성 -->
 					start_date :
@@ -175,24 +210,34 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
 
 
 	<!-- JavaScript Libraries -->
 	<!--Jquery -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+		referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
-	<script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
-	
+	<script
+		src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+
 	<!-- Template Javascript -->
 	<script src="${appRoot }/resources/webContents/js/main.js"></script>
-	
- </body>
+
+</body>
 </html>

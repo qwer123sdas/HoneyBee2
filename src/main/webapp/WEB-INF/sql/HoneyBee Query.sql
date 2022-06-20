@@ -77,4 +77,25 @@ SELECT r.meeting_reply_id meetingReplyId,
 		ORDER BY meeting_reply_id;
   
 
-  
+-- 모임날짜 추가
+ALTER TABLE Meeting
+ADD COLUMN meeting_date DATE NOT NULL AFTER inserted;
+
+DESC MeetingFile;
+-- 6/20 컬럼 
+DESC MeetingReply;
+
+ALTER TABLE MeetingReply
+ADD COLUMN ref BIGINT(255) DEFAULT 0;
+
+ALTER TABLE MeetingReply
+ADD COLUMN step BIGINT(255) DEFAULT 0;
+
+ALTER TABLE MeetingReply
+ADD COLUMN refOrder BIGINT(255) DEFAULT 0;
+
+ALTER TABLE MeetingReply
+ADD COLUMN answerNum BIGINT(255) DEFAULT 0;
+
+ALTER TABLE MeetingReply
+ADD COLUMN parentNum BIGINT(255) DEFAULT 0;

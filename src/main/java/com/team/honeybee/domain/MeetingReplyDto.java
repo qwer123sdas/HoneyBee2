@@ -30,4 +30,16 @@ public class MeetingReplyDto {
 	private int deep;
 	// 부모댓글 기준 그룹
 	private int meetingReplyGnum;
+	
+	// 레퍼런스, 그룹 : id와 별도로 계층형 그룹 번호이다.
+	private long ref;
+	// 레벨 :  들여쓰기, 처음 0으로 시작, 객층마다 1씩 증가
+	private long step;
+	// 같은 그룹안에 순서 0으로 시작
+	private long refOrder;
+	// 자식글의 갯수, 부모는 무조건 0 자식부터 1씩 증가
+	private long answerNum;
+	// 부모글의 기본키(id), 부모는 최상위 이므로 0으로, 자식부터 id값 가져옴 
+	private long parentNum;
+	
 }

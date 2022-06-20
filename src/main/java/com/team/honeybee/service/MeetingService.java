@@ -40,22 +40,33 @@ public class MeetingService {
 		this.s3 = S3Client.builder().region(region).build();
 	}
 	
-	@PreDestroy
+	@PreDestroy // 자원 닫기
 	public void destory() {
 		this.s3.close();
 	}
 	
 	// 게시물 등록
 	@Transactional
-	public boolean insertBoard(MeetingDto meeting, MultipartFile[] files) {
+	public boolean insertBoard(MeetingDto meeting, MultipartFile[] files, String hashTagRaw) {
 		int cnt = mapper.insertMeeting(meeting);
 		System.out.println(files.length);
 		System.out.println(meeting.getMeetingId());
 		addFiles(meeting.getMeetingId(), files);
+		hashTagInsertBoardBymeetingId(hashTagRaw, meeting.getMeetingId()); // 해쉬태그 매소드에 태그랑 아이디값 넣기
 		
 		return cnt == 1;
 	}
 	
+	// 해쉬태그 분리 로직 매소드
+	private void hashTagInsertBoardBymeetingId(String hashTagRaw, int meetingId) {
+		
+		String hashTag[] = hashTagRaw.split("#");
+		for(int i = 1; i < hashTag.length; i++) {
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), meetingId);
+		}
+		
+	}
+
 	// 파일 여러개
 	private void addFiles(int meetingId, MultipartFile[] files) {
 		if (files != null) {
@@ -117,6 +128,7 @@ public class MeetingService {
 	*/
 	
 	// 모임 리스트(topic추가함)
+	@Transactional
 	public List<MeetingDto> meetingList(String sort, String topic) {
 		
 		return mapper.selectMeeting(sort, topic);
@@ -124,7 +136,11 @@ public class MeetingService {
 
 	// 기부모임 게시물 보기
 	public MeetingDto getBoardByMeetingId(int meetingId) {
-		return mapper.selectBoardByMeetingId(meetingId);
+		MeetingDto meeting = mapper.selectBoardByMeetingId(meetingId);
+		// 해쉬태그 가져오기
+		List<String> hashTag = mapper.getHashTag(meetingId);
+		meeting.setHashTag(hashTag);
+		return meeting;
 	}
 
 	

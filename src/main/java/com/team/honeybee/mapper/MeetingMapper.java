@@ -20,4 +20,10 @@ public interface MeetingMapper {
 	// 기부모임 게시물 보기
 	MeetingDto selectBoardByMeetingId(int meetingId);
 
+	// 해쉬태그 넣기
+	void setHashTag(@Param("hashTag") String hashTag, int meetingId);
+	
+	// 해쉬 태그 가져오기
+	List<String> getHashTag(int meetingId);
+
 }
