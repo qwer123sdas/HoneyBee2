@@ -70,7 +70,7 @@
 							</c:url>
                             
                             <div class="card-footer p-1 pt-0 border-top-0">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${getUrl}"><i class="bi bi-bag-plus-fill"></i></a><i class="bi bi-bag-plus-fill"></i></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${getUrl}">  <i class="bi bi-bag-plus-fill"></i></a><i class="bi bi-bag-plus-fill"></i></div>
                             </div>
                        	</div>
                        	

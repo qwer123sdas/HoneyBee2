@@ -5,12 +5,25 @@
 <mapper namespace="com.team.honeybee.mapper.FaqMapper">
 
 	
-	<insert id="insertBoard" >
+	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="questionId"
+		keyProperty="questionId" >
 		INSERT INTO Faq (member_id, title, content, email)
 		values(#{memberId}, #{title}, #{content}, #{email})
 		
 	</insert>
+	<insert id ="insertFile">
+	insert into FaqFile(question_id,file)
+	values (#{questionId},#{fileName})
+	</insert>
 	
-	
-	
+	<select  id="Faqlist" resultType="com.team.honeybee.domain.FaqDto">
+	 SELECT question_id questionId,
+			member_id memberId,
+			title,
+			inserted,
+			email,
+			enable
+			FROM Faq
+			order by enable DESC, question_id desc
+	</select>
 	</mapper>

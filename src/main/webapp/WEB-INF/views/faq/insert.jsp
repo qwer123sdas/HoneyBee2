@@ -41,7 +41,7 @@
 			<div class="col">
 			
 				<h1>1대1 문의</h1>
-				<form action="${appRoot }/faq/insert" method="post">
+				<form action="${appRoot }/faq/insert" method="post" enctype="multipart/form-data">
 					<div>
 						<label class="form-label" for="input1"></label> 
 						<input class= "form-control" type="text" name="title"  /> <br />
