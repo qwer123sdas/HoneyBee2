@@ -184,7 +184,8 @@ public class AdminService {
 	}
 
 	public MeetingDto getMeeting(int meetingId) {
-		return null;
+		MeetingDto meeting = mapper.getMeetingById(meetingId);
+		return meeting;
 	}
 
 }

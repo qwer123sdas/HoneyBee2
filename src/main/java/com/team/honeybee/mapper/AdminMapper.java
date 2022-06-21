@@ -42,4 +42,6 @@ public interface AdminMapper {
 
 	void deleteFileByMarketId(int id);
 
+	MeetingDto getMeetingById(int meetingId);
+
 }

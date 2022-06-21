@@ -47,7 +47,12 @@
 	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
 		SELECT m.meeting_id meetingId, m.title, mem.nickname, m.start_date startDate, m.end_date endDate
 		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
+					   LEFT JOIN MeetingFile f ON m.meeting_id = f.meeting_id
 		ORDER BY m.meeting_id DESC
+	</select>
+	
+	<select id="getMeetingById" resultType="com.team.honeybee.domain.MeetingDto">
+		
 	</select>
 	
 	<select id="getMarketAll" resultType="com.team.honeybee.domain.MarketDto">
@@ -84,7 +89,7 @@
 	</select>
 	
 	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="marketId" keyProperty="marketId">
-		INSERT INTO Market (memberId, title, content, price, product_name)
+		INSERT INTO Market (member_id, title, content, price, product_name)
 		VALUES(#{memberId}, #{title}, #{content}, #{price}, #{productName})
 	</insert>
 	

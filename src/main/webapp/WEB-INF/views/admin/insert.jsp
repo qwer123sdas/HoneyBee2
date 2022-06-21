@@ -43,7 +43,7 @@
 							</div>
 							<div>
 								<label class="form-label" for="input2">상품명</label>
-								<input class="form-control mb-3" type="text" name="product_name" required id="input2" />
+								<input class="form-control mb-3" type="text" name="productName" required id="input2" />
 							</div>
 							<div>
 								<label for="fileInput1" class="form-label">
