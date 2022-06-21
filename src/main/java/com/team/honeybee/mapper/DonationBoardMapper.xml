@@ -79,8 +79,8 @@
 	</insert>
 	<!-- 메인 사진 등록  -->
 	<insert id="insertMainPhoto" >
-		INSERT INTO DonationFile(donation_id, file)
-		VALUES (#{donationId}, #{mainPhoto})
+		INSERT INTO BoardImage(donation_id, main_image_name, member_id)
+		VALUES (#{donationId}, #{mainPhoto}, #{memberId})
 	</insert>
 	
 

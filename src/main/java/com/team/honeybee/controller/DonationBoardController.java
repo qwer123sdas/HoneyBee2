@@ -94,13 +94,14 @@ public class DonationBoardController {
 	@PostMapping("board/write")
 	public String write(DonationDto dto, 
 						@RequestParam(name="hashTagLump")String hashTagLump, 
-						@RequestParam(name="mainPhoto")MultipartFile mainPhoto, 
+						@RequestParam(name="mainPhoto")MultipartFile mainPhoto,
+						@RequestParam(name="folderName")String folderName, 
 						Principal principal) {
 		System.out.println("컨트롤러");
 		String memberId = principal.getName();
 		dto.setMemberId(memberId);
 		
-		service.dontaionBoardWrite(dto, mainPhoto, hashTagLump);
+		service.dontaionBoardWrite(dto, mainPhoto, hashTagLump, folderName);
 		return "redirect:/donation/main";
 	}
 	

@@ -10,6 +10,7 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationDto;
@@ -46,7 +47,7 @@ public class SummerNoteService {
 		this.amazonS3.close();
 	}
 
-	
+	//Donation---------------------------------------------------------------------------------------------
 	// 서머노트 이미지 저장
 	public String uploadImageToS3ForSummerNote(MultipartFile multipartImage, String folderId, String memberId) {
 		
@@ -71,7 +72,7 @@ public class SummerNoteService {
 		// db에 위 3가지 정보 저장
 		mapper.insertImage(SND);  
 		
-		String key = "donation/image/temp/" + folderId + "/" + savedImageName;
+		String key = "donation/" + folderId + "/" + savedImageName;
 		
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -96,6 +97,62 @@ public class SummerNoteService {
 			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
 		}
 	}
+	
+	//Talent---------------------------------------------------------------------------------------------
+	
+	// 게시글 작성 중, 이미지 업로드
+	public String uploadImageToS3ForSummerNoteFromTalent(MultipartFile multipartImage, String folderId, String memberId) {
+		// 파일 s3에 등록
+		if(multipartImage.getSize() > 0) {
+			// 이름의 겹치치 않게 파일명 전환, return 값은 바뀐 파일명
+			String savedImageName = summerNoteUploadImageName(multipartImage); 
+			
+			String imageUrl = saveTextAreaPhotoAwsS3FromTalent(memberId, multipartImage, savedImageName, folderId);
+			return imageUrl;
+		}
+		return "";
+	}
+	// 게시글 작성 중, (서머노트)이미지 사진 등록 메소드
+	@Transactional
+	private String saveTextAreaPhotoAwsS3FromTalent(String memberId, MultipartFile multipartImage, String savedImageName, String folderId) {
+		SummerNoteDto SND = new SummerNoteDto();
+		SND.setMemberId(memberId);
+		SND.setImageName(savedImageName);
+		SND.setImageFolderId(folderId);
+		// db에 위 3가지 정보 저장
+		mapper.insertImage(SND);  
+		
+		String key = "talent/" + folderId + "/" + savedImageName;
+		
+		
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
+				.bucket(bucketName) 					// bucket 위치 설정
+				.key(key)								// 키
+				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		
+		RequestBody requestBody;
+		
+		try {
+			// image_url만 저장
+			mapper.uploadImageUrl(awsS3Url + key, SND.getImageId());
+			requestBody = RequestBody.fromInputStream(multipartImage.getInputStream(), multipartImage.getSize());
+			
+			// s3에 저장
+			amazonS3.putObject(putObjectRequest, requestBody);
+			
+			return key;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	public String summerNoteUploadImageName(MultipartFile file) {
 		// 이름의 겹치치 않게 파일명 전환

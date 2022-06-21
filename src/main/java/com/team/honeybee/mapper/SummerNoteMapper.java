@@ -9,15 +9,16 @@ import com.team.honeybee.domain.SummerNoteDto;
 
 @Mapper
 public interface SummerNoteMapper {
+	// 공용------------------------------------------------------------------------------
 	// db에 저장
 	void insertImage(SummerNoteDto SND);
+	
 	// url만 저장
 	void uploadImageUrl(@Param("imageUrl")String imageUrl, @Param("imageId")int imageId);
 	
-
-
-
+	//-----------------------------------------------------------------------------------
 	
+
 	//  이미지url로, 관련 image_folder_id가져오기
 	String getImageFolderIdImageUrl(String imageUrl);
 	
@@ -29,7 +30,8 @@ public interface SummerNoteMapper {
 	//donationId 넣어주기
 	void setDonationId(@Param("donationId")int donationId, @Param("imageFolderId")String imageFolderId);
 	
-	
+	//Talent---------------------------------------------------------------------------
+	// 서머노트 내용 사진 등록
 	
 
 }

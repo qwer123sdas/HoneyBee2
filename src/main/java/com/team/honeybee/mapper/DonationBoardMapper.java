@@ -16,7 +16,9 @@ public interface DonationBoardMapper {
 	void setHashTag(@Param("hashTag")String hashTag, @Param("donationId")int donationId);
 	
 	// 메인 사진 등록
-	void insertMainPhoto(@Param("donationId")int donationId, @Param("mainPhoto")String mainPhoto);
+	void insertMainPhoto(@Param("donationId")int donationId, 
+						 @Param("mainPhoto")String mainPhoto, 
+						 @Param("memberId")String memberId);
 	
 	
 	// 게시글 목록 + topic 과 등록순 

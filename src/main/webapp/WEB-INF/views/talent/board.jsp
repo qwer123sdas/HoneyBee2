@@ -35,10 +35,16 @@
 </head>
 <style>
 .page-header-main {
-    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../img/carousel-2.jpg) center center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(/honeybee/resources/webContents/img/carousel-2.jpg) center center no-repeat;
     background-size: cover;
     margin-top : 75px;
 }
+.map_wrap {
+	position: relative;
+	width: 80%;
+	height: 400px;
+}
+
 </style>
 
 <body>
@@ -90,6 +96,39 @@
                         <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                         <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
                         <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
+                        
+	                        <div class="map_wrap">
+								<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+								<p>주소 : ${board.address }</p>							</div>
+	                        <!--Jquery -->
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+	                        <!-- 지도api -->
+							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+							<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
+	                        <script>
+	                        var latitude = ${board.latitude};
+	                        var longitude = ${board.longitude};
+	                        
+	                		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	                		
+	                		mapOption = {
+	                			center : new daum.maps.LatLng(37.542394846283194, 126.96483185358164), // 지도의 중심좌표
+	                			level : ${board.mapLevel}
+	                		// 지도의 확대 레벨
+	                		};
+	
+	                		//지도를 미리 생성
+	                		var map = new daum.maps.Map(mapContainer, mapOption);
+	                		
+	                		// 마커표시----------------------------------------------------
+	                		// 지도를 클릭한 위치에 표출할 마커입니다
+	                		var marker = new kakao.maps.Marker({ 
+	                		    // 지도 중심좌표에 마커를 생성합니다 
+	                		    position: map.getCenter() 
+	                		}); 
+	                		// 지도에 마커를 표시합니다
+	                		marker.setMap(map);
+	                        </script>
                     </section>
                 </article>
                 
@@ -163,7 +202,7 @@
 		                    	<span class="badge rounded-pill bg-warning text-dark">태그2</span>
 	                    	</div>
 	                    	<!-- Post title-->
-                        	<h4 class="fw-bolder mb-3">종이 청구서와 영수증은 모바일로 스마트하게</h4>
+                        	<h4 class="fw-bolder mb-3">${board.title }</h4>
                         	<!-- Post progressbar-->
                         	<div class="progress" style="height: 6px;">
 		                    	<div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
@@ -171,6 +210,7 @@
 							</div>
 							<div class="mb-5">
 							</div>
+							${board.price }
 							<div class="d-grid gap-2">
 							<button type="button" class="btn btn-warning">구매하기</button>
 							</div>
@@ -180,7 +220,10 @@
                 <!-- Side widget-->
                 <div class="card border-1 mx-4 mb-4">
                 	<div>
-                		<div class="card-body ">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                		<div class="card-body ">
+                			<p>작성자 : ${board.nickname }</p>
+                			<p>작성자 어필?</p>
+                		</div>
                 	</div>
                 </div>
             </div>

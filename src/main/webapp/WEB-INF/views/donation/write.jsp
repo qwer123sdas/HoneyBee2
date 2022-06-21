@@ -49,16 +49,18 @@
 		<br />
 		<label for="">태그</label>
 		<div class="input_tag"><input type="text" name="hashTagLump" placeholder="태그All"></div>
+		<input type="hidden" name="folderName" />
 		<button>제출</button>
 	</form>
 </body>
 <script>
 //여기 아래 부분
+const randomNum = Math.floor(Math.random() * 1000000000);
+$('#folderName').val(randomNum);
 
 $(document).ready(function() {
 		//여기 아래 부분
-		const randomNum = Math.floor(Math.random() * 1000000000);
-		
+
 		$('#summernote').summernote({
 			  height: 300,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
@@ -83,7 +85,7 @@ $(document).ready(function() {
             data.append("image", image); // file를 담고 ajax에서 넘겨줌
             data.append("folderId", 'padding-'+randomNum); // 폴더 난수 넘기기
             $.ajax({
-                url: '${appRoot}/uploadImageToS3ForSummerNote',
+                url: '${appRoot}/uploadImageToS3ForSummerNote/talent',
                 data: data,
                 type: "POST",
                 cache: false,

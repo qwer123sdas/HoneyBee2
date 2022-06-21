@@ -518,30 +518,6 @@
     	    				
     	    				replyListElement.append(replyElement);
     	    				
-    	    				/* 
-    	   	    			const element = document.getElementById('replyDiv');
-    	   	    			
-    	   	    			var name = list[i].nickname;
-        	    			var amount = 0;
-        	    			var amountStr = "";
-        	    			var result = "";
-        	    			console.log("기부액 " + list[i].amount);
-        	    			
-        	    			if(list[i].amount != 0){
-        	    				amount = list[i].amount;
-        	    				amountStr = amount + "원";
-        	    				console.log("not null");
-        	    				console.log("name");
-        	    				result =  name +"  " +  amountStr;
-        	    				element.innerHTML = result;
-        	    			}else{
-        	    				console.log("null");
-        	    				result =  name;
-        	    				element.innerHTML = result;
-        	    			}
-        	    			
-        	    			console.log(result);
-    	    				 */
         	    			 
     	    			} // for문 끝
     				} // success 끝

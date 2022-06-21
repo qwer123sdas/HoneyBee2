@@ -3,6 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.TalentBoardMapper">
+	<!-- 게시물 리스트 가져오기 -->
+	<select id="findOrder" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title,
+				t.talent_id talentId,
+				t.price
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+		GROUP BY t.talent_id
+		ORDER BY t.talent_id DESC 
+	</select>
+	
+	<!-- 특정 게시물 정보 가져오기 -->
+	<select id="getBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title, 
+				t.content,
+				t.price, 
+				t.expired, 
+				t.topic, 
+				t.latitude, 
+				t.longitude, 
+				t.map_level mapLevel, 
+				t.address,
+				m.nickname
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+		WHERE talent_id = #{talentId}
+	</select>
+	
+
+	
+	<!-- 게시물 쓰기 -->
 	<insert  useGeneratedKeys="true"  id="setTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto"
 				keyColumn="talent_id" keyProperty="talentId">
 		INSERT INTO Talent(member_id, 
@@ -26,4 +55,9 @@
 				#{mapLevel},
 				#{address})
 	</insert>
+
+	
+
+	
+
 </mapper>	

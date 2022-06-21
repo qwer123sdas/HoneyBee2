@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.SummerNoteMapper">
+	<!-- 공용===============================================================================================  -->
 	<!-- 첫 이미지 업로드  -->
 	<insert  useGeneratedKeys="true"  id="insertImage" keyColumn="image_id" keyProperty="imageId">
 		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
@@ -14,8 +15,8 @@
 		SET image_url = #{imageUrl}
 		WHERE image_id = #{imageId}
 	</update>
-	
-	
+	<!-- ===================================================================================================  -->
+	<!-- Donation===============================================================================================  -->
 	<!--  이미지url로, 관련 image_folder_id가져오기  -->
 	<select id="getImageFolderIdImageUrl" resultType="String">
 		SELECT image_folder_id
@@ -42,4 +43,11 @@
 		SET donation_id = #{donationId}
 		WHERE image_folder_id = #{imageFolderId}
 	</update>
+	
+	<!-- Talent==================================================================================================== -->
+	<!-- 서머노트 내용 사진 등록  -->
+	<insert  useGeneratedKeys="true"  id="insertImageFromTalent" keyColumn="image_id" keyProperty="imageId">
+		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
+		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
+	</insert>
 </mapper>

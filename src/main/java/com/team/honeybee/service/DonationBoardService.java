@@ -82,7 +82,7 @@ public class DonationBoardService {
 
 	// [임시] 도네이션 작성 게시판----------------------------------------------------------------------------------------
 	@Transactional
-	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto, String hashTagLump) {
+	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto, String hashTagLump, String folderName) {
 		// 게시글 항목 저장
 		mapper.dontaionBoardWrite(dto);
 		System.out.println("dto : " + dto);
@@ -94,10 +94,10 @@ public class DonationBoardService {
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
 			// db 저장
-			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename());
+			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename(), dto.getMemberId());
 			
 			// s3 저장
-			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto); 
+			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto, folderName); 
 		}
 		
 		
@@ -149,9 +149,9 @@ public class DonationBoardService {
 	
 	
 	// 메인 사진 등록 메소드
-	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto) {
+	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto, String folderName) {
 		// board/temp/12344.png
-		String key = "donation/mainPhoto/" + donationId + "/" + mainPhoto.getOriginalFilename();
+		String key = "donation/folderName/" + mainPhoto.getOriginalFilename();
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정

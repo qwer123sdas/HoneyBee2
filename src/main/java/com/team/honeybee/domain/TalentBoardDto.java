@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class TalentBoardDto {
 	private String memberId;
+	private String nickname;
 	
 	private int talentId;
 	private String title;
@@ -15,6 +16,10 @@ public class TalentBoardDto {
 	
 	private LocalDateTime inserted;
 	private String expired;
+	
+	private String imageName;
+	private String imageUrl;
+	private String imageFolderId;
 	
 	private double latitude; 
 	private double longitude;
