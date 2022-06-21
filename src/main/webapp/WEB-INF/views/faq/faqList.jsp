@@ -31,6 +31,8 @@
 <!-- Template Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
+	
+	
 
 <html>
 <head>
@@ -46,7 +48,7 @@
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>제목</th>
+				<th width="150">제목</th>
 				<th>처리상태</th>
 				<th>문의일자</th>
 				
@@ -63,7 +65,7 @@
 					<c:if test="${faq.enable == 1  }">
 					<td>답변완료</td>
 					</c:if>
-					<td>${faq.inserted }</td>
+					<td >${faq.inserted }</td>
 					
 					
 				</tr>

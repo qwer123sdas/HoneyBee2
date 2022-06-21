@@ -43,20 +43,20 @@
 				<h1>1대1 문의</h1>
 				<form action="${appRoot }/faq/insert" method="post" enctype="multipart/form-data">
 					<div>
-						<label class="form-label" for="input1"></label> 
-						<input class= "form-control" type="text" name="title"  /> <br />
+						<label class="form-label" for="input1">제목</label> 
+						<input class= "form-control" type="text" name="title" required  /> <br />
 
 					</div>
 					<div>
-						<label class="form-label" for="input1"></label> 
-						<input class= "form-control" type="email" name="email"  /> <br />
+						<label class="form-label" for="input1">이메일</label> 
+						<input class= "form-control" type="email" name="email" required  /> <br />
 
 					</div>
 		
 
 					<div>
 						<label for="textareal1">문의 내용 </label> 
-						<textarea class="form-control" name = "content" id="" cols="30" rows="10"></textarea> <br />
+						<textarea class="form-control" name = "content" id="" cols="30" rows="10" required></textarea> <br />
 					</div>
 					<div>
 						파일
