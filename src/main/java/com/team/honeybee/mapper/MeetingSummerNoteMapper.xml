@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.MeetingSummerNoteMapper">
+	<!-- 이미지 업로드 -->
+	<insert  useGeneratedKeys="true"  id="insertImage" keyColumn="image_id" keyProperty="imageId">
+		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
+		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
+	</insert>
+	
+	<!-- url 저장 -->
+	<update id="uploadImageUrl">
+		UPDATE BoardImage
+		SET image_url = #{imageUrl}
+		WHERE image_id = #{imageId}
+	</update>
+	
+	<!-- url로 image_folder_id 가져오기 -->
+	<select id="getImageFolderIdImageUrl" resultType="String">
+		SELECT image_folder_id
+		FROM BoardImage
+		WHERE image_url = #{imageUrl}
+	</select>
+	
+	<!-- 해당 폴더 아이디 이미지 url 모두 가져오기 -->
+	<select id="getImageUrlByImageFolderId" resultType="String">
+		SELECT image_url 
+		FROM BoardImage
+		WHERE image_folder_id = #{imageFolderId}
+	</select>
+	
+	<!-- 없는 이름 지우기 -->
+	<delete id="deleteImage">
+		DELETE FROM BoardImage
+		WHERE image_url = #{imageUrl}
+	</delete>
+	
+	<!-- meetingId 넣어주기 -->
+	<update id="setDonationId">
+		UPDATE BoardImage
+		SET meeting_id = #{meetingId}
+		WHERE image_folder_id = #{imageFolderId}
+	</update>
+	
+</mapper>

@@ -103,7 +103,7 @@ add COLUMN ref BIGINT(255) DEFAULT 0;
 
 ALTER TABLE MeetingReply
 MODIFY COLUMN refNum BIGINT(255) DEFAULT 0;
-
+DESC BoardImage;
 
 
 commit;
@@ -119,3 +119,15 @@ ADD COLUMN answerNum BIGINT(255) DEFAULT 0;
 
 ALTER TABLE MeetingReply
 ADD COLUMN parentNum BIGINT(255) DEFAULT 0;
+
+
+ALTER TABLE BoardImage
+ADD COLUMN meeting_id INT(255) AFTER donation_id;
+
+ALTER TABLE BoardImage
+ADD FOREIGN KEY (meeting_id) REFERENCES Meeting(meeting_id);
+
+DESC BoardImage;
+
+ALTER TABLE BoardImage
+ADD COLUMN main_image_name INT(255) NOT NULL;

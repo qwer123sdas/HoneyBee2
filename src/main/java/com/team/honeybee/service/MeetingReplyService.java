@@ -34,12 +34,12 @@ public class MeetingReplyService {
 	private void addChildren(List<MeetingReplyDto> list) {
 		for (MeetingReplyDto dto : list) {
 			
-			List<MeetingReplyDto> childen = mapper.selectAllChildrenByParentReplyId(dto.getMeetingReplyId());
+			List<MeetingReplyDto> children = mapper.selectAllChildrenByParentReplyId(dto.getMeetingReplyId());
 			
-			dto.setChilden(childen);
+			dto.setChilden(children);
 			
 			// 자식의자식
-			addChildren(childen);
+			addChildren(children);
 		}
 	}
 	
@@ -58,10 +58,10 @@ public class MeetingReplyService {
 	}
 
 	// 자식 댓글 입력 메소드 
-	public void insertMeetingReplyChild(MeetingReplyDto reply) {
+	public void insertMeetingReplyChildren(MeetingReplyDto reply) {
 		// TODO Auto-generated method stub
 		
-		mapper.insertMeetingReplyChild(reply);
+		mapper.insertMeetingReplyChildren(reply);
 	}
 	
 	

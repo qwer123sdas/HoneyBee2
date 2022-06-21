@@ -235,7 +235,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
                             			 </div>
                             			 
                             			 <form class="mb-4" id="insertReplyForm2"
-             								action="${appRoot }/meeting/reply/insert" method="post">
+             								action="${appRoot }/meeting/reply/insertReplyChildren" method="post">
              								<div class="input-group">
              									<input type="hidden" name="meetingReplyId"
              										value="\${list[i].meetingReplyId }" />
@@ -345,7 +345,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 						<div class="card-body">
 							<!-- 댓글 입력 form -->
 							<form class="mb-4" id="insertReplyForm1"
-								action="${appRoot }/meeting/reply/insert" method="post">
+								action="${appRoot }/meeting/reply/insertReplyP" method="post">
 								<div class="input-group">
 									<input type="hidden" name="meetingId"
 										value="${meeting.meetingId }" />
@@ -359,7 +359,7 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
 	
 							<div id="meetingReply" class="meetingReplyList">
-							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ></div>
+	
 						</div>
 					</div>
 				</section>

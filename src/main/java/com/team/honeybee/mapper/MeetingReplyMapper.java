@@ -21,6 +21,6 @@ public interface MeetingReplyMapper {
 	List<MeetingReplyDto> selectAllChildrenByParentReplyId(int parentId);
 
 	// 자식 댓글 입력
-	void insertMeetingReplyChild(MeetingReplyDto reply);
+	void insertMeetingReplyChildren(MeetingReplyDto reply);
 
 }

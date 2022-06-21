@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -22,7 +23,6 @@ public class MeetingDto{
 	private String address;
 	private String detailAddress;
 	private String guest; 
-
 	private String topic; // 카테고리 번호
 	private List<String> hashTag; // 해쉬태그 hash_tag
 	
@@ -38,6 +38,9 @@ public class MeetingDto{
 	
 	// 게스트 숫자 파악 추가
 	private int guestNum;
+	
+	private String mainPhoto;  // 메인 사진
+	private String image; // 서머노트 
 	
 	
 	

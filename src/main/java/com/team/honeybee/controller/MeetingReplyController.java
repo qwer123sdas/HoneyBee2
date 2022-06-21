@@ -35,7 +35,7 @@ public class MeetingReplyController {
 	}
 	
 	// 로그인 회원 부모댓글 작성
-	@PostMapping(path = "insert", produces = "text/plain;charset=UTF-8")
+	@PostMapping(path = "insertReplyP", produces = "text/plain;charset=UTF-8")
 	public String insertMeetingReply(MeetingReplyDto reply, Principal principal) {
 		
 		if (principal != null) {
@@ -49,7 +49,7 @@ public class MeetingReplyController {
 	
 	
 	// 로그인 회원 자식댓글 작성
-	@PostMapping(path = "insert", produces = "text/plain;charset=UTF-8")
+	@PostMapping(path = "insertReplyC", produces = "text/plain;charset=UTF-8")
 	public String insertMeetingReplyChild(MeetingReplyDto reply, Principal principal) {
 		
 		if (principal != null) {
@@ -58,7 +58,7 @@ public class MeetingReplyController {
 			reply.setRefNum(reply.getMeetingReplyId());
 			reply.setStep(1);
 			reply.setRefOrder(1);
-			service.insertMeetingReplyChild(reply);
+			service.insertMeetingReplyChildren(reply);
 		}
 		
 		return "redirect:/meeting/board/" + reply.getMeetingId();

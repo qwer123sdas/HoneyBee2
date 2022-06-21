@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +43,7 @@ public class MeetingController {
 		model.addAttribute("meetingList", list);
 		// sort, topic 추가
 		model.addAttribute("sort", sort);
-		model.addAttribute("topicId", topic);
+		model.addAttribute("topic", topic);
 		
 	}
 	
@@ -65,26 +66,19 @@ public class MeetingController {
 		
 	}
 	
+	
 	@PostMapping("insert")
 	public String meetingInsertProcess(MeetingDto meeting, 
-						@RequestParam("files") MultipartFile[] files, 
-						// @RequestParam("hashTagRaw") String hashTagRaw, // 해쉬태그 추가함
+						@RequestParam("mainPhoto") MultipartFile mainPhoto, 
+						@RequestParam("hashTagRaw") String hashTagRaw,
 						Principal principal, 
 						RedirectAttributes rttr) {
-		System.out.println(files.length);
-		// s3파일 담기
-		if (files != null) {
-			List<String> fileList = new ArrayList<String>();
-			for(MultipartFile f : files) {
-				fileList.add(f.getOriginalFilename());
-			}
-		}
 		
 		// 로그인 회원 아이디값 넣기
 		String memberId = principal.getName();
 		meeting.setMemberId(memberId);
 
-		boolean success = service.insertBoard(meeting, files); //, hashTagRaw
+		boolean success = service.insertBoard(meeting, mainPhoto, hashTagRaw); 
 		
 		if (success) {
 			rttr.addAttribute("message", "새 글이 등록되었습니다.");

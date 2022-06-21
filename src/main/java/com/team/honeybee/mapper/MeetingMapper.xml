@@ -6,8 +6,8 @@
 	
 	<!-- 모임등록(임시) -->
 	<insert id="insertMeeting" useGeneratedKeys="true" keyColumn="meetingId" keyProperty="meetingId">
-		INSERT INTO Meeting (member_id, tag, title, content, postcode, address, detailAddress, guest_num, meeting_date, start_date, end_date)
-		VALUES (#{memberId}, #{tag}, #{title}, #{content}, #{postcode}, #{address}, #{detailAddress}, #{guestNum}, #{meetingDate}, #{startDate}, #{endDate})
+		INSERT INTO Meeting (member_id, topic, title, content, postcode, address, detailAddress, guest_num, meeting_date, start_date, end_date)
+		VALUES (#{memberId}, #{topic}, #{title}, #{content}, #{postcode}, #{address}, #{detailAddress}, #{guestNum}, #{meetingDate}, #{startDate}, #{endDate})
 	</insert>
 
 	<!-- file upload 추가 -->
@@ -16,12 +16,12 @@
 		VALUES (#{meetingId}, #{file})
 	</insert>
 	
-	<!-- 해쉬태그 넣기 추가 
+	<!-- 해쉬태그 넣기 추가 -->
 	<insert id="setHashTag">
 		INSERT INTO Tag(hash_tag, meeting_id)
 		VALUES(#{hashTag}, #{meetingId})
 	</insert>
-	-->
+	
 	
 	<!-- 모임 목록 보기 -->
 	<select id="selectMeeting" resultType="com.team.honeybee.domain.MeetingDto">
@@ -38,7 +38,8 @@
 				mt.start_date startDate,
 				mt.end_date endDate,
 				mt.topic, 
-				m.nickname
+				m.nickname,
+				f.file fileName
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
 						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
 									<!-- 나중에 파일 입력 추가 해야함 -->
@@ -68,17 +69,18 @@
 				mt.start_date startDate,
 				mt.end_date endDate,
 				mt.tag,
-				m.nickname
+				m.nickname,
+				f.file fileName
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
 						LEFT JOIN MeetingFile f ON f.meeting_id = mt.meeting_id
 		WHERE mt.meeting_id = #{meetingId}
 	</select>
 	
-	<!-- 해쉬태그 가져오기 
+	<!-- 해쉬태그 가져오기 -->
 	<select id="getHashTag" resultType="String">
 		SELECT hash_tag hashTag
 		FROM Tag
 		WHERE meeting_id = #{meetingId}
 	</select>
-	-->
+	
 </mapper>

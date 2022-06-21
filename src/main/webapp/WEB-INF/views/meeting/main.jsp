@@ -199,14 +199,23 @@
           	<c:forEach items="${meetingList }" var="meeting">
 		 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
 				<div class="service-item rounded overflow-hidden">
-		            <img class="img-fluid" src="${appRoot }/resources/webContents/img/img-600x400-2.jpg" alt="">
+					<c:forEach items="${file.fileName }" var="file">
+							<%
+							/* 특수기호가 포함된 파일명 encoding */
+							String file = (String) pageContext.getAttribute("file");
+							String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
+							pageContext.setAttribute("encodedFileName", encodedFileName);
+							
+							%>
+		            <img class="img-fluid" src="${imageUrl }/meeting/mainPhoto/${file.meetingId }/${encodedFileName }" alt="" />
+		            </c:forEach>
 		                <div class="position-relative p-4 pt-0">
 		                    <div class="service-icon">
 		                         <i class="fa fa-wind fa-3x"></i>
 		                    </div>
 		                            <p class="mb-2">${meeting.nickname }</p>
 		                            <h4>${meeting.title }</h4>
-		                            <a class="small fw-medium" href="${appRoot }/meeting/board/${meeting.meetingId}" >모임신청<i class="fa fa-arrow-right ms-2"></i></a>
+		                            <a class="small fw-medium" href="${appRoot }/meeting/board/${file.meetingId}" >모임신청<i class="fa fa-arrow-right ms-2"></i></a>
 			                    	<div>
 				                    	<p class="timeLimit" style="margin:30px; width:400px; text-align:center; font-weight: 600;"><i class="fa-solid fa-clock"></i>${meeting.endDate }까지 신청하세요</p>
 			                    	</div>
