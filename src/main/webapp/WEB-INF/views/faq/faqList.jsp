@@ -31,8 +31,8 @@
 <!-- Template Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
-	
-	
+
+
 
 <html>
 <head>
@@ -40,42 +40,43 @@
 <title>Insert title here</title>
 </head>
 <body>
-<my:navbar></my:navbar>
-<div class="container">
+	<my:navbar></my:navbar>
+	<div class="container">
 		<div class="row">
-			<div class="col">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th width="150">제목</th>
-				<th>처리상태</th>
-				<th>문의일자</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${faqList}" var="faq">
-				<tr>
-					<td>${faq.questionId }</td>
-					<td>${faq.title }</td>
-					<c:if test ="${faq.enable == 0 }">
-					<td>답변중</td>
-					</c:if>
-					<c:if test="${faq.enable == 1  }">
-					<td>답변완료</td>
-					</c:if>
-					<td >${faq.inserted }</td>
-					
-					
-				</tr>
+			<my:faq></my:faq>
+			<div class="col-8 mt-4">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>처리상태</th>
+							<th>문의일자</th>
 
-			</c:forEach>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${faqList}" var="faq">
+							<tr>
+								<td >${faq.questionId }</td>
+								<td >${faq.title }</td>
+								<c:if test="${faq.enable == 0 }">
+									<td>답변중</td>
+								</c:if>
+								<c:if test="${faq.enable == 1  }">
+									<td>답변완료</td>
+								</c:if>
+								<td >${faq.inserted }</td>
 
-		</tbody>
-	</table>
-	</div>
-	</div>
+
+							</tr>
+
+						</c:forEach>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 	<my:footbar></my:footbar>
 </body>

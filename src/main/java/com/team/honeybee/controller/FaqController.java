@@ -61,4 +61,8 @@ public class FaqController {
 		System.out.println(list);
 		model.addAttribute("faqList",list);
 }
+	@RequestMapping("question")
+	public void question() {
+		
+	}
 }	
