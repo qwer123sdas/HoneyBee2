@@ -230,7 +230,7 @@
 						<button type="button" data-bs-toggle="modal" data-bs-target="#modalSheet1">삭제</button>
 					</div>
 
-					<a href="changePw">비밀번호 변경하러 가기</a>
+					<a href="updatePw">비밀번호 변경하러 가기</a>
 				</form>
 			</div>
 		</div>

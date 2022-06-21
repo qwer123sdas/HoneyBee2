@@ -1,11 +1,17 @@
 package com.team.honeybee.controller;
 
 import java.security.*;
+import java.util.*;
+
+import javax.mail.internet.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.mail.*;
+import org.springframework.mail.javamail.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.mvc.support.*;
 
 import com.team.honeybee.domain.*;
@@ -17,6 +23,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@GetMapping("signup")
 	public void signupForm() {
@@ -158,19 +167,54 @@ public class MemberController {
 	}
 	
 	@PostMapping("initpw")
-	public String initpwProcess(String memberId) {
-		service.initPw(memberId);
+	public String initpwProcess(String memberId, RedirectAttributes rttr) {
+		String email = service.getEmailById(memberId);
 		
-		return "redirect:/member/login";
+		if(email == null || email == "") {
+			return "";
+		} else {
+			// 메일 보내고
+			Random rd = new Random();
+			int number = rd.nextInt(999999);
+			rttr.addFlashAttribute("OTP", String.format("%06d", number));
+			rttr.addFlashAttribute("memberId", memberId);
+	        String subject = "비밀번호 재설정";
+	        String content = "OTP: " + String.format("%06d", number);
+	        String from = "honeybee137@naver.com";
+	        String to = email;
+	        
+	        try {
+	            MimeMessage mail = mailSender.createMimeMessage();
+
+	            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+	            
+	            mailHelper.setFrom("꿀비 <honeybee137@naver.com>");
+	            mailHelper.setTo(to);
+	            mailHelper.setSubject(subject);
+	            mailHelper.setText(content);
+	            
+	            mailSender.send(mail);
+	            
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	            return "";
+	        }
+			
+			// 메일 보내는거 성공하면
+			// 번호6자리 넣는 화면으로 리다이렉트
+			
+	        return "redirect:/member/changePw";
+		}
+		
 	}
 	
 	// 회원 비밀번호 변경
-	@GetMapping("changePw")
+	@GetMapping("updatePw")
 	public void changePwForm() {
 		
 	}
 	
-	@PostMapping("changePw")
+	@PostMapping("updatePw")
 	public String changePwProcess(MemberDto dto,Principal principal, RedirectAttributes rttr) {
 		dto.setMemberId(principal.getName());
 		boolean success = service.changePw(dto);
@@ -184,6 +228,14 @@ public class MemberController {
 			return "redirect:/member/temp-mainPage";
 		}
 	}
+	
+	@GetMapping("changePw")
+	public void chanePw() {
+		
+	}
+	
+	// 6자리 OTP 이메일로 건내주기
+
 }
 
 

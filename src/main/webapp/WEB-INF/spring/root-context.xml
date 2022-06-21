@@ -35,10 +35,11 @@
 		<property name="dataSource" ref="dataSource"></property>		
 	</bean>
 	
-	<!-- 메일 사용 관련 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+	<!-- 메일 사용 관련 
+	<bean id="mailSender2" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
  		<property name="host" value="stmp 도메인 주소"/> 
 	</bean>
+	-->
 	
 	<!-- navermail설정 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 

@@ -93,4 +93,11 @@
 		SET pw = #{pw}
 		WHERE member_id = #{memberId}
 	</update>
+	
+	<!-- 이메일 가져오기 -->
+	<select id="selectEmailById" resultType="string">
+		SELECT email
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
 </mapper> 

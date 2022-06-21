@@ -108,4 +108,8 @@ public class MemberService {
 		
 		return mapper.changePw(dto);
 	}
+
+	public String getEmailById(String memberId) {
+		return mapper.selectEmailById(memberId);
+	}
 }

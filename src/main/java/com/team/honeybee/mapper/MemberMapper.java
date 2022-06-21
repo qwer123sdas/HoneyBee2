@@ -38,5 +38,7 @@ public interface MemberMapper {
 	void initPwByMemberId(@Param("memberId") String memberId, @Param("pw") String pw);
 	// 회원 비밀번호 변경
 	boolean changePw(MemberDto dto);
+	// 회원 이메일 가져오기
+	String selectEmailById(String memberId);
 
 }
