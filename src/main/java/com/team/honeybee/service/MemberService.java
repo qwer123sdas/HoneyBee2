@@ -93,4 +93,19 @@ public class MemberService {
 		return mapper.updateMember(dto) == 1;
 
 	}
+
+	// 회원 비밀번호 초기화
+	public void initPw(String memberId) {
+		String pw = passwordEncoder.encode(memberId);
+		mapper.initPwByMemberId(memberId, pw);
+	}
+	
+	// 회원 비밀번호 변경
+	public boolean changePw(MemberDto dto) {
+		String encodedPassword = passwordEncoder.encode(dto.getPw());
+		
+		dto.setPw(encodedPassword);
+		
+		return mapper.changePw(dto);
+	}
 }

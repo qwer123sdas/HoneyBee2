@@ -20,15 +20,17 @@
 <title>비밀번호 초기화</title>
 </head>
 <body>
-
+	<!-- 임시 navbar -->
+	<my:navBar current="memberList"></my:navBar>
+	
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-6">
 				<h1>비밀번호 초기화</h1>
 				<form method="post">
-					<label for="idInput1" class="form-label"> 초기화할 아이디 </label>
+					<label for="idInput1" class="form-label"> 아이디 </label>
 
-					<input id="idInput1" class="form-control" type="text" name="id" />
+					<input id="idInput1" class="form-control" type="text" name="memberId" />
 
 					<div class="form-text mb-3">비밀번호는 아이디로 초기화 됩니다.</div>
 

@@ -162,7 +162,7 @@
 						onclick="location.href='/honeybee/member/findIdView'">아이디 찾기</button>
 					<!-- 비밀번호 찾기 -->
 					<button type="button" class="btn btn-warning"
-						onclick="location.href='/honeybee/member/findPw'">비밀번호 찾기</button>
+						onclick="location.href='/honeybee/member/initpw'">비밀번호 찾기</button>
 					<!-- 회원가입 -->
 					<button type="button" class="btn btn-warning"
 						onclick="location.href='${appRoot }/member/signup'">회원 가입</button>

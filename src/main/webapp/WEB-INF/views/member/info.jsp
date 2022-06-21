@@ -173,11 +173,12 @@
 
 </head>
 <body>
+	<!-- 임시 navBar -->
 	<my:navBar current="info"></my:navBar>
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-6">
+			<div class="col-12">
 				<form id="form1" action="${appRoot }/member/modify" method="post">
 					<h1>마이페이지</h1>
 
@@ -185,18 +186,19 @@
 						<p>${message }</p>
 					</div>
 					
-					아이디
-					<input type="text" name="memberId" value="${memberInfo.memberId }" readonly />
+					<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
 					<br />
+					
 					이름
 					<input type="text" name="name" value="${memberInfo.name }" readonly/>
 					<br />
-					
+					<!-- 
 					비밀번호 <input id="pwInput1" type="text" value="${memberInfo.pw }" />
 					<br />
 					비밀번호 확인 <input id="pwInput2" type="text" value="${memberInfo.pw }"/>
 					<p id="pwMessage1"></p>
 					<br />
+					 -->
 					
 					이메일
 					<input id="emailInput1" type="email" name="email" value="${memberInfo.email }" />
@@ -222,12 +224,13 @@
 					전화
 					<input type="text" name="phone" value="${memberInfo.phone }" />
 					<br />
-
+					
 					<div>
 						<button id="modifySubmitButton1" data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
 						<button type="button" data-bs-toggle="modal" data-bs-target="#modalSheet1">삭제</button>
 					</div>
 
+					<a href="changePw">비밀번호 변경하러 가기</a>
 				</form>
 			</div>
 		</div>

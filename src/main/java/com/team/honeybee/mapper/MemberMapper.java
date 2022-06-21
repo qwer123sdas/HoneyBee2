@@ -34,5 +34,9 @@ public interface MemberMapper {
 	void deleteAuthById(String memberId);
 	// 회원 정보 수정
 	int updateMember(MemberDto dto);
+	// 회원 비밀번호 초기화
+	void initPwByMemberId(@Param("memberId") String memberId, @Param("pw") String pw);
+	// 회원 비밀번호 변경
+	boolean changePw(MemberDto dto);
 
 }

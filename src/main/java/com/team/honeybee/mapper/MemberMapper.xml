@@ -4,34 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.MemberMapper">
 
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.team.honeybee.domain.MemberDto" >
 		INSERT INTO Member (member_id, pw, name, email, nickname, postcode, address, detail, birth, phone)
 		VALUES (#{memberId}, #{pw}, #{name}, #{email}, #{nickname}, #{postcode}, #{address}, #{detail}, #{birth}, #{phone})
 	</insert>
-
+	
+	<!-- 아이디 체크 -->
 	<select id="countMemberId" resultType="int">
 		SELECT COUNT(member_id) 
 		FROM Member 
 		WHERE member_id = #{memberId}
 	</select>
-
+	
+	<!-- 이메일 체크 -->
 	<select id="countMemberEmail" resultType="int">
 		SELECT COUNT(email) 
 		FROM Member 
 		WHERE email = #{email}
 	</select>
-
+	
+	<!-- 닉네임 체크 -->
 	<select id="countMemberNickName" resultType="int">
 		SELECT COUNT(nickname)
 		FROM Member 
 		WHERE nickname = #{nickname}
 	</select>
 
+	<!-- 권한 추가 -->
 	<insert id="insertAuth">
 		INSERT INTO Auth(member_id, role)
 		VALUES(#{memberId}, #{auth})
 	</insert>
 	
+	<!-- 아이디 찾기 -->
 	<select id="findId" resultType="int">
 		SELECT COUNT(member_id)
 		FROM Member
@@ -44,6 +50,7 @@
 		WHERE name = #{name} AND email = #{email}
 	</select>
 	
+	<!-- 마이페이지 -->
 	<select id="memberInfo" resultType="com.team.honeybee.domain.MemberDto">
 		SELECT member_id memberId, pw, name, email, nickname, postcode, address, detail, phone
 		FROM Member
@@ -65,11 +72,25 @@
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember">
 		UPDATE Member
-		SET pw = #{pw},
-			email = #{email},
-			nickname = #{nickname}
+		SET email = #{email},
+			nickname = #{nickname},
+			postcode = #{postcode},
+			address = #{address},
+			detail = #{detail},
+			phone = #{detail}
 		WHERE member_id = #{memberId}
-			
 	</update>
 	
+	<!-- 회원 비밀번호 초기화 -->
+	<update id="initPwByMemberId">
+		UPDATE Member
+		SET pw = #{pw}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="changePw">
+		UPDATE Member
+		SET pw = #{pw}
+		WHERE member_id = #{memberId}
+	</update>
 </mapper> 

@@ -6,11 +6,12 @@
 <c:url value="/board/list" var="listUrl"></c:url>
 <c:url value="/member/temp-mainPage" var="mainPageUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl" ></c:url>
-<c:url value="/member/list" var="memberListUrl"></c:url>
+<c:url value="/member/info" var="pwInfoUrl"></c:url>
 <c:url value="/member/info" var="memberInfoUrl"></c:url>
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
+<c:url value="/member/changePw" var="changePasswordUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -158,15 +159,13 @@
         		<a href="${memberInfoUrl }" class="nav-link ${current == 'memberInfo' ? 'active' : '' }">마이페이지</a>
         	</li>
         </sec:authorize>
-        
-        <sec:authorize access="hasRole('ADMIN')">
-	        <li class="nav-item">
-	        	<a href="${memberListUrl }" class="nav-link ${current == 'memberList' ? 'active' : '' }">회원목록</a>
-	        </li>
+        <!-- 
+        <sec:authorize access="hasRole('USER')">
 	        <div class="nav-item">
 	        	<a href="${initPasswordUrl }" class="nav-link">암호초기화</a>
 	        </div>
         </sec:authorize>
+         -->
         
         <!-- li.nav-item>a.nav-link{로그인} -->
         
