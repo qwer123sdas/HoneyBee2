@@ -179,8 +179,8 @@ public class AdminService {
 	}
 
 	public DonationDto getDonation(int donationId) {
-		
-		return null;
+		DonationDto donation = mapper.getDonationById(donationId);
+		return donation;
 	}
 
 	public MeetingDto getMeeting(int meetingId) {

@@ -44,4 +44,6 @@ public interface AdminMapper {
 
 	MeetingDto getMeetingById(int meetingId);
 
+	DonationDto getDonationById(int donationId);
+
 }
