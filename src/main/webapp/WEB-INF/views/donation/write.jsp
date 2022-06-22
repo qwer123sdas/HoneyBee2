@@ -49,12 +49,12 @@
 		<br />
 		<label for="">태그</label>
 		<div class="input_tag"><input type="text" name="hashTagLump" placeholder="태그All"></div>
-		<input type="hidden" name="folderName" />
+		<input type="hidden" id="folderName" name="folderName" />
 		<button>제출</button>
 	</form>
 </body>
 <script>
-//여기 아래 부분
+/* 폴더명 */
 const randomNum = Math.floor(Math.random() * 1000000000);
 $('#folderName').val(randomNum);
 

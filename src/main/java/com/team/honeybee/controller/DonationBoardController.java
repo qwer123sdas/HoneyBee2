@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.honeybee.domain.DonationDto;
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.domain.FavoriteDto;
 import com.team.honeybee.service.DonationBoardService;
 import com.team.honeybee.service.FavoriteService;
@@ -35,7 +35,7 @@ public class DonationBoardController {
 					 @RequestParam(name="topic_id", defaultValue = "")String topic,
 																	 Model model) {
 		// 목록 가져오기
-		List<DonationDto> boardList = service.findOrder(sort, topic);
+		List<DonationBoardDto> boardList = service.findOrder(sort, topic);
 		
 		// 기부금액 달성률
 		model.addAttribute("boardList", boardList);
@@ -48,7 +48,7 @@ public class DonationBoardController {
 	@Transactional
 	public String board(@PathVariable int donationId, Model model, Principal principal) {
 		// 게시글 정보 가져오기
-		DonationDto board = service.getBoard(donationId);
+		DonationBoardDto board = service.getBoard(donationId);
 		model.addAttribute("board", board);
 		model.addAttribute("principal", principal);
 		
@@ -92,7 +92,7 @@ public class DonationBoardController {
 	}
 	
 	@PostMapping("board/write")
-	public String write(DonationDto dto, 
+	public String write(DonationBoardDto dto, 
 						@RequestParam(name="hashTagLump")String hashTagLump, 
 						@RequestParam(name="mainPhoto")MultipartFile mainPhoto,
 						@RequestParam(name="folderName")String folderName, 

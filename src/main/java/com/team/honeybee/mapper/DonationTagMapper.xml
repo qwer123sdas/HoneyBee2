@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.DonationTagMapper">
-	<select id="getDonationBoardByhashTag" resultType="com.team.honeybee.domain.DonationDto">
+	<select id="getDonationBoardByhashTag" resultType="com.team.honeybee.domain.DonationBoardDto">
 		SELECT d.donation_id donationId,
 				d.title,
 				m.nickname,

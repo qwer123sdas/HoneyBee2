@@ -73,7 +73,17 @@
                 <!-- Post content-->
                 <article>
                     <!-- 메인사진-->
-                    <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                   	<!-- 대표 이미지-->
+					<c:if test="${empty board.MPhoto }">
+						<figure class="img_ico mb-4">
+							<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+						</figure>
+					</c:if>
+					<c:if test="${not empty board.MPhoto }">
+						<figure class="mb-4">
+							<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="">
+						</figure>
+					</c:if>
                     <!-- 게시판 네비게이션 바 -->
                     <div class="my-4">
 		                    <ul class="nav nav-tabs nav-fill justify-content-center ">
@@ -90,6 +100,7 @@
 					</div>
                     <!-- 메인 컨텐츠-->
                     <section class="mb-5" id="mainContentContainer">
+                    	<p class="fs-5 mb-4">${board.content }</p>
                         <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
                         <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
                         <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
@@ -106,26 +117,42 @@
 							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 							<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	                        <script>
-	                        var latitude = ${board.latitude};
-	                        var longitude = ${board.longitude};
-	                        
 	                		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-	                		
-	                		mapOption = {
-	                			center : new daum.maps.LatLng(37.542394846283194, 126.96483185358164), // 지도의 중심좌표
-	                			level : ${board.mapLevel}
-	                		// 지도의 확대 레벨
-	                		};
+		                		mapOption = {
+		                			center : new daum.maps.LatLng(37.55324495357845, 126.97270338940449), // 지도의 중심좌표
+		                			level : ${board.mapLevel} // 지도의 확대 레벨
+		                		};
 	
 	                		//지도를 미리 생성
 	                		var map = new daum.maps.Map(mapContainer, mapOption);
-	                		
-	                		// 마커표시----------------------------------------------------
-	                		// 지도를 클릭한 위치에 표출할 마커입니다
-	                		var marker = new kakao.maps.Marker({ 
-	                		    // 지도 중심좌표에 마커를 생성합니다 
-	                		    position: map.getCenter() 
-	                		}); 
+	                		// 주소-좌표 변환 객체를 생성합니다
+	                		var geocoder = new kakao.maps.services.Geocoder();
+	                		// 행정도 주소로 좌표 검색
+	                		geocoder.addressSearch('${board.address}', function(results, status) {
+	                			if (status === daum.maps.services.Status.OK) {
+									var result = results[0]; //첫번째 결과의 값을 활용
+									// 해당 주소에 대한 좌표를 받아서
+									var coords = new daum.maps.LatLng(result.y, result.x);
+									
+			                		// 지도를 클릭한 위치에 표출할 마커입니다
+			                		var marker = new kakao.maps.Marker({ 
+			                			map: map,
+			                            position: coords
+			                		}); 
+			                		
+			                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			                        var infowindow = new kakao.maps.InfoWindow({
+			                            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비 재능 공유</div>'
+			                        });
+			                        infowindow.open(map, marker);
+
+			                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			                        map.setCenter(coords);
+									
+
+	                			}
+	                		})
+
 	                		// 지도에 마커를 표시합니다
 	                		marker.setMap(map);
 	                        </script>

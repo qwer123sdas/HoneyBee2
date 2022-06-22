@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.team.honeybee.domain.DonationDto;
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.service.DonationTagService;
 
 @Controller
@@ -22,7 +22,7 @@ public class DonationTagController {
 	public String selectDonationBoardByhashTag(@PathVariable String hashTag, 
 				@RequestParam(name="sort", defaultValue = "")String sort,
 															Model model) {
-		List<DonationDto> boardList = service.getDonationBoardByhashTag(hashTag, sort);
+		List<DonationBoardDto> boardList = service.getDonationBoardByhashTag(hashTag, sort);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("hashTag", hashTag);
 		return "donation/tags";

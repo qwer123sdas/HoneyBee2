@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.SummerNoteMapper">
 	<!-- 공용===============================================================================================  -->
-	<!-- 첫 이미지 업로드  -->
+	<!-- 서머노트 작성 중 사진 등록  -->
 	<insert  useGeneratedKeys="true"  id="insertImage" keyColumn="image_id" keyProperty="imageId">
 		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
 		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
@@ -15,21 +15,6 @@
 		SET image_url = #{imageUrl}
 		WHERE image_id = #{imageId}
 	</update>
-	<!-- ===================================================================================================  -->
-	<!-- Donation===============================================================================================  -->
-	<!--  이미지url로, 관련 image_folder_id가져오기  -->
-	<select id="getImageFolderIdImageUrl" resultType="String">
-		SELECT image_folder_id
-		FROM BoardImage
-		WHERE image_url = #{imageUrl}
-	</select>
-	
-	<!-- imageFolderId에 해당하는 image_url 모두 가져오기 -->
-	<select id="getImageUrlByImageFolderId" resultType="String">
-		SELECT image_url 
-		FROM BoardImage
-		WHERE image_folder_id = #{imageFolderId}
-	</select>
 	
 	<!--비교 후 없는 이름들 지우기  -->
 	<delete id="deleteImage">
@@ -37,7 +22,20 @@
 		WHERE image_url = #{imageUrl}
 	</delete>
 	
-	<!-- donationId 넣어주기  -->
+	
+	<!-- =======================================================================================================  -->
+	<!-- Donation===============================================================================================  -->
+
+	
+	<!-- imageFolderId에 해당하는 image_url 모두 가져오기 -->
+	<select id="getImageUrlByImageFolderId" resultType="String">
+		SELECT image_url 
+		FROM BoardImage
+		WHERE image_folder_id = #{imageFolderId}
+	</select>
+
+	
+	<!-- d게시글 작성 까지, 업로드 될 이미지에 donationId 넣기  -->
 	<update id="setDonationId">
 		UPDATE BoardImage
 		SET donation_id = #{donationId}
@@ -45,9 +43,10 @@
 	</update>
 	
 	<!-- Talent==================================================================================================== -->
-	<!-- 서머노트 내용 사진 등록  -->
-	<insert  useGeneratedKeys="true"  id="insertImageFromTalent" keyColumn="image_id" keyProperty="imageId">
-		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
-		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
-	</insert>
+	<!-- 게시글 작성 까지, 업로드 될 이미지에 talent_id넣기  -->
+	<update id="setTalentIdByTalent">
+		UPDATE BoardImage
+		SET talent_id = #{talentId}
+		WHERE image_folder_id = #{imageFolderId}
+	</update>
 </mapper>

@@ -42,10 +42,11 @@ public class SummerNoteController {
 	//Talent--------------------------------------------------------------
 	// 게시글 작성 중, 이미지 업로드
 	@PostMapping(value="talent", produces = "application/json; charset=utf8")
+	@ResponseBody
 	public String uploadImageToS3ForSummerNoteFromTalent(@RequestParam("image") MultipartFile multipartImage,
 												@RequestParam("folderId") String folderId,
-												Principal principal, 
-												HttpServletRequest request) {
+																	Principal principal, 
+																	HttpServletRequest request) {
 		JsonObject jsonObject = new JsonObject();
 		String imageUrl = service.uploadImageToS3ForSummerNoteFromTalent(multipartImage, folderId, principal.getName());
 		jsonObject.addProperty("url", awsS3Url + imageUrl);

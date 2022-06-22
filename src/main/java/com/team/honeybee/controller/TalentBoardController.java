@@ -11,7 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.service.TalentBoardService;
 
@@ -50,22 +54,17 @@ public class TalentBoardController {
 	
 	// 게시글 작성
 	@PostMapping("write")
-	public String boardInput(Map<String, String> jsonByTalent, 
-							 Principal principal) {
+	public String boardInput(String jsonByTalent,
+							MultipartFile mainPhoto,
+							String folderName, 
+							Principal principal) {
+		// json 역직렬화하고 dto에 set하기
+		Gson gson = new Gson();
+		TalentBoardDto dto = gson.fromJson(jsonByTalent, TalentBoardDto.class);
+		dto.setMemberId(principal.getName());
+	
+		service.setTalentBoard(dto, mainPhoto, folderName);
 		
-		System.out.println("jsonByTalent : " + jsonByTalent);
-		
-        // 리턴을 반환할 JSON 데이터 생성 실시
-		/*
-		 * dto.setTitle(String.valueOf(jsonByTalent.get("title")));
-		 * dto.setContent(String.valueOf(jsonByTalent.get("content")));
-		 * dto.setPrice(String.valueOf(jsonByTalent.get("price")));
-		 * dto.setExpired(String.valueOf(jsonByTalent.get("expired")));
-		 * dto.setTopic(String.valueOf(jsonByTalent.get("topic")));
-		 * dto.setLatitude(Double.valueOf(jsonByTalent.get("latitude")));
-		 * dto.setLongitude(Double.valueOf(jsonByTalent.get("longitude")));
-		 * dto.setMapLevel(Integer.valueOf(jsonByTalent.get("mapLevel")));
-		 */
 		return "redirect:/talent/main";
 	}
 	

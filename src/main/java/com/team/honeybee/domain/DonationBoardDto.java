@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 @Data
-public class DonationDto {
+public class DonationBoardDto {
 	private int donationId;
+	
 	private String memberId;
+	private String nickname;
 	
 	private String title;
 	private String content;
-	private String nickname;
 	
 	private String topic;   // 카테고리 번호
 	private List<String> hashTag; // 해쉬테그

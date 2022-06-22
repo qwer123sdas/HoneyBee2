@@ -33,7 +33,7 @@
 
 </style>
 <body>
-	<form id="talentWriteForm" method="POST" onsubmit="return checks()">
+	<form id="talentWriteForm" method="POST" onsubmit="return checks()" enctype="multipart/form-data">
 		<div class="tr_oneLine">
 			<div>카테고리 분류</div>
 			<div style="width: 40%;">
@@ -50,22 +50,30 @@
 			</div>
 			<br />
 		</div>
+		<label for="">메인사진</label> 
+		<br />
+		<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
+			<img src="${appRoot }/resources/600x400image.jpg" id="imgChange" alt="메인 사진 업로드" >
+		</a>
+		<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*">
+		<br />
+		
 		<label for="">제목</label> 
 		<input type="text" id="title"/> <br /> 
 		
 		<label for="">내용</label>
-		<textarea class="textarea"  id="summernote" name="content"> </textarea>
+		<textarea class="textarea"  id="summernote"> </textarea>
 		
 		<div>
 			<label>
-				<input type="radio" id="pay" value="pay" onclick="showPaySelect()">유료
+				<input type="radio" id="pay" name="pay" value="pay" onclick="showPriceSelect()">유료
 			</label>
 			<label>
-				<input type="radio" id="free" value="free" onclick="showFreeSelect()">무료
+				<input type="radio" id="free" name="pay" value="free" onclick="showPriceSelect()">무료
 			</label>
 		</div>
 		<label for="">가격</label> 
-		<input type="number" id="price" value="0"/> <br />
+		<input class="d-none" type="number" id="price" value="0"/> <br />
 		
 		<label for="">종료기간</label>
 		<input type="date"  id="expired"/> <br />
@@ -86,7 +94,8 @@
 		<label for="">태그</label> 
 		<input type="text" name="hashTag" />
 		<br /> 
-		<input type="hidden" id="jsonByTalent" name="jsonByTalent" value=""/>
+		<input type="hidden" id="jsonByTalent" name="jsonByTalent"/>
+		<input type="hidden" id="folderName" name="folderName" />
 		<button id="insertTalent"  type="submit" value="저장">저장</button>
 	</form>
 	
@@ -99,33 +108,35 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	<script>
-		function showFreeSelect(){
-			if ($('input:radio[name=free]:checked').val() == "free"){
+		/* 폴더명 */
+		const randomNum = Math.floor(Math.random() * 1000000000);
+		$('#folderName').val('padding-' + randomNum);
+		
+		
+		function showPriceSelect(){
+			$('#price').removeClass('d-none')
+			var nameVal = $('input:radio[name=pay]:checked').val();
+			console.log(nameVal);
+			if(nameVal == 'free'){
 				$('#free').css("visibility", "visible");
 				$('#pay').css("visibility", "hidden");
-				$('#price').attr("readonly");
-				$('#price').css('value', '0');
-			} 
-		}
-		function showPaySelect(){
-			if ($('input:radio[name=pay]:checked').val() == "pay"){
+				$('#price').attr('readonly', true);
+				document.getElementById("price").value=0;
+			}else{
 				$('#pay').css("visibility", "visible");
 				$('#free').css("visibility", "hidden");
-				$("#price").removeAttr("readonly");
-			} 
+				$("#price").attr('readonly', false);
+			}
 		}
 		
-		var latitude;
-		var longitude;
 		var mapLevel;
 		var address;
 		
 		function checks() {
 			var title = document.getElementById("title").value;
-			var content = document.getElementById("content").value;
+			var content = document.getElementById("summernote").value;
 			var topic = document.getElementById("topic").value;
 			var price = document.getElementById("price").value;
-			
 			//var hashTag = document.getElementById("").value;
 			if (title != "" && content != "" && topic != "" && price != "") {
 				console.log("1 : " + title);
@@ -138,9 +149,6 @@
 		}
 		$(document).ready(function(){
 			//서머노트---------------------------------------------------------------------------------
-			// 사진 폴더명 작성
-			const randomNum = Math.floor(Math.random() * 1000000000);
-			
 			$('#summernote').summernote({
 				  height: 300,                 // 에디터 높이
 				  minHeight: null,             // 최소 높이
@@ -165,7 +173,7 @@
 	            data.append("image", image); // file를 담고 ajax에서 넘겨줌
 	            data.append("folderId", 'padding-'+randomNum); // 폴더 난수 넘기기
 	            $.ajax({
-	                url: '${appRoot}/uploadImageToS3ForSummerNote/donation',
+	                url: '${appRoot}/uploadImageToS3ForSummerNote/talent',
 	                data: data,
 	                type: "POST",
 	                cache: false,
@@ -190,12 +198,10 @@
 				e.preventDefault();
 				console.log("여기까지 옴");
 				var data = {'title' : document.getElementById("title").value,
-						  'content' : document.getElementById("content").value,
+						  'content' : document.getElementById("summernote").value,
 						  'topic' : document.getElementById("topic").value,
 						  'price' : document.getElementById("price").value,
 						  'expired' : document.getElementById("expired").value,
-						  'latitude' : latitude,
-						  'longitude' : longitude,
 						  'mapLevel' : mapLevel,
 						  'address' : address
 						  }
@@ -251,14 +257,10 @@
 				    // 마커 위치를 클릭한 위치로 옮깁니다
 				    marker.setPosition(latlng);
 				    
-				    latitude = latlng.getLat();
-				    longitude = latlng.getLng();
 				    // 지도의 현재 레벨을 얻어옵니다
 				    mapLevel = map.getLevel();
 				    
-				    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-				    message += '경도는 ' + latlng.getLng() + ' 입니다';
-				    message += '또 지도 레벨은' + mapLevel + '입니다.';
+				    var  message += '또 지도 레벨은' + mapLevel + '입니다.';
 				    message += '상세주소는 ' + detailAddr + '입니다';
 				    address= detailAddr;
 				    var resultDiv = document.getElementById('clickLatlng'); 

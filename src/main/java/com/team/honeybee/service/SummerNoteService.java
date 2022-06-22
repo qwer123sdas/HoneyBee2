@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.honeybee.domain.DonationDto;
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.mapper.SummerNoteMapper;
 

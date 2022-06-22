@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.honeybee.domain.DonationDto;
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.domain.DonationReplyDto;
 import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.mapper.DonationBoardMapper;
@@ -64,14 +64,14 @@ public class DonationBoardService {
 	}
 	
 	// 게시글 목록
-	public List<DonationDto> findOrder(String sort, String topic) {
+	public List<DonationBoardDto> findOrder(String sort, String topic) {
 		return mapper.selectOrder(sort, topic);
 	}
 	
 	// 기부 게시글 보기
 	@Transactional
-	public DonationDto getBoard(int donationId) {
-		DonationDto dto = mapper.getBoard(donationId);
+	public DonationBoardDto getBoard(int donationId) {
+		DonationBoardDto dto = mapper.getBoard(donationId);
 		
 		// 해쉬태그 가져오기
 		List<String> hashTags = mapper.getHashTag(donationId);
@@ -82,7 +82,7 @@ public class DonationBoardService {
 
 	// [임시] 도네이션 작성 게시판----------------------------------------------------------------------------------------
 	@Transactional
-	public void dontaionBoardWrite(DonationDto dto, MultipartFile mainPhoto, String hashTagLump, String folderName) {
+	public void dontaionBoardWrite(DonationBoardDto dto, MultipartFile mainPhoto, String hashTagLump, String folderName) {
 		// 게시글 항목 저장
 		mapper.dontaionBoardWrite(dto);
 		System.out.println("dto : " + dto);
@@ -94,14 +94,14 @@ public class DonationBoardService {
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
 			// db 저장
-			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename(), dto.getMemberId());
+			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename(), dto.getMemberId(), folderName);
 			
 			// s3 저장
 			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto, folderName); 
 		}
 		
 		
-		// Jsoup :  실제 이미지 업로드 판별
+		// Jsoup :  서머노트 수정된 이미지 업로드 판별
 		//List<String> uploadImageAtTestArea = new ArrayList<>();
 		Document doc = Jsoup.parse(dto.getContent());
 		Elements imgs = doc.select("img[src]");
@@ -115,7 +115,7 @@ public class DonationBoardService {
 		
 		// 사용하지 않는 이미지 리스트
 		// image_folder_id로 해당 db에 있는 이미지 정보 가져오기
-		String imageFolderId = summerNoteMapper.getImageFolderIdImageUrl(isImage.get(0));  // 이미지url로, 관련 image_id가져오기 
+		String imageFolderId = folderName;
 		System.out.println(" imageFolderId : " + imageFolderId); // 
 		
 		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);

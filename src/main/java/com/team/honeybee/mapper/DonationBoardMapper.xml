@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.DonationBoardMapper">
 	<!-- 게시글 목록 -->
-	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationDto">
+	<select id="selectOrder" resultType="com.team.honeybee.domain.DonationBoardDto">
 		SELECT d.donation_id donationId,
 				d.title,
 				m.nickname,
@@ -34,7 +34,7 @@
 	</select>
 	
 	<!--기부 게시글 보기  -->
-	<select id="getBoard" resultType="com.team.honeybee.domain.DonationDto">
+	<select id="getBoard" resultType="com.team.honeybee.domain.DonationBoardDto">
 		SELECT d.donation_id donationId,
 				d.title,
 				d.content,
@@ -57,7 +57,7 @@
 	
 	
 	<!-- [임시] 작성 게시판 -->
-	<insert useGeneratedKeys="true" id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationDto"
+	<insert useGeneratedKeys="true" id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationBoardDto"
 			keyColumn="donation_id" keyProperty="donationId">
 		INSERT INTO Donation(title,
 							content,
@@ -79,8 +79,8 @@
 	</insert>
 	<!-- 메인 사진 등록  -->
 	<insert id="insertMainPhoto" >
-		INSERT INTO BoardImage(donation_id, main_image_name, member_id)
-		VALUES (#{donationId}, #{mainPhoto}, #{memberId})
+		INSERT INTO BoardImage(donation_id, main_image_name, member_id, image_folder_id)
+		VALUES (#{donationId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
 	
 
