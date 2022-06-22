@@ -17,7 +17,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
 
-<title>비밀번호 초기화</title>
+<title>비밀번호 찾기 : 꿀비</title>
 </head>
 <body>
 	<!-- 임시 navbar -->
@@ -26,15 +26,16 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-6">
-				<h1>비밀번호 초기화</h1>
+				 <h3>비밀번호 찾기</h3>
+				 <h4>비밀번호를 찾고자하는 아이디를 입력해주세요.</h4>
 				<form method="post">
 					<label for="idInput1" class="form-label"> 아이디 </label>
 
-					<input id="idInput1" class="form-control" type="text" name="memberId" />
+					<input id="idInput1" class="form-control" type="text" name="memberId" placeholder="꿀비 아이디"/>
 
-					<div class="form-text mb-3">비밀번호는 아이디로 초기화 됩니다.</div>
+					<div class="form-text mb-3">※비밀번호는 아이디로 초기화 됩니다.※</div>
 
-					<input class="btn btn-primary" type="submit" value="초기화" />
+					<input class="btn btn-primary" type="submit" value="다음" />
 				</form>
 			</div>
 		</div>

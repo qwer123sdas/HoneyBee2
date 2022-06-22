@@ -1,21 +1,24 @@
 package com.team.honeybee.controller;
 
-import java.security.*;
-import java.util.*;
+import java.security.Principal;
+import java.util.Random;
 
-import javax.mail.internet.*;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.mail.*;
-import org.springframework.mail.javamail.*;
-import org.springframework.stereotype.*;
-import org.springframework.ui.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.*;
-import org.springframework.web.servlet.mvc.support.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team.honeybee.domain.*;
-import com.team.honeybee.service.*;
+import com.team.honeybee.domain.MemberDto;
+import com.team.honeybee.service.MemberService;
 
 @Controller
 @RequestMapping("member")
@@ -167,21 +170,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("initpw")
-	public String initpwProcess(String memberId, RedirectAttributes rttr) {
+	public String initpwProcess(String memberId, HttpSession session, RedirectAttributes rttr) {
 		String email = service.getEmailById(memberId);
 		
 		if(email == null || email == "") {
 			return "";
 		} else {
-			// 메일 보내고
+			// 메일 보내기
 			Random rd = new Random();
 			int number = rd.nextInt(999999);
 			rttr.addFlashAttribute("OTP", String.format("%06d", number));
 			rttr.addFlashAttribute("memberId", memberId);
-	        String subject = "비밀번호 재설정";
-	        String content = "OTP: " + String.format("%06d", number);
+	        String subject = "요청하신 인증번호를 발송해드립니다.";
+	        String content = "인증번호를 인증번호 입력창에 입력해 주세요." + "OTP: " + String.format("%06d", number);
 	        String from = "honeybee137@naver.com";
 	        String to = email;
+	        
+	        session.setAttribute("OTPVALUE", String.format("%06d", number));
 	        
 	        try {
 	            MimeMessage mail = mailSender.createMimeMessage();
@@ -197,17 +202,39 @@ public class MemberController {
 	            
 	        } catch(Exception e) {
 	            e.printStackTrace();
-	            return "";
+	            return "redirect:/member/login";
 	        }
 			
 			// 메일 보내는거 성공하면
 			// 번호6자리 넣는 화면으로 리다이렉트
-			
 	        return "redirect:/member/changePw";
 		}
 		
 	}
 	
+	// OTP 비밀번호 설정
+	@GetMapping("changePw")
+	public void checkOtpForm() {
+		
+	}
+	
+	@PostMapping("changePw")
+	public String checkOtpProcess(String otpValue, String newPw, String newPwConfirm,Principal principal, HttpSession session, RedirectAttributes rttr) {
+//		System.out.println(session.getAttribute("OTPVALUE"));
+//		System.out.println(otpValue);
+//		System.out.println(newPw);
+//		System.out.println(newPwConfirm);
+		if(newPw == newPwConfirm) {
+			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
+			System.out.println("good");
+			return "redirect:/member/login";
+		} else {
+			rttr.addFlashAttribute("message", "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.");
+			System.out.println("bad");
+			return "redirect:/member/initpw";
+		}
+	}
+
 	// 회원 비밀번호 변경
 	@GetMapping("updatePw")
 	public void changePwForm() {
@@ -229,13 +256,6 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("changePw")
-	public void chanePw() {
-		
-	}
-	
-	// 6자리 OTP 이메일로 건내주기
-
 }
 
 
