@@ -1,6 +1,8 @@
 package com.team.honeybee.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +51,24 @@ public class TalentBoardController {
 	
 	@RequestMapping("write")
 	public void boardWrite() {
+		/*
+		List<List<String>> mainCategory = new ArrayList<List<String>>();
+		List<String> mainCategoryName = new ArrayList<String>();
+		mainCategoryName.add("스포츠");
+		mainCategoryName.add("공연");
+		mainCategory.add(mainCategoryName);
 		
+		List<Map<Integer, String>> subCategory01 = new ArrayList<Map<Integer,String>>();
+		Map<Integer, String> subCategoryName01 = new HashMap<Integer, String>();
+		subCategoryName.put(1, "야구");
+		subCategoryName.put(1, "축구");
+		
+		
+		List<Map<Integer, String>> subCategory02 = new ArrayList<Map<Integer,String>>();
+		Map<Integer, String> subCategoryName02 = new HashMap<Integer, String>();
+		subCategoryName.put(1, "야구");
+		subCategoryName.put(1, "축구");
+		*/
 	}
 	
 	// 게시글 작성

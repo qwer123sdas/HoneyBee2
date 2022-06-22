@@ -123,7 +123,7 @@ public class DonationBoardService {
 		
 		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
 		for(String imageUrl : dbImageUrlList) {
-			if(! isImage.contains(imageUrl)) {
+			if(imageUrl !=null && !isImage.contains(imageUrl)) {
 				// db 지우기
 				System.out.println("db 지우기");
 				summerNoteMapper.deleteImage(imageUrl);
@@ -151,7 +151,7 @@ public class DonationBoardService {
 	// 메인 사진 등록 메소드
 	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto, String folderName) {
 		// board/temp/12344.png
-		String key = "donation/folderName/" + mainPhoto.getOriginalFilename();
+		String key = "donation/" + folderName + "/" + mainPhoto.getOriginalFilename();
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정

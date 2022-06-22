@@ -37,16 +37,20 @@
 		<div class="tr_oneLine">
 			<div>카테고리 분류</div>
 			<div style="width: 40%;">
-				<select id="topic" class="topic" id="topic">
-					<option value="">카테고리 선택</option>
-					<option value="1">하루 무료 특강</option>
-					<option value="2">재능 판매</option>
+				<select id="topic" class="topic" id="topic" name="mainCategory">
+					<option class="selectTopic" value="">카테고리 선택</option>
+					<option class="selectTopic" value="1">문서, 취업</option>
+					<option class="selectTopic" value="2">생활, 레슨</option>
+					<!-- <option class="selectTopic" value="3">IT, 프로그래밍</option>
+					<option class="selectTopic" value="4">콘텐츠 제작</option>
+					<option class="selectTopic" value="5">핸드메이드</option>
+					<option class="selectTopic" value="6">마켓팅</option>
+					<option class="selectTopic" value="7">기타</option> -->
 				</select> 
 				<select id="subtopic" class="subtopic">
-					<option value="0">주제 선택</option>
-					<option value="A">어린이</option>
-					<option value="B">지구촌</option>
+					<option value="0">주제 선택1</option>
 				</select>
+				
 			</div>
 			<br />
 		</div>
@@ -108,6 +112,12 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	<script>
+		//메인 카테고리 셋팅
+	    var mainCategorySelectBox = $("select[name='mainCategory']");
+	    
+	    for(var i=0;i<mainCategoryArray.length;i++){
+	        mainCategorySelectBox.append("<option value='"+mainCategoryArray[i].main_category_id+"'>"+mainCategoryArray[i].main_category_name+"</option>");
+	    }
 		/* 폴더명 */
 		const randomNum = Math.floor(Math.random() * 1000000000);
 		$('#folderName').val('padding-' + randomNum);
@@ -260,7 +270,7 @@
 				    // 지도의 현재 레벨을 얻어옵니다
 				    mapLevel = map.getLevel();
 				    
-				    var  message += '또 지도 레벨은' + mapLevel + '입니다.';
+				    var  message = '또 지도 레벨은' + mapLevel + '입니다.';
 				    message += '상세주소는 ' + detailAddr + '입니다';
 				    address= detailAddr;
 				    var resultDiv = document.getElementById('clickLatlng'); 

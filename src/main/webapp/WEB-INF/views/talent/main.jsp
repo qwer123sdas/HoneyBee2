@@ -34,11 +34,44 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
 <style>
+/* 카테고리 */
+	.group_catelist {
+	    width: 1000px;
+	    margin: 0 auto;
+	    text-align: center;
+	}
+	
+	.group_catelist .inner_catelist {
+		display:inline-block;
+	}
+	
+	.group_catelist .inner_catelist ul {
+	    overflow: hidden;
+	    padding: 57px 5px 48px;
+	    text-align: center;
+	}
+	
+	.group_catelist .inner_catelist li {
+	    float: left;
+	    width: 80px;
+	}
+	
+	.group_catelist .inner_catelist a {
+		display: block;
+		filter: grayscale(100%); 
+	}
+	/*  */
 .page-header-main {
     background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../resources/webContents/img/carousel-2.jpg) center center no-repeat;
     background-size: cover;
     margin-top : 75px;
 }
+.image {
+	object-fit: cover;
+	width: 100%;
+	height: 150px;
+}
+
 </style>
 <body>
     <!-- Spinner Start -->
@@ -52,7 +85,7 @@
 	<!-- Nav bar  -->
 	<nav:navbar></nav:navbar>
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header-main py-5 mb-5">
+	<div class="container-fluid page-header-main py-5">
 		<div class="container py-5">
 			<h1 class="display-3 text-white mb-3 animated slideInDown">재능 공유 게시판</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
@@ -60,15 +93,65 @@
 	</div>
     <!-- Section-->
   	<section class="py-5">
-       <div class="container px-4 px-lg-5 mt-5">
+       <div class="container px-4 px-lg-5">
            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+           
+           <!-- 카테고리(param.sort) -->
+			<div class="group_catelist">
+				<div class="inner_catelist">
+					<ul lass="mb-5" id="portfolio-flters">
+						<li class="mx-4">
+							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=1">
+								<img class="mb-3" src="${appRoot}/resources/webContents/img/talent_agreement.png">
+								<span>문서.취업</span>
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=2">
+								<img class="mb-3" src="${appRoot}/resources/webContents/img/talent_exercise.png">
+								<span>생활.레슨</span>
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=3">
+								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_measuring.png">
+								IT.프로그래밍 
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
+								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_youtube.png">
+								콘텐츠
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
+								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_handmade.png">
+								핸드메이드
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
+								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_market.png">
+								마켓팅
+							</a>
+						</li>
+						<li class="mx-4">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
+								<img class="mb-3"src="${appRoot}/resources/webContents/img/talnet_languages.png">
+								번역
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div> <!-- end: group_catelist -->
            
            <!-- 게시글 목록  -->
            <c:forEach items="${boardList }" var="list">
 	           <div class="col mb-5">
-		            <div class="card border-0 h-100">
+		            <div class="card border-0  h-100">
 		                <!-- Product image-->
-		                <img class="card-img-top rounded-4"  src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+		               	<img class="image card-img-top rounded-4"  src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${list.folderName }/${list.MPhoto}" alt="..." />
 		                <!-- Product details-->
 		                <div class="card-body">
 		                    <div class="text">
@@ -86,47 +169,7 @@
 	         	</div>
          	</c:forEach>
          	
-         	 <div class="col mb-5">
-	            <div class="card h-100">
-	                <!-- Product image-->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-	                <!-- Product details-->
-	                <div class="card-body p-4">
-	                    <div class="text-center">
-	                        <!-- Product name-->
-	                        <h5 class="fw-bolder">Fancy Product</h5>
-	                        <!-- Product price-->
-	                        $40.00 - $80.00
-	                    </div>
-	                </div>
-	                <!-- Product actions-->
-	                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-	                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-	                </div>
-	            </div>
-         	</div>
-         	
-
-         	
-         	<div class="col mb-5">
-	            <div class="card h-100">
-	                <!-- Product image-->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-	                <!-- Product details-->
-	                <div class="card-body p-4">
-	                    <div class="text-center">
-	                        <!-- Product name-->
-	                        <h5 class="fw-bolder">Fancy Product</h5>
-	                        <!-- Product price-->
-	                        $40.00 - $80.00
-	                    </div>
-	                </div>
-	                <!-- Product actions-->
-	                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-	                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-	                </div>
-	            </div>
-         	</div>
+			
            </div>
        </div>
    	</section>

@@ -56,7 +56,7 @@
 <script>
 /* 폴더명 */
 const randomNum = Math.floor(Math.random() * 1000000000);
-$('#folderName').val(randomNum);
+$('#folderName').val('padding-' + randomNum);
 
 $(document).ready(function() {
 		//여기 아래 부분
@@ -83,9 +83,9 @@ $(document).ready(function() {
         function uploadImageToS3ForSummerNote(image) {
             data = new FormData(); // file를 담을 객체
             data.append("image", image); // file를 담고 ajax에서 넘겨줌
-            data.append("folderId", 'padding-'+randomNum); // 폴더 난수 넘기기
+            data.append("folderId", 'padding-'+ randomNum); // 폴더 난수 넘기기
             $.ajax({
-                url: '${appRoot}/uploadImageToS3ForSummerNote/talent',
+                url: '${appRoot}/uploadImageToS3ForSummerNote/donation',
                 data: data,
                 type: "POST",
                 cache: false,

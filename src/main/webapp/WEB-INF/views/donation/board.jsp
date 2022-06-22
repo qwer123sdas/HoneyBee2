@@ -291,7 +291,7 @@
 				</c:if>
 				<c:if test="${not empty board.MPhoto }">
 					<figure class="mb-4">
-						<img class="img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/mainPhoto/${board.donationId }/${board.MPhoto}" alt="">
+						<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}" alt="">
 					</figure>
 				</c:if>
 

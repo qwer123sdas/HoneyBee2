@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Footer Start -->
-    <div class="container-fluid bg-primary text-body footer mt-5 pt-5 wow fadeIn">
+    <div class="container-fluid bg-primary text-body footer mt-5 pt-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
