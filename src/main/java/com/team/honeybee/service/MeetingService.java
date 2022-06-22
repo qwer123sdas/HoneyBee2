@@ -116,7 +116,16 @@ public class MeetingService {
 		return cnt == 1;
 	}
 	
-	
+	// meetingBoard, guest 입력받기
+	public Object meetingInsertGuest(MeetingDto meeting, int meetingId, String memberId) {
+		meeting.setMeetingId(meetingId);
+		meeting.setMemberId(memberId);
+		
+		int cnt = mapper.insertGuest(meetingId);
+		
+		return cnt == 1;
+		
+	}
 	
 	
 	// 모임 리스트(topic추가함)
@@ -127,8 +136,10 @@ public class MeetingService {
 	}
 	
 	// 기부모임 게시물 보기
+	@Transactional
 	public MeetingDto getBoardByMeetingId(int meetingId) {
 		MeetingDto meeting = mapper.selectBoardByMeetingId(meetingId);
+		
 		// 해쉬태그 가져오기
 		List<String> hashTag = mapper.getHashTag(meetingId);
 		meeting.setHashTag(hashTag); 
@@ -191,6 +202,8 @@ public class MeetingService {
 		s3.deleteObject(deleteBucketRequest);
 			
 		}
+	
+
 	
 	/* 데스크탑 저장용 메소드
 	// 파일 저장 메소드

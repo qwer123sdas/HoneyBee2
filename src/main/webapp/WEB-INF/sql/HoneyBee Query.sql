@@ -1,4 +1,5 @@
 SELECT * FROM MeetingFile;
+SELECT * FROM Meeting;
 DESC Meeting;
 DESC MeetingReply;
 SELECT * FROM Member;
@@ -131,3 +132,8 @@ DESC BoardImage;
 
 ALTER TABLE BoardImage
 ADD COLUMN main_image_name INT(255) NOT NULL;
+
+-- 세이프 모드 해제
+SET SQL_SAFE_UPDATES = 0;
+-- 세이프 모드 설정
+SET SQL_SAFE_UPDATES = 1;

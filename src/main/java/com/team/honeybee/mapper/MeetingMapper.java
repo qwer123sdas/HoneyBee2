@@ -26,4 +26,9 @@ public interface MeetingMapper {
 	// 해쉬 태그 가져오기
 	List<String> getHashTag(int meetingId);
 
+	// meetingBoard, guest 입력받기
+	int insertGuest(int meetingId);
+	
+	
+
 }

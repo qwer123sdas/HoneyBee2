@@ -89,6 +89,19 @@ public class MeetingController {
 		return "redirect:/meeting/insert";
 	}
 	
+	// meetingBoard, guest 입력받기
+	@PostMapping("insertGuest")
+	public String meetingInsertGuest(MeetingDto meeting, 
+									@RequestParam("meetingId") int meetingId,
+									@RequestParam("memberId") String memberId) {
+		
+		
+		service.meetingInsertGuest(meeting, meetingId, memberId);
+		
+		
+		return "redirect:/meeting/board/" + meeting.getMeetingId();
+	}
+	
 	@GetMapping("login")
 	public void login() {
 		

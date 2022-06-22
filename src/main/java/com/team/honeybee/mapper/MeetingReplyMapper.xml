@@ -29,7 +29,7 @@
 	
 	
 	<!-- 회원 댓글 작성 -->
-	<insert id="insertMeetingReplyChild" useGeneratedKeys="true" keyColumn="meetingReplyId" keyProperty="meetingReplyId">
+	<insert id="insertMeetingReplyChild">
 		INSERT INTO MeetingReply (  member_id
 							      , meeting_id
 							      , content

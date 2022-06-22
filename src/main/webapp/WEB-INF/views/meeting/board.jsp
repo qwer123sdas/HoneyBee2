@@ -137,12 +137,56 @@
 	box-sizing: content-box;
 }
 
-
+	/* 게스트 모집 모달창 */
+	#insertGuestModal1.modal-overlay {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: none;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	#insertGuestModal1 .modal-window {
+		background: #ffd54f;
+		box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+		backdrop-filter: blur(13.5px);
+		-webkit-backdrop-filter: blur(13.5px);
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		width: 600px;
+		height: 400px;
+		position: relative;
+		top: -100px;
+		padding: 10px;
+		
+	}
+	
+	#insertGuestModal1 .title hr{
+		padding-left: 10px;
+		display: block;
+		text-shadow: 1px 1px 2px white;
+		color: white;
+		text-align: center;
+		height: 5px;
+	}
+	
+	#insertGuestModal1 .title h4 {
+		display: block;
+	}
+	
+	#insertGuestModal1 .content p li{
+		margin-top: 20px;
+		padding: 0px 10px;
+		text-shadow: 1px 1px 2px gray;
+		color: white;
+		text-align: center;
+	}
 </style>
 
-<!-- 카카오 지도 api 실행, 코드보다 먼저 선언 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed"></script>
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
 <!-- JavaScript Libraries -->
@@ -159,118 +203,6 @@
 
 <!-- Template Javascript -->
 <script src="${appRoot }/resources/webContents/js/main.js"></script>
-
-<script>
-$(document).ready(function() {
-	    	
-/* 카카오 지도 api */
-/*
-var Container = document.getElementById('map'), // 지도를 표시할 div 
-	Option = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level: 3 // 지도의 확대 레벨
-	};  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(Container, Option); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-}); 
-	 
-*/
-				
-				
-				const meetingReplyList = function() {
-					
-					const data = {meetingId : '${meeting.meetingId}'};
-					
-					$.ajax({ // 댓글 출력
-						
-						url : "${appRoot}/meeting/reply/list",
-						type : "get",
-						data : data,
-						success : function(list) {
-							console.log(list);
-							const replyListElement = $('#meetingReply');
-							replyListElement.empty(); // 초기화
-							
-							// 댓글 갯수
-							console.log(list.length);
-							
-							for (let i = 0; i < list.length; i++) {
-								const replyElement = $("<div class='d-flex mb-4' />");
-								replyElement.html(`
-										 <div class="flex-shrink-0"><img class="rounded-circle" src="${appRoot}/resources/webContents/img/user_profile.png" alt="..." /></div>
-	                                    	<div class="ms-3">
-	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
-	                                       	 \${list[i].content }
-	                                       	 \${list[i].inserted }
-	                                       	<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>답글 달기</a>
-	                                   
-                            			 </div>
-                            			 
-                            			 <form class="mb-4" id="insertReplyForm2"
-             								action="${appRoot }/meeting/reply/insertReplyChildren" method="post">
-             								<div class="input-group">
-             									<input type="hidden" name="meetingReplyId"
-             										value="\${list[i].meetingReplyId }" />
-             									<input id="insertReplyContentInput1" class="form-control"
-             										type="text" name="content" placeholder="" />
-             									<button class="btn btn-primary" id="insertReplyButton1"
-             										type="submit"><i class="fa-solid fa-circle-check"></i></button>
-
-             								</div>
-             							</form>
-										`);
-								
-                           	
-                           	replyListElement.append(replyElement);
-							} // end of for
-						},// success end
-						
-						error : function() {
-							console.log("댓글 가져오기 실패")
-						}
-						
-						
-					}); // 댓글 목록 ajax end
-					
-				}
-					
-			// 댓글 목록 실행
-			console.log(99);
-			meetingReplyList();
-			console.log(100);
-				
-
-		});
-	    
-</script>
 
 </head>
 <body>
@@ -312,7 +244,14 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 						<!-- Post meta content-->
 						<div class="text-muted fst-italic mb-2">${meeting.startDate }
 							~ ${meeting.endDate }</div>
-						<!-- Post categories-->
+						<!-- 해쉬 태그 -->
+						<c:forEach items="${meeting.hashTag }" var="hashTag">
+							<a href="${appRoot}/meeting/tags/${hashTag}">
+								<span class="badge rounded-pill bg-warning text-dark">#
+									${hashTag }</span>
+							</a>
+						</c:forEach>
+						<!-- 해쉬태그 -->
 						<a class="badge bg-secondary text-decoration-none link-light"
 							href="#!">${meeting.tag }</a>
 					</header>
@@ -340,7 +279,8 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 				</div>
 
 				<!-- 댓글, 대댓글 -->
-				<section class="replyForm"> <h4>커뮤니티</h4>
+				<section class="replyForm">
+					<h4>커뮤니티</h4>
 					<div class="card bg-light">
 						<div class="card-body">
 							<!-- 댓글 입력 form -->
@@ -352,19 +292,19 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 									<input id="insertReplyContentInput1" class="form-control"
 										type="text" name="content" placeholder="아름다운 발걸음을 함께해요!" />
 									<button class="btn btn-primary" id="insertReplyButton1"
-										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+										type="submit">
+										<i class="fa-solid fa-circle-check"></i>
+									</button>
 
 								</div>
 							</form>
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
-	
-							<div id="meetingReply" class="meetingReplyList">
-	
+
+							<div id="meetingReply" class="meetingReplyList"></div>
 						</div>
-					</div>
 				</section>
 			</div>
-			<!-- Side widgets-->
+			<!-- 모임신청 및 게스트 목록 -->
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="card mb-4">
@@ -372,31 +312,215 @@ geocoder.addressSearch('${meeting.address}'.val(), function(result, status) {
 					<div class="card-body">
 						<div class="row">
 							<div class="col">
-							
-							<form id="guestInsertForm" method="post">
-								<input type="hidden" name="memberId" value="${member.memberId }" />
-							  	<button type="submit" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal"><i class="fa-solid fa-heart-circle-check"></i>함께할께요!</button>
-							</form>
-							  
-				
-				
+								<button type="button" id="insertGuestBtn1"
+									class="btn btn-lg btn-primary mt-5 w-100">
+									<i class="fa-solid fa-heart-circle-check"></i>
+									함께할께요!
+								</button>
 							</div>
-						
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
+		<!-- page contents end -->
 	</div>
+
 
 
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
 
 
+	<script>
+	$(document).ready(function() {
+		    	
+	/* 카카오 지도 api */
+	
+	var Container = document.getElementById('map'), // 지도를 표시할 div 
+		Option = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level: 3 // 지도의 확대 레벨
+		};  
+	
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(Container, Option); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${meeting.address}', function(result, status) {
+	
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+	
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
+	        });
+	        infowindow.open(map, marker);
+	
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	}); 
+		 
 
+				
+				// 댓글 처리
+				const meetingReplyList = function() {
+					
+					const data = {meetingId : '${meeting.meetingId}'};
+					
+					$.ajax({ // 댓글 출력
+						
+						url : "${appRoot}/meeting/reply/list",
+						type : "get",
+						data : data,
+						success : function(list) {
+							console.log(list);
+							const replyListElement = $('#meetingReply');
+							replyListElement.empty(); // 초기화
+							
+							// 댓글 갯수
+							console.log(list.length);
+							
+							for (let i = 0; i < list.length; i++) {
+								const replyElement = $("<div class='d-flex mb-4' />");
+								replyElement.html(`
+										 <div class="flex-shrink-0"><img class="rounded-circle" src="${appRoot}/resources/webContents/img/user_profile.png" alt="..." /></div>
+	                                    	<div class="ms-3">
+	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
+	                                       	 \${list[i].content }
+	                                       	 \${list[i].inserted }
+	                                       	<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>답글 달기</a>
+	                                   
+                            			 </div>
+                            			 
+                            			 <form class="mb-4" id="insertReplyForm2"
+             								action="${appRoot }/meeting/reply/insertReplyC" method="post">
+             								<div class="input-group">
+             									<input type="hidden" name="meetingReplyId"
+             										value="\${list[i].meetingReplyId }" />
+             									<input id="insertReplyContentInput1" class="form-control"
+             										type="text" name="content" placeholder="" />
+             									<button class="btn btn-primary" id="insertReplyButton1"
+             										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+
+             								</div>
+             							</form>
+										`);
+								
+                           	
+                           	replyListElement.append(replyElement);
+							} // end of for
+						},// success end
+						
+						error : function() {
+							console.log("댓글 가져오기 실패")
+						}
+						
+						
+					}); // 댓글 목록 ajax end
+					
+				}
+					
+			// 댓글 목록 실행
+			meetingReplyList();
+	/* 		
+	// 게스트 신청버튼 클릭시 신청, 목록출력
+	$("#guestInsertForm1").click(function(e) {
+		e.preventDefault();
+		
+	});
+
+	 */
+	 
+	 var modal = document.getElementById("insertGuestModal1");
+	 var btnModal = document.getElementById("insertGuestBtn1");
+	
+	 // 함께 할께요 버튼 누르면 모달창 뜸
+	 btnModal.addEventListener("click", function(e) {
+		 e.preventDefault();
+		 e.stopPropagation();
+		 modal.style.display = "flex";
+		 fadeDuration: 500;
+	 })
+	 
+	 // 취소 누르면 모달창 닫힘
+	 const closeBtn = modal.querySelector(".btn.btn-secondary")
+		closeBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+		    modal.style.display = "none";
+		});
+	 
+	 // 다른 창 눌러도 모달창 닫힘
+	 modal.addEventListener("click", function(e) {
+		 e.preventDefault();
+		 const eventTarget = e.target;
+		    if(eventTarget.classList.contains("modal-overlay")) {
+		        modal.style.display = "none"
+		    }
+		})
+	
+	// 신청버튼 누르면 submit, 컨펌창 뜨고 완료
+	$("#guestSubmitBtn1").click(function(e) {
+		e.preventDefault();
+		
+		if(confrim("함께해주셔서 고맙습니다, 곧 만나요!")) {
+			let form = $("#guestInsertForm1");
+			let actionAttr = "${appRoot }/meeting/insertGuest";
+			
+			form.attr("action", actionAttr);
+			
+			form.submit();
+		}
+	});
+
+
+	});
+	    
+</script>
+	<!-- 모임신청 모달창 -->
+	<div id="insertGuestModal1" class="modal-overlay">
+		<div class="modal-window">
+			<div class="title">
+				<h4 >
+					꿀비 모임을 신청하시겠습니까?
+					<hr>
+				</h4>
+
+			</div>
+			<div class="content">
+				<ul>
+					<li>모임에 적극적인 참여 부탁드립니다!</li>
+					<li>모임 장소를 잘 확인하시고 늦지않게 오세요!</li>
+					<li>문의 사항은 댓글을 남겨주세요</li>
+					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
+				</ul>
+				<p>모임일시:${meeting.meetingDate }</p>
+				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
+
+				<form id="guestInsertForm1" method="post">
+					<input type="hidden" name="meetingId" value="${member.meetingId }" />
+					<input type="hidden" name="memberId" value="${member.memberId }" />
+					<input type="hidden" name="nickname" value="${member.nickname }" />
+					<button type="button" class="btn btn-secondary">취소</button>
+					<button type="submit" class="btn btn-primary" id="guestSubmitBtn1">신청</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
-
-
 </html>
