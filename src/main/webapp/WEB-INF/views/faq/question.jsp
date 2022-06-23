@@ -62,14 +62,14 @@
 </head>
 <body>
 	<my:navbar></my:navbar>
-
+	<my:faq1tag></my:faq1tag>
 
 
 	<div class="container">
 		<!-- Row -->
 		<div class="row">
 			<my:faq></my:faq>
-			<div class="col-8 mt-3 ms-3">	
+			<div class="col-8 mt-3 ms-5">	
 				<div class="card card-lg">
 					<h3 class="card-header border-bottom-0">자주 묻는 질문</h3>
 					<div class="accordion" id="accordionExample">

@@ -41,6 +41,7 @@
 </head>
 <body>
 	<my:navbar></my:navbar>
+	<my:faq1tag></my:faq1tag>
 	<div class="container">
 		<div class="row">
 			<my:faq></my:faq>

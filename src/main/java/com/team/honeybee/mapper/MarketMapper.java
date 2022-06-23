@@ -13,5 +13,7 @@ public interface MarketMapper {
 	List<String> selectFileNameByMarketId(int marketId);
 
 	int updateViewCount(int id);
+	
+
 
 }
