@@ -22,12 +22,42 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-		
-			<nav:topbar></nav:topbar>
-			<div class="row">
-			
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+				
+					<div class="row">
+						<c:forEach items="${talent }" var="talent">
+							<c:url value="/admin/getTalent" var="getUrl">
+								<c:param name="talentId" value="${talent.talentId }"></c:param>
+							</c:url>
+							<div class="card" style="width: 18rem; margin: 1px;">
+							  <c:if test="${empty talent.MPhoto }">
+							  	<figure class="img_ico mb-4">
+							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
+							  	</figure>
+							  </c:if>
+							  <c:if test="${not empty talent.MPhoto }">
+							  	<figure class="mb-6">
+						  			<img src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${talent.folderName }/${talent.MPhoto }" class="img-fluid rounded" alt="">
+						  	  	</figure>
+						  	  </c:if>
+							  <div class="card-body">
+							    <h4 class="card-title">${talent.title }</h4>
+							    <p><strong>닉네임 : </strong> ${talent.nickname }</p>
+							    <p><strong>마감날짜 : </strong> ${talent.expired }</p>
+							    <a href="${getUrl }" class="stretched-link"></a>
+							  </div>
+							</div>			
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>		

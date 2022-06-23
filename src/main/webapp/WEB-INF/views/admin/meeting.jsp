@@ -22,26 +22,42 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-		
-			<nav:topbar></nav:topbar>
-			<div class="row">
-				<c:forEach items="${meeting }" var="meeting">
-					<c:url value="/admin/getMeeting" var="getUrl">
-						<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
-					</c:url>
-					<div class="card" style="width: 18rem; margin: 1px;">
-					  <img src="" class="card-img-top" alt="">
-					  <div class="card-body">
-					    <h4 class="card-title">${meeting.title }</h4>
-					    <p><strong>닉네임 : </strong> ${meeting.nickname }</p>
-					    <p><strong>시작일 : </strong> ${meeting.startDate }</p>
-					    <p><strong>종료일 : </strong> ${meeting.endDate }</p>
-					    <a href="${getUrl }" class="stretched-link"></a>
-					  </div>
-					</div>			
-				</c:forEach>
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					<div class="row">
+						<c:forEach items="${meeting }" var="meeting">
+							<c:url value="/admin/getMeeting" var="getUrl">
+								<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
+							</c:url>
+							<div class="card" style="width: 18rem; margin: 1px;">
+							  <c:if test="${empty meeting.mainPhoto }">
+							  	<figure class="img_ico mb-4">
+							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
+							  	</figure>
+							  </c:if>
+							  <c:if test="${not empty meeting.mainPhoto }">
+							  	<figure class="mb-6">
+						  			<img src="${imageUrl }/meeting/mainPhoto/${meeting.meetingId }/${meeting.mainPhoto }" class="img-fluid rounded" alt="">
+						  	  	</figure>
+						  	  </c:if>
+							  <div class="card-body">
+							    <h4 class="card-title">${meeting.title }</h4>
+							    <p><strong>닉네임 : </strong> ${meeting.nickname }</p>
+							    <p><strong>시작일 : </strong> ${meeting.startDate }</p>
+							    <p><strong>종료일 : </strong> ${meeting.endDate }</p>
+							    <a href="${getUrl }" class="stretched-link"></a>
+							  </div>
+							</div>			
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>		

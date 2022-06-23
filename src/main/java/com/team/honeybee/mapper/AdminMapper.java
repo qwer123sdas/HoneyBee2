@@ -9,6 +9,7 @@ import com.team.honeybee.domain.FaqDto;
 import com.team.honeybee.domain.MarketDto;
 import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.MemberDto;
+import com.team.honeybee.domain.TalentDto;
 
 public interface AdminMapper {
 
@@ -45,5 +46,7 @@ public interface AdminMapper {
 	MeetingDto getMeetingById(int meetingId);
 
 	DonationDto getDonationById(int donationId);
+
+	List<TalentDto> getTalentAll();
 
 }

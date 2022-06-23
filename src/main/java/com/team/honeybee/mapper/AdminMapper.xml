@@ -12,6 +12,7 @@
 		 	postcode,
 		 	phone
 		 FROM Member
+		 WHERE member_id != 'admin'
 		 ORDER BY create_date DESC
 	</select>
 	<update id="modifyMember">
@@ -38,16 +39,54 @@
 				d.goal,
 				d.current_amount currentAmount,
 				d.topic,
-				f.file MPhoto
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
-						LEFT JOIN DonationFile f ON d.donation_id = f.donation_id
+						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY d.donation_id
 		ORDER BY enable ASC, expired ASC
 	</select>
 	
+	<select id="getDonationById" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id donationId,
+				d.title,
+				d.content,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.goal,
+				d.current_amount currentAmount,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
+		WHERE d.donation_id = #{donationId} AND bi.main_image_name IS NOT NULL
+	</select>
+	
+	<select id="getTalentAll" resultType="com.team.honeybee.domain.TalentDto">
+		SELECT t.talent_id talentId,
+			   t.title,
+			   m.nickname,
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY talentId
+		ORDER BY talentId DESC
+	</select>
+	
 	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
-		SELECT m.meeting_id meetingId, m.title, mem.nickname, m.start_date startDate, m.end_date endDate
+		SELECT m.meeting_id meetingId, 
+			   m.title, 
+			   mem.nickname, 
+			   m.start_date startDate, 
+			   m.end_date endDate,
+			   f.file mainPhoto
 		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
 					   LEFT JOIN MeetingFile f ON m.meeting_id = f.meeting_id
+		GROUP BY m.meeting_id
 		ORDER BY m.meeting_id DESC
 	</select>
 	
@@ -124,8 +163,16 @@
 	</delete>
 	
 	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">
-		SELECT question_id questionId, member_id memberId, title, content, inserted, email
-		FROM Faq
-		ORDER BY question_id
+		SELECT f.question_id questionId, 
+			   f.member_id memberId, 
+			   f.title, 
+			   f.content, 
+			   f.inserted, 
+			   f.email,
+			   f.enable,
+			   ff.file thumbNailImage
+		FROM Faq f LEFT JOIN FaqFile ff ON f.question_id = ff.question_id
+		GROUP BY questionId
+		ORDER BY questionId, enable
 	</select>
 </mapper>

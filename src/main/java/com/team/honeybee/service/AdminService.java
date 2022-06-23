@@ -20,6 +20,7 @@ import com.team.honeybee.domain.FaqDto;
 import com.team.honeybee.domain.MarketDto;
 import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.MemberDto;
+import com.team.honeybee.domain.TalentDto;
 import com.team.honeybee.mapper.AdminMapper;
 
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -65,6 +66,10 @@ public class AdminService {
 
 	public List<DonationDto> getDonationList() {
 		return mapper.getDonationAll();
+	}
+	
+	public List<TalentDto> getTalentList() {
+		return mapper.getTalentAll();
 	}
 
 	public List<FaqDto> getFaqList() {
@@ -187,5 +192,6 @@ public class AdminService {
 		MeetingDto meeting = mapper.getMeetingById(meetingId);
 		return meeting;
 	}
+
 
 }

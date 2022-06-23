@@ -24,57 +24,65 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-			<nav:topbar></nav:topbar>
-			
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<button id="edit-button" class="btn btn-secondary">
-							<i class="fa-solid fa-pen-to-square"></i>
-						</button>
-						<form id="form1" action="${appRoot }/admin/updateMeeting.do" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
-							<c:forEach items="${meeting.fileName }" var="file">
-								<%
-								String file = (String) pageContext.getAttribute("file");
-								String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
-								pageContext.setAttribute("encodedFileName", encodedFileName);
-								%>
-								<div class="row">
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<button id="edit-button" class="btn btn-secondary">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</button>
+								<form id="form1" action="${appRoot }/admin/updateMeeting.do" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
+									<c:forEach items="${meeting.fileName }" var="file">
+										<%
+										String file = (String) pageContext.getAttribute("file");
+										String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
+										pageContext.setAttribute("encodedFileName", encodedFileName);
+										%>
+										<div class="row">
+											<div>
+												<img src="${imageUrl }/meeting/mainPhoto/${meeting.meetingId }/${encodedFileName }" alt="" />
+											</div>
+										</div>
+									</c:forEach>
 									<div>
-										<img src="${imageUrl }/meeting/mainPhoto/${meeting.meetingId }/${encodedFileName }" alt="" />
+										<label class="form-label" for="input1">제목</label>
+										<input class="form-control mb-3" type="text" name="title" required id="input1" value="${meeting.title }" readonly />
 									</div>
-								</div>
-							</c:forEach>
-							<div>
-								<label class="form-label" for="input1">제목</label>
-								<input class="form-control mb-3" type="text" name="title" required id="input1" value="${meeting.title }" readonly />
+									
+									<div>
+										<label class="form-label" for="textarea1">본문</label>
+										<textarea class="form-control mb-3" name="content" id="textarea1" cols="30" rows="10" readonly>${meeting.content }</textarea>
+									</div>
+									<div>
+										<label class="form-label" for="input2">상품명</label>
+										<input class="form-control mb-3" type="text" name="productName" required id="input2" value="${meeting.productName }" readonly />
+									</div>
+									<div>
+										<label for="fileInput1" class="form-label">
+										파일 추가
+										</label>
+										<input class="form-control mb-3" multiple="multiple" type="file" name="addFileList" accept="image/*"/>
+									</div>
+									<div>
+										<label for="input3" class="form-label">가격</label>
+										<input class="form-control mb-3" name="price" type="number" id="input3" value="${meeting.price }" readonly />
+									</div>
+									
+									<button id="modify-button" class="btn btn-primary d-none">수정</button>
+									<button id="delete-button" class="btn btn-danger d-none">삭제</button>
+								</form>
 							</div>
-							
-							<div>
-								<label class="form-label" for="textarea1">본문</label>
-								<textarea class="form-control mb-3" name="content" id="textarea1" cols="30" rows="10" readonly>${meeting.content }</textarea>
-							</div>
-							<div>
-								<label class="form-label" for="input2">상품명</label>
-								<input class="form-control mb-3" type="text" name="productName" required id="input2" value="${meeting.productName }" readonly />
-							</div>
-							<div>
-								<label for="fileInput1" class="form-label">
-								파일 추가
-								</label>
-								<input class="form-control mb-3" multiple="multiple" type="file" name="addFileList" accept="image/*"/>
-							</div>
-							<div>
-								<label for="input3" class="form-label">가격</label>
-								<input class="form-control mb-3" name="price" type="number" id="input3" value="${meeting.price }" readonly />
-							</div>
-							
-							<button id="modify-button" class="btn btn-primary d-none">수정</button>
-							<button id="delete-button" class="btn btn-danger d-none">삭제</button>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>

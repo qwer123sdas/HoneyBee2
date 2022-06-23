@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import com.team.honeybee.domain.FaqDto;
 import com.team.honeybee.domain.MarketDto;
 import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.MemberDto;
+import com.team.honeybee.domain.TalentDto;
 import com.team.honeybee.service.AdminService;
 
 @Controller
@@ -63,18 +65,20 @@ public class AdminController {
 	@RequestMapping("donation")
 	public void donation(Model model) {
 		List<DonationDto> donationList = service.getDonationList();
+		System.out.println(donationList);
 		model.addAttribute("donation", donationList);
 	}
 	
-	@RequestMapping("getDonation")
-	public void getDonation(int donationId, Model model) {
+	@GetMapping("getDonation")
+	public void  getDonation(int donationId, Model model) {
 		DonationDto dto = service.getDonation(donationId);
 		model.addAttribute("donation", dto);
 	}
 	
 	@RequestMapping("talent")
-	public void talent() {
-		
+	public void talent(Model model) {
+		List<TalentDto> talentList = service.getTalentList();
+		model.addAttribute("talent", talentList);
 	}
 	
 	@RequestMapping("meeting")
@@ -151,6 +155,7 @@ public class AdminController {
 	@RequestMapping("faq")
 	public void faq(Model model) {
 		List<FaqDto> faqList = service.getFaqList();
+		System.out.println(faqList);
 		model.addAttribute("faq", faqList);
 	}
 	

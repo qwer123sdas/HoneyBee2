@@ -144,57 +144,66 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-		
-			<nav:topbar></nav:topbar>
-			
-			<div class="d-sm-flex align-items-center justify-content-between mb-4">
-				<h1 class="h3 mb-0 text-gray-800">회원관리</h1>
-				<div class="d-sm-flex align-items-center justify-content-between">
-					<button type="button" class="btn btn-primary" id="modifyButton" data-bs-toggle="modal" data-bs-target="#modify">수정</button>
-					<form id="form2" action="deleteMember.do" method="post">
-						<input type="hidden" id="id-result2" name="memberId" />
-						<button type="button" class="btn btn-danger" id="deleteButton">삭제</button>
-					</form>
-				</div>
-			</div>
+            <!-- Main Content -->
+            <div id="content">
 
-			<div class="row">
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					
+					<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">회원관리</h1>
+						<div class="d-sm-flex align-items-center justify-content-between">
+							<button type="button" class="btn btn-primary" id="modifyButton" data-bs-toggle="modal" data-bs-target="#modify">수정</button>
+							<form id="form2" action="deleteMember.do" method="post">
+								<input type="hidden" id="id-result2" name="memberId" />
+								<button type="button" class="btn btn-danger" id="deleteButton">삭제</button>
+							</form>
+						</div>
 					</div>
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-								<thead>
-									<tr>
-										<td>아이디</td>
-										<td>이름</td>
-										<td>이메일</td>
-										<td>닉네임</td>
-										<td>우편번호</td>
-										<td>전화번호</td>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${member }" var="mem">
-										<tr>
-											<td>${mem.memberId }</td>
-											<td>${mem.name }</td>
-											<td>${mem.email }</td>
-											<td>${mem.nickname }</td>
-											<td>${mem.postcode }</td>
-											<td>${mem.phone }</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+		
+					<div class="row">
+						<div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<td>아이디</td>
+												<td>이름</td>
+												<td>이메일</td>
+												<td>닉네임</td>
+												<td>우편번호</td>
+												<td>전화번호</td>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${member }" var="mem">
+												<tr>
+													<td>${mem.memberId }</td>
+													<td>${mem.name }</td>
+													<td>${mem.email }</td>
+													<td>${mem.nickname }</td>
+													<td>${mem.postcode }</td>
+													<td>${mem.phone }</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="${appRoot }/resources/admin/vendor/jquery/jquery.min.js"></script>

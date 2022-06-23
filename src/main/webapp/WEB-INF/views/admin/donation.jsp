@@ -22,37 +22,45 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+		        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-			<nav:topbar></nav:topbar>
-			<div class="row">
-				<c:forEach items="${donation }" var="donation">
-					<c:url value="/admin/getDonation" var="getUrl">
-						<c:param name="donationId" value="${donation.donationId }"></c:param>
-					</c:url>
-					<div class="card" style="width: 18rem; margin: 1px;">
-					  <!-- 대표 이미지-->
-					  <c:if test="${empty donation.MPhoto }">
-						<figure class="img_ico mb-4">
-							<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
-						</figure>
-					  </c:if>
-					  <c:if test="${not empty donation.MPhoto }">
-						<figure class="mb-4">
-							<img class="img-fluid" src="${imageUrl }/donation/mainPhoto/${donation.donationId }/${donation.MPhoto}" alt="">
-						</figure>
-					  </c:if>
-					  <div class="card-body">
-					    <h4 class="card-title">${donation.title }</h4>
-					    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
-					    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
-					    <p><strong>등록여부</strong><c:if test="${donation.enable == 1 }">등록허용</c:if>
-					    <c:if test="${donation.enable == 0 }">등록전</c:if></p>
-					    <a href="${getUrl }" class="stretched-link"></a>
-					  </div>
-					</div>			
-				</c:forEach>
-			</div>		
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					<div class="row">
+						<c:forEach items="${donation }" var="donation">
+							<c:url value="/admin/getDonation" var="getUrl">
+								<c:param name="donationId" value="${donation.donationId }"></c:param>
+							</c:url>
+							<div class="card" style="width: 18rem; margin: 1px;">
+							  <!-- 대표 이미지-->
+							  <c:if test="${empty donation.MPhoto }">
+								<figure class="img_ico mb-4">
+									<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+								</figure>
+							  </c:if>
+							  <c:if test="${not empty donation.MPhoto }">
+								<figure class="mb-4">
+									<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${donation.folderName }/${donation.MPhoto}" alt="">
+								</figure>
+							  </c:if>
+							  <div class="card-body">
+							    <h4 class="card-title">${donation.title }</h4>
+							    <p><strong>닉네임 : </strong> ${donation.nickname }</p>
+							    <p><strong>마감날짜 : </strong> ${donation.expired }</p>
+							    <p><strong>등록여부</strong><c:if test="${donation.enable == 1 }">등록허용</c:if>
+							    <c:if test="${donation.enable == 0 }">등록전</c:if></p>
+							    <a href="${getUrl }" class="stretched-link"></a>
+							  </div>
+							</div>			
+						</c:forEach>
+					</div>		
+				</div>
+			</div>
 		</div>
 	</div>		
 			

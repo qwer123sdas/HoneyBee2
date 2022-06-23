@@ -22,42 +22,50 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-			<nav:topbar></nav:topbar>
-			
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<h1>글 작성</h1>
-						
-						<form action="${appRoot }/admin/insert" method="post" enctype="multipart/form-data">
-							<div>
-								<label class="form-label" for="input1">제목</label>
-								<input class="form-control mb-3" type="text" name="title" required id="input1" />
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<h1>글 작성</h1>
+								
+								<form action="${appRoot }/admin/insert" method="post" enctype="multipart/form-data">
+									<div>
+										<label class="form-label" for="input1">제목</label>
+										<input class="form-control mb-3" type="text" name="title" required id="input1" />
+									</div>
+									
+									<div>
+										<label class="form-label" for="textarea1">본문</label>
+										<textarea class="form-control mb-3" name="content" id="textarea1" cols="30" rows="10"></textarea>
+									</div>
+									<div>
+										<label class="form-label" for="input2">상품명</label>
+										<input class="form-control mb-3" type="text" name="productName" required id="input2" />
+									</div>
+									<div>
+										<label for="fileInput1" class="form-label">
+										파일
+										</label>
+										<input class="form-control mb-3" multiple="multiple" type="file" name="file" accept="image/*"/>
+									</div>
+									<div>
+										<label for="input3" class="form-label">가격</label>
+										<input class="form-control mb-3" name="price" type="number" id="input3" />
+									</div>
+									
+									<button class="btn btn-primary">작성</button>
+								</form>
 							</div>
-							
-							<div>
-								<label class="form-label" for="textarea1">본문</label>
-								<textarea class="form-control mb-3" name="content" id="textarea1" cols="30" rows="10"></textarea>
-							</div>
-							<div>
-								<label class="form-label" for="input2">상품명</label>
-								<input class="form-control mb-3" type="text" name="productName" required id="input2" />
-							</div>
-							<div>
-								<label for="fileInput1" class="form-label">
-								파일
-								</label>
-								<input class="form-control mb-3" multiple="multiple" type="file" name="file" accept="image/*"/>
-							</div>
-							<div>
-								<label for="input3" class="form-label">가격</label>
-								<input class="form-control mb-3" name="price" type="number" id="input3" />
-							</div>
-							
-							<button class="btn btn-primary">작성</button>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>

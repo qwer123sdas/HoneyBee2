@@ -1,3 +1,4 @@
+<%@page import="com.team.honeybee.domain.FaqDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -22,25 +23,46 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-		
-			<nav:topbar></nav:topbar>
-			<div class="row">
-				<c:forEach items="${faq }" var="faq">
-					<c:url value="/admin/getFaq" var="getUrl">
-						<c:param name="questionId" value="${faq.questionId }"></c:param>
-					</c:url>
-					<div class="card" style="width: 18rem;">
-					  <img src="" class="card-img-top" alt="">
-					  <div class="card-body">
-					    <h4 class="card-title">${faq.title }</h4>
-					    <p><strong>아이디 : </strong> ${faq.memberId }</p>
-					    <p><strong>이메일 : </strong> ${faq.email }</p>
-					    <a href="${getUrl }" class="stretched-link"></a>
-					  </div>
-					</div>			
-				</c:forEach>
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					<div class="row">
+						<c:forEach items="${faq }" var="faq">
+							<c:url value="/admin/getFaq" var="getUrl">
+								<c:param name="questionId" value="${faq.questionId }"></c:param>
+							</c:url>
+							<div class="card" style="width: 18rem;">
+							  <c:if test="${empty faq.thumbNailImage }">
+							  	<figure class="img_ico mb-4">
+							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
+							  	</figure>
+							  </c:if>
+							  <c:if test="${not empty faq.thumbNailImage }">
+							  	<%
+							  	FaqDto faq = (FaqDto) pageContext.getAttribute("faq");
+								String encodedFileName = java.net.URLEncoder.encode(faq.getThumbNailImage(), "utf-8");
+								pageContext.setAttribute("encodedFileName", encodedFileName);
+							  	%>
+							  	<figure class="mb-6">
+						  			<img src="${imageUrl }/faq/${faq.questionId }/${encodedFileName }" class="img-fluid rounded" alt="">
+						  	  	</figure>
+						  	  </c:if>
+							  <div class="card-body">
+							    <h4 class="card-title">${faq.title }</h4>
+							    <p><strong>아이디 : </strong> ${faq.memberId }</p>
+							    <p><strong>이메일 : </strong> ${faq.email }</p>
+							    <a href="${getUrl }" class="stretched-link"></a>
+							  </div>
+							</div>			
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>		

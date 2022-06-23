@@ -23,39 +23,47 @@
 	<div id="wrapper">
 
 		<nav:sidebar></nav:sidebar>
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-		<div class="container-fluid">
-			<nav:topbar></nav:topbar>
-			<a class="btn btn-primary" href="${appRoot }/admin/insert">판매글 작성</a>
-			<div class="row">
-				<c:forEach items="${market }" var="market">
-					<c:url value="/admin/getMarket" var="getUrl">
-						<c:param name="marketId" value="${market.marketId }"></c:param>
-					</c:url>
-					<div class="card" style="width: 18rem; margin: 1px;">
-					  <c:if test="${not market.hasFile }">
-					  	<figure class="img_ico mb-4">
-					  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
-					  	</figure>
-					  </c:if>
-					  <c:if test="${market.hasFile }">
-					  	<%
-					  	MarketDto market = (MarketDto) pageContext.getAttribute("market");
-						String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
-						pageContext.setAttribute("encodedFileName", encodedFileName);
-					  	%>
-					  	<figure class="mb-6">
-				  			<img src="${imageUrl }/market/${market.marketId }/${encodedFileName }" class="img-fluid" alt="">
-				  	  	</figure>
-				  	  </c:if>
-					  <div class="card-body">
-					    <h4 class="card-title">${market.title }</h4>
-					    <p><strong>상품명 : </strong> ${market.productName }</p>
-					    <p><strong>가격 : </strong> ${market.price }</p>
-					    <a href="${getUrl }" class="stretched-link"></a>
-					  </div>
-					</div>			
-				</c:forEach>
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav:topbar></nav:topbar>
+
+				<div class="container-fluid">
+					<a class="btn btn-primary" href="${appRoot }/admin/insert">판매글 작성</a>
+					<div class="row">
+						<c:forEach items="${market }" var="market">
+							<c:url value="/admin/getMarket" var="getUrl">
+								<c:param name="marketId" value="${market.marketId }"></c:param>
+							</c:url>
+							<div class="card" style="width: 18rem; margin: 1px;">
+							  <c:if test="${not market.hasFile }">
+							  	<figure class="img_ico mb-4">
+							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
+							  	</figure>
+							  </c:if>
+							  <c:if test="${market.hasFile }">
+							  	<%
+							  	MarketDto market = (MarketDto) pageContext.getAttribute("market");
+								String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
+								pageContext.setAttribute("encodedFileName", encodedFileName);
+							  	%>
+							  	<figure class="mb-6">
+						  			<img src="${imageUrl }/market/${market.marketId }/${encodedFileName }" class="img-fluid" alt="">
+						  	  	</figure>
+						  	  </c:if>
+							  <div class="card-body">
+							    <h4 class="card-title">${market.title }</h4>
+							    <p><strong>상품명 : </strong> ${market.productName }</p>
+							    <p><strong>가격 : </strong> ${market.price }</p>
+							    <a href="${getUrl }" class="stretched-link"></a>
+							  </div>
+							</div>			
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>		
