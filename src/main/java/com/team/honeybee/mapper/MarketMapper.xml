@@ -61,8 +61,35 @@
 	where market_id = #{marketId}
 	
 	</update>
+	<select id="postMakret" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT market_id marketId,
+			   member_id memberId,
+			   title,
+			   content,
+			   inserted,
+			   price,
+			   product_name productName,
+			   total,
+			   view_count viewCount,
+			   enable
+		FROM Market
+		WHERE market_id = #{market_id}
+	</select>
 	
-	
+	<select id="getMarketById" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT m.market_id marketId,
+			   m.member_id memberId,
+			   m.title,
+			   mem.nickname,
+			   m.price,
+			   m.product_name productName,
+			   m.enable,
+			   f.file thumbNailImage
+		FROM Market m LEFT JOIN MarketFile f ON m.market_id = f.market_id
+					  LEFT JOIN Member mem ON m.member_id = mem.member_id
+		WHERE m.market_id = #{marketId}
+		GROUP BY marketId
+	</select>
 	
 
 	

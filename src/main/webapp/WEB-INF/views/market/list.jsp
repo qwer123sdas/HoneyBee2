@@ -48,7 +48,7 @@
 								String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
 								pageContext.setAttribute("encodedFileName", encodedFileName);
 								%>
-                          		<img src="${imageUrl}/market/${list.marketId}/${encodedFileName}">
+                          		<img class="image card-img-top rounded-4" src="${imageUrl}/market/${list.marketId}/${encodedFileName}">
                           		
                           	</c:if> 
                             <!-- Product details-->

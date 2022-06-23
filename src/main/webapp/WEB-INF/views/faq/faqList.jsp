@@ -45,7 +45,7 @@
 	<div class="container">
 		<div class="row">
 			<my:faq></my:faq>
-			<div class="col-8 mt-4">
+			<div class="col-8 mt-4 ms-5">
 				<table class="table">
 					<thead>
 						<tr>
@@ -53,6 +53,7 @@
 							<th>제목</th>
 							<th>처리상태</th>
 							<th>문의일자</th>
+							<th><input type="checkbox" />삭제</th>
 
 						</tr>
 					</thead>
@@ -68,10 +69,9 @@
 									<td>답변완료</td>
 								</c:if>
 								<td >${faq.inserted }</td>
-
-
+								<td><input type="checkbox" data-oper='remove'></button></td>
 							</tr>
-
+					
 						</c:forEach>
 
 					</tbody>

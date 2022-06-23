@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.team.honeybee.domain.MarketDto;
+import com.team.honeybee.domain.MemberDto;
 import com.team.honeybee.mapper.MarketMapper;
 
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -71,6 +72,23 @@ public class MarketService {
 		System.out.println(market);
 		return market;
 	}
+
+
+
+	public MarketDto getMarketById(int marketId) {
+		return mapper.getMarketById(marketId);
+	}
+
+
+
+	public boolean buyMarketById(MemberDto member, MarketDto dto) {
+				
+		
+		return false;
+	}
+
+
+
 	
 
 

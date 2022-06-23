@@ -18,6 +18,7 @@ public class FaqDto {
 	@DateTimeFormat(iso = ISO.DATE_TIME, pattern="yyyy-MM-dd HH-mm-ss")
 	private LocalDateTime inserted;
 	private String email;
+	private String thumbNailImage;
 	private List<String> fileName;
 	private int enable;
 }

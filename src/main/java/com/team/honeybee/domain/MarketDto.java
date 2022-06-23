@@ -9,6 +9,7 @@ import lombok.Data;
 public class MarketDto {
 	private int marketId;
 	private String memberId;
+	private String nickname;
 	private String title;
 	private String content;
 	private LocalDate inserted;

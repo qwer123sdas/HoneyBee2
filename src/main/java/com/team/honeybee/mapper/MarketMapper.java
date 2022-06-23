@@ -13,6 +13,12 @@ public interface MarketMapper {
 	List<String> selectFileNameByMarketId(int marketId);
 
 	int updateViewCount(int id);
+
+	int postMakret(MarketDto market);
+
+	int postMakret(int marketId);
+
+	MarketDto getMarketById(int marketId);
 	
 
 
