@@ -14,6 +14,7 @@ public class MemberDto {
 	private String name;
 	private String email;
 	private String nickname;
+	private String profile;
 	private String postcode;
 	private String address;
 	private String detail;

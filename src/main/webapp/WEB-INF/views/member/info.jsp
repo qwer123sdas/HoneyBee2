@@ -179,12 +179,15 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12">
-				<form id="form1" action="${appRoot }/member/modify" method="post">
+				<form id="form1" action="${appRoot }/member/modify" method="post" enctype="multipart/form-data">
 					<h1>마이페이지</h1>
 
 					<div>
 						<p>${message }</p>
 					</div>
+					
+					<!-- 프로필사진 보이는 위치 -->
+					
 					
 					<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
 					<br />
@@ -226,7 +229,7 @@
 					<input type="text" name="phone" value="${memberInfo.phone }" />
 					<br />
 					프로필 사진
-					<input type="file" name="profile" />
+					<input type="file" name="profile" value="${memberInfo.profile }"/>
 					<button id="profileUploadButton">업로드</button>
 					<div>
 						<button id="modifySubmitButton1" data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>

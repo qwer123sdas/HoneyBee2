@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.honeybee.domain.MemberDto;
@@ -149,7 +150,8 @@ public class MemberController {
 	
 	// 회원 정보 수정
 	@PostMapping("modify")
-	public String modifyMember(MemberDto dto, String oldPw, RedirectAttributes rttr) {
+	public String modifyMember(MemberDto dto, String oldPw, @RequestParam("profile") MultipartFile profile, RedirectAttributes rttr) {
+		System.out.println(profile);
 		boolean success = service.modifyMember(dto, oldPw);
 		if(success) {
 			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
