@@ -19,6 +19,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.team.honeybee.domain.MeetingDto;
+import com.team.honeybee.domain.MeetingGuestDto;
 import com.team.honeybee.mapper.MeetingMapper;
 import com.team.honeybee.mapper.MeetingSummerNoteMapper;
 
@@ -117,15 +118,7 @@ public class MeetingService {
 	}
 	
 	// meetingBoard, guest 입력받기
-	public Object meetingInsertGuest(MeetingDto meeting, int meetingId, String memberId) {
-		meeting.setMeetingId(meetingId);
-		meeting.setMemberId(memberId);
-		
-		int cnt = mapper.insertGuest(meetingId);
-		
-		return cnt == 1;
-		
-	}
+	
 	
 	
 	// 모임 리스트(topic추가함)
@@ -202,6 +195,23 @@ public class MeetingService {
 		s3.deleteObject(deleteBucketRequest);
 			
 		}
+	
+	// 게스트 입력
+	public void meetingInsertGuest(MeetingDto meeting, int meetingId, String memberId) {
+		// 현재 인원수 가져오기
+		int todayNum = mapper.stateSelectGuest(meetingId, memberId);
+		// max와 비교해서 현재 인원수보다 작으면 insert
+		if(todayNum < meeting.getGuestNum()) {
+			mapper.insertGuest(meetingId, memberId);			
+		} else {
+			// 아니면 대기자 명단으로 이동? no insert
+			
+		}
+		
+		
+	}
+	
+	
 	
 
 	

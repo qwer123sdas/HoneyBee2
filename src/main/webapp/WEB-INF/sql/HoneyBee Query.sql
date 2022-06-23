@@ -11,6 +11,7 @@ DESC Member;
 SELECT * FROM MeetingFile;
 SELECT * FROM Member;
 DESC Tag;
+SELECT * FROM Tag;
 
 -- 대댓글용 컬럼 추가 
 -- 부모번호 추가
@@ -137,3 +138,13 @@ ADD COLUMN main_image_name INT(255) NOT NULL;
 SET SQL_SAFE_UPDATES = 0;
 -- 세이프 모드 설정
 SET SQL_SAFE_UPDATES = 1;
+
+-- meetingGuest 테이블 생성
+CREATE TABLE MeetingGuest (
+	guest_id INT(255) PRIMARY KEY AUTO_INCREMENT,
+    inserted DATE NOT NULL,
+    member_id VARCHAR(20),
+    meeting_id INT(255),
+    FOREIGN KEY (member_id) REFERENCES Member(member_id),
+    FOREIGN KEY (meeting_id) REFERENCES Meeting(meeting_id)
+);

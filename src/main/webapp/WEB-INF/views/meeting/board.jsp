@@ -300,7 +300,9 @@
 							</form>
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
 
-							<div id="meetingReply" class="meetingReplyList"></div>
+							<div id="parentsReply" class="parentsReplyList"></div>
+						
+							<div id="childrenReply" class="childrenReplyList"></div>
 						</div>
 				</section>
 			</div>
@@ -378,7 +380,7 @@
 
 				
 				// 댓글 처리
-				const meetingReplyList = function() {
+				const parentsReplyList = function() {
 					
 					const data = {meetingId : '${meeting.meetingId}'};
 					
@@ -413,7 +415,7 @@
              									<input type="hidden" name="meetingReplyId"
              										value="\${list[i].meetingReplyId }" />
              									<input id="insertReplyContentInput1" class="form-control"
-             										type="text" name="content" placeholder="" />
+             										type="text" name="content" placeholder="" /><br>
              									<button class="btn btn-primary" id="insertReplyButton1"
              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
 
@@ -433,10 +435,22 @@
 						
 					}); // 댓글 목록 ajax end
 					
+					
+					
 				}
 					
 			// 댓글 목록 실행
-			meetingReplyList();
+			parentsReplyList();
+			
+			/*
+			const childrenReplyList function () {
+				
+			}
+			
+			// 댓글 목록 실행
+			childrenReplyList();
+			*/
+			
 	/* 		
 	// 게스트 신청버튼 클릭시 신청, 목록출력
 	$("#guestInsertForm1").click(function(e) {
@@ -472,20 +486,18 @@
 		        modal.style.display = "none"
 		    }
 		})
+		
+		
+	
+	
 	
 	// 신청버튼 누르면 submit, 컨펌창 뜨고 완료
 	$("#guestSubmitBtn1").click(function(e) {
 		e.preventDefault();
-		
-		if(confrim("함께해주셔서 고맙습니다, 곧 만나요!")) {
 			let form = $("#guestInsertForm1");
-			let actionAttr = "${appRoot }/meeting/insertGuest";
-			
-			form.attr("action", actionAttr);
-			
 			form.submit();
-		}
 	});
+	
 
 
 	});
@@ -510,12 +522,9 @@
 				</ul>
 				<p>모임일시:${meeting.meetingDate }</p>
 				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
-
-				<form id="guestInsertForm1" method="post">
-					<input type="hidden" name="meetingId" value="${member.meetingId }" />
-					<input type="hidden" name="memberId" value="${member.memberId }" />
-					<input type="hidden" name="nickname" value="${member.nickname }" />
+				<form id="guestInsertForm1" action="${appRoot }/meeting/board/addGuest" method="post">
 					<button type="button" class="btn btn-secondary">취소</button>
+					<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 					<button type="submit" class="btn btn-primary" id="guestSubmitBtn1">신청</button>
 				</form>
 			</div>

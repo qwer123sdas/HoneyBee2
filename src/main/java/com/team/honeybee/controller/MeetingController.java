@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.honeybee.domain.MeetingDto;
+import com.team.honeybee.domain.MeetingGuestDto;
 import com.team.honeybee.domain.MeetingReplyDto;
 import com.team.honeybee.service.MeetingReplyService;
 import com.team.honeybee.service.MeetingService;
@@ -90,16 +91,15 @@ public class MeetingController {
 	}
 	
 	// meetingBoard, guest 입력받기
-	@PostMapping("insertGuest")
-	public String meetingInsertGuest(MeetingDto meeting, 
-									@RequestParam("meetingId") int meetingId,
-									@RequestParam("memberId") String memberId) {
+	@PostMapping("board/addGuest")
+	public String meetingInsertGuest(MeetingDto meeting, int meetingId, Principal principal) {
 		
+		String memberId = principal.getName();
+		meeting.setMemberId(memberId);
 		
 		service.meetingInsertGuest(meeting, meetingId, memberId);
 		
-		
-		return "redirect:/meeting/board/" + meeting.getMeetingId();
+		return "redirect:/meeting/board/" + meetingId;
 	}
 	
 	@GetMapping("login")

@@ -22,6 +22,11 @@
 		VALUES(#{hashTag}, #{meetingId})
 	</insert>
 	
+	<!-- 게스트 넣기 -->
+	<insert id="insertGuest">
+		INSERT INTO MeetingGuest (meeting_id, member_id)
+		VALUES (#{meetingId}, #{guest})
+	</insert>
 	
 	<!-- 모임 목록 보기 -->
 	<select id="selectMeeting" resultType="com.team.honeybee.domain.MeetingDto">
@@ -54,6 +59,13 @@
 		ORDER BY mt.Meeting_id ASC
 		</if>
 
+	</select>
+	
+	<!-- 현재 인원수 가져오기 -->
+	<select id="stateSelectGuest" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT COUNT(guest_id) todayNum
+		FROM meetingGuest
+		WHERE meeting_id = #{meetingId}
 	</select>
 	
 	<!-- 기부모임 게시물 보기 -->

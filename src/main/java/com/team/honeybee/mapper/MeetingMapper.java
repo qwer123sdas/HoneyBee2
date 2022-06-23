@@ -26,8 +26,17 @@ public interface MeetingMapper {
 	// 해쉬 태그 가져오기
 	List<String> getHashTag(int meetingId);
 
+	// 현재 인원수 가져오기
+	int stateSelectGuest(int meetingId, String memberId);
+
 	// meetingBoard, guest 입력받기
-	int insertGuest(int meetingId);
+	void insertGuest(int meetingId, String memberId);
+
+	
+	
+	
+	
+
 	
 	
 
