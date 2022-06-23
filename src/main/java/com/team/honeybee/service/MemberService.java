@@ -94,22 +94,34 @@ public class MemberService {
 
 	}
 
-	// 회원 비밀번호 초기화
+	// 이메일을 이용한 비밀번호 찾기
 	public void initPw(String memberId) {
 		String pw = passwordEncoder.encode(memberId);
 		mapper.initPwByMemberId(memberId, pw);
 	}
-	
-	// 회원 비밀번호 변경
-	public boolean changePw(MemberDto dto) {
-		String encodedPassword = passwordEncoder.encode(dto.getPw());
-		
-		dto.setPw(encodedPassword);
-		
-		return mapper.changePw(dto);
-	}
 
 	public String getEmailById(String memberId) {
 		return mapper.selectEmailById(memberId);
+	}
+
+	// 마이페이지에서 회원 비밀번호 변경
+	public boolean updatePw(String memberId, String pw, String newPw) {
+		MemberDto oldMember = mapper.selectMemberById(memberId);
+		
+		String encodedPw = oldMember.getPw();
+		if (passwordEncoder.matches(pw, encodedPw)) {
+			
+			// 암호 인코딩
+			String encodedPassword = passwordEncoder.encode(newPw);
+			
+			return mapper.updatePw(memberId, encodedPassword);
+		}
+		
+		return false;
+	}
+
+	public void changePw(String memberId, String newPw) {
+		String encodedPw = passwordEncoder.encode(newPw);
+		mapper.updatePw(memberId, encodedPw);
 	}
 }

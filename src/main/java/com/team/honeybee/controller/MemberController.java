@@ -11,10 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.honeybee.domain.MemberDto;
@@ -29,7 +26,7 @@ public class MemberController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
-
+	
 	@GetMapping("signup")
 	public void signupForm() {
 
@@ -40,8 +37,8 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("temp-mainPage")
-	public void index() {
+	@RequestMapping("index")
+	public void index1() {
 
 	}
 
@@ -53,7 +50,7 @@ public class MemberController {
 		if (success) {
 
 			rttr.addFlashAttribute("message", "회원가입이 완료되었습니다.");
-			return "redirect:/member/temp-mainPage";
+			return "redirect:/member/index";
 
 		} else {
 
@@ -143,7 +140,7 @@ public class MemberController {
 		
 		if(success) {
 			rttr.addFlashAttribute("message", "회원 탈퇴를 완료하였습니다.");
-			return "redirect:/member/temp-mainPage";
+			return "redirect:/member/index";
 		} else {
 			rttr.addFlashAttribute("memberId", dto.getMemberId());
 			return "redirect:/member/info";
@@ -163,7 +160,7 @@ public class MemberController {
 		return "redirect:/member/info";
 	}
 	
-	// 회원 비밀번호 초기화
+	// 이메일을 이용한 비밀번호 찾기
 	@GetMapping("initpw")
 	public void initpwPage() {
 		
@@ -219,40 +216,38 @@ public class MemberController {
 	}
 	
 	@PostMapping("changePw")
-	public String checkOtpProcess(String otpValue, String newPw, String newPwConfirm,Principal principal, HttpSession session, RedirectAttributes rttr) {
+	public String checkOtpProcess(@RequestParam("newPw") String newPw, @RequestParam("newPwConfirm") String newPwConfirm, String memberId, RedirectAttributes rttr) {
 //		System.out.println(session.getAttribute("OTPVALUE"));
 //		System.out.println(otpValue);
 //		System.out.println(newPw);
 //		System.out.println(newPwConfirm);
-		if(newPw == newPwConfirm) {
+		if(newPw.equals(newPwConfirm)) {
+			service.changePw(memberId, newPw);
 			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
-			System.out.println("good");
 			return "redirect:/member/login";
 		} else {
 			rttr.addFlashAttribute("message", "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.");
-			System.out.println("bad");
 			return "redirect:/member/initpw";
 		}
 	}
 
-	// 회원 비밀번호 변경
+	// 마이페이지 회원 비밀번호 변경
 	@GetMapping("updatePw")
 	public void changePwForm() {
 		
 	}
 	
 	@PostMapping("updatePw")
-	public String changePwProcess(MemberDto dto,Principal principal, RedirectAttributes rttr) {
-		dto.setMemberId(principal.getName());
-		boolean success = service.changePw(dto);
+	public String changePwProcess(String pw, String newPw, Principal principal, RedirectAttributes rttr) {
+		String memberId = principal.getName();
+		boolean success = service.updatePw(memberId, pw, newPw);
 		
 		if(success) {
 			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
 			return "redirect:/member/login";
 		} else {
 			rttr.addFlashAttribute("message", "비밀번호 변경에 실패하였습니다.");
-			rttr.addFlashAttribute("dto", dto);
-			return "redirect:/member/temp-mainPage";
+			return "redirect:/member/index";
 		}
 	}
 	

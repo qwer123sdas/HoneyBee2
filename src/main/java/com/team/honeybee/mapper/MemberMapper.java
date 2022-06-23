@@ -22,10 +22,6 @@ public interface MemberMapper {
 	// 아이디 가져오기
 	String findId2(@Param("name") String name, @Param("email") String email);
 
-	int findPw(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
-
-	String findPw2(@Param("name") String name, @Param("memberId") String memberId, @Param("email")  String email);
-
 	MemberDto memberInfo(@Param("memberId") String memberId);
 	
 	// 회원 탈퇴
@@ -36,9 +32,11 @@ public interface MemberMapper {
 	int updateMember(MemberDto dto);
 	// 회원 비밀번호 초기화
 	void initPwByMemberId(@Param("memberId") String memberId, @Param("pw") String pw);
-	// 회원 비밀번호 변경
-	boolean changePw(MemberDto dto);
+	// 회원 비밀번호 변경 (마이페이지)
+	boolean updatePw(@Param("memberId") String memberId, @Param("newPw") String newPw);
+	MemberDto selectMemberById(String memberId);
 	// 회원 이메일 가져오기
 	String selectEmailById(String memberId);
+
 
 }

@@ -75,11 +75,6 @@
 				$("#pwMessage").text("비밀번호가 일치하지 않습니다.");
 			}
 		});
-		
-		// 확인버튼
-		$("#changePwButton").click(function() {
-			$("#confirmMessage").text("비밀번호가 변경되었습니다.");
-		});
 	});
 </script>
 

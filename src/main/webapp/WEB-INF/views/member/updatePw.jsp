@@ -40,11 +40,15 @@
 					</label>
 					
 					<div class="col-md-12">
-						<input type="password" id="pwInput1" class="form-control" name="pw" placeholder="비밀번호" />
+						<input type="password" id="pwInput1" class="form-control" name="pw" placeholder="현재 비밀번호" />
 					</div>
 					
 					<div class="col-md-12">
-						<input type="password" id="pwInput2" class="form-control" name="pwConfirm" placeholder="비밀번호 확인" />
+						<input type="password" id="pwInput1" class="form-control" name="newPw" placeholder="새 비밀번호" />
+					</div>
+					
+					<div class="col-md-12">
+						<input type="password" id="pwInput2" class="form-control" name="newPwConfirm" placeholder="새 비밀번호 확인" />
 					</div>
 					
 					<div class="form-text" id="pwMessage"></div>

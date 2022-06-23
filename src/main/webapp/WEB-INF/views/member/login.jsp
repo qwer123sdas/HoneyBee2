@@ -109,6 +109,13 @@
 }
 	
 </style>
+<c:if test="${not empty message }">
+<script>
+	$(document).ready(function() {
+		alert('${message}');
+	});
+</script>
+</c:if>
 
 </head>
 <body>

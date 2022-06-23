@@ -52,7 +52,7 @@
 	
 	<!-- 마이페이지 -->
 	<select id="memberInfo" resultType="com.team.honeybee.domain.MemberDto">
-		SELECT member_id memberId, pw, name, email, nickname, postcode, address, detail, phone
+		SELECT member_id memberId, pw, name, email, nickname, postcode, address, detail, phone, profile
 		FROM Member
 		WHERE member_id = #{memberId}
 	</select>
@@ -81,18 +81,11 @@
 		WHERE member_id = #{memberId}
 	</update>
 	
-	<!-- 회원 비밀번호 초기화 -->
-	<update id="initPwByMemberId">
-		UPDATE Member
-		SET pw = #{pw}
+	<select id="selectMemberById" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT member_id, pw
+		FROM Member
 		WHERE member_id = #{memberId}
-	</update>
-	
-	<update id="changePw">
-		UPDATE Member
-		SET pw = #{pw}
-		WHERE member_id = #{memberId}
-	</update>
+	</select>
 	
 	<!-- 이메일 가져오기 -->
 	<select id="selectEmailById" resultType="string">
@@ -100,4 +93,19 @@
 		FROM Member
 		WHERE member_id = #{memberId}
 	</select>
+	
+	<!-- 회원 비밀번호 초기화 -->
+	<update id="initPwByMemberId">
+		UPDATE Member
+		SET pw = #{pw}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- 마이페이지 회원 비밀번호 변경 -->
+	<update id="updatePw">
+		UPDATE Member
+		SET pw = #{newPw}
+		WHERE member_id = #{memberId}
+	</update>
+
 </mapper> 

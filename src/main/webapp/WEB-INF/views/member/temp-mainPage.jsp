@@ -14,7 +14,7 @@
 </head>
 <body>
 	<!-- 임시 navBar -->
-	<my:navBar current="mainPage"></my:navBar>
+
 	
 	<h1>메인 페이지</h1>
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<my:navBar current="mainPage"></my:navBar>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -103,7 +105,37 @@
         </div>
     </nav>
     <!-- Navbar End -->
-
+	<!-- 
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+            <h2 class="m-0 text-primary">꿀비</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="${mainPageUrl } }" class="nav-item nav-link active">홈</a>
+                <a href="about.html" class="nav-item nav-link">About 꿀비</a>
+                <a href="service.html" class="nav-item nav-link">기부하기</a>
+                <a href="signup" class="nav-item nav-link">회원가입</a>
+                <a href="login" class="nav-item nav-link">로그인</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마이페이지</a>
+                    <div class="dropdown-menu bg-light m-0">
+                        <a href="feature.html" class="dropdown-item">1:1 문의</a>
+                        <a href="quote.html" class="dropdown-item">내가 쓴 기부 확인</a>
+                        <a href="team.html" class="dropdown-item">내가 쓴 리뷰 확인</a>
+                        <a href="testimonial.html" class="dropdown-item">주문 결제</a>
+                        <a href="404.html" class="dropdown-item">고객센터</a>
+                        <a href="" class="dropdown-item">의견 보내기</a>
+                    </div>
+                </div>
+            </div>
+            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+	 -->
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">

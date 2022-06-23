@@ -212,6 +212,7 @@
 					<p id="nickNameMessage1"></p>
 					<br />
 
+					<!-- 우편번호 주소 상세주소 전화 수정 누르면 변경할 수 있도록 만들기 -->
 					우편번호
 					<input type="text" name="postcode" value="${memberInfo.postcode }" />
 					<br />
@@ -224,7 +225,9 @@
 					전화
 					<input type="text" name="phone" value="${memberInfo.phone }" />
 					<br />
-					
+					프로필 사진
+					<input type="file" name="profile" />
+					<button id="profileUploadButton">업로드</button>
 					<div>
 						<button id="modifySubmitButton1" data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
 						<button type="button" data-bs-toggle="modal" data-bs-target="#modalSheet1">삭제</button>
