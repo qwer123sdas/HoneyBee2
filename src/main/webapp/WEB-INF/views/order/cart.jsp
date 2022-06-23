@@ -260,7 +260,7 @@ td {
 								    	<th>기본항목</th>
 								    	<th class="text-center">수량선택</th>
 								    	<th class="text-center">작업기간</th>
-								    	<th class="text-end"">가격</th>
+								    	<th class="text-end">가격</th>
 							    	</tr>
 							    </thead>
 							    <tbody>
@@ -330,7 +330,9 @@ td {
 				            <div class="d-flex cart__mainbtns">
 					            <button class="cart__bigorderbtn middle">결제하기</button>
 					        </div>
-									            
+					       <%--  <form action="${appRoot }/order/kakaoPay" method="Post"></form> --%>
+							    <button id="btn-kakaopay" class="btn btn-primary">카카오페이로 결제하기</button>
+							
 				            
                         </div>
                     </div>
@@ -374,6 +376,7 @@ td {
             </ul>
         </div>
     </section>
+    
     <script>
     var sellPrice = ${board.price};
     var sum = sellPrice;
@@ -405,6 +408,63 @@ td {
 			}
 		});
     });
+    /*
+    $(function(){
+    	$('#btn-kakaopay').click(function(){
+    		$.ajax({
+    			url:'kakaopay',
+    			dataType:'text',
+    			success:function(data){
+    				 // alert(resp.tid); //결제 고유 번호
+    				var box = resp.next_redirect_pc_url;
+    				//window.open(box); // 새창 열기
+    				location.href = box;
+    			},
+    			error:function(error){
+    				alert(error);
+    			}
+    		});
+    	});
+    });
+    */
+    /* 카카오 페이 ajax  */
+    let index = {
+    		init:function(){
+    	        $("#btn-kakaopay").on("click", ()=>{ 
+    	        	// function(){}를 사용안하고 , ()=>{}를 사용하는 이유는 this를 바인딩하기 위해서
+    				this.kakaopay();
+    			});
+    		},
+
+    	  // 카카오페이 결제
+    		kakaopay:function(){
+    			
+    			$.ajax({
+    				url:"${appRoot}/kakaopay?member_order_id${memberId}",
+    				contentType : 'application/json;charset=utf-8',
+    				dataType:"json",
+    				type : "GET"
+    			}).done(function(resp){
+   					console.log("일단응답:", resp);
+    				if(resp.status === 500){
+    					alert("카카오페이결제를 실패하였습니다.")
+    				} else{
+    					console.log("성공>>????")
+    					 // alert(resp.tid); //결제 고유 번호
+    					var box = resp.next_redirect_pc_url;
+    					//window.open(box); // 새창 열기
+    					location.href = box;
+    				}
+    			
+    			}).fail(function(error){
+    				console.log("error2");
+    				alert(JSON.stringify(error));
+    			}); 
+    			
+    		},
+    	}
+
+    	index.init();
 
     </script>
 </body>
