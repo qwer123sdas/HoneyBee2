@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.OrderMapper">
+	<select id="selectTalentBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title,
+			   t.price,
+			   m.nickname,
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
+		FROM Talent t LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+					  LEFT JOIN Member m ON m.member_id = t.member_id
+		WHERE t.talent_id = ${talentId} AND bi.main_image_name IS NOT NULL
+	</select>
+</mapper>

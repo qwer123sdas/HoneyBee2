@@ -67,7 +67,9 @@
 		
 		<label for="">내용</label>
 		<textarea class="textarea"  id="summernote"> </textarea>
-		
+		<br />
+		<label for="">판매 물품 이름</label>
+		<input type="text" />
 		<div>
 			<label>
 				<input type="radio" id="pay" name="pay" value="pay" onclick="showPriceSelect()">유료
@@ -76,6 +78,7 @@
 				<input type="radio" id="free" name="pay" value="free" onclick="showPriceSelect()">무료
 			</label>
 		</div>
+
 		<label for="">가격</label> 
 		<input class="d-none" type="number" id="price" value="0"/> <br />
 		
@@ -92,6 +95,11 @@
 		<br />
 		
 		​<br /> <br /> 
+		<p>옵션 선택</p>
+		<p>작업기간, 인원수</p>
+		<label for="">작업기간</label>
+		<input type="number" name="" id="" />
+		<br />
 		<label for="">인원제한</label> 
 		<input type="number" />
 		<br /> 
@@ -113,11 +121,7 @@
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	<script>
 		//메인 카테고리 셋팅
-	    var mainCategorySelectBox = $("select[name='mainCategory']");
 	    
-	    for(var i=0;i<mainCategoryArray.length;i++){
-	        mainCategorySelectBox.append("<option value='"+mainCategoryArray[i].main_category_id+"'>"+mainCategoryArray[i].main_category_name+"</option>");
-	    }
 		/* 폴더명 */
 		const randomNum = Math.floor(Math.random() * 1000000000);
 		$('#folderName').val('padding-' + randomNum);

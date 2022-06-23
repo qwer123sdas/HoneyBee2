@@ -14,29 +14,46 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <title>Insert title here</title>
 </head>
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+	rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
 <style>
-body {
-  margin: 0;
-}
 
-* {
-  box-sizing: border-box;
-}
-
-p,
-span {
-  margin: 0;
-}
-
-a {
-  color: black;
-}
-
-img {
+.mainImg {
   display: block;
-  width: 80%;
-  height: 80px;
-  margin: auto;
+  width : 120px;
+  height: 90px;
+  border : 1px;
 }
 
 .cart {
@@ -56,107 +73,37 @@ img {
 }
 
 .cart ul :first-child {
-  color: limegreen;
+  color: #fbc02d;
 }
 
 table {
-  border-top: solid 1.5px black;
+  border : 0;
   border-collapse: collapse;
   width: 100%;
   font-size: 14px;
 }
 
 thead {
-  text-align: center;
+  border-bottom: 1.5px solid lightgrey;
   font-weight: bold;
 }
 
 tbody {
-  font-size: 12px;
+  font-size: 16px;
 }
-
+th{
+	padding: 15px 0px;
+}
 td {
-  padding: 15px 0px;
-  border-bottom: 1px solid lightgrey;
+  	padding: 15px 0px;
 }
 
-.cart__list__detail :nth-child(3) {
-  vertical-align: top;
-}
 
-.cart__list__detail :nth-child(3) a {
-  font-size: 12px;
-}
-
-.cart__list__detail :nth-child(3) p {
-  margin-top: 6px;
-  font-weight: bold;
-}
-
-.cart__list__smartstore {
-  font-size: 12px;
-  color: gray;
-}
-
-.cart__list__option {
-  vertical-align: top;
-  padding: 20px;
-}
-
-.cart__list__option p {
-  margin-bottom: 25px;
-  position: relative;
-}
-
-.cart__list__option p::after {
-  content: "";
-  width: 90%;
-  height: 1px;
-  background-color: lightgrey;
-  left: 0px;
-  top: 25px;
-  position: absolute;
-}
-
-.cart__list__optionbtn {
-  background-color: white;
-  font-size: 10px;
-  border: lightgrey solid 1px;
-  padding: 7px;
-}
-
-.cart__list__detail :nth-child(4),
-.cart__list__detail :nth-child(5),
-.cart__list__detail :nth-child(6) {
-  border-left: 2px solid whitesmoke;
-}
-
-.cart__list__detail :nth-child(5),
-.cart__list__detail :nth-child(6) {
-  text-align: center;
-}
-
-.cart__list__detail :nth-child(5) button {
-  background-color: limegreen;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 4px 8px;
-  font-size: 12px;
-  margin-top: 5px;
-}
 
 .price {
   font-weight: bold;
 }
 
-.cart__mainbtns {
-  width: 420px;
-  height: 200px;
-  padding-top: 40px;
-  display: block;
-  margin: auto;
-}
 
 .cart__bigorderbtn {
   width: 200px;
@@ -166,109 +113,259 @@ td {
   border-radius: 5px;
 }
 
-.cart__bigorderbtn.left {
+/* .cart__bigorderbtn.left {
   background-color: white;
   border: 1px lightgray solid;
 }
 
 .cart__bigorderbtn.right {
-  background-color: limegreen;
+  background-color: #fbc02d;
   color: white;
   border: none;
+} */
+.cart__bigorderbtn.middle {
+  background-color: #fbc02d;
+  color: white;
+  border: none;
+  width : 380px;
+  height : 50px;
+  margin-top : 3px;
 }
+
+.OrderInfo{
+	padding : 24px;
+}
+.OrderHeadr{
+	margin : 32px 0px;
+}
+.OrderHeadr-Text{
+	font-weight: bold;
+	font-size : 24px;
+}
+.OrderTitle{
+	font-size: 18px;
+    font-weight: bold;
+}
+.Order-wrapper{
+	margin-bottom : 38px;
+}
+
+.OrderSummary{
+	padding : 32px 24px;
+}
+
+.OrderSummary-divider{
+	border-bottom : 2px solid lightgrey;
+	margin-bottom : 20px; 
+}
+
+.Checkbox-text{
+	font-size: 14px;
+    font-weight: bold;
+    margin-bottom : 10px;
+}
+
+.OrderSummary-price-wrapper{
+	margin-bottom : 30px;
+}
+
+
+.btn_c {
+	overflow: hidden;
+	position: relative;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 7px 0 0 7px;
+	cursor: pointer;
+	margin : auto;
+}
+
+.btn_c .ico_button {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	margin: 0px;
+	color : #fbc02d;
+}
+
+.btn_c .ico_button img {
+	width: 100%;
+}
+
+.container2{
+	position: relative;
+	top: 120px;
+}
+.container3{
+	position: relative;
+	top: 120px;
+}
+
+
 </style>
 <body>
+ 	<!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5" style="background-color: #c49000;">
+        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <h1 class="text-primary m-0">Baker</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+    </nav>
+
+    	
         <!-- Page content-->
-        <div class="container">
+        <div class="container container2">
+        
+			<div class="OrderHeadr">
+	        	<h1 class="OrderHeadr-Text">결제하기</h2>
+	    	</div>
+	    	
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
-						<table class="cart__list">
-				            <form>
-				                <thead>
-				                    <tr>
-				                        <td>기본항목</td>
-				                        <td>수량선택</td>
-				                        <td>작업일</td>
-				                        <td>가격</td>
-				                    </tr>
-				                </thead>
-				                <tbody>
-				                    <tr class="cart__list__detail">
-				                        <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
-				                            <p>Apple 매직 키보드 - 한국어(MK2A3KH/A)</p>
-				                            <sapn class="price">116,62원</sapn><span
-				                                style="text-decoration: line-through; color: lightgray;">119,000</span>
-				                        </td>
-				                        <td>
-											<button class="order-btn-brand-gray margin-right-5">
-				                        		<span>+</span>
-				                        	</button>
-				                        	<span>1</span>
-				                        	<button class="order-btn-brand-gray margin-right-5">
-						                        <span>-</span>
-						                    </button>
-				                        </td>
-				                        <td class="cart__list__option">
-				                            <p>모델명 : 키보드 - 한국어 MK2A3KH/A / 1개</p>
-				                            <button class="cart__list__optionbtn">주문조건 추가/변경</button>
-				                        </td>
-				                        <td>
-				                        	<span class="price">116,620원</span><br>
-				                        </td>
-				                    </tr>
-				                </tbody>
-				          	</form>
-				          </table>
+                    	<section class="OrderInfo">
+	                    	<!-- 주문 INFO  -->
+	                    	<div>
+	                    		<h3 class="OrderTitle mb-4">주문 내역</h3>
+	                    		<div class="row Order-wrapper">
+	                    			<div class="col-2">
+	                    				<img class="mainImg" width="80px" height="auto" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="" />
+	                    			</div>
+	                    			<div class="col-10">
+	                    				<h4>${board.title }</h4>
+	                    				<div>
+	                    					<span>${board.nickname }</span>
+	                    				</div>
+	                    			</div>
+	                    		</div>
+	                    	</div>
+	                    	
+	                    	
+	                    	<!-- 주문 옵션 테이블 I-->
+							<table class="cart__list">
+								<colgroup>
+							        <col width="400px">
+							        <col width="104px">
+							        <col width="104px">
+							        <col width="128px">
+							    </colgroup>
+							    <thead>
+							    	<tr>
+								    	<th>기본항목</th>
+								    	<th class="text-center">수량선택</th>
+								    	<th class="text-center">작업기간</th>
+								    	<th class="text-end"">가격</th>
+							    	</tr>
+							    </thead>
+							    <tbody>
+							    	<tr>
+							    		<td>
+							    			<div class="">
+							                    <div>상품 이름 : 최저 20,000계정 추출 광고노출 </div>
+							                </div>
+							    		</td>
+							    		<td class="text-center">
+							                <div class="btn_c">
+							                    <span class="ico_button" id="minusButton">
+							                       <i class="fa-solid fa-circle-minus"></i>
+							                    </span>
+							                    <span id="amount">1</span>
+							                    <span class="ico_button" id="plusButton" >
+							                       <i class="fa-solid fa-circle-plus"></i>
+							                    </span>
+							                </div>
+							            </td>
+							            <td class="text-center">
+							            	<div class="">28 일</div>
+							            </td>
+							            <td class="text-end">
+							           		<div class="priceTotal">${board.price }원</div>
+							            </td>
+							    	</tr>
+							    </tbody>
+					        </table>
+				        </section>
+				          
                     </div>
                 </div>
                 
-                
+                               
                 <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Side widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    
+                        <div class="OrderSummary">
+                        	<h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
+				                <span>총 서비스 금액</span>
+				                <span class="priceTotal">${board.price }원</span>
+				                
+				            </h5>
+				            <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
+					            <span >쿠폰 할인</span>
+					            <span class="">0원</span>
+					        </h5>
+				            
+				            <div class="OrderSummary-divider"></div>
+                        	
+		                    <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
+					            <span>총 결제금액</span>
+					            <span>28,000원</span>
+					        </h5>
+					        
+				            <div>
+				                <div>
+				                    <label class="d-flex justify-content-start">
+				                        <input class="me-2" id="taxApplyCheckbox" type="checkbox" style="zoom:1.5;">
+				                        <div class="Checkbox-text">주문 내용을 확인하였으며, 결제에 동의합니다. (필수)</div>
+				                    </label>
+				                </div>
+				            </div>
+				            <div class="d-flex cart__mainbtns">
+					            <button class="cart__bigorderbtn middle">결제하기</button>
+					        </div>
+									            
+				            
+                        </div>
                     </div>
                 </div>
+                
+                
+                <!-- 포인트 사용 -->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                    <div class="card mb-4">
+                    	<section class="OrderInfo">
+	                    	<!-- 주문 INFO  -->
+	                    	<div>
+	                    		<h3 class="OrderTitle mb-4">포인트 사용</h3>
+	                    		<div class="row mb-5">
+	                    			<div class="col-2">
+	                    				<h3>포인트</h3>
+	                    			</div>
+	                    			<div class="col-10">
+										<input type="number" /> <button>전액사용</button>
+	                    			</div>
+	                    		</div>
+	                    	</div>
+	                    	
+				        </section>
+				          
+                    </div>
+                </div>
+                
+                
             </div>
         </div>
-    <section class="cart">
+        
+        
+    <section class="cart container3">
         <div class="cart__information">
             <ul>
                 <li>장바구니 상품은 최대 30일간 저장됩니다.</li>
@@ -276,52 +373,39 @@ td {
                 <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
             </ul>
         </div>
-        <table class="cart__list">
-            <form>
-                <thead>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td colspan="2">상품정보</td>
-                        <td>옵션</td>
-                        <td>상품금액</td>
-                        <td>배송비</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="cart__list__detail">
-                        <td><input type="checkbox"></td>
-                        <td><img src="image/keyboard.jpg" alt="magic keyboard"></td>
-                        <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
-                            <p>Apple 매직 키보드 - 한국어(MK2A3KH/A)</p>
-                            <sapn class="price">116,62원</sapn><span
-                                style="text-decoration: line-through; color: lightgray;">119,000</span>
-                        </td>
-                        <td class="cart__list__option">
-                            <p>모델명 : 키보드 - 한국어 MK2A3KH/A / 1개</p>
-                            <button class="cart__list__optionbtn">주문조건 추가/변경</button>
-                        </td>
-                        <td><span class="price">116,620원</span><br>
-                            <button class="cart__list__orderbtn">주문하기</button>
-                        </td>
-                        <td>무료</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3"><input type="checkbox"> <button class="cart__list__optionbtn">선택상품 삭제</button>
-                            <button class="cart__list__optionbtn">선택상품 찜</button>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </form>
-        </table>
-        <div class="cart__mainbtns">
-            <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
-            <button class="cart__bigorderbtn right">주문하기</button>
-        </div>
     </section>
+    <script>
+    var sellPrice = ${board.price};
+    var sum = sellPrice;
+    
+    $(document).ready(function(){
+		$('#plusButton').click(function(){
+			var amount = Number($('#amount').text());
+			var plusAmount = amount + 1;
+			var priceTotal = sellPrice * plusAmount;
+			
+			if(amount > 13){
+				$("#amount").text(amount);
+			}else{
+				$("#amount").text(plusAmount);
+				$(".priceTotal").text(priceTotal + '원');
+			}
+		});
+		
+		$('#minusButton').click(function(){
+			var amount = Number($('#amount').text());
+			var minusAmount = amount - 1;
+			var priceTotal = sellPrice * minusAmount;
+			
+			if(amount > 1){
+				$("#amount").text(minusAmount);
+				$(".priceTotal").text(priceTotal + '원');
+			}else{
+				$("#amount").text(amount);
+			}
+		});
+    });
+
+    </script>
 </body>
 </html>

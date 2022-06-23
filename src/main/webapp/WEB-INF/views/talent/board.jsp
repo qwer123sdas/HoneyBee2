@@ -44,6 +44,9 @@
 	width: 80%;
 	height: 400px;
 }
+.buyButton{
+	width : 100%;
+}
 
 </style>
 
@@ -239,7 +242,9 @@
 							</div>
 							${board.price }
 							<div class="d-grid gap-2">
-							<button type="button" class="btn btn-warning">구매하기</button>
+								<form action="${appRoot }/order/cart/${board.talentId}" method="Get">
+									<button type="submit" class="btn btn-warning buyButton" >구매하기</button>
+								</form>
 							</div>
                     	</div>
                     </div>

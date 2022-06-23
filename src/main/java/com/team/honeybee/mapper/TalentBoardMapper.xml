@@ -20,7 +20,8 @@
 	
 	<!-- 특정 게시물 정보 가져오기 -->
 	<select id="getBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
-		SELECT t.title, 
+		SELECT  t.talent_id talentId,
+		      	t.title, 
 				t.content,
 				t.price, 
 				t.expired, 
