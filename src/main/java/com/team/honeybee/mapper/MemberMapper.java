@@ -38,5 +38,7 @@ public interface MemberMapper {
 	// 회원 이메일 가져오기
 	String selectEmailById(String memberId);
 
+	void updateFile(@Param("memberId") String memberId,@Param("profile")  String profile);
+
 
 }

@@ -1,9 +1,13 @@
 package com.team.honeybee.service;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.*;
 import com.team.honeybee.mapper.*;
@@ -64,11 +68,23 @@ public class MemberService {
 	@Transactional
 	public boolean removeMember(MemberDto dto) {
 		MemberDto member = mapper.memberInfo(dto.getMemberId());
-
+		
 		String rawPw = dto.getPw();
 		String encodePw = member.getPw();
 
 		if (passwordEncoder.matches(rawPw, encodePw)) {
+			// 저장된 프로필 사진 폴더 포함 삭제
+			if(dto.getProfile() != null && dto.getProfile().isEmpty()) {
+				String folder = "C:/imgtmp/member/" + dto.getMemberId() + "/";
+				String path = folder + dto.getProfile();
+				
+				File file = new File(path);
+				file.delete();
+				
+				File dir = new File(folder);
+				dir.delete();
+				
+			}
 			// 댓글 삭제 넣어야함
 
 			// 이 멤버가 쓴 게시글 삭제 넣어야함
@@ -85,13 +101,40 @@ public class MemberService {
 	}
 
 	// 회원 정보 수정
-	public boolean modifyMember(MemberDto dto, String oldPw) {
+	@Transactional
+	public boolean modifyMember(MemberDto dto, String oldPw, MultipartFile profile) {
 		// DB에서 member 읽어오기
 		MemberDto oldMember = mapper.memberInfo(dto.getMemberId());
 
 		dto.setPw(oldMember.getPw());
-		return mapper.updateMember(dto) == 1;
+		int cnt = mapper.updateMember(dto);
+		
+		// 프로필 사진 업로드
+		if(profile.getSize() > 0) {
+			mapper.updateFile(dto.getMemberId(), profile.getOriginalFilename());
+			saveProfile(dto.getMemberId(), profile);
+		}
+		
+		return cnt == 1;
 
+	}
+	
+	// 프로필 사진 저장
+	private void saveProfile(String memberId, MultipartFile profile) {
+		// 디렉토리
+		String pathStr ="C:/imgtmp/member/" + memberId + "/";
+		File path = new File(pathStr);
+		path.mkdirs();
+		
+		// 작성 파일
+		File des = new File(pathStr + profile.getOriginalFilename());
+		try {
+			// 파일 저장
+			profile.transferTo(des);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	// 이메일을 이용한 비밀번호 찾기

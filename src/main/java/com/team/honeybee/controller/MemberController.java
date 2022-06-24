@@ -150,9 +150,15 @@ public class MemberController {
 	
 	// 회원 정보 수정
 	@PostMapping("modify")
-	public String modifyMember(MemberDto dto, String oldPw, @RequestParam("profile") MultipartFile profile, RedirectAttributes rttr) {
-		System.out.println(profile);
-		boolean success = service.modifyMember(dto, oldPw);
+	public String modifyMember(MemberDto dto, String oldPw, @RequestParam("profileFile") MultipartFile profile, RedirectAttributes rttr) {
+//		System.out.println(profile);
+//		System.out.println(profile.getOriginalFilename());
+//		System.out.println(profile.getSize());
+		if(profile.getSize() > 0) {
+			dto.setProfile(profile.getOriginalFilename());
+		}
+		
+		boolean success = service.modifyMember(dto, oldPw, profile);
 		if(success) {
 			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
 		} else {
@@ -253,6 +259,10 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("about")
+	public void aboutForm() {
+		
+	}
 }
 
 

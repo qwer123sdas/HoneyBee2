@@ -13,6 +13,7 @@
 <c:url value="/logout" var="logoutUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
 <c:url value="/member/changePw" var="changePasswordUrl"></c:url>
+<c:url value="/member/about" var="aboutUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -235,9 +236,11 @@
 				</li>
 			</sec:authorize>
 			
+			<ul>
 				<li class="nav-item">
-					<a class="nav-item nav-link" href="#">About 꿀비</a>
+					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }" href="${aboutUrl }">About 꿀비</a>
 				</li>
+			</ul>
 			
 			<sec:authorize access="isAuthenticated()">
 			<li class="nav-item">

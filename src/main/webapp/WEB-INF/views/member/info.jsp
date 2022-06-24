@@ -229,7 +229,8 @@
 					<input type="text" name="phone" value="${memberInfo.phone }" />
 					<br />
 					프로필 사진
-					<input type="file" name="profile" value="${memberInfo.profile }"/>
+					<img src="file:///C:/imgtmp/member/${memberInfo.memberId }/${memberInfo.profile }" alt="" />
+					<input type="file" name="profileFile" value="${memberInfo.profile }" accept="image/*"/>
 					<button id="profileUploadButton">업로드</button>
 					<div>
 						<button id="modifySubmitButton1" data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>

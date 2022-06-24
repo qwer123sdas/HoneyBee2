@@ -77,7 +77,8 @@
 			postcode = #{postcode},
 			address = #{address},
 			detail = #{detail},
-			phone = #{detail}
+			phone = #{detail},
+			profile = #{profile}
 		WHERE member_id = #{memberId}
 	</update>
 	
@@ -107,5 +108,19 @@
 		SET pw = #{newPw}
 		WHERE member_id = #{memberId}
 	</update>
+	
+	<!-- 프로필 사진 업로드 -->
+	<update id="updateFile">
+		UPDATE Member
+		SET profile = #{profile}
+		WHERE member_id = #{memberId}
+	</update>
 
+	<!-- insert 버전 -->
+	<!-- 
+	<insert id="insertFile">
+		INSERT INTO Member (member_id, profile)
+		VALUES (#{memberId}, #{profile})
+	</insert>
+	 -->
 </mapper> 
