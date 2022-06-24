@@ -99,7 +99,7 @@ public class MeetingController {
 		
 		service.meetingInsertGuest(meeting, meetingId, memberId);
 		
-		return "redirect:/meeting/board/" + meetingId;
+		return "redirect:/meeting/board/" + meeting.getMeetingId();
 	}
 	
 	@GetMapping("login")

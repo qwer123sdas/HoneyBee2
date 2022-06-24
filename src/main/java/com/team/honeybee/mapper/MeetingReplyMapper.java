@@ -1,5 +1,6 @@
 package com.team.honeybee.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,9 +19,9 @@ public interface MeetingReplyMapper {
 	void updateMeetingReplyParent(MeetingReplyDto reply);
 	
 	// 댓글 자식 댓글 모두 출력
-	List<MeetingReplyDto> selectAllChildrenByParentReplyId(int parentId);
+	List<MeetingReplyDto> selectAllChildrenByParentReplyId(@Param("meetingId") int meetingId);
 
 	// 자식 댓글 입력
-	void insertMeetingReplyChildren(MeetingReplyDto reply);
+	void insertMeetingReplyChild(MeetingReplyDto reply);
 
 }

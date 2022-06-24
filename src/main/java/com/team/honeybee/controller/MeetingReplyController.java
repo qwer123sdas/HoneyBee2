@@ -1,5 +1,6 @@
 package com.team.honeybee.controller;
 
+
 import java.security.Principal;
 import java.util.List;
 
@@ -55,12 +56,9 @@ public class MeetingReplyController {
 		if (principal != null) {
 			String memberId = principal.getName();
 			reply.setMemberId(memberId);
-			reply.setRefNum(reply.getMeetingReplyId());
-			reply.setStep(1);
-			reply.setRefOrder(1);
-			service.insertMeetingReplyChildren(reply);
+			service.insertMeetingReplyChild(reply);
 		}
-		
+		System.out.println(reply);
 		return "redirect:/meeting/board/" + reply.getMeetingId();
 	}
 	
@@ -70,4 +68,6 @@ public class MeetingReplyController {
 	public void replyform () {
 		
 	}
+
+
 }

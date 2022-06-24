@@ -189,6 +189,8 @@
 
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
+
+
 <!-- JavaScript Libraries -->
 <!--Jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
@@ -199,7 +201,7 @@
 <script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
-<script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+<%-- <script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script> --%>
 
 <!-- Template Javascript -->
 <script src="${appRoot }/resources/webContents/js/main.js"></script>
@@ -300,9 +302,9 @@
 							</form>
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
 
-							<div id="parentsReply" class="parentsReplyList"></div>
+							<div id="parentsReplyList" class="parentsReplyList"></div>
 						
-							<div id="childrenReply" class="childrenReplyList"></div>
+							</div>
 						</div>
 				</section>
 			</div>
@@ -338,7 +340,7 @@
 	<script>
 	$(document).ready(function() {
 		    	
-	/* 카카오 지도 api */
+	/* 카카오 지도 api */ 
 	
 	var Container = document.getElementById('map'), // 지도를 표시할 div 
 		Option = {
@@ -377,6 +379,7 @@
 	    } 
 	}); 
 		 
+	
 
 				
 				// 댓글 처리
@@ -390,12 +393,11 @@
 						type : "get",
 						data : data,
 						success : function(list) {
-							console.log(list);
-							const replyListElement = $('#meetingReply');
+							const replyListElement = $('#parentsReplyList');
 							replyListElement.empty(); // 초기화
 							
 							// 댓글 갯수
-							console.log(list.length);
+							console.log("1111= "+list.length);
 							
 							for (let i = 0; i < list.length; i++) {
 								const replyElement = $("<div class='d-flex mb-4' />");
@@ -408,23 +410,21 @@
 	                                       	<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>답글 달기</a>
 	                                   
                             			 </div>
-                            			 
                             			 <form class="mb-4" id="insertReplyForm2"
-             								action="${appRoot }/meeting/reply/insertReplyC" method="post">
-             								<div class="input-group">
-             									<input type="hidden" name="meetingReplyId"
-             										value="\${list[i].meetingReplyId }" />
-             									<input id="insertReplyContentInput1" class="form-control"
-             										type="text" name="content" placeholder="" /><br>
-             									<button class="btn btn-primary" id="insertReplyButton1"
-             										type="submit"><i class="fa-solid fa-circle-check"></i></button>
-
-             								</div>
-             							</form>
+              								action="${appRoot }/meeting/reply/insertReplyC" method="post">
+              								<div class="input-group">
+              									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+              									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
+              									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+              									<input id="insertReplyContentInput1" class="form-control"
+              										type="text" name="content" placeholder="" /><br>
+              									<button class="btn btn-primary" id="insertReplyButton1"
+              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+              								</div>
+              							</form>
 										`);
 								
-                           	
-                           	replyListElement.append(replyElement);
+                           		replyListElement.append(replyElement);
 							} // end of for
 						},// success end
 						
@@ -442,23 +442,17 @@
 			// 댓글 목록 실행
 			parentsReplyList();
 			
-			/*
-			const childrenReplyList function () {
-				
-			}
 			
-			// 댓글 목록 실행
-			childrenReplyList();
-			*/
 			
-	/* 		
+		
+		
 	// 게스트 신청버튼 클릭시 신청, 목록출력
 	$("#guestInsertForm1").click(function(e) {
 		e.preventDefault();
 		
 	});
 
-	 */
+	
 	 
 	 var modal = document.getElementById("insertGuestModal1");
 	 var btnModal = document.getElementById("insertGuestBtn1");
@@ -503,7 +497,8 @@
 	});
 	    
 </script>
-	<!-- 모임신청 모달창 -->
+	<!-- 모임신청 모달창 
+	-->
 	<div id="insertGuestModal1" class="modal-overlay">
 		<div class="modal-window">
 			<div class="title">

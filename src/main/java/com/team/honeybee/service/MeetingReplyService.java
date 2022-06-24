@@ -1,5 +1,6 @@
 package com.team.honeybee.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,18 @@ public class MeetingReplyService {
 	// 로그인 회원 정보 담은 댓글 리스트
 	public List<MeetingReplyDto> getReplyWithOwnMeetingId(int meetingId, String memberId) {
 		List<MeetingReplyDto> list = mapper.selectAllMeetingId(meetingId, memberId);
-		
-		// 자식댓글 리스트 담기
-		addChildren(list);
-		
+		System.out.println(meetingId);
+		System.out.println(memberId);
 		return list;
 	}
 	
 	// 자식 댓글 입력 메소드
-	private void addChildren(List<MeetingReplyDto> list) {
-		for (MeetingReplyDto dto : list) {
+	private void addChildren(int meetingId) {
 			
-			List<MeetingReplyDto> children = mapper.selectAllChildrenByParentReplyId(dto.getMeetingReplyId());
-			
-			dto.setChilden(children);
-			
-			// 자식의자식
-			addChildren(children);
-		}
+		List<MeetingReplyDto> children = mapper.selectAllChildrenByParentReplyId(meetingId);
+		System.out.println(meetingId);
+	//dto.setChilden(children);
+		
 	}
 	
 	// 로그인 회원 댓글입력 
@@ -58,10 +53,10 @@ public class MeetingReplyService {
 	}
 
 	// 자식 댓글 입력 메소드 
-	public void insertMeetingReplyChildren(MeetingReplyDto reply) {
+	public void insertMeetingReplyChild(MeetingReplyDto reply) {
 		// TODO Auto-generated method stub
 		
-		mapper.insertMeetingReplyChildren(reply);
+		mapper.insertMeetingReplyChild(reply);
 	}
 	
 	
