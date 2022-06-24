@@ -38,6 +38,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script>
+	$(document).ready(function() {
+		$("#deleteAllButton").click(function() {
+			if ($("#deleteAllButton").is(":checked"))
+				$(".deleteButton").prop("checked", true);
+			else
+				$(".deleteButton").prop("checked", false);
+		});
+		$(".deleteButton").click(function() {
+			var total = $(".deleteButton").length;
+			var checked = $(".deleteButton:checked").length;
+
+			if (total != checked)
+				$("#deleteAllButton").prop("checked", false);
+			else
+				$("#deleteAllButton").prop("checked", true);
+		});
+	});
+</script>
+
 </head>
 <body>
 	<my:navbar></my:navbar>
@@ -51,32 +72,46 @@
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
-							<th>처리상태</th>
 							<th>문의일자</th>
-							<th><input type="checkbox" />삭제</th>
+							<th>처리상태</th>
+
+							<th><input id="deleteAllButton" type="checkbox"
+								data-oper='remove' />삭제</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${faqList}" var="faq">
 							<tr>
-								<td >${faq.questionId }</td>
-								<td >${faq.title }</td>
+								<td>${faq.questionId }</td>
+								<td><c:url value="/faq/faqGet" var="getUrl">
+										<c:param name="questionId" value="${faq.questionId }"></c:param>
+									</c:url> <a href="${getUrl }"> <c:out value="${faq.title }" />
+								</a></td>
+								<td>${faq.inserted }</td>
 								<c:if test="${faq.enable == 0 }">
 									<td>답변중</td>
 								</c:if>
 								<c:if test="${faq.enable == 1  }">
 									<td>답변완료</td>
 								</c:if>
-								<td >${faq.inserted }</td>
-								<td><input type="checkbox" data-oper='remove'></button></td>
+
+
+								<td><input class="deleteButton" type="checkbox"
+									data-oper='remove'>
+								</button></td>
 							</tr>
-					
+
 						</c:forEach>
 
 					</tbody>
+
 				</table>
+				<div class='right-box'>
+					<a class="btn btn-danger">글삭제</a>
+				</div>
 			</div>
+
 		</div>
 	</div>
 	<my:footbar></my:footbar>

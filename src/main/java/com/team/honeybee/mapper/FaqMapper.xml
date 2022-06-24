@@ -26,4 +26,19 @@
 			FROM Faq
 			order by enable DESC, question_id desc
 	</select>
+	
+	<select  id="getFaq" resultType="com.team.honeybee.domain.FaqDto">
+	SELECT question_id questionId,
+	       member_id memberId,
+	       title,
+	       content, 
+	       email
+	  FROM Faq
+	  WHERE question_id = #{questionId}
+	
+	</select>
+	<delete id="deleteFaq">
+		DELETE FROM Faq
+		WHERE question_id = #{questionId}
+	</delete>
 	</mapper>

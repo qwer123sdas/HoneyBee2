@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.team.honeybee.domain.FaqDto;
 import com.team.honeybee.mapper.FaqMapper;
 
@@ -88,5 +89,18 @@ public class FaqService {
 		// TODO Auto-generated method stub
 		return mapper.Faqlist();
 	}
+
+	public FaqDto getFaqById(int questionId) {
+		return mapper.getFaq(questionId);
+		
+	}
+
+	public boolean removefaqId(int questionId) {
+		// TODO Auto-generated method stub
+		int cnt = mapper.deleteFaq(questionId);
+
+		return cnt == 1;
+	}
+
 	
 }

@@ -50,8 +50,6 @@ public class MarketController {
 	}
 	@PostMapping("cart")
 	public String postMarketBuyId(MemberDto member,MarketDto dto,RedirectAttributes rttr) {
-		System.out.println(member );
-		System.out.println(dto);
 		
 		
 		boolean success = service.buyMarketById(member, dto);

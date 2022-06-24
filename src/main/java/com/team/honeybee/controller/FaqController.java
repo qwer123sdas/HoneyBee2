@@ -65,4 +65,21 @@ public class FaqController {
 	public void question() {
 		
 	}
+	
+	@GetMapping("faqGet")
+	public void faqGet(int questionId,Model model) {
+		FaqDto faq =service.getFaqById(questionId);
+		model.addAttribute("faq",faq);
+	}
+	@PostMapping("remove")
+	public String removeFaq(int questionId,RedirectAttributes rttr) {
+		boolean success = service.removefaqId(questionId);
+		if (success) {
+			rttr.addFlashAttribute("message", "글이 삭제 되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "글이 삭제 되지않았습니다.");
+		}
+		return "redirect:/faq/faqList";
+	}
+	
 }	

@@ -15,4 +15,8 @@ public interface FaqMapper {
 
 	List<FaqDto> Faqlist();
 
+	FaqDto getFaq(int questionId);
+
+	int deleteFaq(int questionId);
+
 }

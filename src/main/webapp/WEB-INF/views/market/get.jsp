@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
-<html>
+<%--<html>
 <head>
 
 <link rel="stylesheet"
@@ -47,7 +47,7 @@
 <body>
 	<my:navbar></my:navbar>
 	<my:market></my:market>
-	<div class="container">
+	<%--<div class="container">
 		<div class="row">
 			<div class="col">
 				<c:if test="${not empty market.fileName }">
@@ -98,7 +98,7 @@
 				
 				<button type="button" class="btn btn-primary">장바구니</button>
 				<button type="button" class="btn btn-primary">구매</button>
-				</section>
+				</section> 
 
 			</div>
 		</div>
@@ -329,6 +329,7 @@
 					<c:param name="marketId" value="${market.marketId }"></c:param>
 				</c:url>
 				<a type="button" class="btn btn-warning" href="${buyUrl}">구매</a>
+				<p>조회수${market.viewCount }</p>
 				</section> 
                     	</div>
                     </div>

@@ -328,8 +328,8 @@ td {
 								<tr>
 									<th>기본항목</th>
 									<th class="text-center">수량선택</th>
-									<th class="text-center">작업기간</th>
-									<th class="text-end"">가격</th>
+									<th class="text-center">환불가능기한</th>
+									<th class="text-end">가격</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -349,7 +349,7 @@ td {
 										</div>
 									</td>
 									<td class="text-center">
-										<div class="">28 일</div>
+										<div class="">7 일</div>
 									</td>
 									<td class="text-end">
 										<div class="priceTotal">${market.price }원</div>
