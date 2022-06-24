@@ -45,6 +45,13 @@
 							title, 
 							content,
 							 price, 
+							 product_name,
+							 <if test="type == 'workDate'">
+							 work_date,
+							 </if>
+							 <if test="type == 'numberOfPeople'">
+							 number_people,
+							 </if>
 							 expired, 
 							 topic,
 							 map_level,
@@ -53,6 +60,13 @@
 				#{title}, 
 				#{content}, 
 				#{price}, 
+				#{productName},
+				<if test="type == 'workDate'">
+				#{workDate},
+				</if>
+				<if test="type == 'numberOfPeople'">
+				#{numberOfPeople},
+				</if>
 				#{expired}, 
 				#{topic},
 				#{mapLevel},

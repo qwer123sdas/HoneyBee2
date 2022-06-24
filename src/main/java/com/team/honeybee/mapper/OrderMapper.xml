@@ -15,4 +15,9 @@
 					  LEFT JOIN Member m ON m.member_id = t.member_id
 		WHERE t.talent_id = ${talentId} AND bi.main_image_name IS NOT NULL
 	</select>
+	
+	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
+		INSERT INTO OrderPay(member_id, product_name, final_price, amount)
+			   VALUES(#{partner_order_id}, #{item_name}, #{amount.total}, ${amount})
+	</insert>
 </mapper>

@@ -62,7 +62,7 @@
 		<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*">
 		<br />
 		
-		<label for="">제목</label> 
+		<label for="">게시글 제목</label> 
 		<input type="text" id="title"/> <br /> 
 		
 		<label for="">내용</label>
@@ -96,13 +96,26 @@
 		
 		​<br /> <br /> 
 		<p>옵션 선택</p>
-		<p>작업기간, 인원수</p>
-		<label for="">작업기간</label>
-		<input type="number" name="" id="" />
+		<div>
+			<label>
+				<input type="radio" name="option" value="workDate" onclick="showOptionSelect()">작업기간
+			</label>
+			<label>
+				<input type="radio" name="option" value="numberOfpeople" onclick="showOptionSelect()">인원수
+			</label>
+		</div>
+		<div id="workDate"   style="visibility: hidden;">
+			<label for="">작업기간</label>
+				<input type="number" name="" />
+			</div>
 		<br />
-		<label for="">인원제한</label> 
-		<input type="number" />
+		<div id="numberOfpeople"  style="visibility: hidden;">
+			<label for="">인원수</label> 
+				<input type="number" />
+			</div>
 		<br /> 
+		
+		
 		<label for="">태그</label> 
 		<input type="text" name="hashTag" />
 		<br /> 
@@ -122,11 +135,8 @@
 	<script>
 		//메인 카테고리 셋팅
 	    
-		/* 폴더명 */
-		const randomNum = Math.floor(Math.random() * 1000000000);
-		$('#folderName').val('padding-' + randomNum);
 		
-		
+		// 유료 무료
 		function showPriceSelect(){
 			$('#price').removeClass('d-none')
 			var nameVal = $('input:radio[name=pay]:checked').val();
@@ -143,6 +153,28 @@
 			}
 		}
 		
+		// 옵션 선택
+		function showOptionSelect(){
+			var nameVal = $('input:radio[name=option]:checked').val();
+			console.log(nameVal);
+			if(nameVal == 'workDate'){
+				$('#workDate').css("visibility", "visible");
+				$('#numberOfpeople').css("visibility", "hidden");
+			}else{
+				$('#numberOfpeople').css("visibility", "visible");
+				$('#workDate').css("visibility", "hidden");
+			}
+		}
+		
+		
+		
+		
+		/* 폴더명 */
+		const randomNum = Math.floor(Math.random() * 1000000000);
+		$('#folderName').val('padding-' + randomNum);
+		
+		
+
 		var mapLevel;
 		var address;
 		

@@ -17,6 +17,9 @@ public class TalentBoardDto {
 	private String productName;
 	private String price;
 	
+	private String workDate;
+	private String numberOfPeople;
+	
 	private LocalDateTime inserted;
 	private String expired;
 	

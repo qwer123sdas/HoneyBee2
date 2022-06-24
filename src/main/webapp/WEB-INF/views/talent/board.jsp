@@ -110,55 +110,13 @@
                         <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                         <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
                         <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                        
-	                        <div class="map_wrap">
-								<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-								<p>주소 : ${board.address }</p>							</div>
-	                        <!--Jquery -->
-							<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-	                        <!-- 지도api -->
-							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-							<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
-	                        <script>
-	                		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-		                		mapOption = {
-		                			center : new daum.maps.LatLng(37.55324495357845, 126.97270338940449), // 지도의 중심좌표
-		                			level : ${board.mapLevel} // 지도의 확대 레벨
-		                		};
-	
-	                		//지도를 미리 생성
-	                		var map = new daum.maps.Map(mapContainer, mapOption);
-	                		// 주소-좌표 변환 객체를 생성합니다
-	                		var geocoder = new kakao.maps.services.Geocoder();
-	                		// 행정도 주소로 좌표 검색
-	                		geocoder.addressSearch('${board.address}', function(results, status) {
-	                			if (status === daum.maps.services.Status.OK) {
-									var result = results[0]; //첫번째 결과의 값을 활용
-									// 해당 주소에 대한 좌표를 받아서
-									var coords = new daum.maps.LatLng(result.y, result.x);
-									
-			                		// 지도를 클릭한 위치에 표출할 마커입니다
-			                		var marker = new kakao.maps.Marker({ 
-			                			map: map,
-			                            position: coords
-			                		}); 
-			                		
-			                        // 인포윈도우로 장소에 대한 설명을 표시합니다
-			                        var infowindow = new kakao.maps.InfoWindow({
-			                            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비 재능 공유</div>'
-			                        });
-			                        infowindow.open(map, marker);
-
-			                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			                        map.setCenter(coords);
-									
-
-	                			}
-	                		})
-
-	                		// 지도에 마커를 표시합니다
-	                		marker.setMap(map);
-	                        </script>
+                        	<c:if test="${not empty board.address }">
+		                        <div class="map_wrap">
+									<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+									<p>주소 : ${board.address }</p>							
+								</div>
+							</c:if>
+	                        
                     </section>
                 </article>
                 
@@ -271,7 +229,51 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+	<!--Jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+                   <!-- 지도api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
+                   <script>
+           			var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            		mapOption = {
+            			center : new daum.maps.LatLng(37.55324495357845, 126.97270338940449), // 지도의 중심좌표
+            			level : ${board.mapLevel} // 지도의 확대 레벨
+            		};
 
+           		//지도를 미리 생성
+           		var map = new daum.maps.Map(mapContainer, mapOption);
+           		// 주소-좌표 변환 객체를 생성합니다
+           		var geocoder = new kakao.maps.services.Geocoder();
+           		// 행정도 주소로 좌표 검색
+           		geocoder.addressSearch('${board.address}', function(results, status) {
+           			if (status === daum.maps.services.Status.OK) {
+						var result = results[0]; //첫번째 결과의 값을 활용
+						// 해당 주소에 대한 좌표를 받아서
+						var coords = new daum.maps.LatLng(result.y, result.x);
+			
+             			// 지도를 클릭한 위치에 표출할 마커입니다
+             			var marker = new kakao.maps.Marker({ 
+             				map: map,
+                         	position: coords
+             			}); 
+             		
+                     	// 인포윈도우로 장소에 대한 설명을 표시합니다
+                     	var infowindow = new kakao.maps.InfoWindow({
+                         	content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비 재능 공유</div>'
+                     	});
+                     	infowindow.open(map, marker);
+
+                    	 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                     	map.setCenter(coords);
+			
+
+           			}
+           		})
+
+           		// 지도에 마커를 표시합니다
+           		marker.setMap(map);
+                </script>
 
     <!-- JavaScript Libraries -->
     <!--Jquery -->

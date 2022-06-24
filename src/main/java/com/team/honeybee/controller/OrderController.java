@@ -72,11 +72,6 @@ public class OrderController {
 	@GetMapping("kakaopay")
 	@ResponseBody
 	public String kakaoPayReady(Principal principal, String productName, String finalPayment, String amount) {
-			System.out.println(principal.getName());
-			System.out.println(productName);
-			System.out.println(finalPayment.split("원"));
-			System.out.println(amount);
-			
 			String partner_order_id = principal.getName();
 			String[] finalPaymentArray= finalPayment.split("원");
 			if(finalPaymentArray[0] != "0") {
@@ -101,9 +96,13 @@ public class OrderController {
 	}
 	
 	
+	// 카카오페이 승인 완료시 갈 사이트
 	@RequestMapping("order/success")
 	public void successPage() {
-		
+	}
+	// 카카오페이 취소 시 갈 사이트
+	@RequestMapping("order/kakaoPayFail")
+	public void failPage() {
 	}
 	
 }
