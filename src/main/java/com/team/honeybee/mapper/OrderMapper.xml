@@ -6,6 +6,8 @@
 	<select id="selectTalentBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
 		SELECT t.title,
 			   t.price,
+			   t.product_name productName,
+			   m.member_id memberId,
 			   m.nickname,
 			   bi.main_image_name MPhoto,
 			   bi.image_folder_id folderName

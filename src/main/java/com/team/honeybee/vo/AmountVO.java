@@ -1,4 +1,4 @@
-package com.team.honeybee.domain;
+package com.team.honeybee.vo;
 
 import lombok.Data;
 

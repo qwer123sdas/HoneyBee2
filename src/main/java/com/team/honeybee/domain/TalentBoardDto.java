@@ -13,6 +13,8 @@ public class TalentBoardDto {
 	
 	private String title;
 	private String content;
+	
+	private String productName;
 	private String price;
 	
 	private LocalDateTime inserted;

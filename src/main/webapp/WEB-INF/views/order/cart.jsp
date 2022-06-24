@@ -47,8 +47,13 @@
 <!-- Template Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
+	<!-- bootstrap - JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
 <style>
-
 .mainImg {
   display: block;
   width : 120px;
@@ -201,7 +206,14 @@ td {
 	position: relative;
 	top: 120px;
 }
-
+.modalPopArea{
+	position: relative; 
+	height: 800px;
+}
+.modalPopContent{
+	width : 100%;
+	height : 100%;
+}
 
 </style>
 <body>
@@ -267,7 +279,7 @@ td {
 							    	<tr>
 							    		<td>
 							    			<div class="">
-							                    <div>상품 이름 : 최저 20,000계정 추출 광고노출 </div>
+							                    <div>상품 이름 : ${board.productName } </div>
 							                </div>
 							    		</td>
 							    		<td class="text-center">
@@ -316,7 +328,7 @@ td {
                         	
 		                    <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
 					            <span>총 결제금액</span>
-					            <span>28,000원</span>
+					            <span id="finalPayment">${board.price }원</span>
 					        </h5>
 					        
 				            <div>
@@ -327,13 +339,11 @@ td {
 				                    </label>
 				                </div>
 				            </div>
+
 				            <div class="d-flex cart__mainbtns">
-					            <button class="cart__bigorderbtn middle">결제하기</button>
+					            <button id="btn-kakaopay" data-bs-toggle="modal" data-bs-target="#modal1"  class="cart__bigorderbtn middle">
+						        </button>
 					        </div>
-					       <%--  <form action="${appRoot }/order/kakaoPay" method="Post"></form> --%>
-							    <button id="btn-kakaopay" class="btn btn-primary">카카오페이로 결제하기</button>
-							
-				            
                         </div>
                     </div>
                 </div>
@@ -343,6 +353,7 @@ td {
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
+                    
                     	<section class="OrderInfo">
 	                    	<!-- 주문 INFO  -->
 	                    	<div>
@@ -356,7 +367,6 @@ td {
 	                    			</div>
 	                    		</div>
 	                    	</div>
-	                    	
 				        </section>
 				          
                     </div>
@@ -375,8 +385,26 @@ td {
                 <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
             </ul>
         </div>
-    </section>
+    <!-- Modal --></section>
     
+    <!-- 모달 -->
+	
+	<div class="modal fade " id="modal1" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modalPopArea">
+					<iframe class="modalPopContent" src="" frameborder="0" scrolling="no" id="chat_iframe"></iframe>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
     <script>
     var sellPrice = ${board.price};
     var sum = sellPrice;
@@ -408,25 +436,6 @@ td {
 			}
 		});
     });
-    /*
-    $(function(){
-    	$('#btn-kakaopay').click(function(){
-    		$.ajax({
-    			url:'kakaopay',
-    			dataType:'text',
-    			success:function(data){
-    				 // alert(resp.tid); //결제 고유 번호
-    				var box = resp.next_redirect_pc_url;
-    				//window.open(box); // 새창 열기
-    				location.href = box;
-    			},
-    			error:function(error){
-    				alert(error);
-    			}
-    		});
-    	});
-    });
-    */
     /* 카카오 페이 ajax  */
     let index = {
     		init:function(){
@@ -438,11 +447,14 @@ td {
 
     	  // 카카오페이 결제
     		kakaopay:function(){
-    			
+    			var data = {'productName' : '${board.productName}',
+    					    'amount' : $('#amount').text(),
+    					    'finalPayment' : $('#finalPayment').text()
+    					  }
     			$.ajax({
-    				url:"${appRoot}/kakaopay?member_order_id${memberId}",
-    				contentType : 'application/json;charset=utf-8',
-    				dataType:"json",
+    				url:"${appRoot}/kakaopay",
+    				data: data,
+    				dataType:"text",
     				type : "GET"
     			}).done(function(resp){
    					console.log("일단응답:", resp);
@@ -451,9 +463,10 @@ td {
     				} else{
     					console.log("성공>>????")
     					 // alert(resp.tid); //결제 고유 번호
-    					var box = resp.next_redirect_pc_url;
+    					 
     					//window.open(box); // 새창 열기
-    					location.href = box;
+    					$("#chat_iframe").attr("src", resp);
+    					//location.href = resp;
     				}
     			
     			}).fail(function(error){
@@ -462,10 +475,10 @@ td {
     			}); 
     			
     		},
-    	}
-
-    	index.init();
-
+   	}
+    index.init();
+    
+		
     </script>
 </body>
 </html>

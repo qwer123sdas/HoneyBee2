@@ -34,10 +34,11 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonObject;
-import com.team.honeybee.domain.KakaoPayApprovalVO;
-import com.team.honeybee.domain.KakaoPayReadyVO;
 import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.service.KakaoPayService;
 import com.team.honeybee.service.OrderService;
+import com.team.honeybee.vo.KakaoPayApprovalVO;
+import com.team.honeybee.vo.KakaoPayReadyVO;
 
 @Controller
 @PropertySource("classpath:jdbc.properties")
@@ -45,15 +46,13 @@ public class OrderController {
 	@Autowired
 	OrderService service;
 	
+	@Autowired
+	KakaoPayService kakaopayService;
+	
 	@RequestMapping("cart")
 	public void test() {
 		
 	}
-	@Value("${kakao.pay.admin}")
-	private String adminKey;
-	
-	
-    private static final String HOST = "https://kapi.kakao.com";
     
     private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
@@ -72,100 +71,39 @@ public class OrderController {
 	// 카카오 페이 요청
 	@GetMapping("kakaopay")
 	@ResponseBody
-	public String kakaoPayReady(String member_order_id) {
-		try {
-			// 보내는 부분
-			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
-			HttpURLConnection connection = (HttpURLConnection) address.openConnection(); // 서버연결
-			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Authorization", "KakaoAK " + adminKey); // 어드민 키
-			connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			connection.setDoOutput(true); // 서버한테 전달할게 있는지 없는지
+	public String kakaoPayReady(Principal principal, String productName, String finalPayment, String amount) {
+			System.out.println(principal.getName());
+			System.out.println(productName);
+			System.out.println(finalPayment.split("원"));
+			System.out.println(amount);
 			
-			String parameter = "cid=TC0ONETIME" // 가맹점 코드
-					+ "&partner_order_id=partner_order_id" // 가맹점 주문번호
-					+ "&partner_user_id=partner_user_id" // 가맹점 회원 id
-					+ "&item_name=초코파이" // 상품명
-					+ "&quantity=1" // 상품 수량
-					+ "&total_amount=5000" // 총 금액
-					+ "&vat_amount=200" // 부가세
-					+ "&tax_free_amount=0" // 상품 비과세 금액
-					+ "&approval_url=http://localhost:8080/honeybee/kakaoPaySuccess/member_order_id=member_order_id" 	// 결제 성공 시 가야할 approval_url
-					+ "&fail_url=http://localhost:8080/honeybee/kakaoPayFail/" 		// 결제 실패 시
-					+ "&cancel_url=http://localhost:8080/honeybee/kakaoPayCancel/"; 	// 결제 취소 시
-			
-			
-			
-			OutputStream send = connection.getOutputStream(); // 이제 뭔가를 를 줄 수 있다.
-			DataOutputStream dataSend = new DataOutputStream(send); // 이제 데이터를 줄 수 있다.
-			dataSend.writeBytes(parameter); // OutputStream은 데이터를 바이트 형식으로 주고 받기로 약속되어 있다. (형변환)
-			dataSend.close(); // flush가 자동으로 호출이 되고 닫는다. (보내고 비우고 닫다)
-
-			int result = connection.getResponseCode(); // 전송 잘 됐나 안됐나 번호를 받는다.
-			InputStream receive; // 받다
-
-			
-			if(result == 200) {
-				receive = connection.getInputStream();
-			}else {
-				receive = connection.getErrorStream(); 
+			String partner_order_id = principal.getName();
+			String[] finalPaymentArray= finalPayment.split("원");
+			if(finalPaymentArray[0] != "0") {
+				// 카카오 결제 준비하기	- 결제요청 service 실행.
+				return kakaopayService.kakaoPayReady(partner_order_id, productName, amount, finalPaymentArray[0]);
 			}
+			return kakaopayService.kakaoPayReady(partner_order_id, productName, amount, finalPaymentArray[0]);
+			//return "redirect:/order/success";
 			
-			
-			
-			// 읽는 부분
-			InputStreamReader read = new InputStreamReader(receive); // 받은걸 읽는다.
-			BufferedReader change = new BufferedReader(read); // 바이트를 읽기 위해 형변환 버퍼리더는 실제로 형변환을 위해 존제하는 클레스는 아니다.
-			// 받는 부분
-			String res = change.readLine();
-			System.out.println("뭔데 : " + res);
-			return res; // 문자열로 형변환을 알아서 해주고 찍어낸다 그리고 본인은 비워진다.
-			
-
-
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
 	}
 	
 	// 카카오 페이 승인
-	@RequestMapping("kakaoPaySuccess")
-	public KakaoPayApprovalVO  kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
-		System.out.println("토큰 : " + pg_token);
+	@RequestMapping("order/kakaoPaySuccess")
+	public String kakaoPaySuccessPage(@RequestParam("pg_token") String pg_token, 
+									  Model model) {
 		
-		RestTemplate restTemplate = new RestTemplate();
-        // 서버로 요청할 Header
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + adminKey);
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-        
-     // 서버로 요청할 Body
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        params.add("cid", "TC0ONETIME");
-        params.add("tid", "T1234567890123456789");
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
-        params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
-        
-        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-        
-		try {
-			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
-          
-            return kakaoPayApprovalVO;
-        
-        } catch (RestClientException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        
-        return null;
+		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token);
+		System.out.println(kakaoPayApprovalVo);
+		//db저장
+		service.setKakaoPayData(kakaoPayApprovalVo);
+		return "redirect:/order/success";
 	}
+	
+	
+	@RequestMapping("order/success")
+	public void successPage() {
+		
+	}
+	
 }
