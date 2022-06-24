@@ -131,12 +131,14 @@ public class MeetingService {
 	// 기부모임 게시물 보기
 	@Transactional
 	public MeetingDto getBoardByMeetingId(int meetingId) {
+		// 게시물 가져오기
 		MeetingDto meeting = mapper.selectBoardByMeetingId(meetingId);
 		
 		// 해쉬태그 가져오기
 		List<String> hashTag = mapper.getHashTag(meetingId);
 		meeting.setHashTag(hashTag); 
 		return meeting;
+		
 	}
 
 	/* 서머노트 사용으로 필요없음
@@ -196,20 +198,38 @@ public class MeetingService {
 			
 		}
 	
-	// 게스트 입력
-	public void meetingInsertGuest(MeetingDto meeting, int meetingId, String memberId) {
+	// 게스트 입력 받기전 현재 신청자 수 가져오기
+	public int meetingSelectGuest(MeetingDto meeting, int meetingId) {
+		System.out.println("값 입력");
+		System.out.println(meetingId);
+		System.out.println(meeting.getMeetingId());
 		// 현재 인원수 가져오기
-		int todayNum = mapper.stateSelectGuest(meetingId, memberId);
-		// max와 비교해서 현재 인원수보다 작으면 insert
-		if(todayNum < meeting.getGuestNum()) {
-			mapper.insertGuest(meetingId, memberId);			
-		} else {
-			// 아니면 대기자 명단으로 이동? no insert
-			
-		}
-		
+		int cntNum = 0;
+		cntNum = mapper.meetingSelectGuest(meetingId);
+
+		return cntNum;
 		
 	}
+
+	// 게스트 입력
+	public void meetingInsertGuest(MeetingDto meeting, String memberId, int meetingId) {
+		// max와 비교해서 현재 인원수보다 작으면 insert
+		if (meeting.getCntNum() <= meeting.getGuestNum()) {
+			mapper.meetingInsertGuest(meetingId, memberId);			
+		} 
+	
+		
+	}
+	
+	// 게스트 목록 가져오기
+	public List<String> selectGuestInfo(int meetingId) {
+	
+		return mapper.selectGuestInfo(meetingId);
+	}
+	
+
+
+
 	
 	
 	

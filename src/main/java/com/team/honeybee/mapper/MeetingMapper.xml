@@ -23,9 +23,9 @@
 	</insert>
 	
 	<!-- 게스트 넣기 -->
-	<insert id="insertGuest">
+	<insert id="meetingInsertGuest">
 		INSERT INTO MeetingGuest (meeting_id, member_id)
-		VALUES (#{meetingId}, #{guest})
+		VALUES (#{meetingId}, #{memberId})
 	</insert>
 	
 	<!-- 모임 목록 보기 -->
@@ -62,9 +62,9 @@
 	</select>
 	
 	<!-- 현재 인원수 가져오기 -->
-	<select id="stateSelectGuest" resultType="com.team.honeybee.domain.MeetingDto">
-		SELECT COUNT(guest_id) todayNum
-		FROM meetingGuest
+	<select id="meetingSelectGuest" resultType="Integer"> 
+		SELECT COUNT(member_id) cntNum
+		FROM MeetingGuest
 		WHERE meeting_id = #{meetingId}
 	</select>
 	
@@ -82,9 +82,13 @@
 				mt.end_date endDate,
 				mt.tag,
 				m.nickname,
-				f.file fileName
+				f.file fileName,
+				t.hash_tag hashTag,
+				g.member_id guest
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
-						LEFT JOIN MeetingFile f ON f.meeting_id = mt.meeting_id
+						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
+						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
+						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
 		WHERE mt.meeting_id = #{meetingId}
 	</select>
 	
@@ -92,6 +96,13 @@
 	<select id="getHashTag" resultType="String">
 		SELECT hash_tag hashTag
 		FROM Tag
+		WHERE meeting_id = #{meetingId}
+	</select>
+	
+	<!-- 게스트 목록 가져오기 -->
+	<select id="selectGuestInfo" resultType="String">
+		SELECT member_id
+		FROM MeetingGuest
 		WHERE meeting_id = #{meetingId}
 	</select>
 	

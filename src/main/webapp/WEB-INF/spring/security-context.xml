@@ -13,6 +13,13 @@
 		<security:csrf disabled="true"/>
 		<security:form-login login-page="/meeting/login" always-use-default-target="true" default-target-url="/meeting/main" />
 		<security:logout logout-success-url="/meeting/main"/>
+		<!-- 로그인 상태 유지 -->
+		<security:remember-me />
+		
+		<!-- 게시글 create, update, delete -->
+		<!-- <security:intercept-url pattern="/meeting/board/insert" access="isAuthenticated()"/> -->
+
+		
 	</security:http>
 	
 	<security:authentication-manager>

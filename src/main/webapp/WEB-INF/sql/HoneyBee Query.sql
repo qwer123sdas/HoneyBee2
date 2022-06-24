@@ -148,108 +148,33 @@ CREATE TABLE MeetingGuest (
     FOREIGN KEY (member_id) REFERENCES Member(member_id),
     FOREIGN KEY (meeting_id) REFERENCES Meeting(meeting_id)
 );
+ALTER TABLE MeetingGuest
+ADD COLUMN guest VARCHAR(20) NOT NULL;
 
+ALTER TABLE MeetingGuest
+MODIFY COLUMN inserted DATE DEFAULT (current_date);
 
----------------------------------------------------------- 
+DESC MeetingGuest;
+DESC BoardImage;
+DESC Meeting;
+SELECT * FROM MeetingGuest;
+SELECT * FROM Meeting;
+SELECT * FROM Tag;
+ALTER TABLE MeetingGuest
+DROP COLUMN guest;
 
+SELECT * FROM MeetingGuest;
 
-SELECT meeting_id
-    ,  meeting_reply_id
-    , content
-    , refNum
-    , step
-    , refOrder
-   -- , r.*
- FROM MeetingReply r ;
-
-SELECT meeting_id
-    ,  meeting_reply_id
-    , content
-    , refNum
-    , step
-    , refOrder
-   -- , r.*
-FROM MeetingReply r
-WHERE refNum =  (select refNum
-					    from MeetingReply
-					   where meeting_reply_id = r.meeting_reply_id
-					     and step > 0
-					  ) ;
-
-
-
-SELECT  meeting_id
-    ,  meeting_reply_id
-    , content
-    , refNum
-    , step
-    , refOrder
-  FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
- WHERE r.meeting_id = 13;
- ORDER BY meeting_reply_id desc, refNum 
- ;
-
-
-
-commit;
-
-INSERT INTO MeetingReply (  member_id  
-							      , meeting_id
-							      , content 
-							      , refNum 
-							      , step 
-							      , refOrder 
-				 			      )
-                select 
-					   'admin'
-		                , 13		               
-		                , '자식댓글 3'
-		                , 37
-					    , CASE WHEN 0 = 0 THEN 1
-					           ELSE (select aaa
-                                       from (SELECT max(step)+1  as aaa
-					                           FROM MeetingReply 
-											  WHERE meeting_reply_id = 37
-					                            AND refOrder = 0
-										     )  temp
-					                 )
-					       END
-					    , 0
-			   from dual
-		               ;
-rollback;                     
-     
-     
-     INSERT INTO MeetingReply (  member_id  
-							      , meeting_id
-							      , content 
-							      , refNum 
-							      , step 
-							      , refOrder 
-				 			      )
-SELECT 
-		                  'admin'
-		                , 13		 
-		                , '자식2'
-		                , 37
-					    , CASE WHEN 0 = 0 THEN 1
-					           ELSE (SELECT MAX_STEP
-					                   FROM (SELECT max(step)+1  as MAX_STEP
-					                   		   FROM MeetingReply 
-					                          WHERE meeting_reply_id = 37
-					                            AND refOrder = 0
-					                        ) TEMP
-					                 )
-					       END
-					    , 0
-		         FROM DUAL;
-                       
-                       
-                      rollback; 
-                       
-                 select aaa
-                                       from (SELECT max(step)+1  as aaa
-					                           FROM MeetingReply 
-											  WHERE meeting_reply_id = 36
-					                            AND refOrder = 0
-										     )  temp
+SELECT IFNULL(COUNT(member_id), 4) cntNum
+		FROM MeetingGuest
+		WHERE meeting_id = 1;
+        
+        
+        		SELECT IFNULL(COUNT(member_id), 4) cntNum
+		FROM MeetingGuest
+		WHERE meeting_id = #{meetingId};
+        ;
+        SELECT COUNT(member_id) cntNum
+		FROM MeetingGuest
+		WHERE meeting_id = 1;
+        

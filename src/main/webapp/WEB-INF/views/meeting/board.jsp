@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
@@ -195,13 +196,17 @@
 <!--Jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
-<%-- <script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script> --%>
+<script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="${appRoot }/resources/webContents/js/main.js"></script>
@@ -311,11 +316,30 @@
 			<!-- 모임신청 및 게스트 목록 -->
 			<div class="col-lg-4">
 				<!-- Search widget-->
-				<div class="card mb-4">
-					<div class="card-header">꿀비 모임 신청</div>
-					<div class="card-body">
+				<div class="guestWiget">
+					<div class="guestWiget-header"><h4>꿀비 모임 ${meeting.cntNum }명 등록</h4><hr/></div>
+					<div class="guestWigetBody">
 						<div class="row">
 							<div class="col">
+								<!-- 게스트 목록 출력 -->
+									<c:forEach items="${meetingGuest }" var="guest">
+										<ul class="list-group list-group-flush">
+											<!-- select 내용이 1개 뿐이다. -->
+										  <li class="list-group-item">${guest}</li>
+										</ul>
+									</c:forEach>
+								<!-- 신청자만 신청완료 버튼 보임 
+								<sec:authorize access="isAuthenticated()">
+									<sec:authentication property="principal" var="principal"/>
+										<c:if test="${principal.username == meeting.guest }" >
+											<button type="button" id="insertGuestBtn1"
+												class="btn btn-lg btn-primary mt-5 w-100">
+											<i class="fa-solid fa-heart-circle-check"></i>
+												신청했어요!
+											</button>
+										</c:if>
+								</sec:authorize>
+								-->
 								<button type="button" id="insertGuestBtn1"
 									class="btn btn-lg btn-primary mt-5 w-100">
 									<i class="fa-solid fa-heart-circle-check"></i>
@@ -480,16 +504,28 @@
 		        modal.style.display = "none"
 		    }
 		})
-		
-		
 	
-	
-	
-	// 신청버튼 누르면 submit, 컨펌창 뜨고 완료
+	// 신청버튼 누르면 submit
 	$("#guestSubmitBtn1").click(function(e) {
 		e.preventDefault();
-			let form = $("#guestInsertForm1");
-			form.submit();
+		
+		const data = {meetingId : '${meeting.meetingId}'};
+		
+		$.ajax({ 
+			url : "${appRoot }/meeting/board/addGuest",
+			type : "post",
+			data : data,
+			success : function(data) {
+				console.log("신청성공");
+				modal.style.display = "none";
+				// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
+			},
+			error :function() {
+				console.log("신청실패");
+			}
+		}); // ajax end
+		
+			
 	});
 	
 
@@ -502,11 +538,8 @@
 	<div id="insertGuestModal1" class="modal-overlay">
 		<div class="modal-window">
 			<div class="title">
-				<h4 >
-					꿀비 모임을 신청하시겠습니까?
-					<hr>
-				</h4>
-
+				<h4>꿀비 모임을 신청하시겠습니까?</h4>
+				<hr/>
 			</div>
 			<div class="content">
 				<ul>
@@ -515,12 +548,15 @@
 					<li>문의 사항은 댓글을 남겨주세요</li>
 					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
 				</ul>
+				<h1>${meeting.meetingId }</h1>
 				<p>모임일시:${meeting.meetingDate }</p>
 				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
 				<form id="guestInsertForm1" action="${appRoot }/meeting/board/addGuest" method="post">
-					<button type="button" class="btn btn-secondary">취소</button>
-					<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
-					<button type="submit" class="btn btn-primary" id="guestSubmitBtn1">신청</button>
+					<span class="d-flex flex-row-reverse">
+						<button type="button" class="btn btn-secondary">취소</button>
+						<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
+						<button type="submit" class="btn btn-primary " id="guestSubmitBtn1">신청</button>
+					</span>
 				</form>
 			</div>
 		</div>

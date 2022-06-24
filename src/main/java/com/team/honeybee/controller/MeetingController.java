@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +23,7 @@ import com.team.honeybee.domain.MeetingGuestDto;
 import com.team.honeybee.domain.MeetingReplyDto;
 import com.team.honeybee.service.MeetingReplyService;
 import com.team.honeybee.service.MeetingService;
+
 
 @Controller
 @RequestMapping("meeting")
@@ -54,9 +56,16 @@ public class MeetingController {
 		// 게시물 정보 가져옴
 		MeetingDto board = service.getBoardByMeetingId(meetingId);
 		
+		// 댓글 리스트
 		List<MeetingReplyDto> replyList = replyService.getReplyByMeetingId(meetingId);
+		
+		// 게스트 목록 가져오기
+		List<String> guest = service.selectGuestInfo(meetingId);
+
+		
 		model.addAttribute("meeting", board);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("meetingGuest", guest);
 		
 		return "/meeting/board";
 	}
@@ -91,15 +100,36 @@ public class MeetingController {
 	}
 	
 	// meetingBoard, guest 입력받기
+	@Transactional
 	@PostMapping("board/addGuest")
-	public String meetingInsertGuest(MeetingDto meeting, int meetingId, Principal principal) {
+	public String meeintGuestInfo(MeetingDto meeting, 
+									@RequestParam(value="meetingId", defaultValue = "0") int meetingId, 
+									Principal principal) {
 		
+		// 로그인 회원 아이디값 넣기
 		String memberId = principal.getName();
 		meeting.setMemberId(memberId);
 		
-		service.meetingInsertGuest(meeting, meetingId, memberId);
+		// 현재 인원수 가져오기
+		int cntNum = 0;
+		cntNum = service.meetingSelectGuest(meeting, meetingId);
+		System.out.println("================");
+		System.out.println(cntNum);
+		
+		System.out.println("셀렉 값 가져옴");
+		System.out.println(meetingId);
+		System.out.println(meeting.getMemberId());
+	
+		
+		// 모임 게스트 입력
+		service.meetingInsertGuest(meeting, meeting.getMemberId(), meetingId);	
+		
+		System.out.println("인서트 값 입력");
+		System.out.println(meetingId);
+		System.out.println(meeting.getMemberId());
 		
 		return "redirect:/meeting/board/" + meeting.getMeetingId();
+
 	}
 	
 	@GetMapping("login")

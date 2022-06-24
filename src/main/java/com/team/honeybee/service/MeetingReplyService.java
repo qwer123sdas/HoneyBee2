@@ -33,7 +33,7 @@ public class MeetingReplyService {
 	private void addChildren(int meetingId) {
 			
 		List<MeetingReplyDto> children = mapper.selectAllChildrenByParentReplyId(meetingId);
-		System.out.println(meetingId);
+
 	//dto.setChilden(children);
 		
 	}
