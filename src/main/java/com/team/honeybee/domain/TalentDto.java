@@ -26,4 +26,5 @@ public class TalentDto {
 	private String address;
 	
 	private String topic;
+	private int enable;
 }

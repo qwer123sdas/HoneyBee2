@@ -70,15 +70,39 @@ public class AdminController {
 	}
 	
 	@GetMapping("getDonation")
-	public void  getDonation(int donationId, Model model) {
+	public void getDonation(int donationId, Model model) {
 		DonationDto dto = service.getDonation(donationId);
 		model.addAttribute("donation", dto);
+	}
+	
+	@PostMapping("registerDonation")
+	public String registerDonation(int donationId) {
+		service.registerDonation(donationId);
+		return "redirect:/admin/donation";
+	}
+	
+	@PostMapping("removeDonation")
+	public String removeDonation() {
+		return "redirect:/admin/donation";
 	}
 	
 	@RequestMapping("talent")
 	public void talent(Model model) {
 		List<TalentDto> talentList = service.getTalentList();
 		model.addAttribute("talent", talentList);
+	}
+	
+	@RequestMapping("getTalent")
+	public void getTalent(int talentId, Model model) {
+		TalentDto dto = service.getTalent(talentId);
+		System.out.println(dto);
+		model.addAttribute("talent", dto);
+	}
+	
+	@PostMapping("registerTalent")
+	public String registerTalent(int talentId) {
+		service.registerTalent(talentId);
+		return "redirect:/admin/talent";
 	}
 	
 	@RequestMapping("meeting")

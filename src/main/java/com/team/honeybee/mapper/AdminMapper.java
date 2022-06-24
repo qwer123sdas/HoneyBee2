@@ -49,4 +49,10 @@ public interface AdminMapper {
 
 	List<TalentDto> getTalentAll();
 
+	TalentDto getTalentById(int talentId);
+
+	void registerDonation(int donationId);
+
+	void registerTalent(int talentId);
+
 }

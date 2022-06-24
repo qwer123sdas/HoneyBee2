@@ -193,5 +193,18 @@ public class AdminService {
 		return meeting;
 	}
 
+	public TalentDto getTalent(int talentId) {
+		TalentDto talent = mapper.getTalentById(talentId);
+		return talent;
+	}
+
+	public void registerDonation(int donationId) {
+		mapper.registerDonation(donationId);
+	}
+
+	public void registerTalent(int talentId) {
+		mapper.registerTalent(talentId);
+	}
+
 
 }
