@@ -19,4 +19,8 @@ public interface FaqMapper {
 
 	int deleteFaq(int questionId);
 
+	void deleteFileById(int questionId);
+
+	List<String> selectFileNameById(int questionId);
+
 }

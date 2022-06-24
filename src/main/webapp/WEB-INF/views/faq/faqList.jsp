@@ -63,57 +63,65 @@
 <body>
 	<my:navbar></my:navbar>
 	<my:faq1tag></my:faq1tag>
-	<div class="container">
-		<div class="row">
-			<my:faq></my:faq>
-			<div class="col-8 mt-4 ms-5">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>문의일자</th>
-							<th>처리상태</th>
-
-							<th><input id="deleteAllButton" type="checkbox"
-								data-oper='remove' />삭제</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${faqList}" var="faq">
+	<form action="${appRoot }/faq/remove" method="post">
+		<div class="container">
+			<div class="row">
+				<my:faq></my:faq>
+				<div class="col-8 mt-5 ms-5">
+					<table class="table">
+						<colgroup>
+							<col style="width: 10%">
+							<col style="width: 50%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 10%">
+						</colgroup>
+						<thead>
 							<tr>
-								<td>${faq.questionId }</td>
-								<td><c:url value="/faq/faqGet" var="getUrl">
-										<c:param name="questionId" value="${faq.questionId }"></c:param>
-									</c:url> <a href="${getUrl }"> <c:out value="${faq.title }" />
-								</a></td>
-								<td>${faq.inserted }</td>
-								<c:if test="${faq.enable == 0 }">
-									<td>답변중</td>
-								</c:if>
-								<c:if test="${faq.enable == 1  }">
-									<td>답변완료</td>
-								</c:if>
+								<th>번호</th>
+								<th scope="col">제목</th>
+								<th>문의일자</th>
+								<th>처리상태</th>
 
+								<th><input id="deleteAllButton" type="checkbox"
+									data-oper='remove' />삭제</th>
 
-								<td><input class="deleteButton" type="checkbox"
-									data-oper='remove'>
-								</button></td>
 							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${faqList}" var="faq">
+								<tr>
+									<td>${faq.questionId }</td>
+									<td><c:url value="/faq/faqGet" var="getUrl">
+											<c:param name="questionId" value="${faq.questionId }"></c:param>
+										</c:url> <a href="${getUrl }"> <c:out value="${faq.title }" />
+									</a></td>
+									<td>${faq.inserted }</td>
+									<c:if test="${faq.enable == 0 }">
+										<td>답변중</td>
+									</c:if>
+									<c:if test="${faq.enable == 1  }">
+										<td>답변완료</td>
+									</c:if>
 
-						</c:forEach>
 
-					</tbody>
+									<td><input name="questionIdList" class="deleteButton"
+										type="checkbox" data-oper='remove' value="${faq.questionId }">
+										</button></td>
+								</tr>
 
-				</table>
-				<div class='right-box'>
-					<a class="btn btn-danger">글삭제</a>
+							</c:forEach>
+
+						</tbody>
+
+					</table>
+					<div class="d-flex flex-row-reverse">
+						<button class="btn btn-danger">글삭제</button>
+					</div>
 				</div>
 			</div>
-
 		</div>
-	</div>
+	</form>
 	<my:footbar></my:footbar>
 </body>
 </html>

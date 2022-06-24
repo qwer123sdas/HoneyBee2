@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -72,8 +73,11 @@ public class FaqController {
 		model.addAttribute("faq",faq);
 	}
 	@PostMapping("remove")
-	public String removeFaq(int questionId,RedirectAttributes rttr) {
-		boolean success = service.removefaqId(questionId);
+	public String removeFaq(@RequestParam("questionIdList") List<Integer> questionIdList,RedirectAttributes rttr) {
+		boolean success = false;
+		for(int questionId : questionIdList) {			
+			success = service.removefaqId(questionId);
+		}
 		if (success) {
 			rttr.addFlashAttribute("message", "글이 삭제 되었습니다.");
 		} else {

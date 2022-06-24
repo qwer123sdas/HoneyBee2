@@ -19,6 +19,7 @@ import com.team.honeybee.mapper.FaqMapper;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -95,12 +96,35 @@ public class FaqService {
 		
 	}
 
+	@Transactional
 	public boolean removefaqId(int questionId) {
-		// TODO Auto-generated method stub
+		List<String> fileList = mapper.selectFileNameById(questionId);
+		
+		removeFiles(questionId, fileList);
+		
 		int cnt = mapper.deleteFaq(questionId);
 
 		return cnt == 1;
 	}
+	private void removeFiles(int id, List<String> fileList) {
+		// s3에서 지우기
+		for(String fileName : fileList ) {
+			deleteFormAwsS3(id, fileName);
+		}	
+
+		// 파일 테이블 삭제
+		mapper.deleteFileById(id);
+	}
+
+	private void deleteFormAwsS3(int id, String fileName) {
+		String key = "faq/" + id + "/" + fileName;
+
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+
+		s3.deleteObject(deleteObjectRequest);
+
+	}
+	
 
 	
 }

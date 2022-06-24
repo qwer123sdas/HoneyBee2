@@ -37,6 +37,17 @@
 	  WHERE question_id = #{questionId}
 	
 	</select>
+	<delete id ="deleteFileById">
+	DELETE FROM FaqFile
+	WHERE question_id = #{questionId}
+	</delete>
+	
+	<select id="selectFileNameById" resultType="string">
+		SELECT file fileName
+		FROM FaqFile
+		WHERE question_id = #{questionId}
+	</select>
+	
 	<delete id="deleteFaq">
 		DELETE FROM Faq
 		WHERE question_id = #{questionId}

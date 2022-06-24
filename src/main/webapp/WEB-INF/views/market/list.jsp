@@ -68,10 +68,7 @@
                             <c:url value="/market/get" var="getUrl">
 								<c:param name="marketId" value="${list.marketId }"></c:param>
 							</c:url>
-                            
-                            <div class="card-footer p-4 pt-0 border-top-0">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${getUrl}"></a></div>
-                            </div>
+                            <a class="mt-auto stretched-link" href="${getUrl}"></a>
                        	</div>
                        	
                       </c:forEach>
