@@ -28,11 +28,24 @@
 <title>서비스소개: 꿀비</title>
 
 <style>
-body{
+body {
 	margin: 0;
-	height:500px;
+	height: 500px;
 }
-section{
+
+body, button, input, select, textarea, h4, h5{
+	font-family: sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #444;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+section {
 	height: 500px;
 	width: 100%;
 	background: url(https://ymcaofcoastalga.org/clientuploads/volunteer.jpg) fixed;
@@ -40,7 +53,8 @@ section{
 	background-repeat: no-repeat;
 	background-position: 0px 30px;
 }
-.introduction{
+
+.introduction {
 	color: yellow;
 	font-family: sans-serif;
 	top: 20px;
@@ -52,9 +66,7 @@ section{
 <body>
 	<my:navBar current="about"></my:navBar>
 
-	<section>
-		
-	</section>
+	<section></section>
 	<!-- about 내용 -->
 	<div class="introduction">
 		<h4>누구나 사회를 변화시킬 수 있습니다.</h4>
@@ -76,58 +88,60 @@ section{
 			위로받을 수 있어요.</h5>
 	</div>
 
-	<hr />
-	
 	<!-- 슬라이드 -->
-	<div id="carouselExampleCaptions" class="carousel slide"
+	<div id="carouselExampleInterval" class="carousel slide"
 		data-bs-ride="carousel">
-		<div class="carousel-indicators">
-			<button type="button" data-bs-target="#carouselExampleCaptions"
-				data-bs-slide-to="0" class="active" aria-current="true"
-				aria-label="Slide 1"></button>
-			<button type="button" data-bs-target="#carouselExampleCaptions"
-				data-bs-slide-to="1" aria-label="Slide 2"></button>
-			<button type="button" data-bs-target="#carouselExampleCaptions"
-				data-bs-slide-to="2" aria-label="Slide 3"></button>
-		</div>
 		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="..." class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>First slide label</h5>
-					<p>Some representative placeholder content for the first slide.</p>
-				</div>
+			<div class="carousel-item active" data-bs-interval="10000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/cI8SiF/btqjFmjZaut/2R9mbQpxuxVKlt7R8lkJGk/img.png"
+					class="d-block w-100" alt="...">
 			</div>
-			<div class="carousel-item">
-				<img src="..." class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Second slide label</h5>
-					<p>Some representative placeholder content for the second
-						slide.</p>
-				</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/NbtUx/btqjAdPaCaj/hG6waxVbS0Ya62xcILA2W1/img.png"
+					class="d-block w-100" alt="...">
 			</div>
-			<div class="carousel-item">
-				<img src="..." class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Third slide label</h5>
-					<p>Some representative placeholder content for the third slide.</p>
-				</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/h7DcA/btqjJbIJvZy/auLAPsDnLXcQEMUs32GK11/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/ccnkLH/btqjGVl7Q9p/gSvibw8pJMDdihTCB9aFw1/img.png"
+					class="d-block w-100" alt="...">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"
-			data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Previous</span>
+			<span class="visually-hidden">이전</span>
 		</button>
 		<button class="carousel-control-next" type="button"
-			data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			data-bs-target="#carouselExampleInterval" data-bs-slide="next">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Next</span>
+			<span class="visually-hidden">다음</span>
 		</button>
 	</div>
-	
-	<hr />
-	
+
+	<div class="donationTogether">
+		<h3>꿀비에서 우리가 함께 만드는 변화는 무궁무진 합니다.</h3>
+		
+		<h5><!-- 프로젝트 횟수 넣기 -->가 꿀비를 통해 사회 변화를 만들어 냈습니다.</h5>
+		
+		<h5><!-- 모금 횟수 넣기 -->이 모여 사회 변화를 이루어냈습니다.</h5>
+		
+		<h5><!-- 총 기부금 넣기 -->이 꿀비에서 사회 변화를 위해 모여졌습니다.</h5>
+		
+		<h5>꿀비에서는 모금 프로젝트당 <!-- 평균 기부금 액수 -->이 모금됩니다.</h5>
+	</div>
+
+	<div class="d-grid gap-2 col-6 mx-auto">
+		<button class="btn btn-secondary">제안하기</button>
+		<button class="btn btn-warning">기부하기</button>
+	</div>
+
 	<!-- Footer Start -->
 	<div
 		class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn"

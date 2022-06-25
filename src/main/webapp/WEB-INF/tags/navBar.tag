@@ -92,7 +92,11 @@
     margin-left: 8px;
 }
 
-@media (max-width: 991.98px) {
+@media screen and (max-width: 700px) {
+
+}
+
+@media (max-width: 992px) {
     .navbar .navbar-nav .nav-link  {
         margin-right: 0;
         padding: 10px 0;
@@ -120,6 +124,12 @@
         transition: .5s;
         opacity: 1;
     }
+    
+.collapse navbar-collapse{
+	flex-direction: column;
+	align-items: flex-start;
+	margin: 0;
+	}
 }
 
 
@@ -228,7 +238,7 @@
     	<span class="navbar-toggler-icon"></span>
     </button>
 
-	<div class="collapse navbar-collapse" id="navbarcollapse">
+	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<div class="navbar-nav ms-auto p-4 p-lg-0">
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
