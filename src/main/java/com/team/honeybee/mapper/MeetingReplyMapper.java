@@ -23,5 +23,11 @@ public interface MeetingReplyMapper {
 
 	// 자식 댓글 입력
 	void insertMeetingReplyChild(MeetingReplyDto reply);
+	
+	// 자식 댓글 입력
+	void updateMeetingReply(MeetingReplyDto reply);
+		
+	// 자식 댓글 입력
+	void deleteMeetingReply(MeetingReplyDto reply);
 
 }

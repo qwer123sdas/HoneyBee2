@@ -62,7 +62,31 @@ public class MeetingReplyController {
 		return "redirect:/meeting/board/" + reply.getMeetingId();
 	}
 	
+	// 로그인 회원 댓글 수정
+	@PostMapping(path = "updateReply", produces = "text/plain;charset=UTF-8")
+	public String updateMeetingReply(MeetingReplyDto reply, Principal principal) {
+		service.updateMeetingReply(reply);
+		return "redirect:/meeting/board/" + reply.getMeetingId();
+	}
 	
+
+	// 로그인 회원 댓글 삭제
+	// 자식, 손자 댓글이 존재하면 삭제 못함(관리자 문의로 넘기기)
+	@PostMapping(path = "deleteReply", produces = "text/plain;charset=UTF-8")
+	public String deleteMeetingReply(MeetingReplyDto reply, Principal principal) {
+		
+		// 본글에 자식댓글 존재 여부 판단 조회
+		// int i = service.seletre(reply);
+		int i= 0;
+		
+		if(i > 0) {
+			 return "댓글이 존재합니다.";
+		}
+		
+		service.deleteMeetingReply(reply);
+		
+		return "redirect:/meeting/board/" + reply.getMeetingId();
+	}
 	
 	@GetMapping("replyform")
 	public void replyform () {

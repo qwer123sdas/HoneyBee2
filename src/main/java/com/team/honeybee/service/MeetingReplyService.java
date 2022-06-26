@@ -23,20 +23,15 @@ public class MeetingReplyService {
 	
 	// 로그인 회원 정보 담은 댓글 리스트
 	public List<MeetingReplyDto> getReplyWithOwnMeetingId(int meetingId, String memberId) {
-		List<MeetingReplyDto> list = mapper.selectAllMeetingId(meetingId, memberId);
+		List<MeetingReplyDto> replyList = mapper.selectAllMeetingId(meetingId, memberId);
 		System.out.println(meetingId);
 		System.out.println(memberId);
-		return list;
+		return replyList;
 	}
 	
-	// 자식 댓글 입력 메소드
-	private void addChildren(int meetingId) {
-			
-		List<MeetingReplyDto> children = mapper.selectAllChildrenByParentReplyId(meetingId);
-
-	//dto.setChilden(children);
-		
-	}
+	// 본글에 대한 자식 여부 
+	
+	
 	
 	// 로그인 회원 댓글입력 
 	@Transactional
@@ -56,7 +51,26 @@ public class MeetingReplyService {
 	public void insertMeetingReplyChild(MeetingReplyDto reply) {
 		// TODO Auto-generated method stub
 		
+		System.out.println("getRefNum == " + reply.getRefNum());
+		System.out.println("getMeetingId == " + reply.getMeetingId());
+		System.out.println("getMeetingReplyId == " + reply.getMeetingReplyId());
+		
 		mapper.insertMeetingReplyChild(reply);
+	}
+	
+	//  글 수정
+	public void updateMeetingReply(MeetingReplyDto reply) {
+		// TODO Auto-generated method stub
+		
+		mapper.updateMeetingReply(reply);
+	}
+	
+	//  글 삭제
+	public void deleteMeetingReply(MeetingReplyDto reply) {
+		// TODO Auto-generated method stub
+		
+		
+		mapper.deleteMeetingReply(reply);
 	}
 	
 	

@@ -34,7 +34,7 @@
 							      , meeting_id <!-- 보드 id -->
 							      , content 
 							      , refNum <!-- 그룹 num -->
-							      , step <!-- 들여쓰기 -->
+							      , step   <!-- 들여쓰기 -->
 							      , refOrder <!-- 그룹내에서의 순서-->
 				 			      )
 		        SELECT 
@@ -42,16 +42,21 @@
 		                , #{meetingId}		 
 		                , #{content}
 		                , #{meetingReplyId}
-					    , CASE WHEN #{refNum} = 0 THEN 1
-					           ELSE (SELECT MAX_STEP
-					                   FROM (SELECT max(step)+1 as MAX_STEP
-					                   		   FROM MeetingReply 
-					                          WHERE meeting_reply_id = #{meetingReplyId}
-					                            AND refOrder = #{refOrder}
-					                        ) TEMP
-					                 )
-					       END
-					    , #{refOrder}
+					    , ( SELECT MAX_STEP
+					          FROM ( 
+					                 SELECT NVL(MAX(step), 0)+1 AS MAX_STEP 
+					                   FROM MeetingReply 
+									  WHERE meeting_reply_id = #{meetingReplyId}
+								   ) AA
+						   ) 
+						, IFNULL( (SELECT MAX_STEP
+						             FROM (SELECT NVL(MAX(refOrder)+1, 1) AS MAX_STEP
+						                     FROM MeetingReply 
+						                    WHERE meeting_id = #{meetingId}
+						                      AND refNum = #{meetingReplyId}
+						                    GROUP BY refNum
+						                   ) TEMP
+						           ), 1)					                 
 		         FROM DUAL
 	</insert>
 	
@@ -85,15 +90,28 @@
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		 WHERE refNum = (select refNum
-							    from MeetingReply
-							   where meeting_reply_id = r.meeting_reply_id
-							     and step > 0
-							  )	
+						   from MeetingReply
+					      where meeting_reply_id = r.meeting_reply_id
+				   	        and step > 0
+						)	
 		ORDER BY meeting_reply_id
 	
 	</select>
 	
+	<!-- 댓글 수정 -->
+	<update id="updateMeetingReply">
+		UPDATE MeetingReply 
+		   SET content = #{content}
+		 WHERE meeting_id = #{meetingId}
+		   AND meeting_reply_id = #{meetingReplyId}
+	</update>
 	
+	<!-- 댓글 삭제 -->
+	<update id="deleteMeetingReply">
+		DELETE FROM MeetingReply
+		 WHERE meeting_id = #{meetingId}
+		   AND meeting_reply_id = #{meetingReplyId}
+	</update>
 	
 
 </mapper>

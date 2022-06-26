@@ -313,7 +313,8 @@
 						</div>
 				</section>
 			</div>
-			<!-- 모임신청 및 게스트 목록 -->
+			
+			<!-- 모임신청 진행 상태 -->
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="guestWiget">
@@ -325,7 +326,11 @@
 									<c:forEach items="${meetingGuest }" var="guest">
 										<ul class="list-group list-group-flush">
 											<!-- select 내용이 1개 뿐이다. -->
-										  <li class="list-group-item">${guest}</li>
+										  <li class="list-group-item d-flex justify-content-between">
+										  	<i class="fa-solid fa-user-check"></i>${guest}
+										  	<a class="small fw-medium" href="${appRoot }/meeting/board/meeintGuestDelete" type="number">
+										 	 <i id="meeintGuestDelete" class="fa-solid fa-calendar-xmark">취소</i></a>
+										  </li> 
 										</ul>
 									</c:forEach>
 								<!-- 신청자만 신청완료 버튼 보임 
@@ -340,6 +345,11 @@
 										</c:if>
 								</sec:authorize>
 								-->
+								<c:if test="${not empty message }">
+									<div class="alert alert-primary">
+										${message }
+									</div>
+								</c:if>
 								<button type="button" id="insertGuestBtn1"
 									class="btn btn-lg btn-primary mt-5 w-100">
 									<i class="fa-solid fa-heart-circle-check"></i>
@@ -364,7 +374,7 @@
 	<script>
 	$(document).ready(function() {
 		    	
-	/* 카카오 지도 api */ 
+	/* 카카오 지도 api */
 	
 	var Container = document.getElementById('map'), // 지도를 표시할 div 
 		Option = {
@@ -403,6 +413,7 @@
 	    } 
 	}); 
 		 
+	 
 	
 
 				
@@ -412,7 +423,6 @@
 					const data = {meetingId : '${meeting.meetingId}'};
 					
 					$.ajax({ // 댓글 출력
-						
 						url : "${appRoot}/meeting/reply/list",
 						type : "get",
 						data : data,
@@ -431,22 +441,54 @@
 	                                       	 <div class="fw-bold">\${list[i].nickname }</div>
 	                                       	 \${list[i].content }
 	                                       	 \${list[i].inserted }
+	                                       	
 	                                       	<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>답글 달기</a>
-	                                   
-                            			 </div>
+
                             			 <form class="mb-4" id="insertReplyForm2"
               								action="${appRoot }/meeting/reply/insertReplyC" method="post">
               								<div class="input-group">
               									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
               									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
               									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+              									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
               									<input id="insertReplyContentInput1" class="form-control"
               										type="text" name="content" placeholder="" /><br>
               									<button class="btn btn-primary" id="insertReplyButton1"
               										type="submit"><i class="fa-solid fa-circle-check"></i></button>
               								</div>
               							</form>
-										`);
+
+              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>수정</a>
+              							<form class="mb-4" id="insertReplyForm3"
+              								action="${appRoot }/meeting/reply/updateReply" method="post">
+              								<div class="input-group">
+              									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+              									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
+              									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+              									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+              									<input id="insertReplyContentInput1" class="form-control"
+              										type="text" name="content" placeholder="" /><br>
+              									<button class="btn btn-primary" id="insertReplyButton3"
+              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+              								</div>
+              							</form>
+              							
+              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>삭제</a>
+              							<form class="mb-4" id="insertReplyForm4"
+              								action="${appRoot }/meeting/reply/deleteReply" method="post">
+              								<div class="input-group">
+              									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+              									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
+              									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+              									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+              									<input id="insertReplyContentInput1" class="form-control"
+              										type="text" name="content" placeholder="" /><br>
+              									<button class="btn btn-primary" id="insertReplyButton4"
+              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+              								</div>
+              							</form>
+	                                  </div>
+              							`);
 								
                            		replyListElement.append(replyElement);
 							} // end of for
@@ -505,7 +547,7 @@
 		    }
 		})
 	
-	// 신청버튼 누르면 submit
+	// 모임 신청버튼 누르면 submit
 	$("#guestSubmitBtn1").click(function(e) {
 		e.preventDefault();
 		
@@ -523,18 +565,41 @@
 			error :function() {
 				console.log("신청실패");
 			}
+			
+			
 		}); // ajax end
 		
 			
 	});
 	
-
-
+	 // 모임 취소 버튼 누르면 submit
+	 $("#meeintGuestDelete").click(function(e) {
+		e.preventDefault();
+			
+		const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
+		const data
+			
+		$.ajax({ 
+			url : "${appRoot }/meeting/board/deleteGuest",
+			type : "delete",
+			data : data,
+			success : function(list) {
+				console.log("취소 성공");
+			},
+			error :function() {
+				console.log("취소 실패");
+			}
+		
+		
+	 }); // ajax end 
+	
 	});
+
+});
 	    
 </script>
-	<!-- 모임신청 모달창 
-	-->
+
+	<!-- 모임신청 모달창 -->
 	<div id="insertGuestModal1" class="modal-overlay">
 		<div class="modal-window">
 			<div class="title">

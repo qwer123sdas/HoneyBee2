@@ -104,9 +104,9 @@ add COLUMN ref BIGINT(255) DEFAULT 0;
 
 
 ALTER TABLE MeetingReply
-MODIFY COLUMN refNum BIGINT(255) DEFAULT 0;
+MODIFY COLUMN refNum INT(255) DEFAULT 0;
 DESC BoardImage;
-
+DESC MeetingReply;
 
 commit;
 
@@ -134,10 +134,16 @@ DESC BoardImage;
 ALTER TABLE BoardImage
 ADD COLUMN main_image_name INT(255) NOT NULL;
 
--- 세이프 모드 해제
+-- 테이블 전체 데이터 삭제 시 순서
+-- 1. 세이프 모드 해제
 SET SQL_SAFE_UPDATES = 0;
--- 세이프 모드 설정
+
+-- 2. 해당 데이터 삭제
+DELETE FROM MeetingReply;
+
+-- 3. 세이프 모드 설정
 SET SQL_SAFE_UPDATES = 1;
+------------------------------------
 
 -- meetingGuest 테이블 생성
 CREATE TABLE MeetingGuest (
@@ -170,10 +176,11 @@ SELECT IFNULL(COUNT(member_id), 4) cntNum
 		WHERE meeting_id = 1;
         
         
-        		SELECT IFNULL(COUNT(member_id), 4) cntNum
+        SELECT NVL(COUNT(member_id), 4) cntNum
 		FROM MeetingGuest
 		WHERE meeting_id = #{meetingId};
         ;
+        
         SELECT COUNT(member_id) cntNum
 		FROM MeetingGuest
 		WHERE meeting_id = 1;

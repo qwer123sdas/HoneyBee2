@@ -24,8 +24,8 @@
 	
 	<!-- 게스트 넣기 -->
 	<insert id="meetingInsertGuest">
-		INSERT INTO MeetingGuest (meeting_id, member_id)
-		VALUES (#{meetingId}, #{memberId})
+		INSERT INTO MeetingGuest (member_id, meeting_id)
+		VALUES (#{memberId}, #{meetingId})
 	</insert>
 	
 	<!-- 모임 목록 보기 -->
@@ -105,5 +105,25 @@
 		FROM MeetingGuest
 		WHERE meeting_id = #{meetingId}
 	</select>
+	
+	<!-- 게스트 등록전 중복 체크 -->
+	<select id="guestSelectOverlap" resultType="String">
+		SELECT 
+		  CASE WHEN COUNT(*) > 0 THEN 'Y'
+		  	   ELSE 'N'
+		   END yn
+		  FROM MeetingGuest
+		 WHERE member_id = #{memberId}
+		   AND meeting_id = #{meetingId}
+		   
+  	</select>
+  	
+  	<!-- 모임 신청 완료자 취소 -->
+  	<delete id="meeintGuestDelete">
+  		DELETE FROM MeetingGuest
+		 WHERE meeting_id = #{meetingId}
+		   AND member_id = #{memberId}
+  		
+  	</delete>
 	
 </mapper>

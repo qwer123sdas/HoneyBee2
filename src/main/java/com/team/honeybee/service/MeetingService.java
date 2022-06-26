@@ -200,24 +200,25 @@ public class MeetingService {
 	
 	// 게스트 입력 받기전 현재 신청자 수 가져오기
 	public int meetingSelectGuest(MeetingDto meeting, int meetingId) {
-		System.out.println("값 입력");
-		System.out.println(meetingId);
-		System.out.println(meeting.getMeetingId());
+//		System.out.println("값 입력");
+//		System.out.println(meetingId);
+//		System.out.println(meeting.getMeetingId());
+//		int cntNum = 0;
+//		cntNum = ;
+		
 		// 현재 인원수 가져오기
-		int cntNum = 0;
-		cntNum = mapper.meetingSelectGuest(meetingId);
-
-		return cntNum;
+		return mapper.meetingSelectGuest(meetingId);
 		
 	}
 
-	// 게스트 입력
-	public void meetingInsertGuest(MeetingDto meeting, String memberId, int meetingId) {
-		// max와 비교해서 현재 인원수보다 작으면 insert
-		if (meeting.getCntNum() <= meeting.getGuestNum()) {
-			mapper.meetingInsertGuest(meetingId, memberId);			
-		} 
+	// 게스트 등록전 중복 체크
+	public String guestSelectOverlap(String memberId, int meetingId) {
+		return mapper.guestSelectOverlap(memberId, meetingId);
+	}
 	
+	// 게스트 입력
+	public boolean meetingInsertGuest(String memberId, int meetingId) {
+		return mapper.meetingInsertGuest(memberId, meetingId);
 		
 	}
 	
@@ -226,6 +227,17 @@ public class MeetingService {
 	
 		return mapper.selectGuestInfo(meetingId);
 	}
+	
+	// 모임 신청 완료자 취소
+	public boolean meeintGuestDelete(String memberId, int meetingId) {
+		int cnt = mapper.meeintGuestDelete(memberId, meetingId);
+		
+		return cnt == 1;
+		
+	}
+
+	
+	
 	
 
 
