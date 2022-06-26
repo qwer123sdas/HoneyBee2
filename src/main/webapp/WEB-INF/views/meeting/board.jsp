@@ -299,7 +299,7 @@
 									<input id="insertReplyContentInput1" class="form-control"
 										type="text" name="content" placeholder="아름다운 발걸음을 함께해요!" />
 									<button class="btn btn-primary" id="insertReplyButton1"
-										type="submit">
+										>
 										<i class="fa-solid fa-circle-check"></i>
 									</button>
 
@@ -328,8 +328,8 @@
 											<!-- select 내용이 1개 뿐이다. -->
 										  <li class="list-group-item d-flex justify-content-between">
 										  	<i class="fa-solid fa-user-check"></i>${guest}
-										  	<a class="small fw-medium" href="${appRoot }/meeting/board/meeintGuestDelete" type="number">
-										 	 <i id="meeintGuestDelete" class="fa-solid fa-calendar-xmark">취소</i></a>
+										  	<a class="small fw-medium" href="${appRoot }/meeting/board/deleteGuest">
+										 	 <i id="deleteGuest" class="fa-solid fa-calendar-xmark">취소</i></a>
 										  </li> 
 										</ul>
 									</c:forEach>
@@ -453,8 +453,7 @@
               									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
               									<input id="insertReplyContentInput1" class="form-control"
               										type="text" name="content" placeholder="" /><br>
-              									<button class="btn btn-primary" id="insertReplyButton1"
-              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
+              									<button class="btn btn-primary" id="insertReplyButton1"><i class="fa-solid fa-circle-check"></i></button>
               								</div>
               							</form>
 
@@ -475,7 +474,7 @@
               							
               							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>삭제</a>
               							<form class="mb-4" id="insertReplyForm4"
-              								action="${appRoot }/meeting/reply/deleteReply" method="post">
+              								action="${appRoot}/meeting/reply/deleteReply" method="post">
               								<div class="input-group">
               									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
               									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
@@ -572,18 +571,18 @@
 			
 	});
 	
-	 // 모임 취소 버튼 누르면 submit
-	 $("#meeintGuestDelete").click(function(e) {
+	 // 모임 취소 버튼 누르면 submitf
+	 $("#deleteGuest").click(function(e) {
 		e.preventDefault();
-			
+	
 		const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
-		const data
+
 			
 		$.ajax({ 
-			url : "${appRoot }/meeting/board/deleteGuest",
-			type : "delete",
+			url : "${appRoot}/meeting/board/deleteGuest",
+			type : "post",
 			data : data,
-			success : function(list) {
+			success : function(data) {
 				console.log("취소 성공");
 			},
 			error :function() {

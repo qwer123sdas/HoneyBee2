@@ -229,10 +229,10 @@ public class MeetingService {
 	}
 	
 	// 모임 신청 완료자 취소
-	public boolean meeintGuestDelete(String memberId, int meetingId) {
-		int cnt = mapper.meeintGuestDelete(memberId, meetingId);
+	public int meeintGuestDelete(String memberId, int meetingId) {
+		//int cnt = mapper.meeintGuestDelete(memberId, meetingId);
 		
-		return cnt == 1;
+		return mapper.meeintGuestDelete(memberId, meetingId);
 		
 	}
 

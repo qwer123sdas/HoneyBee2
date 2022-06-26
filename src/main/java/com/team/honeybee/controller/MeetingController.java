@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -148,21 +149,26 @@ public class MeetingController {
 	
 
 	// 모임 신청 완료자 취소
-	@DeleteMapping("deleteGuest")
-	public String meeintGuestDelete(MeetingDto meeting,
+	@PostMapping("board/deleteGuest")
+	public String deleteGuest(MeetingDto meeting,
+			@RequestParam(value="meetingId", defaultValue = "0") int meetingId, 
 									  Principal principal,
 									  RedirectAttributes rttr) {
-		
+		System.out.println("11111111");
 		// 게시물 정보 얻기
 		MeetingDto meetingBoard = service.getBoardByMeetingId(meeting.getMeetingId());
 		
+		System.out.println("2222");
+		
 		// 로그인 회원 아이디값 넣기
+		// 널일때 로그인 페이지(나중에 )
+		// StringUtils.isEmpty(str) 메소드 사용하기 : 널일때 로그인 페이지(나중에 )
 		String memberId = principal.getName();
-		meeting.setMemberId(memberId);
+		//meeting.setMemberId(memberId);
 		
-		boolean success = service.meeintGuestDelete(memberId, meetingBoard.getMeetingId());
+		int success = service.meeintGuestDelete(memberId, meetingBoard.getMeetingId());
 		
-		if(success) {
+		if(success > 0) {
 			rttr.addFlashAttribute("message", "취소가 완료되었습니다.");
 		} else {
 			rttr.addFlashAttribute("message", "취소되지 않았습니다. 관리자에게 문의해주세요.");
