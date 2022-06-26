@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <!-- Bulma  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<title>Insert title here</title>
+<title>결제 목록</title>
 </head>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -406,9 +406,10 @@ td {
 		</div>
 	</div>
     <script>
+    /* 판매 금액 */
     var sellPrice = ${board.price};
-    var sum = sellPrice;
     
+    /* 상품 갯수 선택 */
     $(document).ready(function(){
 		$('#plusButton').click(function(){
 			var amount = Number($('#amount').text());
@@ -436,6 +437,12 @@ td {
 			}
 		});
     });
+    /* 포인트 */
+    /* 최대 포인트 사용 가능 금액 */
+    var totalDiscount = Number(sellPrice) * 50 / 100; 
+    console.log("최대 할인 " + totalDiscount);
+    
+    
     /* 카카오 페이 ajax  */
     let index = {
     		init:function(){

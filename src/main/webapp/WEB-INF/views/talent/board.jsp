@@ -10,9 +10,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    
+    <!--font-awesome  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +49,11 @@
 }
 .buyButton{
 	width : 100%;
+}
+
+.modal_body_head{
+	margin-top : 10px;
+	margin-bottom : 26px;
 }
 
 </style>
@@ -136,7 +144,27 @@
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                            <form class="mb-4">
+                            	<div>                            	
+                            		<div>총 평점</div>
+                            		<div>
+                            			<div>**개의 평점 **명 참여<spna class="d-flex flex-row-reverse" data-bs-toggle="modal" data-bs-target="#modal1">나도 평점 주기</spna></div>
+                            			
+                            		</div>
+                            		
+                            	</div>
+                            </form>
+                            <hr />
+                            <!-- Single comment-->
+                            <div class="d-flex">
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">Commenter Name</div>
+                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                </div>
+                            </div>
+                            
+                            
                             <!-- Comment with nested comments-->
                             <div class="d-flex mb-4">
                                 <!-- Parent comment-->
@@ -162,14 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Single comment-->
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                </div>
-                            </div>
+                            <!-- 댓글 끝 -->
                         </div>
                     </div>
                 </section>
@@ -219,7 +240,48 @@
             </div>
         </div>
      </div>
-
+     
+     
+	<!-- 모달 -->
+	<div class="modal fade " id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				 <div class="modal-header">
+			        <h5 class="modal-title">내 평점 등록</h5>
+			     </div>
+				<div class="modal-body">
+					<div class="modal_body_head">
+						<h5 class="d-flex justify-content-center">강의 제목</h5>
+						<div class="d-flex justify-content-center">
+							<span class="ico_button" id="minusButton">
+		                       <i class="fa-solid fa-circle-minus"></i>
+		                    </span>
+		                    <div>
+								<i class="fa-regular fa-star" id="image1"></i>
+								<i class="fa-regular fa-star" id="image2"></i>
+								<i class="fa-regular fa-star" id="image3"></i>
+								<i class="fa-regular fa-star" id="image4"></i>
+								<i class="fa-regular fa-star" id="image5"></i>
+							</div>
+							<span class="ico_button" id="plusButton" >
+		                       <i class="fa-solid fa-circle-plus"></i>
+		                    </span>
+						</div>
+					</div>
+					<hr />
+					<textarea name="" id="content" cols="30" rows="10"></textarea>
+				</div>
+				
+				<div class="modal-footer">
+					<form action="" method="POST" id="talentReviewForm">
+						<input type="hidden" id="reviewJson" name="reviewJson"/>
+						<button type="button" class="btn btn-primary" id="submitReview">평점 작성하기</button>
+					</form>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- foot bar -->
@@ -291,7 +353,7 @@
     <script src="${appRoot }/resources/webContents/js/main.js"></script>
     <script>
 	$(document).ready(function(){
-		/* 메인 게시글 */
+		/* 메인 게시글 목록 보기 */
 		$("#mainContentNav").click(function(){
 			$('#mainContentNav').addClass('active');
 			$("#cancleAndRefundNav").removeClass("active");
@@ -301,7 +363,7 @@
 			$("#cancleAndRefundConatiner").addClass("d-none");
 			$("#replyContainer").addClass("d-none");
 		});
-		/* 취소 환불 */
+		/* 취소 환불 목록 보기*/
 		$("#cancleAndRefundNav").click(function(){
 			$('#cancleAndRefundNav').addClass('active');
 			$("#mainContentNav").removeClass("active");
@@ -311,7 +373,7 @@
 			$("#mainContentContainer").addClass("d-none");
 			$("#replyContainer").addClass("d-none");
 		});
-		/* 후기 */
+		/* 후기 목록 보기 */
 		$("#replyNav").click(function(){
 			$('#replyNav').addClass('active');
 			$("#mainContentNav").removeClass("active");
@@ -321,6 +383,59 @@
 			$("#mainContentContainer").addClass("d-none");
 			$("#cancleAndRefundConatiner").addClass("d-none");
 		});
+		
+		
+		/* 별점 주기 */
+		var star = 0;
+		$('#plusButton').click(function(){
+			if(star < 5){
+				star++;
+				var image;
+				var el;
+				for(var i = 1 ; i <= star; i++){
+					image = 'image' + i;
+					el = document.getElementById(image);
+					el.className = 'fa-solid fa-star';
+					console.log(star);
+					console.log(image);
+				}
+			}
+			
+		});
+		$('#minusButton').click(function(){
+			if(star >= 1){
+				star--;
+				var image;
+				var el;
+				for(var i = 5 ; i > star; i--){
+					image = 'image' + i;
+					el = document.getElementById(image);
+					el.className = 'fa-regular fa-star';
+					console.log(star);
+					console.log(image);
+				}
+			}
+		});
+		/* 댓글 작성하기  */
+		$("#submitReview").click(function(){
+			if(confirm("작성하시겠습니까?")){
+				var data={ 'starRating' : star,
+						   'content' : document.getElementById("content").value,
+						   'talentId' : ${board.talentId}
+						}
+				$('#reviewJson').val(JSON.stringify(data));
+				let form1 = $("#talentReviewForm");
+				let actionAttr = "${appRoot }/talent/review";
+				form1.attr("action", actionAttr);
+				
+				form1.submit();
+			}
+		});
+		
+		/* 댓글 리스트 가져오기 */
+		const reviewList = function(){
+			
+		};
 	});
 
 </script>

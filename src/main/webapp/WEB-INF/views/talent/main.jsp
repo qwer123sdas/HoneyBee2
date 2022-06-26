@@ -71,6 +71,8 @@
 	width: 100%;
 	height: 150px;
 }
+/* 별점 */
+
 
 </style>
 <body>
@@ -159,6 +161,7 @@
 		                        <h5 class="fw-bolder">${list.title }</h5>
 		                        <!-- Product price-->
 		                        ${list.price }
+		                        <!-- 별점 -->
 		                    </div>
 		                </div>
 		                <!-- Product actions-->

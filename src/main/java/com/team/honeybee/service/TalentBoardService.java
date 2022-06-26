@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.mapper.SummerNoteMapper;
 import com.team.honeybee.mapper.TalentBoardMapper;
 
@@ -154,6 +155,11 @@ public class TalentBoardService {
 		
 		amazonS3.deleteObject(deleteBucketRequest);
 		
+	}
+	
+	// 리뷰 작성
+	public void setTalentReview(TalentReivewDto dto) {
+		mapper.insertTalentReview(dto);
 	}
 	
 	

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.service.TalentBoardService;
 
 @Controller
@@ -85,6 +86,18 @@ public class TalentBoardController {
 		service.setTalentBoard(dto, mainPhoto, folderName);
 		
 		return "redirect:/talent/main";
+	}
+	
+	// 리뷰 작성
+	@PostMapping("review")
+	public String insertReivew(String reviewJson, Principal principal) {
+		// json 역직렬화하고 dto에 set하기
+				Gson gson = new Gson();
+				TalentReivewDto dto = gson.fromJson(reviewJson, TalentReivewDto.class);
+				dto.setMemberId(principal.getName());
+				service.setTalentReview(dto);
+				System.out.println(dto);
+		return "redirect:/talent/board/" + dto.getTalentId();
 	}
 	
 

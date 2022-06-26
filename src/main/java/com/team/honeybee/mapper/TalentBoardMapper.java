@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.domain.TalentReivewDto;
 
 @Mapper
 public interface TalentBoardMapper {
@@ -23,6 +24,9 @@ public interface TalentBoardMapper {
 						 @Param("mainPhoto")String mainPhoto, 
 						 @Param("memberId")String memberId,
 						 @Param("folderName")String folderName);
+	
+	// 리뷰 작성
+	void insertTalentReview(TalentReivewDto dto);
 
 
 	
