@@ -25,6 +25,22 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+
+<style>
+*, body{
+	font-family: 'Poppins' sans-serif;
+	font-weight: 400;
+}
+
+html, body{
+	height: 100;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+
+</style>
+
 <title>마이페이지</title>
 
 <script>
@@ -169,9 +185,10 @@
 						value="${memberInfo.memberId }" readonly />
 
 					프로필 사진
-					<img
+					<img style="border-radius:40px"
 						src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
-						alt="" />
+						onerror="${appRoot }/resources/webContents/img/user.png"
+						width="80px" height="80px" />
 					<input type="file" name="profileFile"
 						value="${memberInfo.profile }" accept="image/*" />
 					<br />
