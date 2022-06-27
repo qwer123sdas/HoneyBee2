@@ -318,22 +318,23 @@
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="guestWiget">
-					<div class="guestWiget-header"><h4>꿀비 모임 ${meeting.cntNum }명 등록</h4><hr/></div>
+					<div class="guestWiget-header"><h4>꿀비 모임 <span id="numOfGuest"></span>명 등록</h4><hr/></div>
 					<div class="guestWigetBody">
 						<div class="row">
 							<div class="col">
 								<!-- 게스트 목록 출력 -->
-									<c:forEach items="${meetingGuest }" var="guest">
-										<ul class="list-group list-group-flush">
+									<ul id="guestList" class="list-group list-group-flush">
 											<!-- select 내용이 1개 뿐이다. -->
+								<%--  <c:forEach items="${meetingGuest }" var="guest">
 										  <li class="list-group-item d-flex justify-content-between">
 										  	<i class="fa-solid fa-user-check"></i>${guest}
 										  	<a class="small fw-medium" href="${appRoot }/meeting/board/deleteGuest">
 										 	 <i id="deleteGuest" class="fa-solid fa-calendar-xmark">취소</i></a>
 										  </li> 
-										</ul>
-									</c:forEach>
-								<!-- 신청자만 신청완료 버튼 보임 
+									</c:forEach> 
+									--%>	
+									</ul>
+								<%-- 신청자만 신청완료 버튼 보임 
 								<sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="principal"/>
 										<c:if test="${principal.username == meeting.guest }" >
@@ -344,7 +345,7 @@
 											</button>
 										</c:if>
 								</sec:authorize>
-								-->
+								--%>
 								<c:if test="${not empty message }">
 									<div class="alert alert-primary">
 										${message }
@@ -374,7 +375,7 @@
 	<script>
 	$(document).ready(function() {
 		    	
-	/* 카카오 지도 api */
+	/* 카카오 지도 api 시작 */
 	
 	var Container = document.getElementById('map'), // 지도를 표시할 div 
 		Option = {
@@ -412,9 +413,129 @@
 	        map.setCenter(coords);
 	    } 
 	}); 
-		 
-	 
 	
+	/* 카카오 지도 api 끝남 */
+		 
+	/* 게스트 입출력 부분 시작 */
+	
+	var modal = document.getElementById("insertGuestModal1");
+	var btnModal = document.getElementById("insertGuestBtn1");
+	
+	 // 함께 할께요 버튼 누르면 모달창 뜸
+	 btnModal.addEventListener("click", function(e) {
+		 e.preventDefault();
+		 e.stopPropagation();
+		 modal.style.display = "flex";
+		 fadeDuration: 500;
+	 })
+	 
+	 // 취소 누르면 모달창 닫힘
+	 const closeBtn = modal.querySelector(".btn.btn-secondary")
+		closeBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+		    modal.style.display = "none";
+		});
+	 
+	 // 다른 창 눌러도 모달창 닫힘
+	 modal.addEventListener("click", function(e) {
+		 e.preventDefault();
+		 const eventTarget = e.target;
+		    if(eventTarget.classList.contains("modal-overlay")) {
+		        modal.style.display = "none"
+		    }
+		})
+		
+	// guestList 가져오는 ajax 요청
+	const guestList = function() {
+		 const data = {meetingId : '${meeting.meetingId}'};
+		 
+		 $.ajax({
+			 
+			 url : "${appRoot}/meeting/board/guest/list",
+			 type : "get",
+			 data : data,
+			 success :function(list) {
+				 console.log(list);
+				 
+				 const guestListElement = $("#guestList");
+				 
+				 // 초기화
+				 guestListElement.empty();
+				 
+				 // 신청인원 표시
+				 $("#numOfGuest").text(list.length);
+				 
+				 for (let i = 0; i < list.length; i++) {
+					 const guestElement = $('<li class="list-group-item d-flex justify-content-between"/>')
+					 guestElement.html(`
+								 <i class="fa-solid fa-user-check"></i>\${list[i]}
+							  		<span class="small fw-medium">
+							 	 <button style="d-none"><i id="deleteGuest" class="fa-solid fa-calendar-xmark">취소</i></button></span>
+							 `);
+					 
+					 guestListElement.append(guestElement);
+				 } // for end
+				 
+			 }
+			 
+		 });
+		 
+		// 모임 신청버튼 누르면 submit
+		$("#guestSubmitBtn1").click(function(e) {
+			e.preventDefault();
+			
+			const data = {meetingId : '${meeting.meetingId}'};
+			
+			$.ajax({ 
+				url : "${appRoot }/meeting/board/guest/addGuest",
+				type : "post",
+				data : data,
+				success : function(data) {
+					console.log("신청성공");
+					guestList();
+					modal.style.display = "none";
+					
+					// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
+				},
+				error :function() {
+					console.log("신청실패");
+				}
+				
+				
+			}); // ajax end
+			
+				
+		});
+		
+		 // 모임 취소 버튼 누르면 submit
+		 $("#deleteGuest").click(function(e) {
+			e.preventDefault();
+		
+			const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
+	
+				
+			$.ajax({ 
+				url : "${appRoot}/meeting/board/guest/deleteGuest",
+				type : "post",
+				data : data,
+				success : function(data) {
+					console.log("취소 성공");
+					guestList();
+				},
+				error :function() {
+					console.log("취소 실패");
+				}
+			
+			
+		 	}); // ajax end 
+		
+		});
+	 }
+	
+	 // 게스트 리스트 가져오는 함수 실행
+	 guestList();
+	 
+	 /* 게스트 입출력 부분 끝남 */
 
 				
 				// 댓글 처리
@@ -511,88 +632,6 @@
 			
 		
 		
-	// 게스트 신청버튼 클릭시 신청, 목록출력
-	$("#guestInsertForm1").click(function(e) {
-		e.preventDefault();
-		
-	});
-
-	
-	 
-	 var modal = document.getElementById("insertGuestModal1");
-	 var btnModal = document.getElementById("insertGuestBtn1");
-	
-	 // 함께 할께요 버튼 누르면 모달창 뜸
-	 btnModal.addEventListener("click", function(e) {
-		 e.preventDefault();
-		 e.stopPropagation();
-		 modal.style.display = "flex";
-		 fadeDuration: 500;
-	 })
-	 
-	 // 취소 누르면 모달창 닫힘
-	 const closeBtn = modal.querySelector(".btn.btn-secondary")
-		closeBtn.addEventListener("click", function(e) {
-			e.preventDefault();
-		    modal.style.display = "none";
-		});
-	 
-	 // 다른 창 눌러도 모달창 닫힘
-	 modal.addEventListener("click", function(e) {
-		 e.preventDefault();
-		 const eventTarget = e.target;
-		    if(eventTarget.classList.contains("modal-overlay")) {
-		        modal.style.display = "none"
-		    }
-		})
-	
-	// 모임 신청버튼 누르면 submit
-	$("#guestSubmitBtn1").click(function(e) {
-		e.preventDefault();
-		
-		const data = {meetingId : '${meeting.meetingId}'};
-		
-		$.ajax({ 
-			url : "${appRoot }/meeting/board/addGuest",
-			type : "post",
-			data : data,
-			success : function(data) {
-				console.log("신청성공");
-				modal.style.display = "none";
-				// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
-			},
-			error :function() {
-				console.log("신청실패");
-			}
-			
-			
-		}); // ajax end
-		
-			
-	});
-	
-	 // 모임 취소 버튼 누르면 submitf
-	 $("#deleteGuest").click(function(e) {
-		e.preventDefault();
-	
-		const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
-
-			
-		$.ajax({ 
-			url : "${appRoot}/meeting/board/deleteGuest",
-			type : "post",
-			data : data,
-			success : function(data) {
-				console.log("취소 성공");
-			},
-			error :function() {
-				console.log("취소 실패");
-			}
-		
-		
-	 }); // ajax end 
-	
-	});
 
 });
 	    
@@ -619,7 +658,7 @@
 					<span class="d-flex flex-row-reverse">
 						<button type="button" class="btn btn-secondary">취소</button>
 						<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
-						<button type="submit" class="btn btn-primary " id="guestSubmitBtn1">신청</button>
+						<button class="btn btn-primary " id="guestSubmitBtn1">신청</button>
 					</span>
 				</form>
 			</div>

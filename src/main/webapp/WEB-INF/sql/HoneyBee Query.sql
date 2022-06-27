@@ -164,6 +164,7 @@ DESC MeetingGuest;
 DESC BoardImage;
 DESC Meeting;
 SELECT * FROM MeetingGuest;
+SELECT * FROM MeetingReply;
 SELECT * FROM Meeting;
 SELECT * FROM Tag;
 ALTER TABLE MeetingGuest
@@ -185,3 +186,57 @@ SELECT IFNULL(COUNT(member_id), 4) cntNum
 		FROM MeetingGuest
 		WHERE meeting_id = 1;
         
+SELECT * FROM MeetingGuest;
+
+SELECT COUNT(member_id) cntNum
+		FROM MeetingGuest
+		WHERE meeting_id = '12';
+
+SELECT * FROM MeetingReply;
+DESC MeetingReply;
+ALTER TABLE MeetingReply DROP deep;
+ALTER TABLE MeetingReply DROP 
+parentNum
+
+;
+ALTER TABLE MeetingReply
+ADD COLUMN step INT(255) DEFAULT 0;
+
+ALTER TABLE MeetingReply
+MODIFY COLUMN refNum INT(255) NULL DEFAULT NULL;
+
+		INSERT INTO MeetingReply (  member_id
+							      , meeting_id
+							      , content
+
+							      , step
+							      , refOrder
+				 			      )
+		        VALUES ( 
+		                  'admin'
+		                , 13
+		                , '부모3'
+	
+					    , 0
+					    , 0
+		               );
+WITH RECURSIVE t3 ( meeting_reply_id, member_id, content, step, refNum, refOrder) AS
+(
+	SELECT t1.meeting_reply_id, t1.member_id, t1.content, t1.step, t1.refNum, t1.refOrder
+    FROM MeetingReply t1
+    WHERE t1.refNum is null
+    
+    UNION ALL
+    
+    SELECT t2.meeting_reply_id, t2.member_id, t2.content, t2.step, t2.refNum, t2.refOrder
+    FROM MeetingReply t2
+    INNER JOIN t3 ON t2.refNum = meeting_reply_id
+)
+
+SELECT * FROM t3
+ORDER BY t3. meeting_reply_id, t3.refOrder;
+
+SELECT * FROM MeetingReply ORDER BY refNum, refOrder
+
+SELECT * FROM MeetingReply
+ORDER BY IF(ISNULL(refNum), step, refNum), refOrder;

@@ -39,9 +39,9 @@ public class MeetingReplyService {
 		
 		int cnt = mapper.insertMeetingReply(reply);
 		// 댓글입력시 생성번호를 부모 댓글 번호로 넣기
-		reply.setMeetingReplyParent(reply.getMeetingReplyId());
-		reply.setMeetingReplyGnum(reply.getMeetingReplyId());
-		mapper.updateMeetingReplyParent(reply);
+		// reply.setMeetingReplyParent(reply.getMeetingReplyId());
+		// reply.setMeetingReplyGnum(reply.getMeetingReplyId());
+		// mapper.updateMeetingReplyParent(reply);
 
 	
 		return cnt == 1;

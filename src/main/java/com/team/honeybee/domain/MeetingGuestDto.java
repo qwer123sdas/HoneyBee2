@@ -11,11 +11,15 @@ import lombok.Data;
 @Data
 public class MeetingGuestDto {
 
-	private int guestId;
+	private int guestId; // 자동증감
 	private int meetingId;
 	private String memberId;
-	private String guest;
+	private List<String> guest; // meetingGuest table에서 member_id로 사용중
 	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate inserted;
+	private LocalDate inserted; // 입력날짜
+	
+	private int cntNum; // 현재 게스트 인원
+	private int guestNum; // 게스트 인원
+	private boolean own; // 신청자만 취소 가능하도록 추가함
 	
 }

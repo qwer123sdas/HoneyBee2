@@ -1,6 +1,5 @@
 package com.team.honeybee.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.team.honeybee.domain.MeetingDto;
-import com.team.honeybee.domain.MeetingGuestDto;
 import com.team.honeybee.mapper.MeetingMapper;
 import com.team.honeybee.mapper.MeetingSummerNoteMapper;
 
@@ -117,10 +115,6 @@ public class MeetingService {
 		return cnt == 1;
 	}
 	
-	// meetingBoard, guest 입력받기
-	
-	
-	
 	// 모임 리스트(topic추가함)
 	@Transactional
 	public List<MeetingDto> meetingList(String sort, String topic) {
@@ -197,55 +191,6 @@ public class MeetingService {
 		s3.deleteObject(deleteBucketRequest);
 			
 		}
-	
-	// 게스트 입력 받기전 현재 신청자 수 가져오기
-	public int meetingSelectGuest(MeetingDto meeting, int meetingId) {
-//		System.out.println("값 입력");
-//		System.out.println(meetingId);
-//		System.out.println(meeting.getMeetingId());
-//		int cntNum = 0;
-//		cntNum = ;
-		
-		// 현재 인원수 가져오기
-		return mapper.meetingSelectGuest(meetingId);
-		
-	}
-
-	// 게스트 등록전 중복 체크
-	public String guestSelectOverlap(String memberId, int meetingId) {
-		return mapper.guestSelectOverlap(memberId, meetingId);
-	}
-	
-	// 게스트 입력
-	public boolean meetingInsertGuest(String memberId, int meetingId) {
-		return mapper.meetingInsertGuest(memberId, meetingId);
-		
-	}
-	
-	// 게스트 목록 가져오기
-	public List<String> selectGuestInfo(int meetingId) {
-	
-		return mapper.selectGuestInfo(meetingId);
-	}
-	
-	// 모임 신청 완료자 취소
-	public int meeintGuestDelete(String memberId, int meetingId) {
-		//int cnt = mapper.meeintGuestDelete(memberId, meetingId);
-		
-		return mapper.meeintGuestDelete(memberId, meetingId);
-		
-	}
-
-	
-	
-	
-
-
-
-	
-	
-	
-
 	
 	/* 데스크탑 저장용 메소드
 	// 파일 저장 메소드

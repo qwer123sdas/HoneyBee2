@@ -9,21 +9,15 @@
 		INSERT INTO MeetingReply (  member_id
 							      , meeting_id
 							      , content
-							      , refNum
 							      , step
 							      , refOrder
-							      , answerNum
-							      , parentNum
 				 			      )
 		        VALUES ( 
 		                  #{memberId}
 		                , #{meetingId}
 		                , #{content}
-		                , #{refNum}
 					    , 0
 					    , 0
-					    , #{meetingReplyId}
-					    , #{meetingReplyId}
 		               )
 	</insert>
 	
@@ -60,13 +54,14 @@
 		         FROM DUAL
 	</insert>
 	
-	<!-- 댓글입력시 생성번호를 부모 댓글 번호로 넣기 -->
+	<!-- 댓글입력시 생성번호를 부모 댓글 번호로 넣기 
 	<update id="updateMeetingReplyParent">
 		UPDATE MeetingReply 
-		SET meeting_reply_parent = #{meetingReplyId},
-			meeting_reply_gnum = #{meetingReplyId}
-		WHERE meeting_reply_id = #{meetingReplyId}
+		   SET meeting_reply_parent = #{meetingReplyId},
+			   meeting_reply_gnum = #{meetingReplyId}
+		 WHERE meeting_reply_id = #{meetingReplyId}
 	</update>
+	-->
 	
 	<!-- 조상 댓글 목록 출력 -->
 	<select id="selectAllMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
