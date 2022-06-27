@@ -76,14 +76,14 @@ public class OrderController {
 	// 카카오 페이 요청
 	@GetMapping("kakaopay")
 	@ResponseBody
-	public String kakaoPayReady(Principal principal, String productName, String quantity, String totalAmount) {
+	public String kakaoPayReady(Principal principal, String productName, String quantity, String totalAmount, int point) {
 			String partner_user_id = principal.getName();
 			if(totalAmount != "0") {
 				// 카카오 결제 준비하기	- 결제요청 service 실행.
-				return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount);
+				return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
 			}
 			// 바로 결제처리해야됨.
-			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount);
+			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
 			//return "redirect:/order/success";
 			
 	}
@@ -100,8 +100,6 @@ public class OrderController {
 		//db저장
 		service.setKakaoPayData(kakaoPayApprovalVo);
 		
-		// 포인트 사용 여부 기록
-		/* pointService.useMemberPoint(kakaoPayApprovalVo.getPartner_order_id()); */
 		
 		return "redirect:/order/success";
 	}

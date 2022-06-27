@@ -12,6 +12,20 @@
 							)}
 	</insert>
 	
+	<!--포인트 사용내용 기록 -->
+	<insert id="useMemberPointHistory"  parameterType="hashmap" statementType="CALLABLE">
+	 	<![CDATA[
+		 { call sp_point_use(
+	                #{memberId},
+	                #{iPoint},
+	                #{iComment},
+	
+	                #{oResultCode, mode=OUT, jdbcType=VARCHAR, javaType=string},
+	                #{oPointId, mode=OUT, jdbcType=BINARY, javaType=string}
+	            )}
+	    ]]>
+	</insert>
+	
 	<!-- 회원 총 포인트 가져오기 -->
 	<select id="selectSUMPoint" resultType="int">
 		SELECT IFNULL(SUM(point), 0)

@@ -3,6 +3,7 @@ package com.team.honeybee.service;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
@@ -20,6 +21,9 @@ import com.team.honeybee.vo.KakaoPayReadyVO;
 @Service
 @PropertySource("classpath:jdbc.properties")
 public class KakaoPayService {
+	
+	@Autowired
+	PointService pointService;
 
 	@Value("${kakao.pay.admin}")
 	private String adminKey;
@@ -30,7 +34,7 @@ public class KakaoPayService {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	
-	public String kakaoPayReady(String partner_user_id, String productName, String quantity, String totalAmount) {
+	public String kakaoPayReady(String partner_user_id, String productName, String quantity, String totalAmount, int point) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// 서버로 요청할 Header
@@ -61,6 +65,7 @@ public class KakaoPayService {
 			//restTemplate를 통해서 kakaoPayReadyVO에 response 담기
 			// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
+            kakaoPayReadyVO.setPoint(point);
             // response 중, getNext_redirect_pc_url을 ajax에 보내기
             return kakaoPayReadyVO.getNext_redirect_pc_url();
         } catch (RestClientException e) {
@@ -77,7 +82,7 @@ public class KakaoPayService {
 		public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token, String partner_user_id) {
 			System.out.println("토큰 : " + pg_token);
 			System.out.println(kakaoPayReadyVO.getTid());
-			System.out.println(partner_user_id);
+			System.out.println(kakaoPayReadyVO.getPoint());
 		
 			RestTemplate restTemplate = new RestTemplate();
 			
@@ -106,6 +111,10 @@ public class KakaoPayService {
 				System.out.println(kakaoPayApprovalVO.getQuantity());
 				System.out.println(kakaoPayApprovalVO.getItem_name());
 				System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
+				
+				// 포인트 사용 여부 기록
+				pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), "재능판매");
+				
 	            return kakaoPayApprovalVO;
 	        
 	        } catch (RestClientException e) {

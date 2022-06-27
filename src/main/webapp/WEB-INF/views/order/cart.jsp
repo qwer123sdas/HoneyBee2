@@ -479,7 +479,8 @@ td {
     		kakaopay:function(){
     			var data = {'productName' : '${board.productName}',
     						'quantity' : $('#amount').text(),
-    						'totalAmount' : $('#finalPayment').text()
+    						'totalAmount' : $('#finalPayment').text(),
+    						'point' : $('#pointTotal').text()
     					  }
     			$.ajax({
     				url:"${appRoot}/kakaopay",

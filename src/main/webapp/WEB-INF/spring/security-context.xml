@@ -7,11 +7,14 @@
 	
 	<!--  652 쪽 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-
+	
+	<!-- X-Frame-Options때문에 frame-options disabled="true" 추가함 -->
 	<security:http>
 		<security:csrf disabled="true"/>
-		<security:form-login
-			default-target-url="/donation/main"/>
+		<security:form-login default-target-url="/donation/main"/>
+		<security:headers>
+       		<security:frame-options disabled="true"></security:frame-options>
+    	</security:headers>
 	</security:http>
 	
 	<security:authentication-manager>

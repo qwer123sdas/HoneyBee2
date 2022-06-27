@@ -1,5 +1,8 @@
 package com.team.honeybee.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +30,13 @@ public class PointService {
 	}
 	
 	// 사용한 포인트 기록
-	public void useMemberPoint(String memberId) {
-		/* return mapper.useMemberPoint() */
+	public void useMemberPointHistory(String memberId, int point, String comment) {
+		Map map = new HashMap<>();
+		map.put("memberId", memberId); 
+		map.put("point", point);
+		map.put("comment", comment);
+		mapper.useMemberPointHistory(map);
+		System.out.println("오류 확인 : " + map);
 	}
 
 }
