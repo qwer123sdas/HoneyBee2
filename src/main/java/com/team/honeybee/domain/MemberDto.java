@@ -21,4 +21,7 @@ public class MemberDto {
 	private String phone;
 	private String detail;
 	
+	// db에 없는 것
+	private int totalPoint;
+	
 }

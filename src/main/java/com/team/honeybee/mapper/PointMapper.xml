@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.PointMapper">
+	<!--  포인트 적립 -->
+	<insert id="pointAdd" parameterType="com.team.honeybee.vo.PointVO">
+		{call sp_point_add(#{memberId},
+							#{point},
+							#{expired},
+							#{comment}
+							)}
+	</insert>
+	
+	<!-- 회원 총 포인트 가져오기 -->
+	<select id="selectSUMPoint" resultType="int">
+		SELECT IFNULL(SUM(point), 0)
+	    FROM Member m LEFT JOIN Point p ON m.member_id = p.member_id
+	    WHERE m.member_id = #{memberId}
+	    GROUP BY m.member_id;
+	</select>
+</mapper>

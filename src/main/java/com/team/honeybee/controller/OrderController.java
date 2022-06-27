@@ -37,6 +37,7 @@ import com.google.gson.JsonObject;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.service.KakaoPayService;
 import com.team.honeybee.service.OrderService;
+import com.team.honeybee.service.PointService;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 import com.team.honeybee.vo.KakaoPayReadyVO;
 
@@ -49,21 +50,25 @@ public class OrderController {
 	@Autowired
 	KakaoPayService kakaopayService;
 	
+	@Autowired
+	PointService pointService;
+	
 	@RequestMapping("cart")
 	public void test() {
 		
 	}
-    
-    private KakaoPayReadyVO kakaoPayReadyVO;
-	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	// 구매할 게시판 정보를 결제 페이지로 보내기
 	@GetMapping("order/cart/{talentId}")
 	public String cartPage(@PathVariable int talentId, Model model, Principal principal) {
 		TalentBoardDto dto = service.selectTalentBoard(talentId);
 		
+		// 회원 총 포인트 가져오기
+		int memberTotalPoint = pointService.getSUMPoint(principal.getName());
+		
 		model.addAttribute("board", dto);
 		model.addAttribute("memberId", principal.getName());
+		model.addAttribute("memberPoint", memberTotalPoint);
 		return "order/cart";
 	}
 	
@@ -71,27 +76,33 @@ public class OrderController {
 	// 카카오 페이 요청
 	@GetMapping("kakaopay")
 	@ResponseBody
-	public String kakaoPayReady(Principal principal, String productName, String finalPayment, String amount) {
-			String partner_order_id = principal.getName();
-			String[] finalPaymentArray= finalPayment.split("원");
-			if(finalPaymentArray[0] != "0") {
+	public String kakaoPayReady(Principal principal, String productName, String quantity, String totalAmount) {
+			String partner_user_id = principal.getName();
+			if(totalAmount != "0") {
 				// 카카오 결제 준비하기	- 결제요청 service 실행.
-				return kakaopayService.kakaoPayReady(partner_order_id, productName, amount, finalPaymentArray[0]);
+				return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount);
 			}
-			return kakaopayService.kakaoPayReady(partner_order_id, productName, amount, finalPaymentArray[0]);
+			// 바로 결제처리해야됨.
+			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount);
 			//return "redirect:/order/success";
 			
 	}
 	
 	// 카카오 페이 승인
+	@Transactional
 	@RequestMapping("order/kakaoPaySuccess")
 	public String kakaoPaySuccessPage(@RequestParam("pg_token") String pg_token, 
+									  @RequestParam("partner_user_id")String partner_user_id,
 									  Model model) {
 		
-		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token);
-		System.out.println(kakaoPayApprovalVo);
+		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token, partner_user_id);
+		System.out.println("?? : " + kakaoPayApprovalVo);
 		//db저장
 		service.setKakaoPayData(kakaoPayApprovalVo);
+		
+		// 포인트 사용 여부 기록
+		/* pointService.useMemberPoint(kakaoPayApprovalVo.getPartner_order_id()); */
+		
 		return "redirect:/order/success";
 	}
 	

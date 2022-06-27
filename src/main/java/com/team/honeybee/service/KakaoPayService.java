@@ -30,7 +30,7 @@ public class KakaoPayService {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	
-	public String kakaoPayReady(String partner_order_id, String productName, String amount, String total_amount) {
+	public String kakaoPayReady(String partner_user_id, String productName, String quantity, String totalAmount) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// 서버로 요청할 Header
@@ -43,13 +43,13 @@ public class KakaoPayService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME"); // 가맹점 코드
-        params.add("partner_order_id", partner_order_id); // 가맹점 주문번호
-        params.add("partner_user_id", "partner_user_id");// 가맹점 회원 id
+        params.add("partner_order_id", "partner_order_id"); // 가맹점 주문번호
+        params.add("partner_user_id", partner_user_id);// 가맹점 회원 id
         params.add("item_name", productName);// 상품명
-        params.add("quantity", amount); // 상품 수량
-        params.add("total_amount", "5000"); // 총 금액
+        params.add("quantity", quantity); // 상품 수량
+        params.add("total_amount", totalAmount); // 총 금액
         params.add("tax_free_amount", "0"); // 부가세
-        params.add("approval_url", "http://localhost:8080/honeybee/order/kakaoPaySuccess");	// 결제 성공 시 가야할 approval_url
+        params.add("approval_url", "http://localhost:8080/honeybee/order/kakaoPaySuccess?partner_user_id=" + partner_user_id);	// 결제 성공 시 가야할 approval_url
         params.add("cancel_url", "http://localhost:8080/honeybee/order/kakaoPayFail");// 결제 실패 시
         params.add("fail_url", "http://localhost:8080/honeybee/order/kakaoPayCancel/");// 결제 취소 시
  
@@ -74,9 +74,11 @@ public class KakaoPayService {
 	
 	
 	// 카카오 페이 승인 메소드
-		public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token) {
+		public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token, String partner_user_id) {
 			System.out.println("토큰 : " + pg_token);
-			
+			System.out.println(kakaoPayReadyVO.getTid());
+			System.out.println(partner_user_id);
+		
 			RestTemplate restTemplate = new RestTemplate();
 			
 	        // 서버로 요청할 Header
@@ -89,8 +91,8 @@ public class KakaoPayService {
 	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 	        params.add("cid", "TC0ONETIME"); // 가맹점 코드
 	        params.add("tid", kakaoPayReadyVO.getTid());   // ready때 담은 tid
-	        params.add("partner_order_id", kakaoPayReadyVO.getPartner_order_id()); // 가맹점 주문번호
-	        params.add("partner_user_id", "partner_user_id");  // 가맹점 회원 id
+	        params.add("partner_order_id", "partner_order_id"); // 가맹점 주문번호
+	        params.add("partner_user_id", partner_user_id);  // 가맹점 회원 id
 	        params.add("pg_token", pg_token); // 결재 요청시, 성공할 때 받은 토큰
 	        
 	        // 요청할 부분을 담는 객체

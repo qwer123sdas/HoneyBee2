@@ -315,20 +315,20 @@ td {
                     
                         <div class="OrderSummary">
                         	<h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-				                <span>총 서비스 금액</span>
-				                <span class="priceTotal">${board.price }원</span>
+				                <span>총 결제 금액</span>
+				                <span class="priceTotal" id="priceTotal">${board.price }</span>원
 				                
 				            </h5>
 				            <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-					            <span >쿠폰 할인</span>
-					            <span class="">0원</span>
+					            <span >포인트 할인</span>
+					            <span id="pointTotal">0</span>원
 					        </h5>
 				            
 				            <div class="OrderSummary-divider"></div>
                         	
 		                    <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
 					            <span>총 결제금액</span>
-					            <span id="finalPayment">${board.price }원</span>
+					            <span class="p-2" class="finalPayment" id="finalPayment">${board.price }</span>원
 					        </h5>
 					        
 				            <div>
@@ -357,13 +357,14 @@ td {
                     	<section class="OrderInfo">
 	                    	<!-- 주문 INFO  -->
 	                    	<div>
-	                    		<h3 class="OrderTitle mb-4">포인트 사용</h3>
+	                    		<h3 class="OrderTitle mb-4">포인트 사용, 보유포인트 : ${memberPoint }</h3>
 	                    		<div class="row mb-5">
 	                    			<div class="col-2">
 	                    				<h3>포인트</h3>
 	                    			</div>
 	                    			<div class="col-10">
-										<input type="number" /> <button>전액사용</button>
+										<input type="number" value="" id="usePoint"/> 
+										<button id="usePointButton">사용하기</button>
 	                    			</div>
 	                    		</div>
 	                    	</div>
@@ -406,6 +407,19 @@ td {
 		</div>
 	</div>
     <script>
+    /* 최종 금액 */	
+	let payment = function(){
+        var finalPayment = $('#finalPayment').text();
+        var priceTotal = $('#priceTotal').text();
+        var point = document.getElementById('usePoint').value;
+        console.log(finalPayment);
+        console.log(priceTotal);
+        console.log(point);
+        var result = (Number(priceTotal) - Number(point));
+        $("#finalPayment").text(result);
+    }
+    
+    
     /* 판매 금액 */
     var sellPrice = ${board.price};
     
@@ -420,8 +434,9 @@ td {
 				$("#amount").text(amount);
 			}else{
 				$("#amount").text(plusAmount);
-				$(".priceTotal").text(priceTotal + '원');
+				$(".priceTotal").text(priceTotal);
 			}
+			payment();
 		});
 		
 		$('#minusButton').click(function(){
@@ -431,13 +446,21 @@ td {
 			
 			if(amount > 1){
 				$("#amount").text(minusAmount);
-				$(".priceTotal").text(priceTotal + '원');
+				$(".priceTotal").text(priceTotal);
 			}else{
 				$("#amount").text(amount);
 			}
+			payment();
 		});
     });
+    
     /* 포인트 */
+    /*버튼 누르면 포인트 적용*/
+    $('#usePointButton').click(function(){
+    	var point = document.getElementById('usePoint').value;
+    	 document.getElementById('pointTotal').innerText = point;
+    	 payment();
+    })
     /* 최대 포인트 사용 가능 금액 */
     var totalDiscount = Number(sellPrice) * 50 / 100; 
     console.log("최대 할인 " + totalDiscount);
@@ -455,8 +478,8 @@ td {
     	  // 카카오페이 결제
     		kakaopay:function(){
     			var data = {'productName' : '${board.productName}',
-    					    'amount' : $('#amount').text(),
-    					    'finalPayment' : $('#finalPayment').text()
+    						'quantity' : $('#amount').text(),
+    						'totalAmount' : $('#finalPayment').text()
     					  }
     			$.ajax({
     				url:"${appRoot}/kakaopay",

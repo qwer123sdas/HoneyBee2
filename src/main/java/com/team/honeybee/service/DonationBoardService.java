@@ -2,7 +2,13 @@ package com.team.honeybee.service;
 
 import java.io.IOException;
 import java.lang.annotation.Target;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -42,6 +48,9 @@ public class DonationBoardService {
 	
 	@Autowired
 	DonationPayMapper payMapper;
+	
+	@Autowired
+	PointService pointService;
 	
 	@Autowired
 	SummerNoteMapper summerNoteMapper;
@@ -189,6 +198,7 @@ public class DonationBoardService {
 	//--------------------------------------------------------------------------------------------------------------------
 	
 	// 기부금 결제
+	@Transactional
 	public void donate(int donationId, int amount, String content, String memberId) {
 		// 후기 저장
 		DonationReplyDto replyDto = new DonationReplyDto();
@@ -203,6 +213,19 @@ public class DonationBoardService {
 		
 		// 총 모금액 기록
 		payMapper.addAmount(donationId);
+		
+		
+		// 포인트 적립
+		
+		int point = amount / 10; // 10% 적립금
+		Date now = new Date(); //유효기간 1년
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(now);
+		cal.add(Calendar.YEAR, 1); //1년 더하기
+		Date date = cal.getTime();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // mysql date형식에 맞게 변환
+		
+		pointService.pointAdd(memberId, point, df.format(date), "기부금적립");
 		
 	}
 
