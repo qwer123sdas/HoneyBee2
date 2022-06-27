@@ -8,17 +8,18 @@
 <c:url value="/member/index" var="mainPageUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
 <c:url value="/member/info" var="pwInfoUrl"></c:url>
-<c:url value="/member/info" var="memberInfoUrl"></c:url>
+<c:url value="/member/info" var="memberInfoUrl" scope='request'></c:url>
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
 <c:url value="/member/changePw" var="changePasswordUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
+<c:url value="/member/faqList" var="faqUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal" />
-	<c:url value="/member/info" var="memberInfoUrl">
+	<c:url value="/member/info" var="memberInfoUrl" scope='request'>
 		<c:param name="memberId" value="${principal.username }" />
 	</c:url>
 </sec:authorize>
@@ -169,14 +170,12 @@
 						href="${mainPageUrl }">홈</a>
 				</li>
 			</sec:authorize>
-
-			<ul>
+			
 				<li class="nav-item">
 					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
 						href="${aboutUrl }">About 꿀비</a>
 				</li>
-			</ul>
-
+				
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<a class="nav-item nav-link" href="#">기부하기</a>

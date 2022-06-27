@@ -1,5 +1,7 @@
 package com.team.honeybee.mapper;
 
+import java.util.*;
+
 import org.apache.ibatis.annotations.*;
 
 import com.team.honeybee.domain.*;
@@ -37,8 +39,17 @@ public interface MemberMapper {
 	MemberDto selectMemberById(String memberId);
 	// 회원 이메일 가져오기
 	String selectEmailById(String memberId);
-
+	// 회원 프로필 사진 업로드
 	void updateFile(@Param("memberId") String memberId,@Param("profile")  String profile);
-
+	//상담내용 가져오기
+	List<FaqDto> Faqlist(String memberId);
+	//상담내용(그림)그림 가져오기
+	List<String> selectFileNameById(int questionId);
+	//상담내용 제거
+	int deleteFaq(int questionId);
+    //s3에서 지우고 그림 파일 테이블 삭제
+	void deleteFileById(int id);
+	//상담 내용 불러오기  
+	FaqDto getFaq(int questionId);
 
 }

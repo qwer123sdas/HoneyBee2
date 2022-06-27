@@ -97,7 +97,7 @@
 		WHERE member_id = #{memberId}
 	</select>
 	
-	<!-- 회원 비밀번호 초기화 -->
+	<!-- 회원 비밀번호 변경 -->
 	<update id="initPwByMemberId">
 		UPDATE Member
 		SET pw = #{pw}
@@ -117,12 +117,46 @@
 		SET profile = #{profile}
 		WHERE member_id = #{memberId}
 	</update>
-
-	<!-- insert 버전 -->
-	<!-- 
-	<insert id="insertFile">
-		INSERT INTO Member (member_id, profile)
-		VALUES (#{memberId}, #{profile})
-	</insert>
-	 -->
+	
+	<!-- 정현씨 부분 start -->
+	<!-- 마이페이지 상담리스트 가져오기-->
+	<select id="Faqlist"
+		resultType="com.team.honeybee.domain.FaqDto">
+		SELECT question_id questionId,
+		member_id memberId,
+		title,
+		inserted,
+		email,
+		enable
+		FROM Faq
+		WHERE member_id = #{memberId}
+		order by enable DESC, question_id desc
+		
+	</select>
+	<!-- 마이페이지 상담내용 가져오기 -->
+	<select id="getFaq" resultType="com.team.honeybee.domain.FaqDto">
+	SELECT question_id questionId,
+	       member_id memberId,
+	       title,
+	       content, 
+	       email
+	  FROM Faq
+	  WHERE question_id = #{questionId}
+	</select>
+	<!-- s3에서 지우고 그림파일 삭제 -->
+	<delete id="deleteFileById">
+		DELETE FROM FaqFile
+		WHERE question_id = #{questionId}
+	</delete>
+	<!--상담내용(그림) 가져오기  -->
+	<select id="selectFileNameById" resultType="string">
+		SELECT file fileName
+		FROM FaqFile
+		WHERE question_id = #{questionId}
+	</select>
+	<!-- 상담내용 제거-->
+	<delete id="deleteFaq">
+		DELETE FROM Faq
+		WHERE question_id = #{questionId}
+	</delete>
 </mapper> 

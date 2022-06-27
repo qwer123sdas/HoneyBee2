@@ -30,6 +30,10 @@
 <title>꿀비 로그인</title>
 
 <style>
+	img{
+		width: 480px;
+		height: 180px;
+	}
 	.main-container{
 		width:100%;
 		display:flex;
@@ -39,7 +43,16 @@
 	}
 	
 	.main-container .main-wrap{
-		width: 768px;
+		border: 3px solid #f9bf2d;
+		padding: 40px;
+		display: inline-block;
+		width: 500px;
+		min-width: 400px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+    	border-radius: 10px;
+    	-webkit-transition: all 0.4s ease;
+    	transition: all 0.4s ease;
 	}
 	
 	.main-container .main-wrap header .logo-wrap {
@@ -81,30 +94,32 @@
 		font-size: 18px;
 		background: #fbc02d;
 		border: #fbc02d;
+		align-items: center;
 	}
-	.footer{
-		padding-top: 95px;
-		padding-bottom: 15px;
-		display:flex;
-		flex-direction:column;
-		align-items:center;
-		width:768px;
-	}
-	footer .find-idpw-wrap-button{
+	section .find-idpw-wrap-button{
 		margin: auto;
 		padding-left: 20px;
 		font-size: 18px;
+		text-align:center;
+		display: felx;
 	}
-	footer .find-idpw-wrap{
+	section .find-idpw-wrap{
 		margin: auto;
 		color: #fbc02d;
 		font-size: 14px;
 		padding-top: 10px;
 	}
-	footer .find-idpw-wrap span{
+	section .find-idpw-wrap span{
 		margin: auto;
 		font-size: 13px;
 		line-height: 15px;
+	}
+	footer{
+		padding-top: 95px;
+		padding-bottom: 15px;
+		display:flex;
+		flex-direction:column;
+		width:768px;
 	}
 }
 	
@@ -127,7 +142,7 @@
 			<header>
 				<div class="logo-wrap">
 					<!-- 로고 -->
-					<img src="${appRoot }/resources/webContents/img/honeybee1" alt="" />
+					<img src="${appRoot }/resources/webContents/img/honeybee1.jpg" alt="" />
 				</div>
 			</header>
 			
@@ -148,7 +163,7 @@
 					
 					<!-- 로그인 -->
 					<div class="login-button-wrap">
-						<button type="submit">로그인</button>
+						<button class="btn btn-warning" type="submit">로그인</button>
 					</div>
 
 					<!-- 자동 로그인 -->
@@ -182,7 +197,7 @@
 			
 			<footer>
 				<div class="copyright-wrap">
-					<span><img src="${appRoot }/resources/webContents/img/honeybee1" alt="" />&copy; 2021-2022</span>
+					<span class="d-flex justify-content-sm-center">&copy; 2021-2022</span>
 				</div>
 			</footer>
 		</div>

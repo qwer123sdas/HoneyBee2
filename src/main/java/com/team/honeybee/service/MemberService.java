@@ -1,6 +1,7 @@
 package com.team.honeybee.service;
 
 import java.io.*;
+import java.util.*;
 
 import javax.annotation.*;
 
@@ -197,5 +198,62 @@ public class MemberService {
 	public void changePw(String memberId, String newPw) {
 		String encodedPw = passwordEncoder.encode(newPw);
 		mapper.updatePw(memberId, encodedPw);
+	}
+	
+	private void saveFileAwsS3(int id, MultipartFile file) {
+		String key = "faq/" + id + "/" + file.getOriginalFilename();
+
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder().acl(ObjectCannedACL.PUBLIC_READ)
+				.bucket(bucketName).key(key).build();
+		RequestBody requestBody;
+		try {
+			requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
+			s3.putObject(putObjectRequest, requestBody);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
+	//상담내용 리스트 가져오기
+	public List<FaqDto> faqList(String memberId) {
+		// TODO Auto-generated method stub
+		return mapper.Faqlist(memberId);
+	}
+
+	@Transactional
+	//상담내용 제거
+	public boolean removefaqId(int questionId) {
+		List<String> fileList = mapper.selectFileNameById(questionId);
+
+		removeFiles(questionId, fileList);
+
+		int cnt = mapper.deleteFaq(questionId);
+
+		return cnt == 1;
+	}
+
+	private void removeFiles(int id, List<String> fileList) {
+		// s3에서 지우기
+		for (String fileName : fileList) {
+			deleteFormAwsS3(id, fileName);
+		}
+
+		// 파일 테이블 삭제
+		mapper.deleteFileById(id);
+	}
+	//상담내용 사진 삭제
+	private void deleteFormAwsS3(int id, String fileName) {
+		String key = "faq/" + id + "/" + fileName;
+
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+
+		s3.deleteObject(deleteObjectRequest);
+
+	}
+    //상담 내용 불러오기
+	public FaqDto getFaqById(int questionId) {
+		// TODO Auto-generated method stub
+		return mapper.getFaq(questionId);
 	}
 }

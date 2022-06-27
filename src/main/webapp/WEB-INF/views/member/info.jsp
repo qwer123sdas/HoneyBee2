@@ -155,10 +155,11 @@
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12">
+		<my:mypage></my:mypage>
+			<div class="col-8 mt-5 ms-5">
 				<form id="form1" action="${appRoot }/member/modify" method="post"
 					enctype="multipart/form-data">
-					<h1>마이페이지</h1>
+					<h1>회원 정보 변경</h1>
 
 					<div>
 						<p>${message }</p>

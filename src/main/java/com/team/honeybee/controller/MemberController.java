@@ -1,22 +1,21 @@
 package com.team.honeybee.controller;
 
-import java.security.Principal;
-import java.util.Random;
+import java.security.*;
+import java.util.*;
 
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
+import javax.mail.internet.*;
+import javax.servlet.http.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.mail.javamail.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.*;
 
-import com.team.honeybee.domain.MemberDto;
-import com.team.honeybee.service.MemberService;
+import com.team.honeybee.domain.*;
+import com.team.honeybee.service.*;
 
 @Controller
 @RequestMapping("member")
@@ -260,6 +259,35 @@ public class MemberController {
 	public void aboutForm() {
 		
 	}
+	
+	// 마이페이지 상담내역
+	@RequestMapping("faqList")
+	public void faqList(Model model,Principal principal) {
+		List<FaqDto> list = service.faqList(principal.getName());
+		System.out.println(list);
+		model.addAttribute("faqList",list);
+}
+	//마이페이지 상담 내용 불러오기
+	@GetMapping("faqGet")
+	public void faqGet(int questionId,Model model) {
+		FaqDto faq =service.getFaqById(questionId);
+		model.addAttribute("faq",faq);
+	}
+	//마이 페이지 삭제
+	@PostMapping("delete")
+	public String removeFaq(@RequestParam("questionIdList") List<Integer> questionIdList,RedirectAttributes rttr) {
+		boolean success = false;
+		for(int questionId : questionIdList) {			
+			success = service.removefaqId(questionId);
+		}
+		if (success) {
+			rttr.addFlashAttribute("message", "글이 삭제 되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "글이 삭제 되지않았습니다.");
+		}
+		return "redirect:/member/faqList";
+		}
+
 }
 
 
