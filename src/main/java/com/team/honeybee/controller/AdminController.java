@@ -29,17 +29,20 @@ public class AdminController {
 	@Autowired
 	AdminService service;
 	
+	// 메인페이지
 	@RequestMapping("index")
 	public void index() {
 		
 	}
 	
+	// 회원페이지 보기
 	@RequestMapping("member")
 	public void member(Model model) {
 		List<MemberDto> member = service.getMember();
 		model.addAttribute("member", member);
 	}
 	
+	// 회원수정
 	@PostMapping("updateMember.do")
 	public String updateMember(MemberDto member, RedirectAttributes rttr) {
 		boolean success = service.updateMember(member);
@@ -51,6 +54,7 @@ public class AdminController {
 		return "redirect:/admin/member";
 	}
 	
+	// 회원삭제
 	@PostMapping("deleteMember.do")
 	public String deleteMember(String memberId, RedirectAttributes rttr) {
 		boolean success = service.deleteMember(memberId);
@@ -62,6 +66,7 @@ public class AdminController {
 		return "redirect:/admin/member";
 	}
 	
+	// 기부게시글 전체보기
 	@RequestMapping("donation")
 	public void donation(Model model) {
 		List<DonationDto> donationList = service.getDonationList();
@@ -69,29 +74,34 @@ public class AdminController {
 		model.addAttribute("donation", donationList);
 	}
 	
+	// 기부게시글 내용보기
 	@GetMapping("getDonation")
 	public void getDonation(int donationId, Model model) {
 		DonationDto dto = service.getDonation(donationId);
 		model.addAttribute("donation", dto);
 	}
 	
+	// 기부게시글 등록허용
 	@PostMapping("registerDonation")
 	public String registerDonation(int donationId) {
 		service.registerDonation(donationId);
 		return "redirect:/admin/donation";
 	}
 	
+	// 기부게시글 삭제
 	@PostMapping("removeDonation")
 	public String removeDonation() {
 		return "redirect:/admin/donation";
 	}
 	
+	// 재능판매게시글 전체보기
 	@RequestMapping("talent")
 	public void talent(Model model) {
 		List<TalentDto> talentList = service.getTalentList();
 		model.addAttribute("talent", talentList);
 	}
 	
+	// 재능판매게시글 내용보기
 	@RequestMapping("getTalent")
 	public void getTalent(int talentId, Model model) {
 		TalentDto dto = service.getTalent(talentId);
@@ -99,24 +109,29 @@ public class AdminController {
 		model.addAttribute("talent", dto);
 	}
 	
+	// 재능판매게시글 등록허용
 	@PostMapping("registerTalent")
 	public String registerTalent(int talentId) {
 		service.registerTalent(talentId);
 		return "redirect:/admin/talent";
 	}
 	
+	// 모임게시글 전체보기
 	@RequestMapping("meeting")
 	public void meeting(Model model) {
 		List<MeetingDto> meetingList = service.getMeetingList();
 		model.addAttribute("meeting", meetingList);
 	}
 	
+	// 모임게시글 내용보기
 	@RequestMapping("getMeeting")
 	public void getMeeting(int meetingId, Model model) {
 		MeetingDto dto = service.getMeeting(meetingId);
+		System.out.println(dto);
 		model.addAttribute("meeting", dto);
 	}
 	
+	// 기부마켓 전체보기
 	@RequestMapping("market")
 	public void market(Model model) {
 		List<MarketDto> marketList = service.getMarketList();
@@ -124,11 +139,13 @@ public class AdminController {
 		model.addAttribute("market", marketList);
 	}
 	
+	// 기부마켓 등록페이지보기
 	@GetMapping("insert")
 	public void insert() {
 		
 	}
 	
+	// 기부마켓 등록하는 작업
 	@PostMapping("insert")
 	public String insertMarket(MarketDto dto, @RequestParam("file") MultipartFile[] file, RedirectAttributes rttr) {
 		
@@ -152,6 +169,7 @@ public class AdminController {
 		return "redirect:/admin/market";
 	}
 	
+	// 기부마켓 글 수정하기
 	@PostMapping("updateMarket.do")
 	public String updateMarket(MarketDto dto, 
 			@RequestParam(name = "removeFileList", required = false) ArrayList<String> removeFileList,
@@ -163,6 +181,7 @@ public class AdminController {
 		return "redirect:/admin/market";
 	}
 	
+	// 기부마켓 글 삭제하기
 	@PostMapping("deleteMarket.do")
 	public String deleteMarket(MarketDto dto, RedirectAttributes rttr) {
 		boolean success = service.deleteMarket(dto.getMarketId());
@@ -170,12 +189,14 @@ public class AdminController {
 		return "redirect:/admin/market";
 	}
 	
+	// 기부마켓 글 내용보기
 	@GetMapping("getMarket")
 	public void getMarket(int marketId, Model model) {
 		MarketDto dto = service.getMarketById(marketId);
 		model.addAttribute("market", dto);
 	}
 	
+	// 1대1문의 글 전체보기
 	@RequestMapping("faq")
 	public void faq(Model model) {
 		List<FaqDto> faqList = service.getFaqList();

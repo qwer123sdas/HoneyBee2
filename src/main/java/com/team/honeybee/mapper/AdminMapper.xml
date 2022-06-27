@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.AdminMapper">
+	<!-- 회원목록 가져오기 -->
 	<select id="getMember" resultType="com.team.honeybee.domain.MemberDto">
 		SELECT 
 			member_id memberId,
@@ -15,6 +16,7 @@
 		 WHERE member_id != 'admin'
 		 ORDER BY create_date DESC
 	</select>
+	<!-- 회원수정하기 -->
 	<update id="modifyMember">
 		UPDATE Member
 		SET member_id = #{memberId},
@@ -25,10 +27,12 @@
 			phone = #{phone}
 		WHERE member_id = #{memberId}
 	</update>
+	<!-- 회원삭제하기 -->
 	<delete id="deleteMember">
 		DELETE FROM Member
 		WHERE member_id = #{memberId}
 	</delete>
+	<!-- 기부게시글 전체가져오기 -->
 	<select id="getDonationAll" resultType="com.team.honeybee.domain.DonationDto">
 		SELECT d.donation_id donationId,
 				d.title,
@@ -47,7 +51,7 @@
 		GROUP BY d.donation_id
 		ORDER BY enable ASC, expired ASC
 	</select>
-	
+	<!-- 기부게시글 내용가져오기 -->
 	<select id="getDonationById" resultType="com.team.honeybee.domain.DonationDto">
 		SELECT d.donation_id donationId,
 				d.title,
@@ -64,13 +68,13 @@
 						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
 		WHERE d.donation_id = #{donationId} AND bi.main_image_name IS NOT NULL
 	</select>
-	
+	<!-- 기부게시글 등록허용 -->
 	<update id="registerDonation">
 		UPDATE Donation
 		SET enable = 1
 		WHERE donation_id = #{donationId}
 	</update>
-	
+	<!-- 재능판매게시글 전체가져오기 -->
 	<select id="getTalentAll" resultType="com.team.honeybee.domain.TalentDto">
 		SELECT t.talent_id talentId,
 			   t.title,
@@ -84,7 +88,7 @@
 		GROUP BY talentId
 		ORDER BY enable ASC, talentId DESC
 	</select>
-	
+	<!-- 재능판매게시글 내용가져오기 -->
 	<select id="getTalentById" resultType="com.team.honeybee.domain.TalentDto">
 		SELECT t.talent_id talentId,
 			   t.title,
@@ -102,13 +106,13 @@
 					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
 		WHERE t.talent_id = #{talentId} AND bi.main_image_name IS NOT NULL
 	</select>
-	
+	<!-- 재능판매 등록허용 -->
 	<update id="registerTalent">
 		UPDATE Talent
 		SET enable = 1
 		WHERE talent_id = #{talentId}
 	</update>
-	
+	<!-- 모임게시글 전체가져오기 -->
 	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
 		SELECT m.meeting_id meetingId, 
 			   m.title, 
@@ -121,11 +125,30 @@
 		GROUP BY m.meeting_id
 		ORDER BY m.meeting_id DESC
 	</select>
-	
+	<!-- 모임게시글 내용가져오기 -->
 	<select id="getMeetingById" resultType="com.team.honeybee.domain.MeetingDto">
-		
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.tag,
+				m.nickname,
+				f.file mainPhoto,
+				t.hash_tag hashTag,
+				g.member_id guest
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
+						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
+						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
+		WHERE mt.meeting_id = #{meetingId}
 	</select>
-	
+	<!-- 기부마켓게시글 전체가져오기 -->
 	<select id="getMarketAll" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT m.market_id marketId,
 			   m.member_id memberId,
@@ -138,7 +161,7 @@
 		GROUP BY m.market_id
 		ORDER BY m.market_id DESC
 	</select>
-	
+	<!-- 기부마켓게시글 내용가져오기 -->
 	<select id="selectMarketById" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT market_id marketId,
 			   member_id memberId,
@@ -152,18 +175,18 @@
 		FROM Market
 		WHERE market_id = #{marketId}
 	</select>
-	
+	<!-- 기부마켓아이디로 파일이름들 가져오기 -->
 	<select id="selectFileNameByMarketId" resultType="string">
 		SELECT file fileName
 		FROM MarketFile
 		WHERE market_id = #{marketId}
 	</select>
-	
+	<!-- 기부마켓 글 등록하기 -->
 	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="marketId" keyProperty="marketId">
 		INSERT INTO Market (member_id, title, content, price, product_name)
 		VALUES(#{memberId}, #{title}, #{content}, #{price}, #{productName})
 	</insert>
-	
+	<!-- 기부마켓 글 수정하기 -->
 	<update id="updateMarket">
 		UPDATE Market
 		SET title = #{title},
@@ -172,28 +195,28 @@
 			price = #{price}
 		WHERE market_id = #{marketId}
 	</update>
-	
+	<!-- 기부마켓 글 삭제하기 -->
 	<delete id="deleteMarket">
 		DELETE FROM Market
 		WHERE market_id = #{marketId}
 	</delete>
-	
+	<!-- 기부마켓 파일 등록하기 -->
 	<insert id="insertFile">
 		INSERT INTO MarketFile (market_id, file)
 		VALUES (#{marketId}, #{file})
 	</insert>
-	
+	<!-- 기부마켓아이디로 파일 삭제하기 -->
 	<delete id="deleteFileByMarketId">
 		DELETE FROM MarketFile
 		WHERE market_id = #{marketId}
 	</delete>
-	
+	<!-- 기부마켓아이디와 파일이름으로 파일 삭제하기 -->
 	<delete id="deleteFileByMarketIdAndFileName">
 		DELETE FROM MarketFile
 		WHERE market_id = #{marketId}
 			AND file = #{file}
 	</delete>
-	
+	<!-- 1대1문의 글 전체가져오기 -->
 	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">
 		SELECT f.question_id questionId, 
 			   f.member_id memberId, 

@@ -52,6 +52,8 @@
 							    <h4 class="card-title">${talent.title }</h4>
 							    <p><strong>닉네임 : </strong> ${talent.nickname }</p>
 							    <p><strong>마감날짜 : </strong> ${talent.expired }</p>
+							    <p><strong>등록여부</strong><c:if test="${talent.enable == 1 }">등록허용</c:if>
+							    <c:if test="${talent.enable == 0 }">등록전</c:if></p>
 							    <a href="${getUrl }" class="stretched-link"></a>
 							  </div>
 							</div>			

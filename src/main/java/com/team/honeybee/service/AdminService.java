@@ -56,30 +56,37 @@ public class AdminService {
 		this.s3.close();
 	}
 
+	// 멤버 수정
 	public boolean updateMember(MemberDto member) {
 		return mapper.modifyMember(member) == 1;
 	}
 
+	// 멤버 삭제
 	public boolean deleteMember(String memberId) {
 		return mapper.deleteMember(memberId) == 1;
 	}
 
+	// 기부게시글 리스트가져오기
 	public List<DonationDto> getDonationList() {
 		return mapper.getDonationAll();
 	}
 	
+	// 재능판매게시글 리스트가져오기
 	public List<TalentDto> getTalentList() {
 		return mapper.getTalentAll();
 	}
 
+	// 1대1문의 글 리스트가져오기
 	public List<FaqDto> getFaqList() {
 		return mapper.getFaqAll();
 	}
 
+	// 모임게시글 리스트 가져오기
 	public List<MeetingDto> getMeetingList() {
 		return mapper.getMeetingAll();
 	}
 
+	// 기부마켓 등록하기
 	@Transactional
 	public boolean insertMarket(MarketDto market, MultipartFile[] files) {
 		int cnt = mapper.inserMarket(market);
@@ -89,6 +96,7 @@ public class AdminService {
 		return cnt == 1;
 	}
 	
+	// 파일등록하기
 	private void addFiles(int id, MultipartFile[] files) {
 		// 파일 등록 
 		if (files != null) {
@@ -101,6 +109,7 @@ public class AdminService {
 		}
 	}
 	
+	// AWS S3에 마켓관련 파일 올리기
 	private void saveFileAwsS3(int id, MultipartFile file) {
 		String key = "market/" + id + "/" + file.getOriginalFilename();
 		
@@ -123,10 +132,12 @@ public class AdminService {
 		
 	}
 
+	// 기부마켓 글 리스트 가져오기
 	public List<MarketDto> getMarketList() {
 		return mapper.getMarketAll();
 	}
 
+	// 기부마켓 글 내용보기
 	public MarketDto getMarketById(int id) {
 		MarketDto market = mapper.selectMarketById(id);
 		List<String> fileNames = mapper.selectFileNameByMarketId(id);
@@ -137,11 +148,12 @@ public class AdminService {
 		return market;
 	}
 
+	// 기부마켓 수정하기
 	@Transactional
 	public boolean updateMarket(MarketDto dto, ArrayList<String> removeFileList, MultipartFile[] addFileList) {
 		if (removeFileList != null) {
 			for (String fileName : removeFileList) {
-				deleteFromAwsS3(dto.getMarketId(), fileName);
+				deleteFromAwsS3Market(dto.getMarketId(), fileName);
 				mapper.deleteFileByMarketIdAndFileName(dto.getMarketId(), fileName);
 			}
 		}
@@ -154,7 +166,8 @@ public class AdminService {
 		return mapper.updateMarket(dto) == 1;
 	}
 	
-	private void deleteFromAwsS3(int id, String fileName) {
+	// AWS S3 기부마켓관련 파일 삭제하기
+	private void deleteFromAwsS3Market(int id, String fileName) {
 		String key = "market/" + id + "/" + fileName;
 		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
@@ -164,7 +177,68 @@ public class AdminService {
 		
 		s3.deleteObject(deleteObjectRequest);
 	}
+	
+	// AWS S3 기부게시판관련 파일 삭제하기
+	private void deleteFromAwsS3Donation(int id, String fileName) {
+		String key = "donation/mainPhoto/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+	
+	// AWS S3 재능판매관련 파일 삭제하기
+	private void deleteFromAwsS3Talent(int id, String fileName) {
+		String key = "talent/mainPhoto/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+	
+	// AWS S3 모임게시판관련 파일 삭제하기
+	private void deleteFromAwsS3Meeting(int id, String fileName) {
+		String key = "meeting/mainPhoto/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+	
+	// AWS S3 1대1문의관련 파일 삭제하기
+	private void deleteFromAwsS3Faq(int id, String fileName) {
+		String key = "faq/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+	
+	// AWS S3 회원관련 파일 삭제하기
+	private void deleteFromAwsS3Memeber(int id, String fileName) {
+		String key = "member/" + id + "/" + fileName;
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
 
+	// 기부마켓 글 삭제하기
 	@Transactional
 	public boolean deleteMarket(int marketId) {
 		List<String> fileList = mapper.selectFileNameByMarketId(marketId);
@@ -173,35 +247,41 @@ public class AdminService {
 		return cnt == 1;
 	}
 	
+	// s3에서 파일 지우기 위한 메소드
 	private void removeFiles(int id, List<String> fileList) {
 		// s3에서 지우기
 		for (String fileName : fileList) {
-			deleteFromAwsS3(id, fileName);
+			deleteFromAwsS3Market(id, fileName);
 		}
 		
 		// 파일테이블 삭제
 		mapper.deleteFileByMarketId(id);
 	}
 
+	// 기부게시글 내용보기
 	public DonationDto getDonation(int donationId) {
 		DonationDto donation = mapper.getDonationById(donationId);
 		return donation;
 	}
 
+	// 모임게시글 내용보기
 	public MeetingDto getMeeting(int meetingId) {
 		MeetingDto meeting = mapper.getMeetingById(meetingId);
 		return meeting;
 	}
 
+	// 재능판매게시글 내용보기
 	public TalentDto getTalent(int talentId) {
 		TalentDto talent = mapper.getTalentById(talentId);
 		return talent;
 	}
 
+	// 기부게시글 등록허용
 	public void registerDonation(int donationId) {
 		mapper.registerDonation(donationId);
 	}
 
+	// 재능판매게시글 등록허용
 	public void registerTalent(int talentId) {
 		mapper.registerTalent(talentId);
 	}
