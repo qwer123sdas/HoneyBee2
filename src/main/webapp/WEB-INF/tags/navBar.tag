@@ -24,35 +24,6 @@
 </sec:authorize>
 
 <style>
-
-#aside {
-	background-color: #ffca28;
-	float: left;
-	width: 280px%;
-	padding: 75px 0 32px;
-	box-sizing: border-box;
-}
-
-#aside {
-	display: none;
-	position: sticky;
-	position: -webit-sticky;
-	top: -30px;
-}
-
-.sidebarToggle {
-	position: absolute;
-	top: 30px;
-	left: 30px;
-	z-index: 300;
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	border: 1px solid #eee;
-	border-radius: 50%;
-	outline: none;
-}
-
 #fa-solid fa-bars {
 	color: #fffd61;
 }
@@ -135,18 +106,6 @@
 
 </style>
 
-<script>
-	$(document).ready(function() {
-		$("#sidebarToggle").click(function() {
-			if ($("#aside").css("display") == "none") {
-				$("#aside").fadeIn(500);
-			} else {
-				$("#aside").hide();
-			}
-		});
-	});
-</script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
@@ -172,61 +131,6 @@
     <!-- Template Stylesheet -->
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-
-<aside id="aside" class="sidebar">
-	<div class="sidebar1">
-		<!-- 홈화면 -->
-		<div class="home">
-			<ul>
-				<li>
-					<a class="nav-link ${current == 'index' ? 'active' : '' }"
-						href="${mainPageUrl }">홈</a>
-				</li>
-			</ul>
-		</div>
-
-		<!-- 1:1 문의 -->
-		<div class="inquiry">
-			<h3>1:1 문의</h3>
-		</div>
-
-		<!-- 내가 쓴 기부 확인 -->
-		<div class="myDonate">
-			<h3>내가 쓴 기부 확인</h3>
-		</div>
-
-		<!-- 내가 쓴 리뷰 확인 -->
-		<div class="myReview">
-			<h3>내가 쓴 리뷰 확인</h3>
-		</div>
-
-		<!-- 주문 결제 -->
-		<div class="order">
-			<h3>주문 결제</h3>
-		</div>
-
-		<!-- 마이페이지 -->
-		<div class="myPage">
-			<ul>
-				<li>
-					<a href="${memberInfoUrl }"
-						class="nav-link ${current == 'memberInfo' ? 'active' : '' }">마이페이지</a>
-				</li>
-			</ul>
-		</div>
-
-		<!-- 고객센터 -->
-		<div class="customerService">
-			<h3>고객센터</h3>
-		</div>
-
-		<!-- 의견 보내기 -->
-		<div class="sendOpinion">
-			<h3>의견 보내기</h3>
-		</div>
-
-	</div>
-</aside>
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
@@ -293,7 +197,7 @@
 			<div class="d-none">
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">둘러보기<i class="fa fa-arrow-right ms-3"></i></a>
 		</div>
 	</div>
 					<!-- 

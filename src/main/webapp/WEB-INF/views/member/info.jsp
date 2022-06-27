@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <%@ page import="java.util.*"%>
-<%request.setCharacterEncoding("utf-8");%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,26 +36,26 @@
 		let emailCheck = true;
 		// 닉네임 중복 확인 여부
 		let nickNameCheck = true;
-		
+
 		// 기존 이메일
 		const oldEmail = $("#emailInput1").val();
 		// 기존 닉네임
 		const oldNickName = $("#nickNameInput1").val();
-		
+
 		// 수정 버튼 활성화 함수
 		const enableModifyButton = function() {
-			if(pwCheck && emailCheck && nickNameCheck) {
+			if (pwCheck && emailCheck && nickNameCheck) {
 				$("#modifySubmitButton1").removeAttr("disabled", "");
 			} else {
 				$("#modifySubmitButton1").attr("disabled", "");
 			}
 		}
-		
+
 		// 이메일 input 요소에 text 변경시 이메일 수정 버튼 활성화
 		$("#emailInput1").keyup(function() {
 			const newEmail = $("#emailInput1").val();
-			
-			if(oldEmail === newEmail) {
+
+			if (oldEmail === newEmail) {
 				$("#emailCheckButton1").attr("disabled", "");
 				$("#emailMessage1").text("");
 				emailCheck = true;
@@ -66,37 +68,39 @@
 		// 닉네임 input 요소에 text 변경시 닉네임 수정 버튼 활성화
 		$("#nickNameInput1").keyup(function() {
 			const newNickName = $("#nickNameInput1").val();
-			
-			if(oldNickName === newNickName) {
+
+			if (oldNickName === newNickName) {
 				$("#nickNameCheckButton1").attr("disabled", "");
 				$("#nickNameMessage1").text("");
 				nickNameCheck = true;
-				
+
 			} else {
 				$("#nickNameCheckButton1").removeAttr("disabled");
 				nickNameCheck = false;
 			}
 			enableModifyButton();
 		});
-		
+
 		// 이메일 수정 버튼 클릭시 ajax 요청
 		$("#emailCheckButton1").click(function(e) {
 			e.preventDefault();
-			
-			const data = {email : $("#emailInput1").val()};
-			
+
+			const data = {
+				email : $("#emailInput1").val()
+			};
+
 			emailCheck = false;
 			$.ajax({
 				url : "${appRoot}/member/email/check",
 				type : "post",
 				data : data,
 				success : function(data) {
-					switch(data) {
-					case "good" :
+					switch (data) {
+					case "good":
 						$("#emailMessage1").text("변경이 가능한 이메일입니다.");
 						emailCheck = true;
 						break;
-					case "bad" :
+					case "bad":
 						$("#emailMessage1").text("변경이 불가능한 이메일입니다.");
 						break;
 					}
@@ -112,21 +116,23 @@
 		// 닉네임 수정 버튼 클릭시 ajax 요청
 		$("#nickNameCheckButton1").click(function(e) {
 			e.preventDefault();
-			
-			const data = {nickname : $("#nickNameInput1").val()};
-			
+
+			const data = {
+				nickname : $("#nickNameInput1").val()
+			};
+
 			nickNameCheck = false;
 			$.ajax({
 				url : "${appRoot}/member/nickname/check",
 				type : "post",
 				data : data,
 				success : function(data) {
-					switch(data) {
-					case "good" :
+					switch (data) {
+					case "good":
 						$("#nickNameMessage1").text("변경이 가능한 닉네임입니다.");
 						nickNameCheck = true;
 						break;
-					case "bad" :
+					case "bad":
 						$("#nickNameMessage1").text("변경이 불가능한 닉네임입니다.");
 						break;
 					}
@@ -139,35 +145,6 @@
 				}
 			});
 		});
-		
-		// 비밀번호 & 비밀번호 확인 요소값 변경시
-		$("#pwInput1, #pwInput2").keyup(function() {
-			const pw1 = $("#pwInput1").val();
-			const pw2 = $("#pwInput2").val();
-			
-			if(pw1 === pw2) {
-				$("#pwMessage1").text("비밀번호가 일치합니다.");
-				pwCheck = true;
-			} else {
-				$("#pwMessage1").text("비밀번호가 일치하지 않습니다.");
-				pwCheck = false;
-			}
-			enableModifyButton();
-		});
-		
-		// 수정 submit 버튼 클릭시
-		$("#modifySubmitButton2").click(function(e) {
-			e.preventDefault();
-			
-			const form3 = $("#form3");
-			// input 값 옮기기
-			form3.find("[name=pw]").val($("#pwInput1").val());
-			form3.find("[name=email]").val($("#emailInput1").val());
-			form3.find("[name=nickname]").val($("#nickNameInput1").val());
-			
-			// submit
-			form3.submit();
-		});
 	});
 </script>
 
@@ -179,21 +156,27 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12">
-				<form id="form1" action="${appRoot }/member/modify" method="post" enctype="multipart/form-data">
+				<form id="form1" action="${appRoot }/member/modify" method="post"
+					enctype="multipart/form-data">
 					<h1>마이페이지</h1>
 
 					<div>
 						<p>${message }</p>
 					</div>
-					
-					<!-- 프로필사진 보이는 위치 -->
-					
-					
-					<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
+
+					<input type="hidden" name="memberId"
+						value="${memberInfo.memberId }" readonly />
+
+					프로필 사진
+					<img
+						src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
+						alt="" />
+					<input type="file" name="profileFile"
+						value="${memberInfo.profile }" accept="image/*" />
 					<br />
-					
+
 					이름
-					<input type="text" name="name" value="${memberInfo.name }" readonly/>
+					<input type="text" name="name" value="${memberInfo.name }" readonly />
 					<br />
 					<!-- 
 					비밀번호 <input id="pwInput1" type="text" value="${memberInfo.pw }" />
@@ -202,15 +185,17 @@
 					<p id="pwMessage1"></p>
 					<br />
 					 -->
-					
+
 					이메일
-					<input id="emailInput1" type="email" name="email" value="${memberInfo.email }" />
+					<input id="emailInput1" type="email" name="email"
+						value="${memberInfo.email }" />
 					<button id="emailCheckButton1" disabled>이메일 수정</button>
 					<p id="emailMessage1"></p>
 					<br />
-					
+
 					닉네임
-					<input id="nickNameInput1" type="text" name="nickname" value="${memberInfo.nickname }" />
+					<input id="nickNameInput1" type="text" name="nickname"
+						value="${memberInfo.nickname }" />
 					<button id="nickNameCheckButton1" disabled>닉네임 수정</button>
 					<p id="nickNameMessage1"></p>
 					<br />
@@ -228,13 +213,11 @@
 					전화
 					<input type="text" name="phone" value="${memberInfo.phone }" />
 					<br />
-					프로필 사진
-					<img src="file:///C:/imgtmp/member/${memberInfo.memberId }/${memberInfo.profile }" alt="" />
-					<input type="file" name="profileFile" value="${memberInfo.profile }" accept="image/*"/>
-					<button id="profileUploadButton">업로드</button>
 					<div>
-						<button id="modifySubmitButton1" data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
-						<button type="button" data-bs-toggle="modal" data-bs-target="#modalSheet1">삭제</button>
+						<button type="button" id="modifySubmitButton1"
+							data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
+						<button type="button" data-bs-toggle="modal"
+							data-bs-target="#modalSheet1">삭제</button>
 					</div>
 
 					<a href="updatePw">비밀번호 변경하러 가기</a>
@@ -255,19 +238,23 @@
 				</div>
 				<div class="modal-body">
 					<form id="form2" action="${appRoot }/member/remove" method="post">
-						<input type="hidden" value="${memberInfo.memberId }" name="memberId"/>
-						비밀번호 : <input type="password" name="pw"/>
+						<input type="hidden" value="${memberInfo.memberId }"
+							name="memberId" />
+						비밀번호 :
+						<input type="password" name="pw" />
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button form="form2" type="submit" class="btn btn-danger">회원 탈퇴</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button form="form2" type="submit" class="btn btn-danger">회원
+						탈퇴</button>
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-		<!-- 회원 수정 기존 암호 확인 Modal -->
+	<!-- 회원 수정 기존 암호 확인 Modal -->
 	<div class="modal fade" id="modalSheet2" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -279,16 +266,17 @@
 				</div>
 				<div class="modal-body">
 					<form id="form3" action="${appRoot }/member/modify" method="post">
-						<input type="hidden" value="${memberInfo.memberId }" name="memberId"/>
-						<input type="hidden" name="pw" />
-						<input type="hidden" name="email" />
-						<input type="hidden" name="nickname" />
-						기존 비밀번호 : <input type="password" name="oldPw"/>
+						<input type="hidden" value="${memberInfo.memberId }"
+							name="memberId" />
+						비밀번호 :
+						<input type="password" name="pw" />
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button id="modifySubmitButton2" form="form3" type="submit" class="btn btn-warning">정보 수정</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button id="modifySubmitButton2" form="form1" type="submit"
+						class="btn btn-warning">정보 수정</button>
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>

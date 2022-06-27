@@ -77,8 +77,10 @@
 			postcode = #{postcode},
 			address = #{address},
 			detail = #{detail},
-			phone = #{detail},
-			profile = #{profile}
+			<if test="profile != null">
+			profile = #{profile},
+			</if>
+			phone = #{detail}
 		WHERE member_id = #{memberId}
 	</update>
 	
