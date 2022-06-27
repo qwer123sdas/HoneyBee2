@@ -141,7 +141,7 @@ public class MemberController {
 		
 		if(success) {
 			rttr.addFlashAttribute("message", "회원 탈퇴를 완료하였습니다.");
-			return "redirect:/member/index";
+			return "redirect:/logout";
 		} else {
 			rttr.addFlashAttribute("memberId", dto.getMemberId());
 			return "redirect:/member/info";
@@ -151,9 +151,6 @@ public class MemberController {
 	// 회원 정보 수정
 	@PostMapping("modify")
 	public String modifyMember(MemberDto dto, String oldPw, @RequestParam("profileFile") MultipartFile profile, RedirectAttributes rttr) {
-//		System.out.println(profile);
-//		System.out.println(profile.getOriginalFilename());
-//		System.out.println(profile.getSize());
 		if(profile.getSize() > 0) {
 			dto.setProfile(profile.getOriginalFilename());
 		}

@@ -30,159 +30,194 @@
 
 /*** Navbar ***/
 .navbar.sticky-top {
-    top: -100px;
-    transition: .5s;
+	top: -100px;
+	transition: .5s;
 }
 
-.navbar .navbar-brand,
-.navbar a.btn {
-    height: 75px;
+.navbar .navbar-brand, .navbar a.btn {
+	height: 75px;
 }
 
 .navbar .navbar-nav .nav-link {
-    margin-right: 30px;
-    padding: 25px 0;
-    color: var(--dark);
-    font-size: 15px;
-    font-weight: 500;
-    text-transform: uppercase;
-    outline: none;
+	margin-right: 30px;
+	padding: 25px 0;
+	color: var(- -dark);
+	font-size: 15px;
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: none;
 }
 
-.navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
+.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link.active
+	{
+	color: var(- -primary);
 }
 
 .navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    vertical-align: middle;
-    margin-left: 8px;
+	border: none;
+	content: "\f107";
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	vertical-align: middle;
+	margin-left: 8px;
 }
 
 @media screen and (max-width: 700px) {
-
 }
 
-@media (max-width: 992px) {
-    .navbar .navbar-nav .nav-link  {
-        margin-right: 0;
-        padding: 10px 0;
-    }
-
-    .navbar .navbar-nav {
-        border-top: 1px solid #EEEEEE;
-    }
-}
-
-@media (min-width: 992px) {
-    .navbar .nav-item .dropdown-menu {
-        display: block;
-        border: none;
-        margin-top: 0;
-        top: 150%;
-        opacity: 0;
-        visibility: hidden;
-        transition: .5s;
-    }
-
-    .navbar .nav-item:hover .dropdown-menu {
-        top: 100%;
-        visibility: visible;
-        transition: .5s;
-        opacity: 1;
-    }
-    
-.collapse navbar-collapse{
-	flex-direction: column;
-	align-items: flex-start;
-	margin: 0;
+@media ( max-width : 992px) {
+	.navbar .navbar-nav .nav-link {
+		margin-right: 0;
+		padding: 10px 0;
+	}
+	.navbar .navbar-nav {
+		border-top: 1px solid #EEEEEE;
 	}
 }
 
-
+@media ( min-width : 992px) {
+	.navbar .nav-item .dropdown-menu {
+		display: block;
+		border: none;
+		margin-top: 0;
+		top: 150%;
+		opacity: 0;
+		visibility: hidden;
+		transition: .5s;
+	}
+	.navbar .nav-item:hover .dropdown-menu {
+		top: 100%;
+		visibility: visible;
+		transition: .5s;
+		opacity: 1;
+	}
+	.collapse navbar-collapse {
+		flex-direction: column;
+		align-items: flex-start;
+		margin: 0;
+	}
+}
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Favicon -->
-    <link href="${appRoot }/resources/webContents/img/favicon.ico" rel="icon">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Favicon -->
+<link href="${appRoot }/resources/webContents/img/favicon.ico"
+	rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+	rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	referrerpolicy="no-referrer"></script>
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-	<a href="index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+	<a href="index"
+		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
 		<h2 class="m-0 text-primary">꿀비</h2>
 	</a>
-	
-	<button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-    	<span class="navbar-toggler-icon"></span>
-    </button>
+
+	<button type="button" class="navbar-toggler me-4"
+		data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<div class="navbar-nav ms-auto p-4 p-lg-0">
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<a class= "nav-item active nav-link ${current == 'index' ? 'active' : '' }" href="${mainPageUrl }">홈</a>
+					<a
+						class="nav-item active nav-link ${current == 'index' ? 'active' : '' }"
+						href="${mainPageUrl }">홈</a>
 				</li>
 			</sec:authorize>
-			
+
 			<ul>
 				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }" href="${aboutUrl }">About 꿀비</a>
+					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
+						href="${aboutUrl }">About 꿀비</a>
 				</li>
 			</ul>
-			
+
 			<sec:authorize access="isAuthenticated()">
-			<li class="nav-item">
-				<a class="nav-item nav-link" href="#">기부하기</a>
-			</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="#">기부하기</a>
+				</li>
 			</sec:authorize>
-			
+
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'signup' ? 'active' : '' }" href="${signupUrl }">회원가입</a>
+					<a
+						class="nav-item nav-link ${current == 'signup' ? 'active' : '' }"
+						href="${signupUrl }">회원가입</a>
 				</li>
 			</sec:authorize>
-			
+
 			<sec:authorize access="isAuthenticated()">
-				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'memberInfo' ? 'active' : '' }" href="${memberInfoUrl }">마이페이지</a>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-item nav-link ${current == 'memberInfo' ? 'active' : '' }"
+						href="${memberInfoUrl }">마이페이지</a>
 				</li>
+				
+				<!-- 
+				<ul class="">
+					<li class="dropdown-item">회원 정보 수정</li>
+					<li class="dropdown-item">1:1 문의</li>
+					<li class="dropdown-item">내가 쓴 리뷰</li>
+					<li class="dropdown-item">내가 쓴 기부</li>
+				</ul>
+				 -->
 			</sec:authorize>
-			
+
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
 					<a class="nav-item nav-link" href="${loginUrl }">로그인</a>
 				</li>
 			</sec:authorize>
-			
+
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<button class="btn btn-link nav-link" type="submit" form="logoutForm1">로그아웃</button>
+					<button class="btn btn-link nav-link" type="submit"
+						form="logoutForm1">로그아웃</button>
 				</li>
 			</sec:authorize>
 			<!-- 
@@ -197,19 +232,16 @@
 			<div class="d-none">
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">둘러보기<i class="fa fa-arrow-right ms-3"></i></a>
+			<a href=""
+				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
+				둘러보기
+				<i class="fa fa-arrow-right ms-3"></i>
+			</a>
 		</div>
 	</div>
-					<!-- 
-        <sec:authorize access="hasRole('USER')">
-	        <div class="nav-item">
-	        	<a href="${initPasswordUrl }" class="nav-link">암호초기화</a>
-	        </div>
-        </sec:authorize>
-         -->
 
-				<!-- form.d-flex>input.form-control.me-2[type=search]+button.btn.btn-outline-success -->
-<!--
+	<!-- form.d-flex>input.form-control.me-2[type=search]+button.btn.btn-outline-success -->
+	<!--
 				<form action="${listUrl }" class="d-flex">
 					<div class="input-group">
 						<select name="type" id="" class="form-select"

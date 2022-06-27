@@ -130,7 +130,7 @@ public class MemberService {
 
 		dto.setPw(oldMember.getPw());
 		int cnt = mapper.updateMember(dto);
-
+ 
 		// 프로필 사진 업로드
 		if (profile.getSize() > 0) {
 			mapper.updateFile(dto.getMemberId(), profile.getOriginalFilename());
