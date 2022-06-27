@@ -130,7 +130,7 @@
 				<label for="usernameInput1" class="form-label">
 					아이디 
 				</label>
-				<input id="usernameInput1" type="text" name="username" autocomplete="off" required/>
+				<input id="usernameInput1" type="text" name="username" autocomplete="off" required />
 			</div>
 			
 			<div class="userInfo">

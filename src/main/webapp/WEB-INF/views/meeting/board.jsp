@@ -274,16 +274,14 @@
 					<section class="mb-5">
 						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
 						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
-						<h4 class="fw-bolder mb-4 mt-5">모임 장소 : ${meeting.address }
-							${meeting.detailAddress }</h4>
+						<h4 class="fw-bolder border mb-2 mt-2 shadow-none p-2 mb-2 bg-light rounded text-center">*꿀비 모임 장소 : ${meeting.address } ${meeting.detailAddress }</h4>
+						<!-- 카카오 지도 api -->
+						<div class="border mb-3 container shadow p-3 mb-3 bg-body rounded">
+							<div id="map" style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
+						</div>
 					</section>
 				</article>
 
-				<!-- 카카오 지도 api -->
-				<div class="mb-5 container">
-					<div id="map"
-						style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
-				</div>
 
 				<!-- 댓글, 대댓글 -->
 				<section class="replyForm">
@@ -318,7 +316,8 @@
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="guestWiget">
-					<div class="guestWiget-header"><h4>꿀비 모임 <span id="numOfGuest"></span>명 등록</h4><hr/></div>
+					<div class="guestWiget-header d-flex justify-content-center align-middle"><h4>꿀비 모임 <span id="numOfGuest"></span>명 등록</h4></div>
+					<hr/>
 					<div class="guestWigetBody">
 						<div class="row">
 							<div class="col">
@@ -578,7 +577,8 @@
               								</div>
               							</form>
 
-              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>수정</a>
+              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" id="insertReplyButton">
+              								<i class="fa-solid fa-pen"></i>수정</a>
               							<form class="mb-4" id="insertReplyForm3"
               								action="${appRoot }/meeting/reply/updateReply" method="post">
               								<div class="input-group">
@@ -587,26 +587,17 @@
               									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
               									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
               									<input id="insertReplyContentInput1" class="form-control"
-              										type="text" name="content" placeholder="" /><br>
+              										type="text" name="content" placeholder=""  /><br>
               									<button class="btn btn-primary" id="insertReplyButton3"
               										type="submit"><i class="fa-solid fa-circle-check"></i></button>
               								</div>
               							</form>
               							
-              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-pen"></i>삭제</a>
               							<form class="mb-4" id="insertReplyForm4"
               								action="${appRoot}/meeting/reply/deleteReply" method="post">
-              								<div class="input-group">
-              									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
-              									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
-              									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
-              									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
-              									<input id="insertReplyContentInput1" class="form-control"
-              										type="text" name="content" placeholder="" /><br>
-              									<button class="btn btn-primary" id="insertReplyButton4"
-              										type="submit"><i class="fa-solid fa-circle-check"></i></button>
-              								</div>
+              							<a class="small fw-medium" href="${appRoot }/meeting/board/${reply.meetingReplyId}" ><i class="fa-solid fa-trash-can"></i>삭제</a>
               							</form>
+              								
 	                                  </div>
               							`);
 								
@@ -664,6 +655,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
