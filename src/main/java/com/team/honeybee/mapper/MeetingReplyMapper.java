@@ -22,6 +22,9 @@ public interface MeetingReplyMapper {
 	
 	// 댓글 자식 댓글 모두 출력
 	List<MeetingReplyDto> selectAllChildrenByParentReplyId(@Param("meetingId") int meetingId);
+	
+	// 미팅아이디로 최상위부모댓글 SELECT
+	List<MeetingReplyDto> selectParentsByMeetingId(int meetingId);
 
 	// 자식 댓글 입력
 	void insertMeetingReplyChild(MeetingReplyDto reply);
@@ -31,5 +34,9 @@ public interface MeetingReplyMapper {
 		
 	// 자식 댓글 입력
 	void deleteMeetingReply(MeetingReplyDto reply);
+
+	List<MeetingReplyDto> selectChildByParentId(int meetingReplyId);
+	
+	
 
 }

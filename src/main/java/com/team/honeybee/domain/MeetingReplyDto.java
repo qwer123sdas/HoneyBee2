@@ -42,4 +42,17 @@ public class MeetingReplyDto {
 	// 부모글의 기본키(id), 부모는 최상위 이므로 0으로, 자식부터 id값 가져옴 
 	private long parentNum;
 	
+	/*
+	public String getPrettyInserted() {
+		// 24시간 이내면 시간만
+		// 이전이면 년-월-일
+		LocalDateTime now = LocalDateTime.now();
+		if (now.minusHours(24).isBefore(inserted)) {
+			return inserted.toLocalTime().toString();
+		} else {
+			return inserted.toLocalDate().toString();
+		}
+	}
+	*/
+	
 }

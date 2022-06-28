@@ -218,7 +218,7 @@
 							</form>
                             <!-- 댓글 대댓글 출력 ajax 처리 -->
                             <div id="meetingReplyList"></div> 
-                             <<%-- c:forEach items="${replyList }" var="reply">
+                             <%-- c:forEach items="${replyList }" var="reply">
                                 <div class="d-flex mb-4">
                                     <!-- 부모댓글 출력 -->
 	                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>

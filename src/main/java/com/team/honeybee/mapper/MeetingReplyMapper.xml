@@ -93,6 +93,33 @@
 	
 	</select>
 	
+	<select id="selectParentsByMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.step,
+			   m.nickname
+		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE r.meeting_id = #{meetingId} 
+		  AND r.step = 0 -- 최상위 부모
+		ORDER BY meetingReplyId DESC
+	</select>
+	
+	<select id="selectChildByParentId" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.step,
+			   m.nickname
+		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE r.refNum = #{parentId} 
+		ORDER BY meetingReplyId DESC
+	</select>
+	
 	<!-- 댓글 수정 -->
 	<update id="updateMeetingReply">
 		UPDATE MeetingReply 

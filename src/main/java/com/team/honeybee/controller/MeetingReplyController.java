@@ -24,7 +24,22 @@ public class MeetingReplyController {
 	// 댓글 목록 가져오기
 	@GetMapping("list")
 	@ResponseBody
-	public List<MeetingReplyDto> replyList(int meetingId, Principal principal) {
+	public List<MeetingReplyDto> replyList(int meetingId) {
+		
+		List<MeetingReplyDto> listReplyByMeetingId = service.listReplyByMeetingId(meetingId);
+		
+		for (MeetingReplyDto item : listReplyByMeetingId) {
+			System.out.println(item);
+		}
+		
+		return listReplyByMeetingId;
+	}
+	
+	/*
+	// 댓글 목록 가져오기
+	@GetMapping("list")
+	@ResponseBody
+	public List<MeetingReplyDto> replyList1(int meetingId, Principal principal) {
 		
 		if (principal == null) { // 로그인 안한사람은 보드만 
 			return service.getReplyByMeetingId(meetingId);
@@ -34,6 +49,7 @@ public class MeetingReplyController {
 	
 		
 	}
+	*/
 	
 	// 로그인 회원 부모댓글 작성
 	@PostMapping(path = "insertReplyP", produces = "text/plain;charset=UTF-8")

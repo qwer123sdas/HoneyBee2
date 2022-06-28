@@ -37,7 +37,8 @@ public class MeetingDto{
 	private String tag;
 	
 	private String mainPhoto;  // 메인 사진
-	private String image; // 서머노트 
+	private List<String> image; // 서머노트 
+	private String folderName;
 
 
 	

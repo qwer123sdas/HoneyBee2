@@ -75,5 +75,23 @@ public class MeetingReplyService {
 	
 	
 	
-
+	// 댓글 가져오기
+	public List<MeetingReplyDto> listReplyByMeetingId(int meetingId) {
+		List<MeetingReplyDto> parents = mapper.selectParentsByMeetingId(meetingId);
+		
+		for (int i = 0; i < parents.size(); i++) {
+			List<MeetingReplyDto> child = mapper.selectChildByParentId(parents.get(i).getMeetingReplyId());
+			parents.addAll(i+1, child);
+		}
+		
+		return parents;
+	}
 }
+
+
+
+
+
+
+
+

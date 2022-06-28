@@ -242,7 +242,7 @@ $(document).ready(function() {
 	function uploadSummernoteMeetingImageFile(image) {
 		data = new meetingFormData(); // file 객체
 		data.append("image", image); // file ajax에서 넘겨줌
-		data.append("folderId", 'padding-' + randomNum); // 폴더 난수 넘기기
+		data.append("folderName", 'padding-' + randomNum); // 폴더 난수 넘기기
 		$.ajax({
 			url : '${appRoot}/uploadSummernoteMeetingImageFile',
 			data : data,

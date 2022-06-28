@@ -26,8 +26,7 @@
 		   END  AS yn
 		  FROM MeetingGuest
 		 WHERE member_id = #{memberId}
-		   AND meeting_id = #{meetingId}
-		   
+		   AND meeting_id = #{meetingId}  
   	</select>
   	
 	<!-- 게스트 넣기 -->

@@ -160,6 +160,9 @@ ADD COLUMN guest VARCHAR(20) NOT NULL;
 ALTER TABLE MeetingGuest
 MODIFY COLUMN inserted DATE DEFAULT (current_date);
 
+ALTER TABLE Meeting
+MODIFY COLUMN content TEXT;
+
 DESC MeetingGuest;
 DESC BoardImage;
 DESC Meeting;
@@ -238,5 +241,29 @@ ORDER BY t3. meeting_reply_id, t3.refOrder;
 
 SELECT * FROM MeetingReply ORDER BY refNum, refOrder
 
-SELECT * FROM MeetingReply
+SELECT * FROM MeetingReply;
 ORDER BY IF(ISNULL(refNum), step, refNum), refOrder;
+
+WITH RECURSIVE CTE AS ( -- CTE 가상테이블
+	SELECT 1 AS h  -- 1 초기값 h 컬럼
+    UNION ALL -- 모든 컬럼값이 같은 결과 중복제거 x
+    SELECT h + 1 FROM CTE WHERE h < 5 -- 조건
+)
+SELECT * FROM CTE;
+
+WITH RECURSIVE t3 (member_id, content, refNum, refOrder, step) AS
+
+(
+SELECT t1.member_id, t1.content, t1.refNum, t1.refOrder, t1.step
+FROM MeetingReply t1
+WHERE t1.refNum is null
+
+UNION ALL
+
+SELECT t2.member_id, t2.content, t2.refNum, t2.refOrder, t2.step
+FROM MeetingReply t2
+INNER JOIN t3 ON IFNULL(t2.step, '0') = t3.member_id
+)
+
+SELECT * FROM MeetingReply t3
+ORDER BY member_id ;
