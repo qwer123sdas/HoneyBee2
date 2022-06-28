@@ -18,6 +18,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#deleteButton1").click(function(e) {
+			e.preventDefault();
+			if(confirm("정말 삭제하시겠습니까?")) {
+				let form1 = $("#form1");
+				form1.submit();
+			}
+		});
+	});
+</script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -32,7 +45,8 @@
             <div id="content">
 
                 <nav:topbar></nav:topbar>
-				<form action="${appRoot }/admin/removeMeeting" method="post">
+				<form id="form1" action="${appRoot }/admin/removeMeeting" method="post">
+					<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 					<div class="container-fluid">
 						
 						<!-- Page content-->

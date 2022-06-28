@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class TalentDto {
 	private String expired;
 	
 	private String MPhoto;  // 메인 사진
-	private String image; // 서머노트 
+	private List<String> image; // 서머노트 
 	private String folderName;
 	
 	private int mapLevel;

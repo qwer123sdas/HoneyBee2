@@ -62,7 +62,6 @@ $(document).ready(function() {
 												<!-- <span class="img_ico"><img src=""></span> -->
 												<span class="fw-bolder tit_head">${donation.title }</span> 
 												<span class="txt_body">by ${donation.nickname }</span>
-												<span class="txt_body">${donation.content }</span>
 												<!-- 대표 이미지-->
 												<c:if test="${empty donation.MPhoto }">
 													<figure class="img_ico mb-4">
@@ -74,6 +73,7 @@ $(document).ready(function() {
 														<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${donation.folderName }/${donation.MPhoto}" alt="">
 													</figure>
 												</c:if>
+												<span class="txt_body">${donation.content }</span>
 								
 												<p class="fs-5 mb-4">For me, the most fascinating interface is
 													Twitter. I have odd cosmic thoughts every day and I realized I

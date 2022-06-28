@@ -57,6 +57,8 @@
 							    <h4 class="card-title">${faq.title }</h4>
 							    <p><strong>아이디 : </strong> ${faq.memberId }</p>
 							    <p><strong>이메일 : </strong> ${faq.email }</p>
+							    <p><strong>등록여부</strong><c:if test="${faq.enable == 1 }">답변완료</c:if>
+							    <c:if test="${faq.enable == 0 }">답변전</c:if></p>
 							    <a href="${getUrl }" class="stretched-link"></a>
 							  </div>
 							</div>			

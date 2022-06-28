@@ -40,7 +40,8 @@ public class MeetingDto{
 	private int guestNum; // 게스트 인원
 	
 	private String mainPhoto;  // 메인 사진
-	private String image; // 서머노트
+	private List<String> image; // 서머노트
+	private String folderName;
 	
 	
 	

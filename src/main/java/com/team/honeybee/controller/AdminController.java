@@ -90,7 +90,8 @@ public class AdminController {
 	
 	// 기부게시글 삭제
 	@PostMapping("removeDonation")
-	public String removeDonation() {
+	public String removeDonation(int donationId) {
+		service.deleteDonation(donationId);
 		return "redirect:/admin/donation";
 	}
 	
@@ -116,6 +117,12 @@ public class AdminController {
 		return "redirect:/admin/talent";
 	}
 	
+	@PostMapping("removeTalent")
+	public String removeTalent(int talentId) {
+		service.deleteTalent(talentId);
+		return "redirect:/admin/talent";
+	}
+	
 	// 모임게시글 전체보기
 	@RequestMapping("meeting")
 	public void meeting(Model model) {
@@ -129,6 +136,13 @@ public class AdminController {
 		MeetingDto dto = service.getMeeting(meetingId);
 		System.out.println(dto);
 		model.addAttribute("meeting", dto);
+	}
+	
+	// 모임게시글 삭제
+	@PostMapping("removeMeeting")
+	public String removeMeeting(int meetingId) {
+		service.deleteMeeting(meetingId);
+		return "redirect:/admin/meeting";
 	}
 	
 	// 기부마켓 전체보기
@@ -204,4 +218,18 @@ public class AdminController {
 		model.addAttribute("faq", faqList);
 	}
 	
+	// 1대1문의 글 내용보기
+	@RequestMapping("getFaq")
+	public void getFaq(int questionId, Model model) {
+		FaqDto dto = service.getFaqById(questionId);
+		System.out.println(dto);
+		model.addAttribute("faq", dto);
+	}
+	
+	// 1대1문의 글 삭제
+	@PostMapping("removeFaq")
+	public String removeFaq(int questionId) {
+		boolean success = service.deleteFaq(questionId);
+		return "redirect:/admin/faq";
+	}
 }

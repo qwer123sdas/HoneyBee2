@@ -25,6 +25,8 @@ public interface AdminMapper {
 
 	List<MeetingDto> getMeetingAll();
 
+	List<TalentDto> getTalentAll();
+
 	int inserMarket(MarketDto market);
 
 	void insertFile(@Param("marketId") int marketId, @Param("file") String file);
@@ -47,12 +49,55 @@ public interface AdminMapper {
 
 	DonationDto getDonationById(int donationId);
 
-	List<TalentDto> getTalentAll();
-
 	TalentDto getTalentById(int talentId);
+	
+	FaqDto getFaqById(int questionId);
 
 	void registerDonation(int donationId);
 
 	void registerTalent(int talentId);
+	
+	DonationDto selectFolderNameAndFileNameByDonationId(int donationId);
+	
+	TalentDto selectFolderNameAndFileNameByTalentId(int talentId);
+
+	MeetingDto selectFolderNameAndFileNameByMeetingId(int meetingId);
+
+	void deleteBoardImageByTalentId(int talentId);
+
+	void deleteTalentReviewByTalentId(int talentId);
+
+	void deleteTalentByTalentId(int talentId);
+
+	void deleteBoardImageByDonationId(int donationId);
+
+	void deleteTagByDonationId(int donationId);
+
+	void deleteFavoriteByDonationId(int donationId);
+
+	void deleteDonationPayByDonationId(int donationId);
+
+	void deleteDonationReplyByDonationId(int donationId);
+
+	void deleteDonationByDonationId(int donationId);
+
+	void deleteBoardImageByMeetingId(int meetingId);
+
+	void deleteMeetingGuestByMeetingId(int meetingId);
+
+	void deleteMeetingCommentByMeetingId(int meetingId);
+
+	void deleteMeetingReplyByMeetingId(int meetingId);
+
+	void deleteMeetingByMeetingId(int meetingId);
+
+	List<String> selectFileNameByFaqId(int questionId);
+
+	void deleteFileByFaqId(int questionId);
+
+	int deleteFaqById(int questionId);
+
+
+
 
 }

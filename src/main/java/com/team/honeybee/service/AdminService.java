@@ -179,8 +179,8 @@ public class AdminService {
 	}
 	
 	// AWS S3 기부게시판관련 파일 삭제하기
-	private void deleteFromAwsS3Donation(int id, String fileName) {
-		String key = "donation/mainPhoto/" + id + "/" + fileName;
+	private void deleteFromAwsS3Donation(String folderName, String fileName) {
+		String key = "donation/" + folderName + "/" + fileName;
 		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
@@ -191,8 +191,8 @@ public class AdminService {
 	}
 	
 	// AWS S3 재능판매관련 파일 삭제하기
-	private void deleteFromAwsS3Talent(int id, String fileName) {
-		String key = "talent/mainPhoto/" + id + "/" + fileName;
+	private void deleteFromAwsS3Talent(String folderName, String fileName) {
+		String key = "talent/" + folderName + "/" + fileName;
 		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
@@ -203,8 +203,8 @@ public class AdminService {
 	}
 	
 	// AWS S3 모임게시판관련 파일 삭제하기
-	private void deleteFromAwsS3Meeting(int id, String fileName) {
-		String key = "meeting/mainPhoto/" + id + "/" + fileName;
+	private void deleteFromAwsS3Meeting(String folderName, String fileName) {
+		String key = "meeting/" + folderName + "/" + fileName;
 		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
@@ -247,7 +247,7 @@ public class AdminService {
 		return cnt == 1;
 	}
 	
-	// s3에서 파일 지우기 위한 메소드
+	// s3에서 기부마켓관련 파일 지우기 위한 메소드
 	private void removeFiles(int id, List<String> fileList) {
 		// s3에서 지우기
 		for (String fileName : fileList) {
@@ -275,6 +275,15 @@ public class AdminService {
 		TalentDto talent = mapper.getTalentById(talentId);
 		return talent;
 	}
+	
+	// 1대1문의 내용보기
+	public FaqDto getFaqById(int questionId) {
+		FaqDto faq = mapper.getFaqById(questionId);
+		List<String> fileNames = mapper.selectFileNameByFaqId(questionId);
+		
+		faq.setFileName(fileNames);
+		return faq;
+	}
 
 	// 기부게시글 등록허용
 	public void registerDonation(int donationId) {
@@ -285,6 +294,71 @@ public class AdminService {
 	public void registerTalent(int talentId) {
 		mapper.registerTalent(talentId);
 	}
+	
+	// 기부게시글 삭제
+	@Transactional
+	public void deleteDonation(int donationId) {
+		DonationDto dto = mapper.selectFolderNameAndFileNameByDonationId(donationId);
+		deleteFromAwsS3Donation(dto.getFolderName(), dto.getMPhoto());
+		for(String fileName : dto.getImage()) {
+			deleteFromAwsS3Donation(dto.getFolderName(), fileName);
+		}
+		mapper.deleteBoardImageByDonationId(donationId);
+		mapper.deleteTagByDonationId(donationId);
+		mapper.deleteFavoriteByDonationId(donationId);
+		mapper.deleteDonationPayByDonationId(donationId);
+		mapper.deleteDonationReplyByDonationId(donationId);
+		mapper.deleteDonationByDonationId(donationId);
+	}
+
+	// 재능판매게시글 삭제
+	@Transactional
+	public void deleteTalent(int talentId) {
+		TalentDto dto = mapper.selectFolderNameAndFileNameByTalentId(talentId);
+		deleteFromAwsS3Talent(dto.getFolderName(), dto.getMPhoto());
+		for(String fileName : dto.getImage()) {
+			deleteFromAwsS3Talent(dto.getFolderName(), fileName);
+		}
+		mapper.deleteBoardImageByTalentId(talentId);
+		mapper.deleteTalentReviewByTalentId(talentId);
+		mapper.deleteTalentByTalentId(talentId);
+	}
+
+	// 모임게시글 삭제
+	@Transactional
+	public void deleteMeeting(int meetingId) {
+		MeetingDto dto = mapper.selectFolderNameAndFileNameByMeetingId(meetingId);
+		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMainPhoto());
+		for(String fileName : dto.getImage()) {
+			deleteFromAwsS3Meeting(dto.getFolderName(), fileName);
+		}
+		mapper.deleteBoardImageByMeetingId(meetingId);
+		mapper.deleteMeetingGuestByMeetingId(meetingId);
+		mapper.deleteMeetingCommentByMeetingId(meetingId);
+		mapper.deleteMeetingReplyByMeetingId(meetingId);
+		mapper.deleteMeetingByMeetingId(meetingId);
+	}
+
+	// 1대1문의 글 삭제
+	@Transactional
+	public boolean deleteFaq(int questionId) {
+		List<String> fileList = mapper.selectFileNameByFaqId(questionId);
+		removeFilesFaq(questionId, fileList);
+		int cnt = mapper.deleteFaqById(questionId);
+		return cnt == 1;
+	}
+	
+	// s3에서 1대1문의 파일 삭제
+	private void removeFilesFaq(int questionId, List<String> fileList) {
+		// s3에서 지우기
+		for (String fileName : fileList) {
+			deleteFromAwsS3Faq(questionId, fileName);
+		}
+		
+		// 파일테이블 삭제
+		mapper.deleteFileByFaqId(questionId);
+	}
+
 
 
 }
