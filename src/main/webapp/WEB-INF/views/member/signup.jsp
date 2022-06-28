@@ -13,7 +13,7 @@
 <style>
 
 *, body {
-    font-family: 'Poppins', sans-serif;
+    font-family:"Roboto", sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -22,8 +22,11 @@
 
 html, body {
     height: 100%;
-    background-color: #fff;
-    overflow: hidden;
+	background: url("https://images.pexels.com/photos/164470/pexels-photo-164470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow: hidden;
 }
 
 
@@ -48,12 +51,12 @@ html, body {
     justify-content: center;
     -webkit-align-items: center;
     align-items: center;
-    padding: 60px;
+    padding: 40px;
 }
 
 .form-content .form-items {
-	background-color: #8F7CBC;
-    border: 3px solid #fff;
+	background-color: #fff;
+    border: 3px solid #fbc02d;
     padding: 40px;
     display: inline-block;
     width: 100%;
@@ -61,14 +64,15 @@ html, body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    text-align: left;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
 
 .form-content h1 {
-    color: #f9c22d;
+    color: #333333;
     text-align: left;
+	font-family:"Roboto", sans-serif;
+	font-weight: 700;
     font-size: 50px;
     font-weight: 300;
     line-height: 20px;
@@ -77,26 +81,29 @@ html, body {
 
 .form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
     color: #fff;
+	text-align: center;
 }
 
 .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
     width: 100%;
     padding: 9px 20px;
-    text-align: left;
-    border: 0;
+    border: 1px solid #f9c22d;
     outline: 0;
     border-radius: 6px;
     background-color: #fff;
     font-size: 15px;
     font-weight: 300;
-    color: #8D8D8D;
+    color: #000000;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
     margin-top: 16px;
 }
 
 .form-content button{
-	color: #fdd835;
+	color: #333333;
+	width: 300px;
+	display:flex;
+	margin: 0 auto;
 }
 
 </style>
@@ -253,7 +260,9 @@ html, body {
 						<div class="col-md-12">
 							<!-- 아이디 -->
 							<input type="text" name="memberId" placeholder="아이디"/>
-							<button id="checkIdButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+							<div class="buttonGroup">
+								<button id="checkIdButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							</div>
 						</div>
 						<div class="form-text" id="memberIdMessage"></div>
 						<br />
@@ -280,37 +289,32 @@ html, body {
 						<div class="col-md-12">
 							<!-- 이메일 -->
 							<input type="email" name="email" placeholder="이메일" /> 
-							<button id="checkEmailButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+							<div class="buttonGroup">
+								<button id="checkEmailButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							</div>
 						</div>
 						<div class="form-text" id="memberEmailMessage"></div>
-						<br />
-						
 						<div class="col-md-12">
 							<!-- 닉네임 -->
 							<input type="text" name="nickname" placeholder="닉네임" />
-							<button id="checkNickNameButton" type="button" class="btn btn-block doubleCheck">중복 확인</button>
+							<div class="buttonGroup">
+								<button id="checkNickNameButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							</div>
 						</div>
 						<div class="form-text" id="memberNickNameMessage"></div>
-						<br />
-						
 						<div class="col-md-12">
 							<!-- 우편번호 -->
 							<input type="text" name="postcode" placeholder="우편번호" />
 						</div>
-						<br />
-						
 						<div class="col-md-12">
 							<!-- 주소 -->
 							<input type="text" name="address" placeholder="주소" />
 						</div>
-						<br />
-						
 						<div class="col-md-12">
 							<!-- 상세주소 -->
 							<input type="text" name="detail" placeholder="상세주소" />
 						</div>
 						<br />
-						
 						<div class="col-md-12">
 							<!-- 생년월일 -->
 							<input type="date" name="birth" placeholder="생년월일" />
@@ -323,8 +327,8 @@ html, body {
 						</div>
 						<br />
 						
-						<div class="form-button mt-3">
-							<button id="submitButton1" class="btn btn-block create-account" disabled>회원가입</button>
+						<div class="buttonGroup">
+							<button id="submitButton1" class="btn btn-warning create-account" disabled>회원가입</button>
 						</div>
 					</form>
 				</div>
