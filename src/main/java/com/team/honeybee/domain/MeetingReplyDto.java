@@ -1,7 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,8 +42,8 @@ public class MeetingReplyDto {
 	// 부모글의 기본키(id), 부모는 최상위 이므로 0으로, 자식부터 id값 가져옴 
 	private long parentNum;
 	
-	/*
-	public String getPrettyInserted() {
+/*
+	public String refineInserted() {
 		// 24시간 이내면 시간만
 		// 이전이면 년-월-일
 		LocalDateTime now = LocalDateTime.now();
@@ -53,6 +53,5 @@ public class MeetingReplyDto {
 			return inserted.toLocalDate().toString();
 		}
 	}
-	*/
-	
+*/
 }

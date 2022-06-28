@@ -208,12 +208,13 @@
 
 /* 대댓글 토글버튼 */
 .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px;
-  font-size: 12px;
+  color: black;
+  padding: 3px;
+  font-size: 20px;
   border: none;
   cursor: pointer;
+  display: flex;
+  margin-left: 510px;
 }
 
 .dropdown {
@@ -226,21 +227,22 @@
   position: absolute;
   right: 0;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  text-align: center;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 12px 12px;
   text-decoration: none;
   display: block;
 }
 
 .dropdown-content a:hover {background-color: #f1f1f1;}
 .dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: #9B9B9B;}
 
 </style>
 
@@ -644,8 +646,8 @@
 												<div class="dropdown" style="float:right;">
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
 												  <div class="dropdown-content">
-												    <a href="#">Link 1</a>
-												    <a href="#">Link 2</a>
+												    <a href="#">수정</a>
+												    <a href="#">삭제</a>
 												  </div>
 												</div>
 												\${list[i].nickname }
@@ -659,7 +661,7 @@
 										<div class="ms-3">
 											<div class="fw-bold d-flex justify-content-between">
 												<a class="small fw-medium" href="#">
-													<strong class="replyTxt">답글 작성</strong>
+													<strong class="replyTextform">답글 작성</strong>
 														<span class="replyCnt" style="">0</span>
 												</a>
 												<a class="replyLike" href="#">
