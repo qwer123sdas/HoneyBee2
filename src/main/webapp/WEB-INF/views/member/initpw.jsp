@@ -18,26 +18,55 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
 
+<style>
+.main-container{
+	border: 5px;
+	padding: 80px;
+}
+header{
+	font-family: sans-serif;
+	text-align: center;
+}
+article{
+	border: 3px;
+	padding: 30px;
+	text-align: center;
+}
+article .inputIdForm{
+	display: inline-block;
+	text-align: center;
+}
+
+article .inputId{
+	text-align: center;
+}
+</style>
+
 <title>비밀번호 찾기 : 꿀비</title>
 </head>
 <body>
-	<!-- 임시 navbar -->
 	<my:navBar current="initpw"></my:navBar>
 	
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-12 col-lg-6">
-				 <h3>비밀번호 찾기</h3>
-				 <h4>비밀번호를 찾고자하는 아이디를 입력해주세요.</h4>
-				<form method="post">
-					<label for="idInput1" class="form-label"> 아이디 </label>
-
-					<input id="idInput1" class="form-control" type="text" name="memberId" placeholder="꿀비 아이디"/>
-
-					<div class="form-text mb-3">※비밀번호는 아이디로 초기화 됩니다.※</div>
-
-					<input class="btn btn-primary" type="submit" value="다음" />
-				</form>
+	<div class="main-container">
+		<div class="main-wrap">
+			<div class="col-12">
+				<header>
+					 <h1>잊어버린
+					 <br />
+					 비밀번호 재설정 해드릴게요!
+					 </h1>
+					 <h4>비밀번호를 찾고자하는 아이디를 입력해주세요.</h4>
+				</header>
+				
+				<article>
+					<div class="inputIdForm">
+						<form method="post">
+							<div class="inputId"><input id="idInput1" class="form-control" type="text" name="memberId" placeholder="꿀비 아이디"/></div>
+							<br />
+							<input class="btn btn-outline-warning" type="submit" value="다음" />
+						</form>
+					</div>
+				</article>
 			</div>
 		</div>
 	</div>

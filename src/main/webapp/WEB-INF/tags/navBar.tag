@@ -11,8 +11,10 @@
 <c:url value="/member/info" var="memberInfoUrl" scope='request'></c:url>
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
+<c:url value="/member/findIdView" var="findIdViewUrl"></c:url>
+<c:url value="/member/findId" var="findIdUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
-<c:url value="/member/changePw" var="changePasswordUrl"></c:url>
+<c:url value="/member/changePw" var="changePwUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
 
@@ -117,9 +119,6 @@
 	rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">

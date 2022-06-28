@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,30 +19,20 @@
 	referrerpolicy="no-referrer"></script>
 
 <style>
-.form-holder {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	min-height: 80vh;
+.main-container{
+	border: 5px;
+	border-width: 40%;
+	padding: 80px;
 }
-
-.form-holder .form-content {
+.form-items{
+	text-align: center;
+}
+.inputBoxes{
 	position: relative;
-	text-align: center;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-justify-content: center;
-	justify-content: center;
-	-webkit-align-items: center;
-	align-items: center;
-	padding: 60px;
+	left: 190px;
+	font-family: sans-serif;
+	color: #000000;
 }
-
 </style>
 
 <title>이메일로 인증 : 꿀비</title>
@@ -80,45 +71,48 @@
 
 </head>
 <body>
-
-	<div class="container">
-		<div class="row">
+	<my:navBar current="changePw"></my:navBar>
+	
+	<div class="main-container">
+		<div class="main-wrap">
 			<div class="form-holder">
 				<div class="form-content">
 					<div class="form-items">
 						<form method="post">
-							<input type="hidden" name="memberId" value="${memberId }" />
-							<br />
-							<!-- OTP 확인 -->
-							<div class="col-md-8">
-								인증번호
-								<input type="hidden" id="otp_value" value="${OTP }" />
-								<br />
-								<input type="text" id="otp" name="otpValue" />
-								<button type="button" id="checkOtpButton"
-									class="btn btn-block otpCheck">인증번호 확인</button>
+							<div class="inputBoxes">
+								<input type="hidden" name="memberId" value="${memberId }" />
+								<!-- OTP 확인 -->
+								<div class="col-md-8">
+									인증번호
+									<input type="hidden" id="otp_value" value="${OTP }" />
+									<br />
+									<input type="text" id="otp" name="otpValue" />
+									<br />
+									<button type="button" id="checkOtpButton"
+										class="btn btn-block otpCheck">인증번호 확인</button>
+								</div>
+	
+								<!-- 새 비밀번호 -->
+								<div class="gap-3 col-md-8">
+									새 비밀번호
+									<br />
+									<input type="password" name="newPw" id="pwInput" />
+									<br />
+									새 비밀번호 확인
+									<br />
+									<input type="password" name="newPwConfirm" id="pwInputCheck" />
+									<br />
+								</div>
 							</div>
-							<div class="form-text" id="otpMessage"></div>
-							<hr />
-
-							<!-- 새 비밀번호 -->
-							<div class="col-md-8">
-								새 비밀번호
-								<br />
-								<input type="password" name="newPw" id="pwInput" />
-								<br />
-								새 비밀번호 확인
-								<br />
-								<input type="password" name="newPwConfirm" id="pwInputCheck" />
-								<br />
-							</div>
-
-							<div class="form-text" id="pwMessage"></div>
-
-								<button type="submit" id="changePwButton" class="btn btn-block confirm" >확인</button>
-								<div class="form-text" id="confirmMessage"></div>
-								<button id="cancelButton" class="btn btn-block cancel" >취소</button>
-
+							
+							<div class="form-text-otp" id="otpMessage"></div>
+							<div class="form-text-pw" id="pwMessage"></div>
+							
+								<div class="d-grid gap-2 col-3 mx-auto">
+									<button type="submit" id="changePwButton" class="btn btn-secondary confirm" >확인</button>
+									<div class="form-text" id="confirmMessage"></div>
+									<button id="cancelButton" class="btn btn-secondary cancel" >취소</button>
+								</div>
 						</form>
 					</div>
 				</div>

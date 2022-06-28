@@ -5,7 +5,7 @@
 <%@ attribute name="current"%>
 
    		<div class="col-3 mt-5">
-				<h1>마이 페이지</a></h1>
+				<h1>마이 페이지</h1>
 				<ul class="list-group">
 					<li class="list-group-item list-group-item-action"><a
 						href="${memberInfoUrl }">회원 정보 변경</a></li>

@@ -98,7 +98,6 @@
 	}
 	section .find-idpw-wrap-button{
 		margin: auto;
-		padding-left: 20px;
 		font-size: 18px;
 		text-align:center;
 		display: felx;
@@ -120,6 +119,9 @@
 		display:flex;
 		flex-direction:column;
 		width:768px;
+	}
+	footer .copyright-wrap{
+		align-items: center;
 	}
 }
 	
@@ -163,7 +165,7 @@
 					
 					<!-- 로그인 -->
 					<div class="login-button-wrap">
-						<button class="btn btn-warning" type="submit">로그인</button>
+						<button class="btn btn-secondary" type="submit">로그인</button>
 					</div>
 
 					<!-- 자동 로그인 -->
@@ -180,13 +182,13 @@
 			<section class="find-idpw-wrap">
 				<!-- 아이디 찾기 -->
 				<div class="find-idpw-wrap-button">
-					<button type="button" class="btn btn-warning"
-						onclick="location.href='/honeybee/member/findIdView'">아이디 찾기</button>
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='${appRoot}/member/findIdView'">아이디 찾기</button>
 					<!-- 비밀번호 찾기 -->
-					<button type="button" class="btn btn-warning"
-						onclick="location.href='/honeybee/member/initpw'">비밀번호 찾기</button>
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='${appRoot}/member/initpw'">비밀번호 찾기</button>
 					<!-- 회원가입 -->
-					<button type="button" class="btn btn-warning"
+					<button type="button" class="btn btn-secondary"
 						onclick="location.href='${appRoot }/member/signup'">회원 가입</button>
 					<!-- 
 					 <a href="${appRoot }/member/signup">회원 가입</a>
@@ -197,7 +199,9 @@
 			
 			<footer>
 				<div class="copyright-wrap">
-					<span class="d-flex justify-content-sm-center">&copy; 2021-2022</span>
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Copyright &copy; 2022 Honeybee</span>
 				</div>
 			</footer>
 		</div>
