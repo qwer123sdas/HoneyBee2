@@ -2,6 +2,10 @@ package com.team.honeybee.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +14,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
@@ -65,7 +70,7 @@ public class KakaoPayService {
 			//restTemplate를 통해서 kakaoPayReadyVO에 response 담기
 			// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-            kakaoPayReadyVO.setPoint(point);
+            kakaoPayReadyVO.setPoint(point);  // honeybee 포인트 저장
             // response 중, getNext_redirect_pc_url을 ajax에 보내기
             return kakaoPayReadyVO.getNext_redirect_pc_url();
         } catch (RestClientException e) {
@@ -79,50 +84,62 @@ public class KakaoPayService {
 	
 	
 	// 카카오 페이 승인 메소드
-		public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token, String partner_user_id) {
-			System.out.println("토큰 : " + pg_token);
-			System.out.println(kakaoPayReadyVO.getTid());
-			System.out.println(kakaoPayReadyVO.getPoint());
+	@Transactional
+	public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token, String partner_user_id) {
+		System.out.println("토큰 : " + pg_token);
+		System.out.println(kakaoPayReadyVO.getTid());
+		System.out.println(kakaoPayReadyVO.getPoint());
+	
+		RestTemplate restTemplate = new RestTemplate();
 		
-			RestTemplate restTemplate = new RestTemplate();
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + adminKey);
+        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        
+        // 서버로 요청할 Body
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME"); // 가맹점 코드
+        params.add("tid", kakaoPayReadyVO.getTid());   // ready때 담은 tid
+        params.add("partner_order_id", "partner_order_id"); // 가맹점 주문번호
+        params.add("partner_user_id", partner_user_id);  // 가맹점 회원 id
+        params.add("pg_token", pg_token); // 결재 요청시, 성공할 때 받은 토큰
+        
+        // 요청할 부분을 담는 객체
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        
+		try {
+			// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
+			kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+			System.out.println("kakaoPayApprovalVO");
+			System.out.println(kakaoPayApprovalVO.getPartner_user_id());
+			System.out.println(kakaoPayApprovalVO.getQuantity());
+			System.out.println(kakaoPayApprovalVO.getItem_name());
+			System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
 			
-	        // 서버로 요청할 Header
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.add("Authorization", "KakaoAK " + adminKey);
-	        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-	        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-	        
-	        // 서버로 요청할 Body
-	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-	        params.add("cid", "TC0ONETIME"); // 가맹점 코드
-	        params.add("tid", kakaoPayReadyVO.getTid());   // ready때 담은 tid
-	        params.add("partner_order_id", "partner_order_id"); // 가맹점 주문번호
-	        params.add("partner_user_id", partner_user_id);  // 가맹점 회원 id
-	        params.add("pg_token", pg_token); // 결재 요청시, 성공할 때 받은 토큰
-	        
-	        // 요청할 부분을 담는 객체
-	        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-	        
-			try {
-				// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
-				kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
-				System.out.println("kakaoPayApprovalVO");
-				System.out.println(kakaoPayApprovalVO.getPartner_user_id());
-				System.out.println(kakaoPayApprovalVO.getQuantity());
-				System.out.println(kakaoPayApprovalVO.getItem_name());
-				System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
-				
-				// 포인트 사용 여부 기록
-				pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), "재능판매");
-				
-	            return kakaoPayApprovalVO;
-	        
-	        } catch (RestClientException e) {
-	            e.printStackTrace();
-	        } catch (URISyntaxException e) {
-	            e.printStackTrace();
-	        }
-	        
-	        return null;
-		}
+			// 포인트 사용 여부 기록
+			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), "재능판매");
+			
+			// 포인트 적립
+			int resultPayment = kakaoPayApprovalVO.getAmount().getTotal();
+			int point = resultPayment / 10; // 10% 적립금
+			Date now = new Date(); //유효기간 1년
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTime(now);
+			cal.add(Calendar.YEAR, 1); //1년 더하기
+			Date date = cal.getTime();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // mysql date형식에 맞게 변환
+			pointService.pointAdd(kakaoPayApprovalVO.getPartner_user_id(), point, df.format(date), "재능판매구입");
+			
+            return kakaoPayApprovalVO;
+        
+        } catch (RestClientException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+	}
 }

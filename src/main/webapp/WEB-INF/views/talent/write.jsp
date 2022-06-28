@@ -78,13 +78,18 @@
 				<input type="radio" id="free" name="pay" value="free" onclick="showPriceSelect()">무료
 			</label>
 		</div>
-
 		<label for="">가격</label> 
 		<input class="d-none" type="number" id="price" value="0"/> <br />
-		
-		<label for="">종료기간</label>
-		<input type="date"  id="expired"/> <br />
-		<br /> 
+		<br />
+		<label for="">수업& 작업 내용</label><br />
+		<textarea id="" cols="30" rows="10"></textarea>
+		<br />
+        <div id="box">
+            <input type="text" class="classContent"> <input type="button" value="추가" onclick="add_textbox()">
+        </div>
+		<input type="button" onclick="add_click()">
+
+
 		<label for="">지도</label>
 		<input type="text" class="form-control" id="keyword"/>
 		<button type="button" onclick="keywordSearch()">검색</button>
@@ -98,20 +103,20 @@
 		<p>옵션 선택</p>
 		<div>
 			<label>
-				<input type="radio" name="option" value="workDate" onclick="showOptionSelect()">작업기간
+				<input type="radio" name="option" value="workDateFrom" onclick="showOptionSelect()">작업기간
 			</label>
 			<label>
-				<input type="radio" name="option" value="numberOfpeople" onclick="showOptionSelect()">인원수
+				<input type="radio" name="option" value="numberOfPeopleForm" onclick="showOptionSelect()">인원수
 			</label>
 		</div>
-		<div id="workDate"   style="visibility: hidden;">
+		<div id="workDateFrom"   style="visibility: hidden;">
 			<label for="">작업기간</label>
-				<input type="number" name="" />
+				<input type="number" id="workDate" />
 			</div>
 		<br />
-		<div id="numberOfpeople"  style="visibility: hidden;">
+		<div id="numberOfPeopleForm"  style="visibility: hidden;">
 			<label for="">인원수</label> 
-				<input type="number" />
+				<input type="number" id="numberOfPeople"/>
 			</div>
 		<br /> 
 		
@@ -119,6 +124,9 @@
 		<label for="">태그</label> 
 		<input type="text" name="hashTag" />
 		<br /> 
+		<label for="">자기소개</label> <br />
+		<textarea id="selfIntroduction" cols="30" rows="10"></textarea>
+		<br />
 		<input type="hidden" id="jsonByTalent" name="jsonByTalent"/>
 		<input type="hidden" id="folderName" name="folderName" />
 		<button id="insertTalent"  type="submit" value="저장">저장</button>
@@ -135,8 +143,15 @@
 	<script>
 		//메인 카테고리 셋팅
 	    
-		
-		// 유료 무료
+		const add_click = () => {
+			var classContentList = '';
+			var size = $("input[class='classContent']").length;
+			for(i = 0; i < size; i++){
+				console.log($("input[class='classContent']").eq(i).val());
+				classContentList += '/' + $("input[class='classContent']").eq(i).val();
+			}
+		};
+		// 유료 & 무료 선택
 		function showPriceSelect(){
 			$('#price').removeClass('d-none')
 			var nameVal = $('input:radio[name=pay]:checked').val();
@@ -153,20 +168,31 @@
 			}
 		}
 		
-		// 옵션 선택
+		// 옵션 선택(작업일 & 인원수)
 		function showOptionSelect(){
 			var nameVal = $('input:radio[name=option]:checked').val();
 			console.log(nameVal);
-			if(nameVal == 'workDate'){
-				$('#workDate').css("visibility", "visible");
-				$('#numberOfpeople').css("visibility", "hidden");
+			if(nameVal == 'workDateFrom'){
+				$('#workDateFrom').css("visibility", "visible");
+				$('#numberOfPeopleForm').css("visibility", "hidden");
 			}else{
-				$('#numberOfpeople').css("visibility", "visible");
-				$('#workDate').css("visibility", "hidden");
+				$('#numberOfPeopleForm').css("visibility", "visible");
+				$('#workDateFrom').css("visibility", "hidden");
 			}
 		}
 		
-		
+		// 항목 생성
+		const add_textbox = () => {
+            const box = document.getElementById("box");
+            const newP = document.createElement('p');
+            newP.innerHTML = "<input type='text' class='classContent'> <input type='button' value='삭제' onclick='remove(this)'>";
+            box.appendChild(newP);
+            
+        }
+        const remove = (obj) => {
+        	document.getElementById('box').removeChild(obj.parentNode);
+        }
+           
 		
 		
 		/* 폴더명 */
@@ -243,13 +269,26 @@
 			$("#insertTalent").click(function(e) {
 				e.preventDefault();
 				console.log("여기까지 옴");
+				
+				var classContentList = '';
+				var size = $("input[class='classContent']").length;
+				for(i = 0; i < size; i++){
+					console.log($("input[class='classContent']").eq(i).val());
+					classContentList += '/' + $("input[class='classContent']").eq(i).val();
+				}
+				console.log(classContentList);
+				
 				var data = {'title' : document.getElementById("title").value,
 						  'content' : document.getElementById("summernote").value,
 						  'topic' : document.getElementById("topic").value,
 						  'price' : document.getElementById("price").value,
 						  'expired' : document.getElementById("expired").value,
 						  'mapLevel' : mapLevel,
-						  'address' : address
+						  'address' : address,
+						  'workDate' : document.getElementById("workDate").value,
+						  'numberOfPeople' : document.getElementById("numberOfPeople").value,
+						  'selfIntroduction' : document.getElementById("selfIntroduction").value,
+						  'classContent' : classContentList
 						  }
 				console.log(data);
 				// json으로 바꿔줌

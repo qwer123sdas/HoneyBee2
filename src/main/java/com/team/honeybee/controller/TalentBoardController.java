@@ -8,12 +8,15 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -21,12 +24,16 @@ import com.google.gson.JsonObject;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.service.TalentBoardService;
+import com.team.honeybee.service.TalentReviewService;
 
 @Controller
 @RequestMapping("talent")
 public class TalentBoardController {
 	@Autowired
 	TalentBoardService service;
+	
+	@Autowired
+	TalentReviewService reviewService;
 	
 	// 게시물 리스트 
 	@RequestMapping("main")
@@ -95,9 +102,17 @@ public class TalentBoardController {
 				Gson gson = new Gson();
 				TalentReivewDto dto = gson.fromJson(reviewJson, TalentReivewDto.class);
 				dto.setMemberId(principal.getName());
-				service.setTalentReview(dto);
 				System.out.println(dto);
+				reviewService.setTalentReview(dto);
+				
 		return "redirect:/talent/board/" + dto.getTalentId();
+	}
+	
+	// 리뷰 목록 가져오기
+	@PostMapping("reviewList")
+	@ResponseBody
+	public List<TalentReivewDto> getReivewList(int talentId) {
+		return reviewService.selectReviewList(talentId);
 	}
 	
 

@@ -25,8 +25,7 @@ public interface TalentBoardMapper {
 						 @Param("memberId")String memberId,
 						 @Param("folderName")String folderName);
 	
-	// 리뷰 작성
-	void insertTalentReview(TalentReivewDto dto);
+	
 
 
 	

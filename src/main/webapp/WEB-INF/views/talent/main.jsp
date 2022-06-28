@@ -71,7 +71,44 @@
 	width: 100%;
 	height: 150px;
 }
+.nickName-body{
+	font-size : 14px;
+}
+.title-body{
+	font-size : 20px;
+	display: flex;
+}
+.price-body{
+	font-size : 17px;
+	font-weight: bold;
+	color : rgb(48, 52, 65);
+	display: flex;
+	justify-content: flex-end; 
+}
 /* 별점 */
+@charset "UTF-8";
+:root {
+  --star-size: 14px;
+  --star-color: #F6F7F8;
+  --star-background: #fc0;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+  display: flex;
+	justify-content: flex-end; 
+}
+.Stars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 
 </style>
@@ -157,11 +194,14 @@
 		                <!-- Product details-->
 		                <div class="card-body">
 		                    <div class="text">
+		                    	<div class="nickName-body">${list.nickname }</div>
 		                        <!-- Product name-->
-		                        <h5 class="fw-bolder">${list.title }</h5>
+		                        <h5 class="title-body">${list.title }</h5>
 		                        <!-- Product price-->
-		                        ${list.price }
+		                        
+		                        <div class="price-body">${list.price } 원</div>
 		                        <!-- 별점 -->
+		                       	<div class="Stars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5."> ｜ 몇개의 평가</div>
 		                    </div>
 		                </div>
 		                <!-- Product actions-->

@@ -157,10 +157,7 @@ public class TalentBoardService {
 		
 	}
 	
-	// 리뷰 작성
-	public void setTalentReview(TalentReivewDto dto) {
-		mapper.insertTalentReview(dto);
-	}
+
 	
 	
 }

@@ -23,7 +23,7 @@ public class DonationBoardDto {
 	private List<String> hashTag; // 해쉬테그
 	
 	private String MPhoto;  // 메인 사진
-	private String image; // 서머노트 
+	private List<String> image; // 서머노트 
 	private String folderName;
 	
 	private LocalDateTime inserted;

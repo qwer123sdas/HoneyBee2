@@ -26,10 +26,10 @@
 		      	t.title, 
 				t.content,
 				t.price, 
-				t.expired, 
 				t.topic, 
 				t.map_level mapLevel, 
 				t.address,
+				t.product_name productName,
 				m.nickname,
 				bi.main_image_name MPhoto,
 				bi.image_folder_id folderName,
@@ -55,7 +55,10 @@
 							 expired, 
 							 topic,
 							 map_level,
-							 address)
+							 address,
+							 work_date,
+							 number_of_people,
+							 self_introduction)
 		VALUES (#{memberId}, 
 				#{title}, 
 				#{content}, 
@@ -66,19 +69,16 @@
 				#{expired}, 
 				#{topic},
 				#{mapLevel},
-				#{address})
+				#{address},
+				#{workDate},
+				#{numberOfPeople},
+				#{selfIntroduction})
 	</insert>
 	<insert id="insertMainPhoto">
 		INSERT INTO BoardImage(talent_id, main_image_name, member_id, image_folder_id)
 		VALUES(#{talentId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
 
-	<!-- 리뷰 작성 -->
-	<insert id="insertTalentReview">
-		INSERT INTO TalentReview(talent_id, member_id, content, star_rating)
-		VALUES(#{talentId}, #{memberId}, #{content}, #{starRating})
-	</insert>
-	
 
 	
 

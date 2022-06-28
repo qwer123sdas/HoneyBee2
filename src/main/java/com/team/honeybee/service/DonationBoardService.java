@@ -216,7 +216,6 @@ public class DonationBoardService {
 		
 		
 		// 포인트 적립
-		
 		int point = amount / 10; // 10% 적립금
 		Date now = new Date(); //유효기간 1년
 		Calendar cal = Calendar.getInstance(); 

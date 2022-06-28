@@ -7,11 +7,16 @@ import lombok.Data;
 public class TalentReivewDto {
 	private int reviewId;
 	private String talentId;
+	
 	private String memberId;
+	private String nickname;
 	
 	private String content;
 	private int starRating;
+	
 	private LocalDate inserted;
+	
+	private int refOrder;
 	
 	
 }

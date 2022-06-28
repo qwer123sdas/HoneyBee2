@@ -56,6 +56,84 @@
 	margin-bottom : 26px;
 }
 
+/* 별점 */
+.star-text{
+    margin-top : 10px;
+    margin-left : 3px;
+	font-size: 20px;
+}
+@charset "UTF-8";
+:root {
+  --star-size: 30px;
+  --subStar-size: 17px;
+  --star-color: #F6F7F8;
+  --star-background: #fc0;
+  --subStar-color: #fff;
+  --subStar-background: #fc0;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-weight: bold;
+  font-family: Times;
+  line-height: 1;
+  display: flex;
+	justify-content: center; 
+}
+.Stars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.totalStars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--subStar-size);
+  font-weight: bold;
+  font-family: Times;
+  line-height: 1;
+}
+.totalStars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--subStar-background) var(--percent), var(--subStar-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subStars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--subStar-size);
+  font-weight: bold;
+  font-family: Times;
+  line-height: 1;
+  display: flex;
+	justify-content: center; 
+}
+.subStars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--subStar-background) var(--percent), var(--subStar-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+textarea {
+	width: 100%;
+	height: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 2px #1E90FF;
+	border-radius: 5px;
+	font-size: 16px;
+	resize: none;
+}
+
 </style>
 
 <body>
@@ -95,6 +173,10 @@
 							<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="">
 						</figure>
 					</c:if>
+					<!-- 별점 -->
+		            <div class="Stars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5.">
+		            	<div class="star-text">4.0 (몇개의 평가)</div>
+		            </div>
                     <!-- 게시판 네비게이션 바 -->
                     <div class="my-4">
 		                    <ul class="nav nav-tabs nav-fill justify-content-center ">
@@ -146,23 +228,26 @@
                             <!-- Comment form-->
                             <form class="mb-4">
                             	<div>                            	
-                            		<div>총 평점</div>
-                            		<div>
-                            			<div>**개의 평점 **명 참여<spna class="d-flex flex-row-reverse" data-bs-toggle="modal" data-bs-target="#modal1">나도 평점 주기</spna></div>
-                            			
-                            		</div>
-                            		
+                            		<div>후기 평가</div>
+                            		<div>실제 꿀비를 이용한 구매자들이 남긴 평가입니다.</div>
+
+                            		<span class="d-flex flex-row-reverse" data-bs-toggle="modal" data-bs-target="#modal1">나도 평점 주기</span>
                             	</div>
                             </form>
                             <hr />
                             <!-- Single comment-->
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                </div>
-                            </div>
+                            <container> 
+                            	<div>
+                            		<div class="d-flex justify-content-start">서비스 후기</div>
+                            		<div class="d-flex justify-content-end">
+                            			<div>최신순</div>
+                            			<div>별점 높은 순</div>
+                            			<div>별점 낮은 순</div>
+                            		</div>
+                            	</div>
+                            	<div id="replyList"></div>
+								<!-- 리뷰 출력-->
+                            </container>
                             
                             
                             <!-- Comment with nested comments-->
@@ -202,36 +287,40 @@
             <!-- Side widgets-->
             <div class="col-lg-4">
                 <!-- Categories widget-->
-                <div class="card border-0 mb-4">
+                <div class="card border-0">
                     <div class="card-body">
                     	<div class="mx-3 mb-1">
                     		<!-- Post tag-->
                     		<div class="mb-3">
-		                    	<span class="badge rounded-pill bg-warning text-dark ">태그1</span>
-		                    	<span class="badge rounded-pill bg-warning text-dark">태그2</span>
+		                    	<span class="badge rounded-pill bg-warning text-dark ">찜하기</span>
 	                    	</div>
 	                    	<!-- Post title-->
-                        	<h4 class="fw-bolder mb-3">${board.title }</h4>
-                        	<!-- Post progressbar-->
-                        	<div class="progress" style="height: 6px;">
-		                    	<div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
-										aria-valuemax="100"></div>
-							</div>
-							<div class="mb-5">
-							</div>
-							${board.price }
-							<div class="d-grid gap-2">
-								<form action="${appRoot }/order/cart/${board.talentId}" method="Get">
-									<button type="submit" class="btn btn-warning buyButton" >구매하기</button>
-								</form>
-							</div>
+                        	<h4 class="fw-bolder">${board.title }</h4>
+							<h4 class="fw-bolder d-flex flex-row-reverse">${board.price } 원</h4>
                     	</div>
                     </div>
                 </div>
                 <!-- Side widget-->
                 <div class="card border-1 mx-4 mb-4">
                 	<div>
-                		<div class="card-body ">
+                		<div class="card-body pb-0">
+                			<p>${board.productName }</p>
+                			<p>작업 세부 내용</p>
+                			<p>작업일이나 인원수</p>
+                		</div>
+                		<div class="card-body pt-1">
+	                		<div class="d-grid gap-2">
+								<form action="${appRoot }/order/cart/${board.talentId}" method="Get">
+									<button type="submit" class="btn btn-warning buyButton" >구매하기</button>
+								</form>
+							</div>
+						</div>
+                	</div>
+                </div>
+                <!-- Side widget-->
+                <div class="card border-1 mx-4 mb-4">
+                	<div>
+                		<div class="card-body pb-0">
                 			<p>작성자 : ${board.nickname }</p>
                 			<p>작성자 어필?</p>
                 		</div>
@@ -251,7 +340,7 @@
 			     </div>
 				<div class="modal-body">
 					<div class="modal_body_head">
-						<h5 class="d-flex justify-content-center">강의 제목</h5>
+						<h5 class="d-flex justify-content-center">${board.title }</h5>
 						<div class="d-flex justify-content-center">
 							<span class="ico_button" id="minusButton">
 		                       <i class="fa-solid fa-circle-minus"></i>
@@ -433,9 +522,43 @@
 		});
 		
 		/* 댓글 리스트 가져오기 */
+		/* 댓글목록 */
 		const reviewList = function(){
+			const data = {talentId : ${board.talentId}};
 			
-		};
+			$.ajax({
+				url :'${appRoot}/talent/reviewList',
+				type : 'POST',
+				data : data,
+				success : function(list){
+					const replyListElement = $('#replyList');
+	    			replyListElement.empty();
+	    			
+
+	    			for(let i = 0; i < list.length; i++){
+	    				const replyElement = $("<div class='d-flex mb-4' />");
+	    				replyElement.html(`
+	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                            	<div class="fw-bold" id="replyDiv">
+                            	\${list[i].nickname }
+                            	</div>
+                            	
+                            	<div class="subStars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5."></div>
+                            		\${list[i].content}
+                            	<div class="mt-3">\${list[i].inserted }</div>    
+                            </div>
+                                `);
+	    				
+	    				replyListElement.append(replyElement);
+	    				
+    	    			 
+	    			} // for문 끝
+				} // success 끝
+			}); // ajax 끝
+		}// ready 끝
+		
+		reviewList(); // 댓글 목록 리스트 함수 실행!
 	});
 
 </script>

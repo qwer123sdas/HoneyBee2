@@ -1,6 +1,7 @@
 package com.team.honeybee.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,6 +17,9 @@ public class TalentBoardDto {
 	
 	private String productName;
 	private String price;
+	private String selfIntroduction;  // 강사 자기소개
+	private String classContent; // 수업 항목
+	
 	/* 상품 한개 구매 시 획득 포인트 */
     private int savePoint;
 	
@@ -26,7 +30,7 @@ public class TalentBoardDto {
 	private String expired;
 	
 	private String MPhoto;  // 메인 사진
-	private String image; // 서머노트 
+	private List<String> image; // 서머노트 
 	private String folderName;
 	
 	private int mapLevel;
@@ -36,7 +40,5 @@ public class TalentBoardDto {
 	private String topic;
 	
 	// db에 없는 정보
-    private int salePrice; // 할인 적용된 가격 
     private int totalPrice; //총 가격(할인 적용된 가격 * 주문 수량)
-    private int totalSavePoint; // 총 획득 포인트(상품 한개 구매 시 획득 포인트 * 수량) 
 }

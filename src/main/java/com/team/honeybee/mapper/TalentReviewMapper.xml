@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.TalentReviewMapper">
+	<!-- 리뷰 작성 -->
+	<insert id="insertTalentReview">
+		INSERT INTO TalentReview(talent_id, member_id, content, star_rating)
+		VALUES(#{talentId}, #{memberId}, #{content}, #{starRating})
+	</insert>
+	
+	<!-- 리뷰 목록 가져오기 -->
+	<select id="selectReviewList" resultType="com.team.honeybee.domain.TalentReivewDto">
+		SELECT t.review_id reviewId,
+			   t.content,
+			   t.inserted,
+			   t.star_rating starRating,
+			   t.refOrder,
+			   m.nickname
+		FROM TalentReview t LEFT JOIN Member m ON t.member_id = m.member_id
+		WHERE talent_id = #{talentId}
+	</select>
+</mapper>
