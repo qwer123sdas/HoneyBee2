@@ -209,43 +209,47 @@
 
 /* 대댓글 토글버튼 */
 .dropbtn {
-  color: black;
-  padding: 3px;
-  font-size: 20px;
-  border: none;
-  cursor: pointer;
-  display: flex;
+	color: black;
+	padding: 3px;
+	font-size: 20px;
+	border: none;
+	cursor: pointer;
+	display: flex;
 
 
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  text-align: center;
+	display: none;
+	position: absolute;
+	right: 0;
+	background-color: #f9f9f9;
+	min-width: 100px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	text-align: center;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 12px 12px;
-  text-decoration: none;
-  display: block;
+	color: black;
+	padding: 12px 12px;
+	text-decoration: none;
+	display: block;
 }
 
 .dropdown-content a:hover {background-color: #f1f1f1;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #9B9B9B;}
 
+/* 답글 입력창 슬라이드 */
+#panel {
+	display: none;
+}
 
 
 </style>
@@ -531,12 +535,13 @@
 			
 		} 
 	});
-		
+	
+
 		
 	// guestList 가져오는 ajax 요청
 	const guestList = function() {
 		 const data = {meetingId : '${meeting.meetingId}'};
-		 
+		 console.log("111111111111111")
 		 $.ajax({
 			 
 			 url : "${appRoot}/meeting/board/guest/list",
@@ -590,7 +595,7 @@
 			 }
 			 
 		 });
-		 
+		 console.log("22222222222222222222")
 		// 모임 신청버튼 누르면 submit
 		$("#guestSubmitBtn1").click(function(e) {
 			e.preventDefault();
@@ -625,7 +630,8 @@
 	 
 	 /* 게스트 입출력 부분 끝남 */
 
-				
+
+				console.log("333333333333333333333")
 				// 댓글 처리
 				const parentsReplyList = function() {
 					
@@ -643,7 +649,9 @@
 							console.log("1111= "+list.length);
 							
 							for (let i = 0; i < list.length; i++) {
-								const replyElement = $("<div class='d-flex mb-4'/>");
+								const leftMargin = 40 * list[i].step + "px";
+								
+								const replyElement = $(`<div class='d-flex mb-4 replyForm1' style='margin-left: \${leftMargin}'/>`);
 								replyElement.html(`
 									<div class="flex-shrink-0" >
 										<!-- 프로필사진 -->
@@ -653,12 +661,12 @@
 										<!-- 프로필사진 -->
 									</div>
 									<div id="replyForm" class="flex-fill">
-										<div class="ms-3" id="repplyMemberInfo">
+										<div class="ms-3">
 											<div class="fw-bold d-flex">
-												<span class="replyMemberInfo me-auto">
+												<span class="me-auto">
 													\${list[i].nickname }
-													<br>
-													<sapn style="font-weight: normal; font-size: 14px;">\${list[i].inserted }</span>
+													<span style="font-weight: normal; font-size: 14px;">
+													\${list[i].inserted }</span>
 												</span>
 												<div class="dropdown" >
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
@@ -674,52 +682,108 @@
 										
 										<div class="ms-3">
 											<div class="fw-bold d-flex justify-content-between">
-												<a class="small fw-medium" href="#">
-													<strong class="replyTextform">답글 작성</strong>
+												<a class="small fw-medium" href="#!">
+													<span id="flip" class="replyText">답글 작성</span>
 														<span class="replyCnt" style="">0</span>
 												</a>
-												<a class="replyLike" href="#">
+												<a class="replyLike" href="#!">
 													<i class="fa-regular fa-heart"></i>
 													<em class="replyLikeCnt">0</em>
 												</a>
 											</div>
 										</div>
 										
-										<div id="childReplyArea" class="dropdown d-none">
-											<div class="input-group2">
-												<input id="insertReplyChildInput" class="form-control"
-													type="text" name="content" placeholder="답글을 작성해주세요" />
-												<button class="btn btn-primary" id="insertReplyChildButton" > 
-													<i class="fa-solid fa-circle-check"></i>
-												</button>
-											</div>
-										</div>
+										<div id="panel" class="childReplyArea">
+											<form id = "childReplyAreaForm">
+												<div class="input-group">
+			      									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+			      									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
+			      									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+			      									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+				      								<input id="insertReplyChildInput" class="form-control ms-3"
+					      									type="text" name="content" placeholder="답글을 작성해주세요" /><br>
+					      							<span class="btn btn-primary insertReplyChildButton" id="">
+					      								<i class="fa-solid fa-circle-check"></i>
+					      							</span>
+			      								</div>
+			      							</form>
+	      								</div>
+	      							</div>
 							
               							`);
+			
 								
+								// 자식댓글(답글) 등록
+								replyElement.find(".insertReplyChildButton").click(function() {
+									console.log("5555555555555555555555555555544");
+									
+									// $("#childReplyArea").removeClass("d-none");
+									const data = $("#childReplyAreaForm").serialize();
+									
+										$.ajax({ // 자식댓글(답글) 출력
+											url : "${appRoot }/meeting/reply/insertReplyC",
+											type : "post",
+											data : data,
+											success : function(data) {
+													/*
+													$(".replyForm1").removeClass("d-flex mt-4");
+													$(".replyForm1").addClass("d-flex ms-4");
+													*/
+													console.log("댓글 등록성공");
+													// 등록 완료후 초기화
+													$("#insertReplyChildInput").val("");
+													parentsReplyList();
+													
+													// 자식 댓글창 슬라이드
+													$("#flip").click(function(e) {
+														e.preventDefault();
+														$("#panel").slideToggle("slow");	
+													});
+											},
+											error : function() {
+												console.log("댓글 등록 실패");
+											}
+											
+																	
+									});// 자식댓글(답글) 등록 ajax end
+								});
                            		replyListElement.append(replyElement);
+                           	
 							} // end of for
 							
-							
+            				// 자식 댓글창 슬라이드
+							$("#flip").click(function(e) {
+								e.preventDefault();
+								$("#panel").slideToggle("slow");	
+							});
+                           	
+							console.log("aaaaa");
 						},// success end
 						
 						error : function() {
-							console.log("댓글 가져오기 실패")
+							console.log("댓글 가져오기 실패");
 						}
+						
+						
 						
 						
 					}); // 댓글 목록 ajax end
 					
+					
+					console.log("zzzzzz");
+				
+				
 			 }
 			 // 댓글 목록 실행
 			 parentsReplyList();
-
-		// 댓글 등록
+			 
+			 console.log("5555555555555555555");
+		// 부모 댓글 등록
 		$("#insertReplyParentsButton").click(function(e) {
 			e.preventDefault();
 			
 			const data = { meetingId : '${meeting.meetingId}',
-							 content : $('#insertReplyPContentInput1').val() };
+							 content : $('#insertReplyParentsInput').val() };
 									
 				$.ajax({ // 댓글 출력
 					url : "${appRoot }/meeting/reply/insertReplyP",
@@ -727,25 +791,25 @@
 					data : data,
 					success : function(data) {
 							console.log("댓글 등록성공");
+							$("#insertReplyParentsInput").val("");
 							parentsReplyList();
 					},
 					error : function() {
 						console.log("댓글 등록 실패");
 					}
 											
-					});
+					});// 부모 댓글 등록 ajax end
 	
 			});	
 		
-		// 자식댓글(답글) 등록
-		$("#childReplyArea").click(function(e) {
-			e.preventDefault();
-			
-			$("#childReplyArea").removeClass("d-none");
-			
-			const data = { meetingId : '${meeting.meetingId}',
-							 content : $('#insertReplyChildInput').val() };
-		});
+		// 자식 댓글창 슬라이드 이벤트 핸들러 메소드 만들기
+		var flipClick = document.getElementById("flip");
+		var panel = document.getElementById("panel");
+		
+		flip.addEventListener("click", function(e) {
+			$("#panel").slideToggle("slow");
+		})
+		
 });
 	    
 </script>
