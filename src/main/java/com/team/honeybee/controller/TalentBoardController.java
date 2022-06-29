@@ -39,7 +39,7 @@ public class TalentBoardController {
 	@RequestMapping("main")
 	public void mainPage(Model model) {
 		// 목록 가져오기
-		List<TalentBoardDto> boardList = service.findOrder();
+		List<TalentBoardDto> boardList = service.findBoardList();
 		
 		model.addAttribute("boardList", boardList);
 	}
@@ -53,6 +53,11 @@ public class TalentBoardController {
 		// 게시글 정보 가져오기
 		TalentBoardDto board = service.getBoard(talentId);
 		
+		// 수업 항목 list로 보내기
+		String classContents = board.getClassContent();
+		String[] classContentList = classContents.split("/");
+		
+		model.addAttribute("classContentList", classContentList);
 		model.addAttribute("board", board);
 		return "talent/board";
 	}

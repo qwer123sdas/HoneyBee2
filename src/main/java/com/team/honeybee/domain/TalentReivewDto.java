@@ -18,5 +18,9 @@ public class TalentReivewDto {
 	
 	private int refOrder;
 	
+	// db에 없음
+    private int starCount;
+	private int starSum;
+	
 	
 }

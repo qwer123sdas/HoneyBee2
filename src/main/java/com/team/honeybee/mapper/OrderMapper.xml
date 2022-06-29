@@ -7,6 +7,8 @@
 		SELECT t.title,
 			   t.price,
 			   t.product_name productName,
+			   t.work_date workDate,
+			   t.class_content classContent,
 			   m.member_id memberId,
 			   m.nickname,
 			   bi.main_image_name MPhoto,

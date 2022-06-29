@@ -69,7 +69,7 @@
 		<textarea class="textarea"  id="summernote"> </textarea>
 		<br />
 		<label for="">판매 물품 이름</label>
-		<input type="text" />
+		<input type="text" id="productName"/>
 		<div>
 			<label>
 				<input type="radio" id="pay" name="pay" value="pay" onclick="showPriceSelect()">유료
@@ -151,6 +151,7 @@
 				classContentList += '/' + $("input[class='classContent']").eq(i).val();
 			}
 		};
+		
 		// 유료 & 무료 선택
 		function showPriceSelect(){
 			$('#price').removeClass('d-none')
@@ -269,7 +270,6 @@
 			$("#insertTalent").click(function(e) {
 				e.preventDefault();
 				console.log("여기까지 옴");
-				
 				var classContentList = '';
 				var size = $("input[class='classContent']").length;
 				for(i = 0; i < size; i++){
@@ -281,8 +281,8 @@
 				var data = {'title' : document.getElementById("title").value,
 						  'content' : document.getElementById("summernote").value,
 						  'topic' : document.getElementById("topic").value,
-						  'price' : document.getElementById("price").value,
-						  'expired' : document.getElementById("expired").value,
+						  'productName' : document.getElementById("productName").value,
+						  'price' : $('#price').val(),
 						  'mapLevel' : mapLevel,
 						  'address' : address,
 						  'workDate' : document.getElementById("workDate").value,

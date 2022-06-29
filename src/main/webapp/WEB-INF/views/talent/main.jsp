@@ -10,6 +10,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    
+    <!--font-awesome  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -86,29 +89,15 @@
 	justify-content: flex-end; 
 }
 /* 별점 */
-@charset "UTF-8";
-:root {
-  --star-size: 14px;
-  --star-color: #F6F7F8;
-  --star-background: #fc0;
-}
-
-.Stars {
-  --percent: calc(var(--rating) / 5 * 100%);
-  display: inline-block;
-  font-size: var(--star-size);
+.star-body {
+  font-size: 12px;
   font-family: Times;
   line-height: 1;
+  margin-top : 2px;
   display: flex;
 	justify-content: flex-end; 
 }
-.Stars::before {
-  content: "★★★★★";
-  letter-spacing: 3px;
-  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 
 
 </style>
@@ -201,7 +190,7 @@
 		                        
 		                        <div class="price-body">${list.price } 원</div>
 		                        <!-- 별점 -->
-		                       	<div class="Stars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5."> ｜ 몇개의 평가</div>
+		                       	<div class="star-body"><i class="fa-solid fa-star" id="image1" style="margin-right:4px;color : orange;"></i>${list.averageStarRating } ｜ ${list.starCount}개의 평가</div>
 		                    </div>
 		                </div>
 		                <!-- Product actions-->

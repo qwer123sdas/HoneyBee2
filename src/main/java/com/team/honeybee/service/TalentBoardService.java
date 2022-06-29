@@ -3,6 +3,7 @@ package com.team.honeybee.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,7 @@ import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.mapper.SummerNoteMapper;
 import com.team.honeybee.mapper.TalentBoardMapper;
+import com.team.honeybee.mapper.TalentReviewMapper;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -37,6 +39,9 @@ public class TalentBoardService {
 	
 	@Autowired
 	SummerNoteMapper summerNoteMapper;
+	
+	@Autowired
+	TalentReviewMapper reviewMapper;
 	
 	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
@@ -59,14 +64,45 @@ public class TalentBoardService {
 	
 	
 	// 게시물 리스트 가져오기
-	public List<TalentBoardDto> findOrder() {
-		return mapper.findOrder();
+	public List<TalentBoardDto> findBoardList() {
+		// 리스트 불러오기
+		List<TalentBoardDto> boardList =  mapper.findBoardList();
+		// 각 리스트에 각 게시판의 평점 넣기
+		for(TalentBoardDto board : boardList) {
+			int talentId = board.getTalentId();
+			TalentReivewDto reviewDto = reviewMapper.getTotalStarRating(talentId);
+			double sum = reviewDto.getStarSum();
+			int count = reviewDto.getStarCount();
+			double result = 0;
+			if(count != 0) {
+				result = sum / count;
+			}
+			
+			board.setStarCount(count);
+			board.setAverageStarRating(result);
+			
+		}
+		
+		return boardList;
 	}
 	
 	// 특정 게시물 정보 가져오기
 	public TalentBoardDto getBoard(int talentId) {
-		// 메인 사진 이름 가져오기
-		return mapper.getBoard(talentId);
+		// 별점 총합 가져오기 + 평균내기
+		TalentReivewDto reviewDto = reviewMapper.getTotalStarRating(talentId);
+		double sum = reviewDto.getStarSum();
+		int count = reviewDto.getStarCount();
+		double result = 0;
+		if(count != 0) {
+			result = sum / count;
+		}
+		
+		// 메인 사진 이름 가져오기??
+		TalentBoardDto dto =  mapper.getBoard(talentId);
+		dto.setStarCount(count);
+		dto.setAverageStarRating(result);
+		
+		return dto;
 	}
 
 	// 게시글 작성하기

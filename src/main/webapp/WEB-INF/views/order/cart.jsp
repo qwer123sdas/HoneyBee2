@@ -294,7 +294,7 @@ td {
 							                </div>
 							            </td>
 							            <td class="text-center">
-							            	<div class="">28 일</div>
+							            	<div class="">${board.workDate } 일</div>
 							            </td>
 							            <td class="text-end">
 							           		<div class="priceTotal">${board.price }원</div>

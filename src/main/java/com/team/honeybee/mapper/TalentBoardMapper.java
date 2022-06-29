@@ -12,8 +12,8 @@ import com.team.honeybee.domain.TalentReivewDto;
 @Mapper
 public interface TalentBoardMapper {
 	// 게시물 리스트 가져오기
-	List<TalentBoardDto> findOrder();
-
+	List<TalentBoardDto> findBoardList();
+	
 	// 게시물 정보 가져오기
 	TalentBoardDto getBoard(int talentId);
 	
@@ -24,6 +24,7 @@ public interface TalentBoardMapper {
 						 @Param("mainPhoto")String mainPhoto, 
 						 @Param("memberId")String memberId,
 						 @Param("folderName")String folderName);
+	
 	
 	
 

@@ -121,6 +121,19 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.product-body{
+	font-family: 'Metro Sans',sans-serif;
+	color: #303441;
+}
+.product-title{
+	font-size: 14px;
+    font-weight: 700;
+}
+.product-detail{
+    font-size: 14px;
+    margin-top: 4px;
+    line-height: 1.5;
+}
 
 
 textarea {
@@ -174,8 +187,8 @@ textarea {
 						</figure>
 					</c:if>
 					<!-- 별점 -->
-		            <div class="Stars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5.">
-		            	<div class="star-text">4.0 (몇개의 평가)</div>
+		            <div class="Stars" style="--rating: ${board.averageStarRating };" aria-label="Rating of this product is 2.3 out of 5.">
+		            	<div class="star-text">${board.averageStarRating } (${board.starCount}개의 평가)</div>
 		            </div>
                     <!-- 게시판 네비게이션 바 -->
                     <div class="my-4">
@@ -194,18 +207,13 @@ textarea {
                     <!-- 메인 컨텐츠-->
                     <section class="mb-5" id="mainContentContainer">
                     	<p class="fs-5 mb-4">${board.content }</p>
-                        <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                        <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                        <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                        <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                        <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                        <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                        	<c:if test="${not empty board.address }">
-		                        <div class="map_wrap">
-									<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-									<p>주소 : ${board.address }</p>							
-								</div>
-							</c:if>
+                    	
+                       	<c:if test="${not empty board.address }">
+	                        <div class="map_wrap">
+								<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+								<p>주소 : ${board.address }</p>							
+							</div>
+						</c:if>
 	                        
                     </section>
                 </article>
@@ -303,10 +311,25 @@ textarea {
                 <!-- Side widget-->
                 <div class="card border-1 mx-4 mb-4">
                 	<div>
-                		<div class="card-body pb-0">
-                			<p>${board.productName }</p>
-                			<p>작업 세부 내용</p>
-                			<p>작업일이나 인원수</p>
+                		<div class="card-body pb-0 product-body">
+                			<p class="product-title">${board.productName }</p>
+                			<div class="product-detail">
+                				<div class="classContentForm">
+                				
+                				</div>
+                				<c:forEach items="${classContentList }" var="classContent">
+                					<p><i class="fa-solid fa-check"></i>classContent</p>
+                				</c:forEach>
+                				
+	                			<p >${board.classContent }</p>
+	                			
+	                			<c:if test="${not empty board.workDate }">
+	                				<p><i class="fa-regular fa-calendar-check"></i> 작업일 : ${board.workDate }</p>
+	                			</c:if>
+	                			<c:if test="${not empty board.numberOfPeople }">
+	                				<p>총 인원수 : ${board.numberOfPeople }</p>
+	                			</c:if>
+                			</div>
                 		</div>
                 		<div class="card-body pt-1">
 	                		<div class="d-grid gap-2">
@@ -322,7 +345,8 @@ textarea {
                 	<div>
                 		<div class="card-body pb-0">
                 			<p>작성자 : ${board.nickname }</p>
-                			<p>작성자 어필?</p>
+                			<p>소개</p>
+                			<p> ${board.selfIntroduction }</p>
                 		</div>
                 	</div>
                 </div>
@@ -473,6 +497,14 @@ textarea {
 			$("#cancleAndRefundConatiner").addClass("d-none");
 		});
 		
+		/* 클래스 내용 세부항목  */
+		var list = ${classContentList};
+		for(var i = 1; i < list.length; i++){
+			const box = document.getElementByClassName("classContentForm");
+            const newP = document.createElement('p');
+            newP.innerHTML = "<i class="fa-solid fa-check"></i> list[i] ";
+            box.appendChild(newP);
+		}
 		
 		/* 별점 주기 */
 		var star = 0;
@@ -544,7 +576,7 @@ textarea {
                             	\${list[i].nickname }
                             	</div>
                             	
-                            	<div class="subStars" style="--rating: 1.3;" aria-label="Rating of this product is 2.3 out of 5."></div>
+                            	<div class="subStars" style="--rating: \${list[i].starRating};" aria-label="Rating of this product is 2.3 out of 5."></div>
                             		\${list[i].content}
                             	<div class="mt-3">\${list[i].inserted }</div>    
                             </div>
