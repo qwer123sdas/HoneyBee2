@@ -256,4 +256,19 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return mapper.getFaq(questionId);
 	}
+
+	public DonationBoardDto getDonationByMemberId(String memberId) {
+		
+		return mapper.getDonationByMemberId(memberId);
+	}
+
+	public TalentBoardDto getTalentByMemberId(String memberId) {
+		
+		return mapper.getTalentByMemberId(memberId);
+	}
+
+	public MeetingDto getMeetingByMemberId(String memberId) {
+		
+		return mapper.getMeetingByMemberId(memberId);
+	}
 }

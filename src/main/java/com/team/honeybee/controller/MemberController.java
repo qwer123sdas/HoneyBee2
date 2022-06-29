@@ -9,6 +9,8 @@ import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.mail.javamail.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -289,7 +291,33 @@ public class MemberController {
 		}
 		return "redirect:/member/faqList";
 		}
-
+	
+	@RequestMapping("myBoard")
+	public void myBoard(Principal principal, Model model) {
+		DonationBoardDto donation = service.getDonationByMemberId(principal.getName());
+		TalentBoardDto talent = service.getTalentByMemberId(principal.getName());
+		MeetingDto meeting = service.getMeetingByMemberId(principal.getName());
+		
+		model.addAttribute("donation", donation);
+		model.addAttribute("talent", talent);
+		model.addAttribute("meeting", meeting);
+	}
+	
+	// 유저/어드민 로그인 따로
+	@GetMapping("loginSuccess")
+	public String loginSuccess(Authentication authentication) {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		System.out.println("User has authorities: " + userDetails.getAuthorities());
+		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+		
+		for (GrantedAuthority auth : authorities) {
+			if (auth.getAuthority().equals("ROLE_ADMIN")) {
+				return "redirect:/admin/index"; 
+			}
+		}
+		
+		return "redirect:/member/index";
+	}
 }
 
 

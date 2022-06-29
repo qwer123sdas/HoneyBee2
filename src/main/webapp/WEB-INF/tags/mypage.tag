@@ -34,9 +34,9 @@
 	<div class="offcanvas-body">
 		<a href="${memberInfoUrl }">회원 정보 변경</a>
 		<hr />
-		<a href="#">내가 쓴 글</a>
+		<a href="myBoard">내가 쓴 글</a>
 		<hr />
-		<a href="#">내가 쓴 후기</a>
+		<a href="myReview">내가 쓴 후기</a>
 		<hr />
 		<a href="faqList">상담내역</a>
 	</div>

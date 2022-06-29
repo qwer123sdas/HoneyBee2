@@ -52,4 +52,10 @@ public interface MemberMapper {
 	//상담 내용 불러오기  
 	FaqDto getFaq(int questionId);
 
+	DonationBoardDto getDonationByMemberId(String memberId);
+
+	TalentBoardDto getTalentByMemberId(String memberId);
+
+	MeetingDto getMeetingByMemberId(String memberId);
+
 }
