@@ -31,14 +31,40 @@
 	font-family: 'Poppins' sans-serif;
 	font-weight: 400;
 }
-
 html, body{
-	height: 100;
-	background-color: #fff;
-	overflow: hidden;
+	height: 1600px;
+	background: url("https://cdn.pixabay.com/photo/2022/03/24/16/39/background-7089456_960_720.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.container{
+	margin: 10px;
+	border: 10px;
+	padding: 10px;
 }
 
+.title h1{
+	text-align: center;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+	font-weight: 500;
+	color: #fff !important;
+}
+#profile{
+	width: 500px;
+	margin: 3px;
+	border: 3px solid #fbc02d;
+	border-radius: 25px;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 40px;
+	display: inline-block;
+	color: #333333;
+}
 
+#profile .checkButton{
+	background-color: rgba(0,0,0,0);
+}
 </style>
 
 <title>마이페이지</title>
@@ -168,77 +194,82 @@ html, body{
 <body>
 	<!-- 임시 navBar -->
 	<my:navBar current="info"></my:navBar>
-
+	<my:mypage></my:mypage>
 	<div class="container">
-		<div class="row justify-content-center">
-		<my:mypage></my:mypage>
-			<div class="col-8 mt-5 ms-5">
-				<form id="form1" action="${appRoot }/member/modify" method="post"
-					enctype="multipart/form-data">
-					<h1>회원 정보 변경</h1>
+		<div class="row">
+			<div class="d-flex flex-row justify-content-center">
+				<form id="form1" action="${appRoot }/member/modify" method="post" enctype="multipart/form-data">
+					<div class="title"><h1>회원 정보 변경</h1></div>
 
-					<div>
-						<p>${message }</p>
+					<div><p>${message }</p></div>
+					
+					<div class="col-md-3 border-center" id="profile">
+						<div class="d-flex flex-column align-items-center text-left p-3 py-5">
+							<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
+							<label class="labels">프로필 사진</label>
+							<img class="rounded-circle mt-5"
+								src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
+								onerror="${appRoot }/resources/webContents/img/user.png"
+								width="80px" height="80px" />
+							<input type="file" name="profileFile" value="${memberInfo.profile }" accept="image/*" />
+							<br />
+					
+							<div class="col-md-12">
+								<label class="labels">이름</label> <br />
+								<input class="form-control" type="text" name="name" value="${memberInfo.name }" readonly />
+							</div>
+							<br />
+							<div class="col-md-12">
+								<label class="labels">이메일</label> <br />
+								<input class="form-control" id="emailInput1" type="email" name="email" value="${memberInfo.email }" />
+								<div class="checkButton"><button class="btn btn-link" id="emailCheckButton1" disabled>이메일 수정</button></div>
+							</div>
+							<p id="emailMessage1"></p>
+							<br />
+						
+							<div class="col-md-12">
+								<label class="labels">닉네임</label> <br />
+								<input class="form-control" id="nickNameInput1" type="text" name="nickname" value="${memberInfo.nickname }" />
+								<div class="checkButton"><button class="btn btn-link" id="nickNameCheckButton1" disabled>닉네임 수정</button></div>
+							</div>
+							<p id="nickNameMessage1"></p>
+							<br />
+	
+							<!-- 우편번호 주소 상세주소 전화 수정 누르면 변경할 수 있도록 만들기 -->
+							<div class="col-md-12">
+								<label class="labels">우편번호</label> <br />
+								<input class="form-control" type="text" name="postcode" value="${memberInfo.postcode }" />
+							</div>
+							<br />
+							
+							<div class="col-md-12">
+								<label class="labels">주소</label> <br />
+								<input class="form-control" type="text" name="address" value="${memberInfo.address }" />
+							</div>
+							<br />
+							
+							<div class="col-md-12">
+								<label class="labels">상세주소</label> <br />
+								<input class="form-control" type="text" name="detail" value="${memberInfo.detail }" />
+							</div>
+							<br />
+						
+							<div class="col-md-12">
+								<label class="labels">전화</label> <br />
+								<input class="form-control" type="text" name="phone" value="${memberInfo.phone }" />
+							</div>
+							<br />
+							
+							<div class="d-grid gap-2 col-12">
+								<button class="btn btn-secondary btn-lg" type="button" id="modifySubmitButton1"
+									data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
+								<button class="btn btn-danger btn-lg" type="button" data-bs-toggle="modal"
+									data-bs-target="#modalSheet1">삭제</button>
+							</div>
+	
+							<span><a href="updatePw">비밀번호 변경하러 가기</a></span>
+						</div>
 					</div>
-
-					<input type="hidden" name="memberId"
-						value="${memberInfo.memberId }" readonly />
-
-					프로필 사진
-					<img style="border-radius:40px"
-						src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
-						onerror="${appRoot }/resources/webContents/img/user.png"
-						width="80px" height="80px" />
-					<input type="file" name="profileFile"
-						value="${memberInfo.profile }" accept="image/*" />
-					<br />
-
-					이름
-					<input type="text" name="name" value="${memberInfo.name }" readonly />
-					<br />
-					<!-- 
-					비밀번호 <input id="pwInput1" type="text" value="${memberInfo.pw }" />
-					<br />
-					비밀번호 확인 <input id="pwInput2" type="text" value="${memberInfo.pw }"/>
-					<p id="pwMessage1"></p>
-					<br />
-					 -->
-
-					이메일
-					<input id="emailInput1" type="email" name="email"
-						value="${memberInfo.email }" />
-					<button id="emailCheckButton1" disabled>이메일 수정</button>
-					<p id="emailMessage1"></p>
-					<br />
-
-					닉네임
-					<input id="nickNameInput1" type="text" name="nickname"
-						value="${memberInfo.nickname }" />
-					<button id="nickNameCheckButton1" disabled>닉네임 수정</button>
-					<p id="nickNameMessage1"></p>
-					<br />
-
-					<!-- 우편번호 주소 상세주소 전화 수정 누르면 변경할 수 있도록 만들기 -->
-					우편번호
-					<input type="text" name="postcode" value="${memberInfo.postcode }" />
-					<br />
-					주소
-					<input type="text" name="address" value="${memberInfo.address }" />
-					<br />
-					상세주소
-					<input type="text" name="detail" value="${memberInfo.detail }" />
-					<br />
-					전화
-					<input type="text" name="phone" value="${memberInfo.phone }" />
-					<br />
-					<div>
-						<button type="button" id="modifySubmitButton1"
-							data-bs-toggle="modal" data-bs-target="#modalSheet2" disabled>수정</button>
-						<button type="button" data-bs-toggle="modal"
-							data-bs-target="#modalSheet1">삭제</button>
-					</div>
-
-					<a href="updatePw">비밀번호 변경하러 가기</a>
 				</form>
 			</div>
 		</div>

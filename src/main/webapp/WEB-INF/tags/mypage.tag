@@ -4,8 +4,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ attribute name="current"%>
 
+<style>
+.title h1{
+	text-align: center;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+	font-weight: 500;
+	color: #fff !important;
+}
+</style>
    		<div class="col-3 mt-5">
-				<h1>마이 페이지</h1>
+				<div class="title"><h1>마이 페이지</h1></div>
 				<ul class="list-group">
 					<li class="list-group-item list-group-item-action"><a
 						href="${memberInfoUrl }">회원 정보 변경</a></li>
