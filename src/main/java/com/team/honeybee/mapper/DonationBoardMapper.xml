@@ -39,6 +39,7 @@
 		SELECT d.donation_id donationId,
 				d.title,
 				d.content,
+				d.topic,
 				m.nickname,
 				d.inserted,
 				d.expired,

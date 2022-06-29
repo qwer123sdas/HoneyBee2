@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -280,6 +281,9 @@ td {
 							    		<td>
 							    			<div class="">
 							                    <div>상품 이름 : ${board.productName } </div>
+							                    <c:forEach items="${classContentList }" var="classContent">
+				                					<p class="ms-3 my-2"><i class="fa-solid fa-check me-2"></i>${classContent}</p>
+				                				</c:forEach>
 							                </div>
 							    		</td>
 							    		<td class="text-center">
@@ -314,21 +318,21 @@ td {
                     <div class="card mb-4">
                     
                         <div class="OrderSummary">
-                        	<h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-				                <span>총 결제 금액</span>
-				                <span class="priceTotal" id="priceTotal">${board.price }</span>원
+                        	<h5 class="OrderSummary-price-wrapper d-flex" style="text-align: justify;">
+				                <span class="me-auto">총 가격 금액</span>
+				                <span class="priceTotal me-1" id="priceTotal">${board.price }</span> 원
 				                
 				            </h5>
-				            <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-					            <span >포인트 할인</span>
-					            <span id="pointTotal">0</span>원
+				            <h5 class="OrderSummary-price-wrapper d-flex">
+					            <span class="me-auto">포인트 할인</span>
+					            <span class="me-1" id="pointTotal">0</span>원
 					        </h5>
 				            
 				            <div class="OrderSummary-divider"></div>
                         	
-		                    <h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-					            <span>총 결제금액</span>
-					            <span class="p-2" class="finalPayment" id="finalPayment">${board.price }</span>원
+		                    <h5 class="OrderSummary-price-wrapper d-flex">
+					            <span class="me-auto">총 결제금액</span>
+					            <span class="finalPayment me-1" id="finalPayment">${board.price } </span>원
 					        </h5>
 					        
 				            <div>
@@ -357,14 +361,17 @@ td {
                     	<section class="OrderInfo">
 	                    	<!-- 주문 INFO  -->
 	                    	<div>
-	                    		<h3 class="OrderTitle mb-4">포인트 사용, 보유포인트 : ${memberPoint }</h3>
-	                    		<div class="row mb-5">
+	                    		<h3 class="OrderTitle mb-4">포인트 사용</h3>
+	                    		<div class="row">
 	                    			<div class="col-2">
-	                    				<h3>포인트</h3>
+	                    				<h5>포인트</h5>
 	                    			</div>
 	                    			<div class="col-10">
-										<input type="number" value="" id="usePoint"/> 
-										<button id="usePointButton">사용하기</button>
+	                    				<div class="input-group mb-2" style="width: 400px">
+											<input class="form-control" type="number" value="" id="usePoint"/> 
+											<button class="btn btn-outline-dark" id="usePointButton">사용하기</button>
+										</div>
+										<p style="font-size: 13px;">꿀비 보유포인트 : ${memberPoint }</p>
 	                    			</div>
 	                    		</div>
 	                    	</div>
@@ -381,9 +388,8 @@ td {
     <section class="cart container3">
         <div class="cart__information">
             <ul>
-                <li>장바구니 상품은 최대 30일간 저장됩니다.</li>
                 <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
-                <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
+                <li>수업에 참여한 상품은 시작 시점에 따라 환불 여부가 변경될 수 있으니 주문 시 꼭 재능판매내용을 다시 확인해 주시기 바랍니다.</li>
             </ul>
         </div>
     <!-- Modal --></section>

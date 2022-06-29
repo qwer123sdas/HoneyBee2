@@ -55,7 +55,7 @@ public class TalentBoardController {
 		
 		// 수업 항목 list로 보내기
 		String classContents = board.getClassContent();
-		String[] classContentList = classContents.split("/");
+		String[] classContentList = classContents.substring(1).split("/");
 		
 		model.addAttribute("classContentList", classContentList);
 		model.addAttribute("board", board);

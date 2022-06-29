@@ -108,6 +108,9 @@ public class TalentBoardService {
 	// 게시글 작성하기
 	public void setTalentBoard(TalentBoardDto dto, MultipartFile mainPhoto, String folderName) {
 		// 게시글 항목 저장
+		String productCode = UUID.randomUUID().toString();
+		dto.setProductCode(productCode);
+		
 		mapper.setTalentBoard(dto);
 		
 		// 메인 사진 등록

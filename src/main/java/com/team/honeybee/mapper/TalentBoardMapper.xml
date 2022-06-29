@@ -59,7 +59,8 @@
 							 work_date,
 							 number_people,
 							 self_introduction,
-							 class_content)
+							 class_content,
+							 product_code)
 		VALUES (#{memberId}, 
 				#{title}, 
 				#{content}, 
@@ -71,7 +72,8 @@
 				#{workDate},
 				#{numberOfPeople},
 				#{selfIntroduction},
-				#{classContent})
+				#{classContent},
+				#{productCode})
 	</insert>
 	<insert id="insertMainPhoto">
 		INSERT INTO BoardImage(talent_id, main_image_name, member_id, image_folder_id)

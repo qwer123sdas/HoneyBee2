@@ -65,7 +65,7 @@
 @charset "UTF-8";
 :root {
   --star-size: 30px;
-  --subStar-size: 17px;
+  --subStar-size: 13px;
   --star-color: #F6F7F8;
   --star-background: #fc0;
   --subStar-color: #fff;
@@ -110,9 +110,6 @@
   font-size: var(--subStar-size);
   font-weight: bold;
   font-family: Times;
-  line-height: 1;
-  display: flex;
-	justify-content: center; 
 }
 .subStars::before {
   content: "★★★★★";
@@ -135,7 +132,18 @@
     line-height: 1.5;
 }
 
-
+.teacher-head{
+	margin-top : 8px;
+	margin-bottom : 8px;
+	font-size: 18px;
+    color: #303441;
+    font-weight: bold;
+}
+.teacher-body{
+	font-size: 14px;
+    color: #303441;
+}
+/*  */
 textarea {
 	width: 100%;
 	height: 200px;
@@ -146,7 +154,52 @@ textarea {
 	font-size: 16px;
 	resize: none;
 }
+/* 프로필 사진 */
+.profile-size{
+	width: 40px;
+	height: 40px;
+}
 
+.replyContent{
+	background-color: white;
+	border-radius: 10px;
+	padding : 10px;
+	width: 585px;
+}
+
+/* 대댓글 버튼 */
+.dropbtn {
+  color: black;
+  padding: 3px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  margin-left: 428px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #9B9B9B;}
 </style>
 
 <body>
@@ -312,19 +365,16 @@ textarea {
                 <div class="card border-1 mx-4 mb-4">
                 	<div>
                 		<div class="card-body pb-0 product-body">
-                			<p class="product-title">${board.productName }</p>
+                			<p class="product-title mb-0">꿀비판매</p>
                 			<div class="product-detail">
-                				<div class="classContentForm">
+ 		               			<p>${board.productName }</p>
                 				
-                				</div>
                 				<c:forEach items="${classContentList }" var="classContent">
-                					<p><i class="fa-solid fa-check"></i>classContent</p>
+                					<p><i class="fa-solid fa-check me-2"></i>${classContent}</p>
                 				</c:forEach>
-                				
-	                			<p >${board.classContent }</p>
 	                			
 	                			<c:if test="${not empty board.workDate }">
-	                				<p><i class="fa-regular fa-calendar-check"></i> 작업일 : ${board.workDate }</p>
+	                				<p><i class="fa-regular fa-calendar-check me-2"></i> 작업일 : ${board.workDate }</p>
 	                			</c:if>
 	                			<c:if test="${not empty board.numberOfPeople }">
 	                				<p>총 인원수 : ${board.numberOfPeople }</p>
@@ -342,9 +392,11 @@ textarea {
                 </div>
                 <!-- Side widget-->
                 <div class="card border-1 mx-4 mb-4">
+                	<div class="card-header">
+                		<p class="teacher-head">${board.nickname }</p>
+                	</div>
                 	<div>
-                		<div class="card-body pb-0">
-                			<p>작성자 : ${board.nickname }</p>
+                		<div class="card-body pb-0 teacher-body">
                 			<p>소개</p>
                 			<p> ${board.selfIntroduction }</p>
                 		</div>
@@ -497,14 +549,6 @@ textarea {
 			$("#cancleAndRefundConatiner").addClass("d-none");
 		});
 		
-		/* 클래스 내용 세부항목  */
-		var list = ${classContentList};
-		for(var i = 1; i < list.length; i++){
-			const box = document.getElementByClassName("classContentForm");
-            const newP = document.createElement('p');
-            newP.innerHTML = "<i class="fa-solid fa-check"></i> list[i] ";
-            box.appendChild(newP);
-		}
 		
 		/* 별점 주기 */
 		var star = 0;
@@ -570,22 +614,114 @@ textarea {
 	    			for(let i = 0; i < list.length; i++){
 	    				const replyElement = $("<div class='d-flex mb-4' />");
 	    				replyElement.html(`
-	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                            	<div class="fw-bold" id="replyDiv">
-                            	\${list[i].nickname }
-                            	</div>
+	  	    				<div class="flex-shrink-0">
+								<div class="" >
+								<!-- 프로필사진 -->
+								<img class="rounded-circle profile-size"
+									src="${appRoot}/resources/user_profile_kim.png"
+									alt="..." />
+								</div>
+	    					</div>
+	    					<div class="" style="width : auto;">
+							<div class="ms-3" id="">
+								<div class="fw-bold">
+									<span class="d-flex mb-2">
+			                            <div class="fw-bold" id="replyDiv" style="font-size : 13px;">
+		                            		\${list[i].nickname }
+		                            		<div class="d-flex" style="font-size : 13px;">
+		                            		<div class="subStars" style="--rating: \${list[i].starRating};" aria-label="Rating of this product is 2.3 out of 5."></div>
+		                            		<div class=""> ｜ \${list[i].inserted }</div>  
+		                            	</div>
+		                            	</div>
+										<div class="dropdown" >
+										  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+										  <div class="dropdown-content">
+										    <a href="#">수정</a>
+										    <a href="#">삭제</a>
+										  </div>
+										</div>
+									</span>
+								</div>
+							</div>
+	    					
+                            <div class="">
+                            	<div class="replyContent"> \${list[i].content}</div>
+                            	<div class="">
+								<div class="fw-bold d-flex justify-content-between">
+									<a class="small fw-medium" href="#!">
+										<span id="flip" class="replyText">답글 작성</span>
+										<span class="replyCnt" style="">0</span>
+									</a>
+								</div>
+							</div>
+					
+							<div id="panel" class="childReplyArea" style="display:none;">
+								<form id = "childReplyAreaForm">
+									<div class="input-group">
+	  									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+	  									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
+	  									<input type="hidden" name="refOrder" value="\${list[i].refOrder }" />
+	  									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+	      								<input id="insertReplyChildInput" class="form-control ms-3"
+		      									type="text" name="content" placeholder="답글을 작성해주세요" /><br>
+		      							<span class="btn btn-primary insertReplyChildButton" id="">
+		      								<i class="fa-solid fa-circle-check"></i>
+		      							</span>
+	  								</div>
+	  							</form>
+							</div>
                             	
-                            	<div class="subStars" style="--rating: \${list[i].starRating};" aria-label="Rating of this product is 2.3 out of 5."></div>
-                            		\${list[i].content}
-                            	<div class="mt-3">\${list[i].inserted }</div>    
+                            	<hr />
                             </div>
-                                `);
+                            
+                              `);
+	    				// 자식댓글(답글) 등록
+						replyElement.find(".insertReplyChildButton").click(function() {
+							console.log("5555555555555555555555555555544");
+							
+							// $("#childReplyArea").removeClass("d-none");
+							const data = $("#childReplyAreaForm").serialize();
+							
+								$.ajax({ // 자식댓글(답글) 출력
+									url : "${appRoot }/talent/insertReply",
+									type : "post",
+									data : data,
+									success : function(data) {
+											/*
+											$(".replyForm1").removeClass("d-flex mt-4");
+											$(".replyForm1").addClass("d-flex ms-4");
+											*/
+											console.log("댓글 등록성공");
+											// 등록 완료후 초기화
+											$("#insertReplyChildInput").val("");
+											parentsReplyList();
+											
+											// 자식 댓글창 슬라이드
+											$("#flip").click(function(e) {
+												e.preventDefault();
+												$("#panel").slideToggle("slow");	
+											});
+									},
+									error : function() {
+										console.log("댓글 등록 실패");
+									}
+									
+															
+							});// 자식댓글(답글) 등록 ajax end
+						});
+	    				
 	    				
 	    				replyListElement.append(replyElement);
 	    				
     	    			 
 	    			} // for문 끝
+	    			
+    				// 자식 댓글창 슬라이드
+					$("#flip").click(function(e) {
+						e.preventDefault();
+						$("#panel").slideToggle("slow");	
+					});
+	    			
 				} // success 끝
 			}); // ajax 끝
 		}// ready 끝

@@ -19,7 +19,8 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-
+ <!--font-awesome  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,9 +62,10 @@
 
 </head>
 <style>
+
 /* 게시글 폼 */
 #wrap_cnt_prom {
-	padding-top: 70px;
+	padding-top: 0px;
 	margin-bottom: 100px;
 }
 
@@ -236,7 +238,7 @@
 	width: 50%;
 	height: 60px;
 	line-height: 60px;
-	background: #dc287c;
+	background: #ffc107;
 	border-radius: 0 7px 7px 0;
 	cursor: pointer;
 	text-align: center;
@@ -248,6 +250,101 @@
 	color: #fff;
 	vertical-align: top;
 }
+
+/* 메인 사진 */
+.page-header-main {
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}) center center no-repeat;
+    background-size: cover;
+    margin-top : 75px;
+    opacity: 0.85;
+}
+.display-3{
+	font-size: 40px;
+}
+.pageHeader{
+	text-align: center;
+    vertical-align: middle;
+}
+.backCircleImg{
+	width : 70px;
+	height : 70px;
+	background-color: #444;
+	border-radius: 100px;
+	margin-top : 40px;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    
+}
+.headerTopImg{
+	width: auto;
+	height: auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	
+}
+.headerImg{
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}
+.donationWord{
+	font-family:"Roboto",sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size:17px;
+    margin-top : 20px;
+    margin-left : 3px;
+    color: #1A2A36;
+}
+
+/* 대댓글 토글버튼 */
+
+.mondy-wide{
+ width: 100px;
+}
+.replyContent{
+	background-color: white;
+	border-radius: 10px;
+	padding : 10px;
+	width: 585px;
+}
+
+.dropbtn {
+  color: black;
+  padding: 3px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  margin-left: 428px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #9B9B9B;}
+
+
 </style>
 <body>
 	<!-- Spinner Start -->
@@ -266,24 +363,36 @@
 	<nav:navbar></nav:navbar>
 
 
-	<!-- Page Header Start -->
+<%-- 	<!-- Page Header Start -->
 	<div class="container-fluid page-header py-5 mb-5">
 		<div class="container py-5">
 			<h1 class="display-3 text-white mb-3 animated slideInDown">기부 게시판</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>
 	</div>
-	<!-- Page Header End -->
+	<!-- Page Header End --> --%>
+	
+	
+	<!-- Page Header Start -->
+	<div class="container-fluid page-header-main">
+		<div class="container py-5 pageHeader">
+			<h3 class="display-3 text-white mt-5 mb-3 animated slideInDown">${board.title }</h3>
+			<span class="txt_body" style="font-weight: bold; color: #fff; opacity: 0.75;">by ${board.nickname }</span>
+            <div class="headerTopImg">
+            	<div class="backCircleImg">
+            		<img class="headerImg" src="${appRoot}/resources/webContents/img/donation_${board.topic }.png">
+            	</div>
+            </div>
+			<nav aria-label="breadcrumb animated slideInDown"></nav>
+		</div>
+	</div>
+	
 	<!-- Page content-->
 	<div id="wrap_cnt_prom">
 		<!-- Body Content -->
 		<div id="body_cont">
 			<div class="cont_box">
-				<!-- <span class="img_ico"><img src=""></span> -->
-				<span class="fw-bolder tit_head">${board.title }</span> 
-				<span class="txt_body">by ${board.nickname }</span>
-				<span class="txt_body">${board.content }</span>
-				<!-- 대표 이미지-->
+				<%-- <!-- 대표 이미지-->
 				<c:if test="${empty board.MPhoto }">
 					<figure class="img_ico mb-4">
 						<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
@@ -293,28 +402,26 @@
 					<figure class="mb-4">
 						<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}" alt="">
 					</figure>
-				</c:if>
+				</c:if> --%>
+				<!-- <span class="img_ico"><img src=""></span> -->
+				<span class="txt_body">${board.content }</span>
 
-				<p class="fs-5 mb-4">For me, the most fascinating interface is
-					Twitter. I have odd cosmic thoughts every day and I realized I
-					could hold them to myself or share them with people who might be
-					interested.</p>
-				<p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I
-					kind of want to know what happened there because we're twirling
-					knobs here on Earth without knowing the consequences of it. Mars
-					once had running water. It's bone dry today. Something bad happened
-					there as well.</p>
 					
 				<!-- 해쉬 태그 -->
+				<div class="d-flex justify-content-center">
 				<c:forEach items="${board.hashTag }" var="hashTag">
-					<a href="${appRoot}/donation/tags/${hashTag}">
+					<a class="mx-2 mb-3"href="${appRoot}/donation/tags/${hashTag}">
 						<span class="badge rounded-pill bg-warning text-dark"># ${hashTag }</span>
 					</a>
 				</c:forEach>
+				</div>
 				
 				<p class="mb-4"></p>
-				<h2>${board.currentAmountMakedDecimalFormat}원</h2>
-				<h5>${board.goalMakedDecimalFormat}</h5>
+				<div class="d-flex justify-content-center">
+					<h1 style="color: orange;">${board.currentAmountMakedDecimalFormat}</h1>
+					<div class="donationWord" style="color: orange;">원</div>
+				</div>
+				<h5 class="donationWord d-flex justify-content-center" style="margin-top:5px">${board.goalMakedDecimalFormat}원 목표</h5>
 				<div class="progress mb-2">
 					<div class="progress-bar bg-warning" role="progressbar"
 						style="width: ${board.achievementRate}%" aria-valuenow="${board.achievementRate}" aria-valuemin="0"
@@ -343,8 +450,8 @@
 								</form>
 							</div>
 							<hr />
-							<container id="replyList"> </container>
 							<!-- 댓글 출력-->
+							<container id="replyList"> </container>
 
 						</div>
 					</div>
@@ -353,27 +460,7 @@
 			
 		</div>
 	</div>
-	<!-- Side widgets-->
-	<%-- 		<div class="col-lg-4">
-				<!-- 기부하기 공유하기 좋아요-->
-				<div class="card ml-10 mb-4 position-fixed" id="loginConfirm"
-					style="min-width: 20%;">
-					<div class="card-header"></div>
-					<div class="card-body">
 
-						<div class="row mb-4">
-							<div class="col-sm-6">
-								<a class="text-dark heart loginConfirm" style="text-decoration-line: none;"> 
-								<img src="${appRoot }/resources/heart.png" />
-									<p>
-										<span id="countHeart"></span> 개 좋아요
-									</p>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> --%>
 	<div class="container mt-5" id="wrap_cnt_prom">
 		<div class="row">
 			<!-- 응원하기 하단바 -->
@@ -506,14 +593,34 @@
     	    				
     	    				const replyElement = $("<div class='d-flex mb-4' />");
     	    				replyElement.html(`
-    	    					<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                	<div class="fw-bold" id="replyDiv">
-                                	\${list[i].nickname }   \${list[i].amountMakedDecimalFormat }원
-                                	</div>
-                                		\${list[i].content}
-                                	<div class="mt-3">\${list[i].inserted }</div>    
-                                </div>
+    	    					<div class="flex-shrink-0">
+									<div class="" >
+									<!-- 프로필사진 -->
+									<img class="rounded-circle"
+										src="${appRoot}/resources/user_profile_kim.png"
+										alt="..." />
+									</div>
+    	    					</div>
+                                
+                                <div class="" style="width : auto;">
+									<div class="ms-3" id="">
+										<div class="fw-bold">
+											<span class="d-flex">
+												<div class="me-2">\${list[i].nickname }</div> 
+												<div class="mondy-wide"> \${list[i].amountMakedDecimalFormat } 원 </div>
+												<div class="dropdown" >
+												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+												  <div class="dropdown-content">
+												    <a href="#">수정</a>
+												    <a href="#">삭제</a>
+												  </div>
+												</div>
+											</span>
+										</div>
+									</div>
+									<div class="ms-3 replyContent">\${list[i].content }</div>
+									<span class="ms-3 my-0"style="font-weight: normal; font-size: 14px;">\${list[i].inserted }</span>
+								</div>
                                     `);
     	    				
     	    				replyListElement.append(replyElement);

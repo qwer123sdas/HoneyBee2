@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.OrderMapper">
+	<!-- 구매사이트 정보 가져오기 -->
 	<select id="selectTalentBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
 		SELECT t.title,
 			   t.price,
@@ -19,6 +20,7 @@
 			AND bi.main_image_name IS NOT NULL
 	</select>
 	
+	<!-- 카카오페이 거래내역 저장 -->
 	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
 		INSERT INTO OrderPay(member_id, 
 							 product_name, 

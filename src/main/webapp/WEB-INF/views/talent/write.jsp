@@ -141,6 +141,9 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	<script>
+		/* 폴더명 */
+		const randomNum = Math.floor(Math.random() * 1000000000);
+		$('#folderName').val('padding-' + randomNum);
 		//메인 카테고리 셋팅
 	    
 		const add_click = () => {
@@ -196,9 +199,7 @@
            
 		
 		
-		/* 폴더명 */
-		const randomNum = Math.floor(Math.random() * 1000000000);
-		$('#folderName').val('padding-' + randomNum);
+		
 		
 		
 

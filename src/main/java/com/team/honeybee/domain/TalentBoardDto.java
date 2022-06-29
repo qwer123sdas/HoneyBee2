@@ -17,6 +17,7 @@ public class TalentBoardDto {
 	private String content;
 	
 	private String productName;
+	private String productCode;
 	private String price;
 	private String selfIntroduction;  // 강사 자기소개
 	private String classContent; // 수업 항목
@@ -26,7 +27,7 @@ public class TalentBoardDto {
 	private String numberOfPeople; // 최대 수용 인원
 	
 	private LocalDateTime inserted;
-	private String expired;
+	private int enable;
 	
 	private String MPhoto;  // 메인 사진
 	private List<String> image; // 서머노트 

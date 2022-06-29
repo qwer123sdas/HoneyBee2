@@ -63,10 +63,15 @@ public class OrderController {
 	public String cartPage(@PathVariable int talentId, Model model, Principal principal) {
 		TalentBoardDto dto = service.selectTalentBoard(talentId);
 		
+		// 수업 항목 list로 보내기
+		String classContents = dto.getClassContent();
+		String[] classContentList = classContents.substring(1).split("/");
+		
 		// 회원 총 포인트 가져오기
 		int memberTotalPoint = pointService.getSUMPoint(principal.getName());
 		
 		model.addAttribute("board", dto);
+		model.addAttribute("classContentList", classContentList);
 		model.addAttribute("memberId", principal.getName());
 		model.addAttribute("memberPoint", memberTotalPoint);
 		return "order/cart";
