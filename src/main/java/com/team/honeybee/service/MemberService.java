@@ -215,6 +215,7 @@ public class MemberService {
 		}
 
 	}
+	
 	//상담내용 리스트 가져오기
 	public List<FaqDto> faqList(String memberId) {
 		// TODO Auto-generated method stub
@@ -256,17 +257,20 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return mapper.getFaq(questionId);
 	}
-
+	
+	// 기부 게시글
 	public DonationBoardDto getDonationByMemberId(String memberId) {
 		
 		return mapper.getDonationByMemberId(memberId);
 	}
 
+	// 재능기부 게시글
 	public TalentBoardDto getTalentByMemberId(String memberId) {
 		
 		return mapper.getTalentByMemberId(memberId);
 	}
 
+	// 모임 게시글
 	public MeetingDto getMeetingByMemberId(String memberId) {
 		
 		return mapper.getMeetingByMemberId(memberId);

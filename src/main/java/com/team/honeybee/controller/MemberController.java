@@ -292,6 +292,7 @@ public class MemberController {
 		return "redirect:/member/faqList";
 		}
 	
+	// 내가 쓴 게시글 모음
 	@RequestMapping("myBoard")
 	public void myBoard(Principal principal, Model model) {
 		DonationBoardDto donation = service.getDonationByMemberId(principal.getName());

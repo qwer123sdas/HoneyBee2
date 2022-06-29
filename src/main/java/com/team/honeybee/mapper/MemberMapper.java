@@ -51,11 +51,11 @@ public interface MemberMapper {
 	void deleteFileById(int id);
 	//상담 내용 불러오기  
 	FaqDto getFaq(int questionId);
-
+	// 기부 게시글
 	DonationBoardDto getDonationByMemberId(String memberId);
-
+	// 재능기부 게시글
 	TalentBoardDto getTalentByMemberId(String memberId);
-
+	// 모임 게시글
 	MeetingDto getMeetingByMemberId(String memberId);
 
 }
