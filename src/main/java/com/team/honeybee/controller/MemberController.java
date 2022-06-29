@@ -4,6 +4,7 @@ import java.security.*;
 import java.util.*;
 
 import javax.mail.internet.*;
+import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -242,12 +243,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("updatePw")
-	public String changePwProcess(String pw, String newPw, Principal principal, RedirectAttributes rttr) {
+	public String changePwProcess(String pw, String newPw, Principal principal, RedirectAttributes rttr, HttpServletRequest req) throws ServletException {
 		String memberId = principal.getName();
 		boolean success = service.updatePw(memberId, pw, newPw);
 		
 		if(success) {
 			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
+			req.logout();
 			return "redirect:/member/login";
 		} else {
 			rttr.addFlashAttribute("message", "비밀번호 변경에 실패하였습니다.");
