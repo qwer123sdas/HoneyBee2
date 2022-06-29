@@ -91,11 +91,16 @@ public interface AdminMapper {
 
 	void deleteMeetingByMeetingId(int meetingId);
 
+	void deleteFavoriteByMeetingReplyId(int meetingId);
+
 	List<String> selectFileNameByFaqId(int questionId);
 
 	void deleteFileByFaqId(int questionId);
 
 	int deleteFaqById(int questionId);
+
+	boolean modifyFaqEnableById(int questionId);
+
 
 
 

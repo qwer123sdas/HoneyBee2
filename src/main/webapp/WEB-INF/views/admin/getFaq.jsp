@@ -49,6 +49,7 @@ $(document).ready(function() {
 				<!-- Page Header Start -->
 				<form id="form1" action="${appRoot }/admin/answerFaq" method="post">
 					<input type="hidden" name="questionId" value="${faq.questionId }" />
+					<input type="hidden" name="email" value="${faq.email }" />
 					<div class="container-fluid">
 						<div class="container">
 							<div class="row">

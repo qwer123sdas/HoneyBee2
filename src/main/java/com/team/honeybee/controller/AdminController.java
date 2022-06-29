@@ -2,12 +2,15 @@ package com.team.honeybee.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +31,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	// 메인페이지
 	@RequestMapping("index")
@@ -172,6 +178,7 @@ public class AdminController {
 		}
 		
 		dto.setMemberId("admin");
+		dto.setProductCode(UUID.randomUUID().toString());
 		boolean success = service.insertMarket(dto, file);
 		
 		if (success) {
@@ -224,6 +231,34 @@ public class AdminController {
 		FaqDto dto = service.getFaqById(questionId);
 		System.out.println(dto);
 		model.addAttribute("faq", dto);
+	}
+	
+	// 1대1문의 글 답변완료
+	@PostMapping("answerFaq")
+	public String answerFaq(@RequestParam("questionId") int questionId, @RequestParam("email") String email) {
+		String subject = "안녕하세요 꿀비 관리자입니다.";
+        String content = "해당 문의를 해주셔서 감사합니다. "
+        		+ "하지만 현재 해결해드리기 힘들것 같아서 죄송합니다.";
+        String to = email;
+		
+		try {
+            MimeMessage mail = mailSender.createMimeMessage();
+
+            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+            
+            mailHelper.setFrom("꿀비 <honeybee137@naver.com>");
+            mailHelper.setTo(to);
+            mailHelper.setSubject(subject);
+            mailHelper.setText(content);
+            
+            mailSender.send(mail);
+            boolean success = service.modifyFaqEnableById(questionId);
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "redirect:/admin/index";
+        }
+		return "redirect:/admin/faq";
 	}
 	
 	// 1대1문의 글 삭제

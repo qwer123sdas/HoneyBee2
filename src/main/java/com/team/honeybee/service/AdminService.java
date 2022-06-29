@@ -335,6 +335,7 @@ public class AdminService {
 		mapper.deleteBoardImageByMeetingId(meetingId);
 		mapper.deleteMeetingGuestByMeetingId(meetingId);
 		mapper.deleteMeetingCommentByMeetingId(meetingId);
+		mapper.deleteFavoriteByMeetingReplyId(meetingId);
 		mapper.deleteMeetingReplyByMeetingId(meetingId);
 		mapper.deleteMeetingByMeetingId(meetingId);
 	}
@@ -357,6 +358,10 @@ public class AdminService {
 		
 		// 파일테이블 삭제
 		mapper.deleteFileByFaqId(questionId);
+	}
+
+	public boolean modifyFaqEnableById(int questionId) {
+		return mapper.modifyFaqEnableById(questionId);
 	}
 
 

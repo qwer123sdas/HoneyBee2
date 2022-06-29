@@ -67,12 +67,6 @@ $(document).ready(function() {
 				                    <!-- 메인 컨텐츠-->
 				                    <section class="mb-5" id="mainContentContainer">
 				                    	<p class="fs-5 mb-4">${talent.content }</p>
-				                        <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-				                        <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-				                        <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-				                        <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-				                        <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-				                        <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
 				                        
 					                        <div class="map_wrap">
 												<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
@@ -136,33 +130,27 @@ $(document).ready(function() {
 				                <div class="card border-0 mb-4">
 				                    <div class="card-body">
 				                    	<div class="mx-3 mb-1">
-				                    		<!-- Post tag-->
+				                    		<!-- Post tag--><!-- 
 				                    		<div class="mb-3">
 						                    	<span class="badge rounded-pill bg-warning text-dark ">태그1</span>
 						                    	<span class="badge rounded-pill bg-warning text-dark">태그2</span>
-					                    	</div>
+					                    	</div> -->
 					                    	<!-- Post title-->
 				                        	<h4 class="fw-bolder mb-3">${talent.title }</h4>
 				                        	<!-- Post progressbar-->
-				                        	<div class="progress" style="height: 6px;">
-						                    	<div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
-														aria-valuemax="100"></div>
-											</div>
 											<div class="mb-5">
 											</div>
-											${talent.price }
-											<div class="d-grid gap-2">
-												<button type="button" class="btn btn-warning buyButton" >구매하기</button>
-											</div>
+											${talent.price }원
 				                    	</div>
 				                    </div>
 				                </div>
 				                <!-- Side widget-->
 				                <div class="card border-1 mx-4 mb-4">
 				                	<div>
-				                		<div class="card-body ">
+				                		<div class="card-body pb-0">
 				                			<p>작성자 : ${talent.nickname }</p>
-				                			<p>작성자 어필?</p>
+				                			<p>소개</p>
+				                			<p> ${talent.selfIntroduction }</p>
 				                		</div>
 				                	</div>
 				                </div>

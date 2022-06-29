@@ -14,6 +14,7 @@ public class MarketDto {
 	private LocalDate inserted;
 	private int price;
 	private String productName;
+	private String productCode;
 	private int total;
 	private int enable;
 	private String thumbNailImage;
