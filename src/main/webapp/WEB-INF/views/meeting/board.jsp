@@ -660,7 +660,7 @@
 											alt="..." />
 										<!-- 프로필사진 -->
 									</div>
-									<div id="replyForm" class="flex-fill">
+									<div id="replyForm" class="replyForm flex-fill">
 										<div class="ms-3">
 											<div class="fw-bold d-flex">
 												<span class="me-auto">
@@ -751,11 +751,6 @@
                            	
 							} // end of for
 							
-            				// 자식 댓글창 슬라이드
-							$("#flip").click(function(e) {
-								e.preventDefault();
-								$("#panel").slideToggle("slow");	
-							});
                            	
 							console.log("aaaaa");
 						},// success end
@@ -777,7 +772,14 @@
 			 // 댓글 목록 실행
 			 parentsReplyList();
 			 
+            // 자식 댓글창 슬라이드
+			$(".replyForm").click(function(e) {
+				e.preventDefault();
+			$(".childReplyArea").slideToggle("slow");	
+			});
+            
 			 console.log("5555555555555555555");
+			 
 		// 부모 댓글 등록
 		$("#insertReplyParentsButton").click(function(e) {
 			e.preventDefault();
@@ -802,6 +804,7 @@
 	
 			});	
 		
+		/* 지금은 전체 실행
 		// 자식 댓글창 슬라이드 이벤트 핸들러 메소드 만들기
 		var flipClick = document.getElementById("flip");
 		var panel = document.getElementById("panel");
@@ -809,6 +812,7 @@
 		flip.addEventListener("click", function(e) {
 			$("#panel").slideToggle("slow");
 		})
+		*/
 		
 });
 	    
