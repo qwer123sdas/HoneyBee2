@@ -206,6 +206,7 @@
 	text-align: center;
 }
 
+
 /* 대댓글 토글버튼 */
 .dropbtn {
   color: black;
@@ -214,7 +215,8 @@
   border: none;
   cursor: pointer;
   display: flex;
-  margin-left: 510px;
+
+
 }
 
 .dropdown {
@@ -243,6 +245,8 @@
 .dropdown-content a:hover {background-color: #f1f1f1;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #9B9B9B;}
+
+
 
 </style>
 
@@ -361,20 +365,18 @@
 					<h4>커뮤니티</h4>
 					<div class="card bg-light">
 						<div class="card-body">
-							<!-- 댓글 입력 form -->
-							<form class="mb-4" id="insertReplyForm1"
-								action="${appRoot }/meeting/reply/insertReplyP" method="post">
-								<div class="input-group">
+							<!-- 댓글 입력 form 출력 ajax 처리-->
+								<div class="input-group mb-4">
 									<input type="hidden" name="meetingId"
 										value="${meeting.meetingId }" />
-									<input id="insertReplyContentInput1" class="form-control"
-										type="text" name="content" placeholder="아름다운 발걸음을 함께해요!" />
-									<button class="btn btn-primary" id="insertReplyButton1" > <!-- style="display: none" -->
+									<input id="insertReplyParentsInput" class="form-control"
+										type="text" name="content" placeholder="댓글을 작성하시려면 로그인 해주세요." />
+									<button class="btn btn-primary" id="insertReplyParentsButton" > <!-- style="display: none" -->
 										<i class="fa-solid fa-circle-check"></i>
 									</button>
 
 								</div>
-							</form>
+								
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
 
 							<div id="parentsReplyList" class="parentsReplyList"></div>
@@ -448,7 +450,7 @@
 	<nav:footbar></nav:footbar>
 
 
-	<script>
+<script>
 	$(document).ready(function() {
 		    	
 	/* 카카오 지도 api 시작 */
@@ -478,7 +480,7 @@
 	            map: map,
 	            position: coords
 	        });
-	
+	        
 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
 	        var infowindow = new kakao.maps.InfoWindow({
 	            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
@@ -493,7 +495,6 @@
 	/* 카카오 지도 api 끝남 */
 		 
 	/* 게스트 입출력 부분 시작 */
-	
 	var modal = document.getElementById("insertGuestModal1");
 	var btnModal = document.getElementById("insertGuestBtn1");
 	
@@ -520,6 +521,17 @@
 		        modal.style.display = "none"
 		    }
 		})
+		
+	// 로그인 하지 않은 회원 댓글 입력시 로그인 창으로 이동
+	$("#insertReplyPContentInput1").click(function(e) {
+		e.preventDefault();
+		if('${meeting.memberId}' == null) {
+			$("#insertReplyPContentInput1").attr("disabled");
+			console.log("로그인하세요") // 나중에 로그인창 경로로 이동해야함
+			
+		} 
+	});
+		
 		
 	// guestList 가져오는 ajax 요청
 	const guestList = function() {
@@ -631,33 +643,35 @@
 							console.log("1111= "+list.length);
 							
 							for (let i = 0; i < list.length; i++) {
-								const replyElement = $("<div class='d-flex mb-4' />");
+								const replyElement = $("<div class='d-flex mb-4'/>");
 								replyElement.html(`
-									<div class="flex-shrink-0">
+									<div class="flex-shrink-0" >
 										<!-- 프로필사진 -->
 										<img class="rounded-circle"
 											src="${appRoot}/resources/webContents/img/user_profile.png"
 											alt="..." />
 										<!-- 프로필사진 -->
 									</div>
-									<div class="">
-										<div class="ms-3" >
-											<div class="fw-bold ">
-												<div class="dropdown" style="float:right;">
+									<div id="replyForm" class="flex-fill">
+										<div class="ms-3" id="repplyMemberInfo">
+											<div class="fw-bold d-flex">
+												<span class="replyMemberInfo me-auto">
+													\${list[i].nickname }
+													<br>
+													<sapn style="font-weight: normal; font-size: 14px;">\${list[i].inserted }</span>
+												</span>
+												<div class="dropdown" >
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
 												  <div class="dropdown-content">
 												    <a href="#">수정</a>
 												    <a href="#">삭제</a>
 												  </div>
 												</div>
-												\${list[i].nickname }
-												<br>
-												\${list[i].inserted }
 											</div>
 										</div>
-										<div class="ms-3">\${list[i].content }</div>
+										<div id="replyContent"class="ms-3">
+											\${list[i].content }</div>
 										
-											
 										<div class="ms-3">
 											<div class="fw-bold d-flex justify-content-between">
 												<a class="small fw-medium" href="#">
@@ -669,15 +683,24 @@
 													<em class="replyLikeCnt">0</em>
 												</a>
 											</div>
-											<div class="replyIcon"> <!-- 좋아요 -->
 										</div>
-									</div>	
-												
-		             
+										
+										<div id="childReplyArea" class="dropdown d-none">
+											<div class="input-group2">
+												<input id="insertReplyChildInput" class="form-control"
+													type="text" name="content" placeholder="답글을 작성해주세요" />
+												<button class="btn btn-primary" id="insertReplyChildButton" > 
+													<i class="fa-solid fa-circle-check"></i>
+												</button>
+											</div>
+										</div>
+							
               							`);
 								
                            		replyListElement.append(replyElement);
 							} // end of for
+							
+							
 						},// success end
 						
 						error : function() {
@@ -687,18 +710,42 @@
 						
 					}); // 댓글 목록 ajax end
 					
-					
-					
-				}
-					
-			// 댓글 목록 실행
-			parentsReplyList();
-			
-			
-			
-		
-		
+			 }
+			 // 댓글 목록 실행
+			 parentsReplyList();
 
+		// 댓글 등록
+		$("#insertReplyParentsButton").click(function(e) {
+			e.preventDefault();
+			
+			const data = { meetingId : '${meeting.meetingId}',
+							 content : $('#insertReplyPContentInput1').val() };
+									
+				$.ajax({ // 댓글 출력
+					url : "${appRoot }/meeting/reply/insertReplyP",
+					type : "post",
+					data : data,
+					success : function(data) {
+							console.log("댓글 등록성공");
+							parentsReplyList();
+					},
+					error : function() {
+						console.log("댓글 등록 실패");
+					}
+											
+					});
+	
+			});	
+		
+		// 자식댓글(답글) 등록
+		$("#childReplyArea").click(function(e) {
+			e.preventDefault();
+			
+			$("#childReplyArea").removeClass("d-none");
+			
+			const data = { meetingId : '${meeting.meetingId}',
+							 content : $('#insertReplyChildInput').val() };
+		});
 });
 	    
 </script>

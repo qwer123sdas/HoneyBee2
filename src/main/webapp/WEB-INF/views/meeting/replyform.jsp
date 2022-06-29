@@ -72,6 +72,15 @@
 				</form>
 			</div>
 		</div> <!-- 댓글 전체 끝 -->
+		
+		
+		
+		
+			<div id="replyAreaPaginate" style="display: none;">
+				<textarea placeholder="댓글을 입력해주세요!" name="content" id="content" cols="30" rows="1" style="overflow-x: hidden; overflow-wrap: break-word; height: 48px;"></textarea>
+				<button id="insertReplyButton1" kind="textGreay" type="submit" id="replyInsert"><i class="fa-solid fa-comment"></i></button>
+			</div>
+		
 
 </body>
 </html>
