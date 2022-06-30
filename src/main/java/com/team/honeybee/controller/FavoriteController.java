@@ -23,9 +23,14 @@ public class FavoriteController {
 	public FavoriteDto favorite(FavoriteDto dto) {
 		// 좋아요 있는지 확인
 		int result = service.insertFavorite(dto);
-		
+		int count = 0;
 		// 좋아요 갯수 확인
-		int count =  service.countHeart(dto.getDonationId());
+		if(dto.getType() == 'D') {
+			count =  service.countHeart(dto.getDonationId());
+		}else {
+			
+		}
+		
 		dto.setCount(count);
 		dto.setExit(result);
 		return dto;

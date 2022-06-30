@@ -59,9 +59,10 @@ public class DonationBoardController {
 		
 		// 좋아요 디비에서 정보 찾기
 		FavoriteDto favoriteDto = new FavoriteDto();
+		favoriteDto.setType('D');
 		if(principal != null) {
 			System.out.println("로그인 여부 확인 : " + principal.getName());
-			favoriteDto = favoriteService.findFavorite(board.getDonationId(), principal.getName());
+			favoriteDto = favoriteService.findFavorite(board.getDonationId(), principal.getName(), "D");
 		}
 		
 		int heart = 0;

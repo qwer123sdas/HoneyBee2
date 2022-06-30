@@ -555,7 +555,9 @@
 			    $.ajax({
 			    	url :'${appRoot}/favorite/click',
 			        type :'POST',
-			        data : {'donationId' : '${board.donationId}', 'memberId' : '${principal.name}'},
+			        data : {'donationId' : '${board.donationId}', 
+			        		'memberId' : '${principal.name}',
+			        		'type' : "D"},
 			    	success : function(data){
 			    		
 			    		var countHeart = data.count;

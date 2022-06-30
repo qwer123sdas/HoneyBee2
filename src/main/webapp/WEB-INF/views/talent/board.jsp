@@ -353,7 +353,7 @@ textarea {
                     	<div class="mx-3 mb-1">
                     		<!-- Post tag-->
                     		<div class="mb-3">
-		                    	<span class="badge rounded-pill bg-warning text-dark ">찜하기</span>
+		                    	<span class="badge rounded-pill bg-warning text-dark "><i id="heart" class="fa-regular fa-heart"></i>찜하기</span>
 	                    	</div>
 	                    	<!-- Post title-->
                         	<h4 class="fw-bolder">${board.title }</h4>
@@ -549,6 +549,42 @@ textarea {
 			$("#cancleAndRefundConatiner").addClass("d-none");
 		});
 		
+		// 좋아요가 있는지 확인한 값을 heartVal에 저장
+		var heartVal = ${heart};
+		//var count = ${count};
+
+		// heartVal이 1이면 좋아요가 이미 되있는것이므로 heart_full출력
+		if(heartVal > 0){
+	        console.log(heartVal);
+	        document.getElementById('heart').className = 'fa-solid fa-heart-circle-check';
+		}else{
+            console.log(heartVal);
+            document.getElementById('heart').className = 'fa-regular fa-heart';
+		}
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+		$("#heart").click(function () {
+		    $.ajax({
+		    	url :'${appRoot}/favorite/click',
+		        type :'POST',
+		        data : {'talentId' : '${board.talentId}', 
+		        		'memberId' : '${principal.name}',
+		        		'type' : 'T'},
+		    	success : function(data){
+		    		
+		    		var countHeart = data.count;
+		    		var result = data.exit;
+		    		console.log("cH" + countHeart);
+		    		console.log(result);
+		    		$('#countHeart').text(countHeart);
+		        	if(result == 1) {
+		        		document.getElementById('heart').className = 'fa-solid fa-heart-circle-check';
+		        	} else {
+		        		 document.getElementById('heart').className = 'fa-regular fa-heart';
+		        	}
+	             }
+		    });
+        });
+		
 		
 		/* 별점 주기 */
 		var star = 0;
@@ -636,7 +672,7 @@ textarea {
 										<div class="dropdown" >
 										  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
 										  <div class="dropdown-content">
-										    <a href="#">수정</a>
+										  	<a href="#">수정</a>
 										    <a href="#">삭제</a>
 										  </div>
 										</div>
@@ -677,7 +713,6 @@ textarea {
                               `);
 	    				// 자식댓글(답글) 등록
 						replyElement.find(".insertReplyChildButton").click(function() {
-							console.log("5555555555555555555555555555544");
 							
 							// $("#childReplyArea").removeClass("d-none");
 							const data = $("#childReplyAreaForm").serialize();

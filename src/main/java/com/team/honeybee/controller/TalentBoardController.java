@@ -21,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.team.honeybee.domain.FavoriteDto;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
+import com.team.honeybee.service.FavoriteService;
 import com.team.honeybee.service.TalentBoardService;
 import com.team.honeybee.service.TalentReviewService;
 
@@ -34,6 +36,9 @@ public class TalentBoardController {
 	
 	@Autowired
 	TalentReviewService reviewService;
+	
+	@Autowired
+	FavoriteService favoriteService;
 	
 	// 게시물 리스트 
 	@RequestMapping("main")
@@ -47,8 +52,6 @@ public class TalentBoardController {
 	// 특정 게시물 보기
 	@RequestMapping("board/{talentId}")
 	public String boardPage(@PathVariable int talentId, Model model, Principal principal) {
-		// 임시
-		System.out.println("로그인 여부 : " + principal.getName());
 		
 		// 게시글 정보 가져오기
 		TalentBoardDto board = service.getBoard(talentId);
@@ -57,7 +60,28 @@ public class TalentBoardController {
 		String classContents = board.getClassContent();
 		String[] classContentList = classContents.substring(1).split("/");
 		
+		// 좋아요 디비에서 정보 찾기
+		FavoriteDto favoriteDto = new FavoriteDto();
+		favoriteDto.setType('T');
+		if(principal != null) {
+			System.out.println("로그인 여부 확인 : " + principal.getName());
+			favoriteDto = favoriteService.findFavorite(board.getTalentId(), principal.getName(), "T");
+		}
+		
+		int heart = 0;
+		if(favoriteDto != null) {
+			// 특정 계정이 하트 눌렀는지 여부 확인
+			heart = favoriteDto.getHeart();
+			model.addAttribute("heart", heart);
+		}
+		model.addAttribute("heart", heart);
+		
+		// 좋아요 갯수 세기
+		//int count =  favoriteService.countHeart(board.getTalentId());
+		//model.addAttribute("count", count);
+		
 		model.addAttribute("classContentList", classContentList);
+		model.addAttribute("principal", principal);
 		model.addAttribute("board", board);
 		return "talent/board";
 	}
