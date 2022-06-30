@@ -680,7 +680,7 @@
 										<div id="replyContent"class="ms-3">
 											\${list[i].content }</div>
 										
-										<div class="ms-3">
+										<div class="ms-3 replyTextContainer">
 											<div class="fw-bold d-flex justify-content-between">
 												<a class="small fw-medium" href="#!">
 													<span id="flip" class="replyText">답글 작성</span>
@@ -694,7 +694,8 @@
 										</div>
 										
 										<div id="panel" class="childReplyArea">
-											<form id = "childReplyAreaForm">
+											// for문 돌면서 계속 동일한 이름을 할당 받으므로 id가 아닌 class로
+											<form class="childReplyAreaForm">  
 												<div class="input-group">
 			      									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
 			      									<input type="hidden" name="refNum" value="\${list[i].refNum }" />
@@ -714,31 +715,24 @@
 			
 								
 								// 자식댓글(답글) 등록
+								// replyElement 안에 있는 class이므로 find로 요소 찾기
 								replyElement.find(".insertReplyChildButton").click(function() {
 									console.log("5555555555555555555555555555544");
 									
 									// $("#childReplyArea").removeClass("d-none");
-									const data = $("#childReplyAreaForm").serialize();
+									const data = $(this).closest(".childReplyAreaForm").serialize();
 									
 										$.ajax({ // 자식댓글(답글) 출력
 											url : "${appRoot }/meeting/reply/insertReplyC",
 											type : "post",
 											data : data,
 											success : function(data) {
-													/*
-													$(".replyForm1").removeClass("d-flex mt-4");
-													$(".replyForm1").addClass("d-flex ms-4");
-													*/
+													
 													console.log("댓글 등록성공");
 													// 등록 완료후 초기화
 													$("#insertReplyChildInput").val("");
 													parentsReplyList();
-													
-													// 자식 댓글창 슬라이드
-													$("#flip").click(function(e) {
-														e.preventDefault();
-														$("#panel").slideToggle("slow");	
-													});
+
 											},
 											error : function() {
 												console.log("댓글 등록 실패");
@@ -747,8 +741,20 @@
 																	
 									});// 자식댓글(답글) 등록 ajax end
 								});
+								// .append : 선택된 요소의 마지막에 새로운 요소나 콘텐츠를 추가
                            		replyListElement.append(replyElement);
                            	
+                                // 자식 댓글창 슬라이드 : 자식, 손자 댓글에도 적용되어야 함으로 댓글 리스트 for문 안에서 실행
+                                // replyElement 안에 있는 class이므로 find로 부모찾고 on("click" 으로, 
+                                // 클릭이벤트가 발생될 class를 선택해줘야한다.
+                    			replyElement.find(".replyTextContainer").on("click", ".replyText", function(e) {
+                    				e.preventDefault();
+                    				// closest(selector) 셀렉터로 잡히는 상위 요소중 가장 근접한 하나를 반환한다.
+                    				// 그안에 요소인 childReplyArea를 찾기위해 .next 사용(선택한 요소의 다음 요소를 선택)
+                    				// 이렇게 작성해줘야 각각의 요소의 클릭 이벤트 발생시 slideToggle 실행된다.
+                    				$(this).closest(".replyTextContainer").next(".childReplyArea").slideToggle("slow");
+                    				//console.log(this);
+                    			}); // end of slideToggle
 							} // end of for
 							
                            	
@@ -772,11 +778,7 @@
 			 // 댓글 목록 실행
 			 parentsReplyList();
 			 
-            // 자식 댓글창 슬라이드
-			$(".replyForm").click(function(e) {
-				e.preventDefault();
-			$(".childReplyArea").slideToggle("slow");	
-			});
+
             
 			 console.log("5555555555555555555");
 			 
