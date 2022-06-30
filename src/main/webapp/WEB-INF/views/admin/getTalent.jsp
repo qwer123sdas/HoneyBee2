@@ -61,7 +61,7 @@ $(document).ready(function() {
 									</c:if>
 									<c:if test="${not empty talent.MPhoto }">
 										<figure class="mb-4">
-											<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${talent.folderName }/${talent.MPhoto}" alt="">
+											<img class="img-fluid" src="${imageUrl }/talent/${talent.folderName }/${talent.MPhoto}" alt="">
 										</figure>
 									</c:if>
 				                    <!-- 메인 컨텐츠-->

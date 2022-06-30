@@ -25,7 +25,9 @@ $(document).ready(function() {
 		if(confirm("정말 삭제하시겠습니까?")) {
 			let form1 = $("#form1");
 			let actionAttr = "${appRoot}/admin/removeFaq";
+			let methodAttr = "post";
 			form1.attr("action", actionAttr);
+			form1.attr("method", methodAttr);
 			
 			form1.submit();
 		}
@@ -47,7 +49,7 @@ $(document).ready(function() {
 				
 				<nav:topbar></nav:topbar>
 				<!-- Page Header Start -->
-				<form id="form1" action="${appRoot }/admin/answerFaq" method="post">
+				<form id="form1" action="${appRoot }/admin/answerFaq" method="get">
 					<input type="hidden" name="questionId" value="${faq.questionId }" />
 					<input type="hidden" name="email" value="${faq.email }" />
 					<div class="container-fluid">
@@ -85,7 +87,7 @@ $(document).ready(function() {
 												<span class="txt_body">${faq.content }</span>
 												<div style="display: flex; justify-content: flex-end;">
 													<c:if test="${faq.enable == 0 }">
-														<button id="registerButton1" class="btn btn-primary">답변완료</button>
+														<button id="registerButton1" class="btn btn-primary">답변작성</button>
 													</c:if>
 													<button id="deleteButton1" class="btn btn-danger">삭제</button>
 												</div>

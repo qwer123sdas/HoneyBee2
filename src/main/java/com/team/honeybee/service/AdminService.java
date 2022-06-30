@@ -41,6 +41,10 @@ public class AdminService {
 	@Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
+	public int sumDonationAll() {
+		return mapper.sumDonationAll();
+	}
+	
 	public List<MemberDto> getMember() {
 		return mapper.getMember();
 	}
@@ -62,7 +66,10 @@ public class AdminService {
 	}
 
 	// 멤버 삭제
+	@Transactional
 	public boolean deleteMember(String memberId) {
+		String fileName = mapper.selectProfileByMemberId(memberId);
+		deleteFromAwsS3Memeber(memberId, fileName);
 		return mapper.deleteMember(memberId) == 1;
 	}
 
@@ -227,7 +234,7 @@ public class AdminService {
 	}
 	
 	// AWS S3 회원관련 파일 삭제하기
-	private void deleteFromAwsS3Memeber(int id, String fileName) {
+	private void deleteFromAwsS3Memeber(String id, String fileName) {
 		String key = "member/" + id + "/" + fileName;
 		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
@@ -298,9 +305,11 @@ public class AdminService {
 	// 기부게시글 삭제
 	@Transactional
 	public void deleteDonation(int donationId) {
-		DonationDto dto = mapper.selectFolderNameAndFileNameByDonationId(donationId);
+		DonationDto dto = mapper.selectFolderNameAndMPhotoByDonationId(donationId);
+		List<String> fileNames = mapper.selectFileNameByDonationId(donationId);
+		System.out.println(dto);
 		deleteFromAwsS3Donation(dto.getFolderName(), dto.getMPhoto());
-		for(String fileName : dto.getImage()) {
+		for(String fileName : fileNames) {
 			deleteFromAwsS3Donation(dto.getFolderName(), fileName);
 		}
 		mapper.deleteBoardImageByDonationId(donationId);
@@ -314,9 +323,10 @@ public class AdminService {
 	// 재능판매게시글 삭제
 	@Transactional
 	public void deleteTalent(int talentId) {
-		TalentDto dto = mapper.selectFolderNameAndFileNameByTalentId(talentId);
+		TalentDto dto = mapper.selectFolderNameAndMPhotoByTalentId(talentId);
 		deleteFromAwsS3Talent(dto.getFolderName(), dto.getMPhoto());
-		for(String fileName : dto.getImage()) {
+		List<String> fileNames = mapper.selectFileNameByTalentId(talentId);
+		for(String fileName :fileNames) {
 			deleteFromAwsS3Talent(dto.getFolderName(), fileName);
 		}
 		mapper.deleteBoardImageByTalentId(talentId);
@@ -327,9 +337,10 @@ public class AdminService {
 	// 모임게시글 삭제
 	@Transactional
 	public void deleteMeeting(int meetingId) {
-		MeetingDto dto = mapper.selectFolderNameAndFileNameByMeetingId(meetingId);
+		MeetingDto dto = mapper.selectFolderNameAndMainPhotoByMeetingId(meetingId);
 		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMainPhoto());
-		for(String fileName : dto.getImage()) {
+		List<String> fileNames = mapper.selectFileNameByMeetingId(meetingId);
+		for(String fileName : fileNames) {
 			deleteFromAwsS3Meeting(dto.getFolderName(), fileName);
 		}
 		mapper.deleteBoardImageByMeetingId(meetingId);
@@ -363,6 +374,7 @@ public class AdminService {
 	public boolean modifyFaqEnableById(int questionId) {
 		return mapper.modifyFaqEnableById(questionId);
 	}
+
 
 
 

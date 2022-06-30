@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.AdminMapper">
+	<!-- 현재 모인 기부금 합계 -->
+	<select id="sumDonationAll" resultType="int">
+		SELECT SUM(current_amount)
+		FROM Donation
+	</select>
 	<!-- 회원목록 가져오기 -->
 	<select id="getMember" resultType="com.team.honeybee.domain.MemberDto">
 		SELECT 
@@ -27,6 +32,12 @@
 			phone = #{phone}
 		WHERE member_id = #{memberId}
 	</update>
+	<!-- 회원 프로필 가져오기 -->
+	<select id="selectProfileByMemberId" resultType="string">
+		SELECT profile
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
 	<!-- 회원삭제하기 -->
 	<delete id="deleteMember">
 		DELETE FROM Member
@@ -74,13 +85,18 @@
 		SET enable = 1
 		WHERE donation_id = #{donationId}
 	</update>
-	<!-- 기부게시판 사진폴더와 파일 가져오기 -->
-	<select id="selectFolderNameAndFileNameByDonationId" resultType="com.team.honeybee.domain.DonationDto">
+	<!-- 기부게시판 사진폴더와 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMPhotoByDonationId" resultType="com.team.honeybee.domain.DonationDto">
 		SELECT main_image_name MPhoto,
-			   image_name image,
 			   image_folder_id folderName
 		FROM BoardImage
 		WHERE donation_id = #{donationId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 기부게시판 서머노트이미지 가져오기 -->
+	<select id="selectFileNameByDonationId" resultType="String">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE donation_id = #{donationId} AND main_image_name IS NULL
 	</select>
 	<!-- 기부게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByDonationId">
@@ -153,13 +169,18 @@
 		SET enable = 1
 		WHERE talent_id = #{talentId}
 	</update>
-	<!-- 재능판매게시판 사진폴더와 파일 가져오기 -->
-	<select id="selectFolderNameAndFileNameByTalentId" resultType="com.team.honeybee.domain.TalentDto">
+	<!-- 재능판매게시판 사진폴더와 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMPhotoByTalentId" resultType="com.team.honeybee.domain.TalentDto">
 		SELECT main_image_name MPhoto,
-			   image_name image,
 			   image_folder_id folderName
 		FROM BoardImage
 		WHERE talent_id = #{talentId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 재능판매게시판 서머노트사진 가져오기 -->
+	<select id="selectFileNameByTalentId" resultType="string">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE talent_id = #{talentId} AND main_image_name IS NULL
 	</select>
 	<!-- 재능판매게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByTalentId">
@@ -212,13 +233,18 @@
 						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
 		WHERE mt.meeting_id = #{meetingId}
 	</select>
-	<!-- 모임게시판 사진폴더명과 파일명 가져오기 -->
-	<select id="selectFolderNameAndFileNameByMeetingId" resultType="com.team.honeybee.domain.MeetingDto">
-		SELECT main_image_name MPhoto,
-			   image_name image,
+	<!-- 모임게시판 사진폴더명과 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMainPhotoByMeetingId" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT main_image_name mainPhoto,
 			   image_folder_id folderName
 		FROM BoardImage
 		WHERE meeting_id = #{meetingId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 모임게시판 서머노트 가져오기 -->
+	<select id="selectFileNameByMeetingId" resultType="string">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE meeting_id = #{meetingId} AND main_image_name IS NULL
 	</select>
 	<!-- 모임게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByMeetingId">

@@ -30,6 +30,7 @@ public class DonationDto {
 	
 	private int goal;             // 목표 금액
 	private int currentAmount;    // 현재 모금액
+	private int sumAmount; // 현재모금액 합계
 
 	
 	private int favorite;  // 좋아요

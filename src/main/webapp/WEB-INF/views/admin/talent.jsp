@@ -45,7 +45,7 @@
 							  </c:if>
 							  <c:if test="${not empty talent.MPhoto }">
 							  	<figure class="mb-6">
-						  			<img src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${talent.folderName }/${talent.MPhoto }" class="img-fluid rounded" alt="">
+						  			<img src="${imageUrl }/talent/${talent.folderName }/${talent.MPhoto }" class="img-fluid rounded" alt="">
 						  	  	</figure>
 						  	  </c:if>
 							  <div class="card-body">

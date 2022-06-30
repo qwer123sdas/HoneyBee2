@@ -57,11 +57,11 @@ public interface AdminMapper {
 
 	void registerTalent(int talentId);
 	
-	DonationDto selectFolderNameAndFileNameByDonationId(int donationId);
+	DonationDto selectFolderNameAndMPhotoByDonationId(int donationId);
 	
-	TalentDto selectFolderNameAndFileNameByTalentId(int talentId);
+	TalentDto selectFolderNameAndMPhotoByTalentId(int talentId);
 
-	MeetingDto selectFolderNameAndFileNameByMeetingId(int meetingId);
+	MeetingDto selectFolderNameAndMainPhotoByMeetingId(int meetingId);
 
 	void deleteBoardImageByTalentId(int talentId);
 
@@ -101,8 +101,15 @@ public interface AdminMapper {
 
 	boolean modifyFaqEnableById(int questionId);
 
+	List<String> selectFileNameByDonationId(int donationId);
 
+	List<String> selectFileNameByTalentId(int talentId);
 
+	List<String> selectFileNameByMeetingId(int meetingId);
+
+	String selectProfileByMemberId(String memberId);
+
+	int sumDonationAll();
 
 
 }

@@ -70,7 +70,7 @@ $(document).ready(function() {
 												</c:if>
 												<c:if test="${not empty donation.MPhoto }">
 													<figure class="mb-4">
-														<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${donation.folderName }/${donation.MPhoto}" alt="">
+														<img class="img-fluid" src="${imageUrl }/donation/${donation.folderName }/${donation.MPhoto}" alt="">
 													</figure>
 												</c:if>
 												<span class="txt_body">${donation.content }</span>

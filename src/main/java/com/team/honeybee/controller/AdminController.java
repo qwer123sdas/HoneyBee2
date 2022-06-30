@@ -37,8 +37,9 @@ public class AdminController {
 	
 	// 메인페이지
 	@RequestMapping("index")
-	public void index() {
-		
+	public void index(Model model) {
+		int sumAmount = service.sumDonationAll();
+		model.addAttribute("sum", sumAmount);
 	}
 	
 	// 회원페이지 보기
@@ -233,13 +234,19 @@ public class AdminController {
 		model.addAttribute("faq", dto);
 	}
 	
+	// 1대1문의 답변완료 화면
+	@GetMapping("answerFaq")
+	public void answerFaq(@RequestParam("questionId") int questionId, @RequestParam("email") String email, Model model) {
+		model.addAttribute("questionId", questionId);
+		model.addAttribute("email", email);
+	}
+	
 	// 1대1문의 글 답변완료
 	@PostMapping("answerFaq")
-	public String answerFaq(@RequestParam("questionId") int questionId, @RequestParam("email") String email) {
-		String subject = "안녕하세요 꿀비 관리자입니다.";
-        String content = "해당 문의를 해주셔서 감사합니다. "
-        		+ "하지만 현재 해결해드리기 힘들것 같아서 죄송합니다.";
-        String to = email;
+	public String answerFaq(FaqDto dto) {
+		String subject = dto.getTitle();
+        String content = dto.getContent();
+        String to = dto.getEmail();
 		
 		try {
             MimeMessage mail = mailSender.createMimeMessage();
@@ -252,7 +259,7 @@ public class AdminController {
             mailHelper.setText(content);
             
             mailSender.send(mail);
-            boolean success = service.modifyFaqEnableById(questionId);
+            boolean success = service.modifyFaqEnableById(dto.getQuestionId());
             
         } catch(Exception e) {
             e.printStackTrace();
