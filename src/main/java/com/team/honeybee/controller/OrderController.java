@@ -1,45 +1,25 @@
 package com.team.honeybee.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
-import com.google.gson.JsonObject;
+import com.team.honeybee.domain.DonationReplyDto;
 import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.service.DonationReplyService;
 import com.team.honeybee.service.KakaoPayService;
 import com.team.honeybee.service.OrderService;
 import com.team.honeybee.service.PointService;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
-import com.team.honeybee.vo.KakaoPayReadyVO;
 
 @Controller
 @PropertySource("classpath:jdbc.properties")
@@ -53,10 +33,15 @@ public class OrderController {
 	@Autowired
 	PointService pointService;
 	
+	@Autowired
+	DonationReplyService replyService;
+	
 	@RequestMapping("cart")
 	public void test() {
 		
 	}
+	
+	DonationReplyDto replyDto;
 	
 	// 구매할 게시판 정보를 결제 페이지로 보내기
 	@GetMapping("order/cart/{talentId}")
@@ -81,18 +66,23 @@ public class OrderController {
 	// 카카오 페이 요청
 	@GetMapping("kakaopay")
 	@ResponseBody
-	public String kakaoPayReady(Principal principal, String productName, String quantity, String totalAmount, int point) {
-		System.out.println(productName);
-		System.out.println(quantity);
-		System.out.println(totalAmount);
+	public String kakaoPayReady(Principal principal, String productName, 
+								String quantity, String totalAmount, 
+								int point, DonationReplyDto replyDto,
+								char boardType) {
 		String partner_user_id = principal.getName();
+		
+		this.replyDto = replyDto;
+		replyDto.setMemberId(partner_user_id);
+		System.out.println(replyDto);
+		
 		if(totalAmount != "0") {
 			// 카카오 결제 준비하기	- 결제요청 service 실행.
 			System.out.println("요청준비");
-			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
+			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point, boardType);
 		}
 		// 바로 결제처리해야됨.
-		return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
+		return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point, boardType);
 		//return "redirect:/order/success";
 			
 	}
@@ -105,8 +95,17 @@ public class OrderController {
 									  Model model) {
 		
 		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token, partner_user_id);
-		//db저장
+		
+		// 기부 게시판 댓글 db에 저장
+		if(replyDto != null) {
+			System.out.println("댓글db가는 중");
+			replyService.addReply(replyDto);
+		}
+		
+		// 구입항목 db에 저장
 		service.setKakaoPayData(kakaoPayApprovalVo);
+		
+
 		
 		
 		return "redirect:/order/success";

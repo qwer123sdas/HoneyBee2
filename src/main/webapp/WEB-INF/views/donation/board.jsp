@@ -498,10 +498,10 @@
 						<input type="hidden" name="donationId" value="${board.donationId }" /> 
 						<input type="hidden" value="${member.id }" name="id" /> 
 						<label for="" class="form-label">결제금액</label> 
-						<input class="form-control" id="" type="text" name="amount" />
+						<input class="form-control"  type="text" name="amount" id="amount"/>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">응원 남기기</label>
-							<textarea class="form-control" id="message-text" name="content"></textarea>
+							<textarea class="form-control" id="message-text" name="content" id= "content"></textarea>
 						</div>
 						<div class="modal-footer">
 							<span id="modalDonationButton"  class="btn btn-danger btn-kakaopay">결제하기</span>
@@ -671,7 +671,7 @@
     		});*/
     		
 
-    		
+    		let test = $("#amount").val();
     		/* 카카오 페이 ajax  */
     	    let index = {
     	    		init:function(){
@@ -680,13 +680,19 @@
     	    				this.kakaopay();
     	    			});
     	    		},
-
+					
     	    	  // 카카오페이 결제
     	    		kakaopay:function(){
-    	    			var data = {'productName' : '${board.title}',
+    	    			var data = {'productName' : "${board.title}",
     	    						'quantity' : 1,
-    	    						'totalAmount' : 300,
-    	    						'point' : 0
+    	    						'totalAmount' : $('#amount').val() + "",
+    	    						'point' : 0,
+    	    						'boardType' : 'D',
+    	    						'replyDto' : {
+    	    							'donationId' : "${board.donationId}",
+    	    							'content' : $('#content').val(),
+    	    							'amount' : $('#amount').val() + ""
+    	    						}
     	    					  }
     	    			$.ajax({
     	    				url:"${appRoot}/kakaopay",
@@ -702,8 +708,8 @@
     	    					 // alert(resp.tid); //결제 고유 번호
     	    					 
     	    					//window.open(box); // 새창 열기
-    	    					$("#chat_iframe").attr("src", resp);
-    	    					//location.href = resp;
+    	    					//$("#chat_iframe").attr("src", resp);
+    	    					location.href = resp;
     	    				}
     	    			
     	    			}).fail(function(error){
@@ -715,6 +721,23 @@
     	   	}
     	    index.init();
     	    
+    		
+/*     		const addReply = function(){
+    			const replyData = {
+    				'donationId' : "${board.donationId}",
+    				'content' : $('#content').val()
+    			};
+    			$.ajax({
+    				url : "${appRoot}/donation/give",
+    				data : replyData,
+    				dataType:"text",
+    				type : "POST",
+    				success : function(){
+    					
+    				}
+    				
+    			})
+    		} */
     		// 로그인 여부 확인
 /*     		$('.loginConfirm').click(function(e){
     			e.preventDefault();

@@ -12,5 +12,6 @@ public class KakaoPayReadyVO {
     private Date created_at;
     
     //내가 필요해서 만든 property
-    private int point;
+    private int point;  // 적립금
+    private char boardType;
 }

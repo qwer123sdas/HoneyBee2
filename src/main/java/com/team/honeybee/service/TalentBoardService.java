@@ -3,7 +3,6 @@ package com.team.honeybee.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -15,10 +14,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.mapper.SummerNoteMapper;

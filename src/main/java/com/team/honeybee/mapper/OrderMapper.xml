@@ -25,10 +25,12 @@
 		INSERT INTO OrderPay(member_id, 
 							 product_name, 
 							 final_price, 
-							 quantity)
+							 quantity,
+							 tid)
 			   VALUES(#{partner_user_id}, 
 			   		  #{item_name}, 
 			   		  #{amount.total},
-			   		  #{quantity})
+			   		  #{quantity},
+			   		  #{tid})
 	</insert>
 </mapper>

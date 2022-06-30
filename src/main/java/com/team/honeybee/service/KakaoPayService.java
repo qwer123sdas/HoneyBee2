@@ -37,9 +37,11 @@ public class KakaoPayService {
 	
     private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
+	private char boardType;
 	
-	
-	public String kakaoPayReady(String partner_user_id, String productName, String quantity, String totalAmount, int point) {
+	public String kakaoPayReady(String partner_user_id, String productName, 
+								String quantity, String totalAmount, 
+								int point, char boardType) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// 서버로 요청할 Header
@@ -71,6 +73,8 @@ public class KakaoPayService {
 			// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
             kakaoPayReadyVO.setPoint(point);  // honeybee 포인트 저장
+            kakaoPayReadyVO.setBoardType(boardType);
+            this.boardType = boardType;
             // response 중, getNext_redirect_pc_url을 ajax에 보내기
             return kakaoPayReadyVO.getNext_redirect_pc_url();
         } catch (RestClientException e) {
@@ -118,8 +122,15 @@ public class KakaoPayService {
 			System.out.println(kakaoPayApprovalVO.getItem_name());
 			System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
 			
+			String comment;
+			if(boardType == 'D') {
+				comment = "기부금";
+			}else {
+				comment = "재능판매";
+			}
+			
 			// 포인트 사용 여부 기록
-			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), "재능판매");
+			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), comment);
 			
 			// 포인트 적립
 			int resultPayment = kakaoPayApprovalVO.getAmount().getTotal();
@@ -130,7 +141,7 @@ public class KakaoPayService {
 			cal.add(Calendar.YEAR, 1); //1년 더하기
 			Date date = cal.getTime();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // mysql date형식에 맞게 변환
-			pointService.pointAdd(kakaoPayApprovalVO.getPartner_user_id(), point, df.format(date), "재능판매구입");
+			pointService.pointAdd(kakaoPayApprovalVO.getPartner_user_id(), point, df.format(date), comment);
 			
             return kakaoPayApprovalVO;
         
