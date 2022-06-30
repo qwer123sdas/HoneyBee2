@@ -11,6 +11,7 @@
 							      , content
 							      , step
 							      , refOrder
+							      , delete_info<!-- 삭제 유무 설정 -->
 				 			      )
 		        VALUES ( 
 		                  #{memberId}
@@ -18,6 +19,7 @@
 		                , #{content}
 					    , 0
 					    , 0
+					    , 'N' <!-- 삭제가 안된 상태 1 -->
 		               )
 	</insert>
 	
@@ -30,6 +32,7 @@
 							      , refNum <!-- 그룹 num -->
 							      , step   <!-- 들여쓰기 -->
 							      , refOrder <!-- 그룹내에서의 순서-->
+							      , delete_info<!-- 삭제 유무 설정 -->
 				 			      )
 		        SELECT 
 		                  #{memberId}
@@ -50,18 +53,10 @@
 						                      AND refNum = #{meetingReplyId}
 						                    GROUP BY refNum
 						                   ) TEMP
-						           ), 1)					                 
+						           ), 1)
+						, 'N' <!-- 삭제가 안된 상태 1 -->					                 
 		         FROM DUAL
 	</insert>
-	
-	<!-- 댓글입력시 생성번호를 부모 댓글 번호로 넣기 
-	<update id="updateMeetingReplyParent">
-		UPDATE MeetingReply 
-		   SET meeting_reply_parent = #{meetingReplyId},
-			   meeting_reply_gnum = #{meetingReplyId}
-		 WHERE meeting_reply_id = #{meetingReplyId}
-	</update>
-	-->
 	
 	<!-- 조상 댓글 목록 출력 -->
 	<select id="selectAllMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
@@ -70,6 +65,7 @@
 			   r.member_id memberId,
 			   r.content,
 			   r.inserted,
+			   r.delete_info deleteInfo,
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.meeting_id = #{meetingId}
@@ -82,6 +78,7 @@
 			   r.member_id memberId,
 			   r.content,
 			   r.inserted,
+			   r.delete_info deleteInfo,
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		 WHERE refNum = (select refNum
@@ -100,13 +97,14 @@
 			   r.content,
 			   r.inserted,
 			   r.step,
+			   r.delete_info deleteInfo,
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.meeting_id = #{meetingId} 
 		  AND r.step = 0 -- 최상위 부모
 		ORDER BY meetingReplyId DESC
 	</select>
-	
+
 	<select id="selectChildByParentId" resultType="com.team.honeybee.domain.MeetingReplyDto">
 		SELECT r.meeting_reply_id meetingReplyId,
 			   r.meeting_id meetingId,
@@ -114,12 +112,13 @@
 			   r.content,
 			   r.inserted,
 			   r.step,
+			   r.delete_info deleteInfo,
 			   m.nickname
 		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.refNum = #{parentId} 
 		ORDER BY meetingReplyId DESC
 	</select>
-	
+
 	<!-- 댓글 수정 -->
 	<update id="updateMeetingReply">
 		UPDATE MeetingReply 
@@ -128,12 +127,19 @@
 		   AND meeting_reply_id = #{meetingReplyId}
 	</update>
 	
-	<!-- 댓글 삭제 -->
+	<!-- 댓글 삭제(화면에만 삭제처리, DB에는 남아있음) -->
+	<update id="deleteMeetingReply">
+		UPDATE MeetingReply 
+		   SET delete_info = 'Y'
+		 WHERE meeting_reply_id = #{meetingReplyId}
+	</update>
+	
+	<!-- 댓글 삭제(DB삭제 쿼리) 
 	<update id="deleteMeetingReply">
 		DELETE FROM MeetingReply
-		 WHERE meeting_id = #{meetingId}
-		   AND meeting_reply_id = #{meetingReplyId}
+		 WHERE meeting_reply_id = #{meetingReplyId}
 	</update>
+	-->
 	
 
 </mapper>

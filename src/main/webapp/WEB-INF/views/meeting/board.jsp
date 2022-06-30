@@ -250,6 +250,11 @@
 #panel {
 	display: none;
 }
+/* 댓글 수정 입력창*/
+#replyUpdateContent {
+	height: auto;
+	word-break: keep-all; /* 단어 기준으로 줄바꿈 */
+}
 
 
 </style>
@@ -371,8 +376,7 @@
 						<div class="card-body">
 							<!-- 댓글 입력 form 출력 ajax 처리-->
 								<div class="input-group mb-4">
-									<input type="hidden" name="meetingId"
-										value="${meeting.meetingId }" />
+									<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 									<input id="insertReplyParentsInput" class="form-control"
 										type="text" name="content" placeholder="댓글을 작성하시려면 로그인 해주세요." />
 									<button class="btn btn-primary" id="insertReplyParentsButton" > <!-- style="display: none" -->
@@ -651,7 +655,7 @@
 							for (let i = 0; i < list.length; i++) {
 								const leftMargin = 40 * list[i].step + "px";
 								
-								const replyElement = $(`<div class='d-flex mb-4 replyForm1' style='margin-left: \${leftMargin}'/>`);
+								const replyElement = $(`<div class='d-flex mb-4 replyForm1\${list[i].meetingReplyId }' style='margin-left: \${leftMargin}'/>`);
 								replyElement.html(`
 									<div class="flex-shrink-0" >
 										<!-- 프로필사진 -->
@@ -668,17 +672,35 @@
 													<span style="font-weight: normal; font-size: 14px;">
 													\${list[i].inserted }</span>
 												</span>
-												<div class="dropdown" >
+												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}">
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
 												  <div class="dropdown-content">
-												    <a href="#">수정</a>
-												    <a href="#">삭제</a>
+												    <a href="#!" class="replyUpdate"><span>수정</span></a>
+												    <a href="#!" class="replyDelete" 
+												    	data-reply-id="\${list[i].meetingReplyId}" 
+												    	data-reply-status="\${list[i].deleteInfo}"><span>삭제</span></a>
+												    <a href="#!">신고</a>
 												  </div>
 												</div>
 											</div>
 										</div>
-										<div id="replyContent"class="ms-3">
-											\${list[i].content }</div>
+										<div class="ms-3 replyContent\${list[i].meetingReplyId}">
+										\${list[i].content }</div>
+										<div class="ms-3 replyContentDelete\${list[i].meetingReplyId} d-none">삭제된 댓글입니다.</div>
+										
+										<div class="replyUpdateArea d-none">
+											<form class="replyUpdateAreaForm">
+												<div class="input-group">
+													<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
+													<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+													<input class="form-control ms-3 replyUpdateContent" 
+				      									type="text" name="content" placeholder="수정 내용을 입력하세요" />
+				      								<span class="btn btn-primary replyUpdateButton">
+						      							<i class="fa-solid fa-circle-check "></i>
+						      						</span>
+						      					</div>
+					      					</form>
+										</div>
 										
 										<div class="ms-3 replyTextContainer">
 											<div class="fw-bold d-flex justify-content-between">
@@ -703,7 +725,7 @@
 			      									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
 				      								<input id="insertReplyChildInput" class="form-control ms-3"
 					      									type="text" name="content" placeholder="답글을 작성해주세요" /><br>
-					      							<span class="btn btn-primary insertReplyChildButton" id="">
+					      							<span class="btn btn-primary insertReplyChildButton">
 					      								<i class="fa-solid fa-circle-check"></i>
 					      							</span>
 			      								</div>
@@ -711,7 +733,7 @@
 	      								</div>
 	      							</div>
 							
-              							`);
+              							`); // end for html 
 			
 								
 								// 자식댓글(답글) 등록
@@ -719,7 +741,6 @@
 								replyElement.find(".insertReplyChildButton").click(function() {
 									console.log("5555555555555555555555555555544");
 									
-									// $("#childReplyArea").removeClass("d-none");
 									const data = $(this).closest(".childReplyAreaForm").serialize();
 									
 										$.ajax({ // 자식댓글(답글) 출력
@@ -727,7 +748,7 @@
 											type : "post",
 											data : data,
 											success : function(data) {
-													
+													alert("댓글 등록성공!");
 													console.log("댓글 등록성공");
 													// 등록 완료후 초기화
 													$("#insertReplyChildInput").val("");
@@ -740,10 +761,13 @@
 											
 																	
 									});// 자식댓글(답글) 등록 ajax end
-								});
+									
+								});// 자식댓글(답글) 등록 end
+								
 								// .append : 선택된 요소의 마지막에 새로운 요소나 콘텐츠를 추가
                            		replyListElement.append(replyElement);
                            	
+                    			
                                 // 자식 댓글창 슬라이드 : 자식, 손자 댓글에도 적용되어야 함으로 댓글 리스트 for문 안에서 실행
                                 // replyElement 안에 있는 class이므로 find로 부모찾고 on("click" 으로, 
                                 // 클릭이벤트가 발생될 class를 선택해줘야한다.
@@ -755,8 +779,84 @@
                     				$(this).closest(".replyTextContainer").next(".childReplyArea").slideToggle("slow");
                     				//console.log(this);
                     			}); // end of slideToggle
-							} // end of for
+                    			
+                    			// 댓글 수정 form 보이기
+                    			replyElement.find(".replyUpdate").click(function(e) {
+                    				e.preventDefault();
+                    				console.log("982793857297")
+                    				$(".replyContent").addClass("d-none");
+                    				$(".replyUpdateContent").removeClass("d-none");
+                    				$(this).closest(".replyForm").find(".replyUpdateArea").removeClass("d-none");
+                    			
+                    			}); // end of replyUpdate
+                    			
+                    			// 댓글 수정 update
+                    			replyElement.find(".replyUpdateButton").click(function() {
+                    				
+                    				const data = $(this).closest(".replyUpdateAreaForm").serialize();
+                    					
+                    					$.ajax({
+                    						url : "${appRoot}/meeting/reply/updateReply",
+                    						type : "post",
+                    						data : data,
+                    						success : function(data) {
+                    							alert("댓글 수정이 완료되었습니다!");
+                    	        				console.log("댓글 수정 성공");
+                    	        				// 댓글 목록 실행 
+                    	        				parentsReplyList(); 
+                    						},
+                    						error : function() {
+                    							alert("댓글을 수정할 수 없습니다.");
+                    							console.log("댓글 수정 실패");
+                    						}
+                    					}); // 댓글 수정 ajax end 
+                    				
+                    			}); // 댓글 수정 update end
+								
+                    			console.log("여기가 삭제야");
+                    	
+								// 댓글 삭제 
+								replyElement.find(".replyDelete").click(function() {
+									
+									
+									const data = { meetingId : '${meeting.meetingId}',
+													meetingReplyId : $(".replyDelete").attr("data-reply-id"),
+													deleteInfo : $(".replyDelete").attr("data-reply-status")};
+					
+									console.log(data);	
+									if(confirm("삭제하시겠습니까?")) {
+										
+										console.log("삭제까지 오고있니?");
+										$.ajax({
+	                						url : "${appRoot}/meeting/reply/deleteReply",
+	                						type : "post",
+	                						data : data,
+	                						async : false, // 순차적인 데이터 통신
+	                						success : function(data) {
+	                	        				parentsReplyList(); 
+	                							alert("댓글이 삭제되었습니다!");
+	                				
+	                	        				console.log("댓글 수정 성공");
+	                	        				// 댓글 목록 실행 
+	                						},
+	                						error : function() {
+	                							alert("댓글을 삭제할 수 없습니다.");
+	                							console.log("댓글 수정 실패");
+	                						},
+	                						complete : function() {
+	        									console.log("댓글 삭제 요청 끝");
+	                							$(".replyContentDelete" + list[i].meetingReplyId).removeClass("d-none");
+	                							$(this).closest(".replyForm").find(".replyUpdateArea").removeClass("d-none");
+	                							$(".replyContent" + list[i].meetingReplyId).addClass("d-none");
+	        								}
+	                						
+	                					}); // 댓글 삭제 ajax end 
+										
+									} // 댓글 삭제 confirm end 
+                					
+								}); // 댓글 삭제 end
 							
+							} // end of for
                            	
 							console.log("aaaaa");
 						},// success end
@@ -788,7 +888,7 @@
 			
 			const data = { meetingId : '${meeting.meetingId}',
 							 content : $('#insertReplyParentsInput').val() };
-									
+				
 				$.ajax({ // 댓글 출력
 					url : "${appRoot }/meeting/reply/insertReplyP",
 					type : "post",
@@ -804,7 +904,9 @@
 											
 					});// 부모 댓글 등록 ajax end
 	
-			});	
+			});
+		 console.log("666666666666666");
+		
 		
 		/* 지금은 전체 실행
 		// 자식 댓글창 슬라이드 이벤트 핸들러 메소드 만들기

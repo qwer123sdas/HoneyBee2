@@ -70,7 +70,7 @@
 				mt.tag,
 				m.nickname,
 				f.file fileName,
-				t.hash_tag hashTag,
+				<!-- t.hash_tag hashTag, -->
 				g.member_id guest
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
 						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id

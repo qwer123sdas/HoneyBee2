@@ -58,23 +58,19 @@ public class MeetingReplyService {
 		mapper.insertMeetingReplyChild(reply);
 	}
 	
-	//  글 수정
+	//  댓글 수정
 	public void updateMeetingReply(MeetingReplyDto reply) {
-		// TODO Auto-generated method stub
 		
 		mapper.updateMeetingReply(reply);
 	}
 	
-	//  글 삭제
+	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
 	public void deleteMeetingReply(MeetingReplyDto reply) {
-		// TODO Auto-generated method stub
-		
 		
 		mapper.deleteMeetingReply(reply);
 	}
 	
-	
-	
+
 	// 댓글 가져오기
 	public List<MeetingReplyDto> listReplyByMeetingId(int meetingId) {
 		List<MeetingReplyDto> parents = mapper.selectParentsByMeetingId(meetingId);

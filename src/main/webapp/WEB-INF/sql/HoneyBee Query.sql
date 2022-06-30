@@ -25,9 +25,10 @@ ADD deep INT(255) NOT NULL DEFAULT '0';
 -- 그룹번호(해당 대댓글 숫자 파악에 사용)
 ALTER TABLE MeetingReply
 ADD meeting_reply_gnum INT(255) NOT NULL DEFAULT '0';
-
+ALTER TABLE MeetingReply
+MODIFY COLUMN refNum INT(255) NOT NULL DEFAULT '0';
 SELECT * FROM MeetingReply;
-
+DESC MeetingReply;
 -- 제약조건 확인
 SELECT * FROM information_schema.table_constraints
 WHERE table_name='MeetingReply';
@@ -104,7 +105,8 @@ add COLUMN ref BIGINT(255) DEFAULT 0;
 
 
 ALTER TABLE MeetingReply
-MODIFY COLUMN refNum INT(255) DEFAULT 0;
+ADD COLUMN refNum INT(255) DEFAULT 0;
+
 DESC BoardImage;
 DESC MeetingReply;
 
@@ -155,8 +157,8 @@ CREATE TABLE MeetingGuest (
     FOREIGN KEY (meeting_id) REFERENCES Meeting(meeting_id)
 );
 ALTER TABLE MeetingGuest
-ADD COLUMN guest VARCHAR(20) NOT NULL;
-
+ADD COLUMN guest VARCHAR(20) DEFAULT 'N';
+SELECT * FROM MeetingGuest;
 ALTER TABLE MeetingGuest
 MODIFY COLUMN inserted DATE DEFAULT (current_date);
 
@@ -205,6 +207,10 @@ parentNum
 ALTER TABLE MeetingReply
 ADD COLUMN step INT(255) DEFAULT 0;
 
+		DELETE FROM MeetingReply
+		 WHERE meeting_id = 13
+		   AND meeting_reply_id = 120;
+
 ALTER TABLE MeetingReply
 MODIFY COLUMN refNum INT(255) NULL DEFAULT NULL;
 
@@ -240,9 +246,7 @@ SELECT * FROM t3
 ORDER BY t3. meeting_reply_id, t3.refOrder;
 
 SELECT * FROM MeetingReply ORDER BY refNum, refOrder
-
-SELECT * FROM MeetingReply;
-ORDER BY IF(ISNULL(refNum), step, refNum), refOrder;
+;
 
 WITH RECURSIVE CTE AS ( -- CTE 가상테이블
 	SELECT 1 AS h  -- 1 초기값 h 컬럼
@@ -251,19 +255,92 @@ WITH RECURSIVE CTE AS ( -- CTE 가상테이블
 )
 SELECT * FROM CTE;
 
-WITH RECURSIVE t3 (member_id, content, refNum, refOrder, step) AS
 
-(
-SELECT t1.member_id, t1.content, t1.refNum, t1.refOrder, t1.step
-FROM MeetingReply t1
-WHERE t1.refNum is null
+SELECT * FROM MeetingReply  ;
 
-UNION ALL
+SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.step,
+			   m.nickname
+		FROM MeetingReply r LEFT JOIN Member m ON r.member_id = m.member_id
+		WHERE r.meeting_id = 13
+		AND r.step = 0 -- 최상위 부모
+	 ORDER BY meetingReplyId DESC;
+     
+ALTER TABLE MeetingReply
+MODIFY COLUMN delete_info varchar(10) DEFAULT 'N';
+SELECT * FROM MeetingReply;
+DESC MeetingReply;
 
-SELECT t2.member_id, t2.content, t2.refNum, t2.refOrder, t2.step
-FROM MeetingReply t2
-INNER JOIN t3 ON IFNULL(t2.step, '0') = t3.member_id
-)
+UPDATE MeetingReply 
+		   SET delete_info = 'y'
+		 WHERE meeting_reply_id = 173;
+         
+         INSERT INTO MeetingReply (  member_id
+							      , meeting_id
+							      , content
+							      , step
+							      , refOrder
+							      , delete_info
+				 			      )
+		        VALUES ( 
+		                  'admin'
+		                , '13'
+		                , '손수 넣어준 부모 댓글'
+					    , 0
+					    , 0
+					    , 'n'
+		               );
+                       
+INSERT INTO MeetingReply (  member_id 
+							      , meeting_id 
+							      , content 
+							      , refNum 
+							      , step   -- 들여쓰기 -->
+							      , refOrder -- 그룹내에서의 순서-->
+							      , delete_info -- 삭제 유무 설정 -->
+				 			      )
+		        SELECT 
+		                  'admin'
+		                , '13'		 
+		                , '손수 넣어준 부모의 자식 댓글'
+		                , '174'
+					    , ( SELECT MAX_STEP
+					          FROM ( 
+					                 SELECT NVL(MAX(step), 0)+1 AS MAX_STEP 
+					                   FROM MeetingReply 
+									  WHERE meeting_reply_id = 174
+								   ) AA
+						   ) 
+						, IFNULL( (SELECT MAX_STEP
+						             FROM (SELECT NVL(MAX(refOrder)+1, 1) AS MAX_STEP
+						                     FROM MeetingReply 
+						                    WHERE meeting_id = '13'
+						                      AND refNum = '174'
+						                    GROUP BY refNum
+						                   ) TEMP
+						           ), 1)
+						, 'n'					                 
+		         FROM DUAL;
+                 
+SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.delete_info deleteInfo,
+			   m.nickname
+		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE r.meeting_id = 13;
+        
+ALTER TABLE MeetingReply DROP meeting_reply_parent;
+ALTER TABLE MeetingReply DROP deep;
+ALTER TABLE MeetingReply DROP meeting_reply_gnum;
 
-SELECT * FROM MeetingReply t3
-ORDER BY member_id ;
+
+UPDATE MeetingReply 
+		   SET delete_info = 'N'
+		 WHERE meeting_reply_id = '187';

@@ -128,11 +128,12 @@ public class MeetingService {
 		// 게시물 가져오기
 		MeetingDto meeting = mapper.selectBoardByMeetingId(meetingId);
 		
+		
 		// 해쉬태그 가져오기
 		List<String> hashTag = mapper.getHashTag(meetingId);
 		meeting.setHashTag(hashTag); 
 		return meeting;
-		
+	
 	}
 
 	/* 서머노트 사용으로 필요없음

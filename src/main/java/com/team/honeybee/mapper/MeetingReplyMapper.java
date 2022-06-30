@@ -29,10 +29,10 @@ public interface MeetingReplyMapper {
 	// 자식 댓글 입력
 	void insertMeetingReplyChild(MeetingReplyDto reply);
 	
-	// 자식 댓글 입력
+	// 댓글 수정
 	void updateMeetingReply(MeetingReplyDto reply);
 		
-	// 자식 댓글 입력
+	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
 	void deleteMeetingReply(MeetingReplyDto reply);
 
 	List<MeetingReplyDto> selectChildByParentId(int meetingReplyId);
