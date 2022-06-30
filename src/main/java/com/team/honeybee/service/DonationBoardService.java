@@ -55,7 +55,7 @@ public class DonationBoardService {
 	@Autowired
 	SummerNoteMapper summerNoteMapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 
@@ -114,8 +114,7 @@ public class DonationBoardService {
 		//List<String> uploadImageAtTestArea = new ArrayList<>();
 		Document doc = Jsoup.parse(dto.getContent());
 		Elements imgs = doc.select("img[src]");
-		
-		// 정말 사용하는 이미지 리스트
+			// 정말 사용하는 이미지 리스트
 		List<String> isImage = new ArrayList<>();
 		for(Element img : imgs) {
 			isImage.add(img.attr("src"));
@@ -178,12 +177,14 @@ public class DonationBoardService {
 		}
 	}
 	
-	// ++ aws의 s3에서 사진 삭제 메소드
-	private void deleteFromAwsS3(String fileName) {
+	// ++ aws의 s3에서 summerNote에 없는 사진 삭제 메소드
+	private void deleteFromAwsS3(String imageUrl) {
 		System.out.println("삭제 가동");
-		System.out.println(fileName.substring(75));
-		String key = fileName.substring(75);
-		
+		// 내거 75
+		// 팀플 56
+		System.out.println(imageUrl.substring(56));
+		String key = imageUrl.substring(56);
+		System.out.println(key);
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)

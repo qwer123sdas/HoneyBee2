@@ -82,14 +82,18 @@ public class OrderController {
 	@GetMapping("kakaopay")
 	@ResponseBody
 	public String kakaoPayReady(Principal principal, String productName, String quantity, String totalAmount, int point) {
-			String partner_user_id = principal.getName();
-			if(totalAmount != "0") {
-				// 카카오 결제 준비하기	- 결제요청 service 실행.
-				return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
-			}
-			// 바로 결제처리해야됨.
+		System.out.println(productName);
+		System.out.println(quantity);
+		System.out.println(totalAmount);
+		String partner_user_id = principal.getName();
+		if(totalAmount != "0") {
+			// 카카오 결제 준비하기	- 결제요청 service 실행.
+			System.out.println("요청준비");
 			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
-			//return "redirect:/order/success";
+		}
+		// 바로 결제처리해야됨.
+		return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point);
+		//return "redirect:/order/success";
 			
 	}
 	
@@ -101,7 +105,6 @@ public class OrderController {
 									  Model model) {
 		
 		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token, partner_user_id);
-		System.out.println("?? : " + kakaoPayApprovalVo);
 		//db저장
 		service.setKakaoPayData(kakaoPayApprovalVo);
 		
@@ -118,5 +121,11 @@ public class OrderController {
 	@RequestMapping("order/kakaoPayFail")
 	public void failPage() {
 	}
+	
+	@RequestMapping("order/point")
+	public void tempPoint() {
+		
+	}
+	
 	
 }

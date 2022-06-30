@@ -32,6 +32,7 @@ public class DonationBoardController {
 	@Autowired
 	FavoriteService favoriteService;
 	
+
 	// 기부게시판 목록 : 메인 화면
 	// topic에 따른 분류
 	@RequestMapping("main")

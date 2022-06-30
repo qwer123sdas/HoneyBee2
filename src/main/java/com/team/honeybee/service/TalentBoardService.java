@@ -43,7 +43,7 @@ public class TalentBoardService {
 	@Autowired
 	TalentReviewMapper reviewMapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 
@@ -64,9 +64,9 @@ public class TalentBoardService {
 	
 	
 	// 게시물 리스트 가져오기
-	public List<TalentBoardDto> findBoardList() {
+	public List<TalentBoardDto> findBoardList(String topic, String sort) {
 		// 리스트 불러오기
-		List<TalentBoardDto> boardList =  mapper.findBoardList();
+		List<TalentBoardDto> boardList =  mapper.findBoardList(topic, sort);
 		// 각 리스트에 각 게시판의 평점 넣기
 		for(TalentBoardDto board : boardList) {
 			int talentId = board.getTalentId();
@@ -113,7 +113,6 @@ public class TalentBoardService {
 		
 		mapper.setTalentBoard(dto);
 		
-		// 메인 사진 등록
 		// 메인 사진 등록-----------------------
 		if(mainPhoto.getSize() > 0) {
 			// db 저장
@@ -135,10 +134,8 @@ public class TalentBoardService {
 		// 사용하지 않는 이미지 리스트
 		// image_folder_id로 해당 db에 있는 이미지 정보 전부 가져오기
 		String imageFolderId =  folderName;
-		System.out.println(" imageFolderId : " + imageFolderId); // 
 		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);
 		
-		System.out.println("모든 이미지 리스트 dbImageUrlList : " + dbImageUrlList);
 		
 		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
 		for(String imageUrl : dbImageUrlList) {
@@ -183,8 +180,10 @@ public class TalentBoardService {
 	// ++ aws의 s3에서 사진 삭제 메소드
 	private void deleteFromAwsS3(String fileName) {
 		System.out.println("삭제 가동");
-		System.out.println(fileName.substring(75));
-		String key = fileName.substring(75);
+		System.out.println(fileName.substring(56));
+		// 내거 75
+		// 팀플 56
+		String key = fileName.substring(56);
 		
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()

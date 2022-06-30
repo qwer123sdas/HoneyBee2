@@ -36,6 +36,12 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
 	<style>
+	body{
+		font-size: 15px;
+	}
+	a{
+		color : black;
+	}
 	.group_catelist {
 	    width: 1000px;
 	    margin: 0 auto;
@@ -95,6 +101,18 @@
 	.group_fundlist .sort_cate .box_sorting.on {
 		color: #444;
 	}
+	.main-title{
+		color : black;
+		font-weight: bold;
+		font-size: 18px;
+		width: 250;
+		height: 47;
+	}
+	
+	.catagory-image{
+	width: 50px;
+	height: 50px;
+}
 	</style>
 	<body>
     <!-- Spinner Start -->
@@ -131,32 +149,32 @@
 					<ul lass="mb-5" id="portfolio-flters">
 						<li class="mx-4">
 							<a <c:if test="${topic==null or topic==''}"> class="on"</c:if> href="${appRoot}/donation/main?sort=1">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_all.png">
-								<span>전체</span>
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/donation_all.png">
+								<div>전체</div>
 							</a>
 						</li>
 						<li class="mx-4">
 							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=1">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_1.png">
-								<span>어린이</span>
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/donation_1.png">
+								<div>어린이</div>
 							</a>
 						</li>
 						<li class="mx-4">
 							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=2">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/donation_2.png">
-								<span>장애인</span>
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/donation_2.png">
+								<div>장애인</div>
 							</a>
 						</li>
 						<li class="mx-4">
 							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=3">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/donation_3.png">
-								어려운 이웃
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/donation_3.png">
+								<div>어려운 이웃</div>
 							</a>
 						</li>
 						<li class="mx-4" data-filter=".second">
 							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/donation_4.png">
-								환경
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/donation_4.png">
+								<div>환경</div>
 							</a>
 						</li>
 					</ul>
@@ -194,9 +212,9 @@
 			                            <div class="service-icon">
 			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/donation_${list.topic }.png">
 			                            </div>
-			                            <h4 class="mb-3">${list.title }</h4>
-			                            <p>${list.nickname }</p>
-			                            <p>현재 모금액 : ${list.currentAmount}</p>
+			                            <p class="mb-3 main-title">${list.title }</p>
+			                            <p style="color: black;">${list.nickname }</p>
+			                            <p style="color: black;">현재 모금액 : ${list.currentAmount}</p>
 			                            <div class="progress">
 										  <div class="progress-bar bg-warning" role="progressbar" style="width: ${list.achievementRate}%" aria-valuenow="${list.achievementRate}" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>

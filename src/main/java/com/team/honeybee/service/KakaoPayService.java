@@ -57,7 +57,7 @@ public class KakaoPayService {
         params.add("item_name", productName);// 상품명
         params.add("quantity", quantity); // 상품 수량
         params.add("total_amount", totalAmount); // 총 금액
-        params.add("tax_free_amount", "0"); // 부가세
+        params.add("tax_free_amount", "20"); // 부가세
         params.add("approval_url", "http://localhost:8080/honeybee/order/kakaoPaySuccess?partner_user_id=" + partner_user_id);	// 결제 성공 시 가야할 approval_url
         params.add("cancel_url", "http://localhost:8080/honeybee/order/kakaoPayFail");// 결제 실패 시
         params.add("fail_url", "http://localhost:8080/honeybee/order/kakaoPayCancel/");// 결제 취소 시
@@ -88,7 +88,7 @@ public class KakaoPayService {
 	public KakaoPayApprovalVO  kakaoPaySuccessInfo(String pg_token, String partner_user_id) {
 		System.out.println("토큰 : " + pg_token);
 		System.out.println(kakaoPayReadyVO.getTid());
-		System.out.println(kakaoPayReadyVO.getPoint());
+		//System.out.println(kakaoPayReadyVO.getPoint());
 	
 		RestTemplate restTemplate = new RestTemplate();
 		

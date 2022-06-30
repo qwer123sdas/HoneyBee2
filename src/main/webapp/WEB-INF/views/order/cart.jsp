@@ -395,7 +395,7 @@ td {
     <!-- Modal --></section>
     
     <!-- 모달 -->
-	
+	  
 	<div class="modal fade " id="modal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -412,6 +412,7 @@ td {
 			</div>
 		</div>
 	</div>
+	
     <script>
     /* 최종 금액 */	
 	let payment = function(){
@@ -485,9 +486,10 @@ td {
     		kakaopay:function(){
     			var data = {'productName' : '${board.productName}',
     						'quantity' : $('#amount').text(),
-    						'totalAmount' : $('#finalPayment').text(),
+    						'totalAmount' : Number($('#finalPayment').text()),
     						'point' : $('#pointTotal').text()
     					  }
+    			payment();
     			$.ajax({
     				url:"${appRoot}/kakaopay",
     				data: data,

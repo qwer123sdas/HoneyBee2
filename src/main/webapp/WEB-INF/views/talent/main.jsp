@@ -37,6 +37,12 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
 <style>
+	body{
+		font-size: 15px;
+	}
+	a{
+	color : #c49000;
+	}
 /* 카테고리 */
 	.group_catelist {
 	    width: 1000px;
@@ -97,7 +103,16 @@
   display: flex;
 	justify-content: flex-end; 
 }
-
+.catagory-image{
+	width: 50px;
+	height: 50px;
+}
+	/* 최신순, 오래된 순  */
+	.group_fundlist {
+	    text-align : right;
+	    width: 1300px;
+	    margin: 0 auto 10px;
+	}
 
 
 </style>
@@ -128,52 +143,74 @@
 			<div class="group_catelist">
 				<div class="inner_catelist">
 					<ul lass="mb-5" id="portfolio-flters">
-						<li class="mx-4">
-							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=1">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/talent_agreement.png">
-								<span>문서.취업</span>
+						<li class="mx-3">
+							<a <c:if test="${topic==null or topic==''}"> class="on"</c:if> href="${appRoot}/talent/main">
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/donation_all.png">
+								<div>전체</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=2">
-								<img class="mb-3" src="${appRoot}/resources/webContents/img/talent_exercise.png">
-								<span>생활.레슨</span>
+						<li class="mx-3">
+							<a <c:if test="${topic=='1'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=1&sort=${sort }">
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/talent_agreement.png">
+								<div>문서.취업</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=3">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_measuring.png">
-								IT.프로그래밍 
+						<li class="mx-3">
+							<a <c:if test="${topic=='2'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=2&sort=${sort }">
+								<img class="mb-3 catagory-image" src="${appRoot}/resources/webContents/img/talent_exercise.png">
+								<div>생활.레슨</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_youtube.png">
-								콘텐츠
+						<li class="mx-3">
+							<a <c:if test="${topic=='3'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=3&sort=${sort }">
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/talent_measuring.png">
+								<div>IT</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_handmade.png">
-								핸드메이드
+						<li class="mx-3">
+							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=4&sort=${sort }">
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/talent_youtube.png">
+								<div>콘텐츠</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/talent_market.png">
-								마켓팅
+						<li class="mx-3">
+							<a <c:if test="${topic=='5'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=5&sort=${sort }">
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/talent_handmade.png">
+								<div>핸드메이드</div>
 							</a>
 						</li>
-						<li class="mx-4">
-							<a <c:if test="${topic=='4'}"> class="on"</c:if> href="${appRoot}/donation/main?sort=${sort }&topic_id=4">
-								<img class="mb-3"src="${appRoot}/resources/webContents/img/talnet_languages.png">
-								번역
+						<li class="mx-3">
+							<a <c:if test="${topic=='6'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=6&sort=${sort }">
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/talent_market.png">
+								<div>마켓팅</div>
+							</a>
+						</li>
+						<li class="mx-3">
+							<a <c:if test="${topic=='7'}"> class="on"</c:if> href="${appRoot}/talent/main?topic_id=7&sort=${sort }">
+								<img class="mb-3 catagory-image"src="${appRoot}/resources/webContents/img/talnet_languages.png">
+								<div>번역</div>
 							</a>
 						</li>
 					</ul>
 				</div>
 			</div> <!-- end: group_catelist -->
-           
+			<!-- 최신순, 오래된 순 -->
+			<div class="group_fundlist" >
+				<div class="sort_cate">
+					<span class="inner_sort_cate">
+						<a href="${appRoot}/talent/main?sort=1&topic_id=${topic}">
+						<c:if test="${sort == 1 or sort == null}"><span class="box_sorting on me-2">별점 많은 순</span></c:if>
+						<c:if test="${sort != 1 and sort != null}"><span class="box_sorting me-2">별점 많은 순</span></c:if>
+					</a>
+					<a href="${appRoot}/talent/main?sort=2&topic_id=${topic}">
+						<c:if test="${sort == 2 }"><span class="box_sorting on me-2">오래된 순</span></c:if>
+						<c:if test="${sort != 2 }"><span class="box_sorting me-2">오래된 순</span></c:if>
+					</a>
+					</span>
+				</div>
+			</div>
+                       	
+ 			
            <!-- 게시글 목록  -->
            <c:forEach items="${boardList }" var="list">
 	           <div class="col mb-5">
@@ -200,9 +237,8 @@
 		            </div>
 	         	</div>
          	</c:forEach>
-         	
+         	</div>
 			
-           </div>
        </div>
    	</section>
 	

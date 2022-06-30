@@ -12,7 +12,7 @@ import com.team.honeybee.domain.TalentReivewDto;
 @Mapper
 public interface TalentBoardMapper {
 	// 게시물 리스트 가져오기
-	List<TalentBoardDto> findBoardList();
+	List<TalentBoardDto> findBoardList(@Param("topic")String topic, @Param("sort")String sort);
 	
 	// 게시물 정보 가져오기
 	TalentBoardDto getBoard(int talentId);

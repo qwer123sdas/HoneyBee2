@@ -15,9 +15,25 @@
 		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
 					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
 					  LEFT JOIN TalentReview tr ON tr.talent_id = t.talent_id
+					  LEFT JOIN Favorite f ON f.talent_id = t.talent_id
+		<if test="topic == ''">
 		WHERE bi.main_image_name IS NOT NULL
+		</if>
+		<if test="topic != ''">
+		WHERE t.topic = #{topic} AND bi.main_image_name IS NOT NULL
+		</if>
+		<if test='sort == ""'>
 		GROUP BY t.talent_id
-		ORDER BY t.talent_id DESC 
+		ORDER BY t.talent_id DESC
+		</if>
+		<if test='sort == "1"'>
+		GROUP BY f.heart
+		ORDER BY COUNT(f.heart) DESC
+		</if>
+		<if test='sort == "2"'>
+		GROUP BY t.talent_id
+		ORDER BY t.talent_id ASC
+		</if>
 	</select>
 	
 	<!-- 특정 게시물 정보 가져오기 -->

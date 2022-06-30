@@ -28,13 +28,13 @@ public class SummerNoteService {
 	@Autowired
 	SummerNoteMapper mapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 
 	
-	private final String awsS3Url = "https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/"; // 내꺼
-	
+	private final String awsS3Url = "https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/";
+	//"https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/"; // 내꺼
 	@PostConstruct   // s3 빈 생성
 	public void init() {
 		Region region = Region.AP_NORTHEAST_2;

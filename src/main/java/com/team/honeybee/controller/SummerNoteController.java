@@ -21,16 +21,17 @@ public class SummerNoteController {
 	@Autowired
 	SummerNoteService service;
 	
-	private final String awsS3Url = "https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/"; // 내꺼
+	private final String awsS3Url = "https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/"; // 팀장님꺼
+	//"https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/"; // 내꺼
 	
 	
 	//Donation------------------------------------------------------------
 	@PostMapping(value="donation",  produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadImageToS3ForSummerNoteFromDonation(@RequestParam("image") MultipartFile multipartImage,
-												@RequestParam("folderId") String folderId,
-																	Principal principal, 
-																	HttpServletRequest request) {
+															@RequestParam("folderId") String folderId,
+																					Principal principal, 
+																					HttpServletRequest request) {
 		
 		JsonObject jsonObject = new JsonObject();
 		String imageUrl = service.uploadImageToS3ForSummerNote(multipartImage, folderId, principal.getName());
@@ -44,9 +45,9 @@ public class SummerNoteController {
 	@PostMapping(value="talent", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadImageToS3ForSummerNoteFromTalent(@RequestParam("image") MultipartFile multipartImage,
-												@RequestParam("folderId") String folderId,
-																	Principal principal, 
-																	HttpServletRequest request) {
+														@RequestParam("folderId") String folderId,
+																					Principal principal, 
+																					HttpServletRequest request) {
 		JsonObject jsonObject = new JsonObject();
 		String imageUrl = service.uploadImageToS3ForSummerNoteFromTalent(multipartImage, folderId, principal.getName());
 		jsonObject.addProperty("url", awsS3Url + imageUrl);

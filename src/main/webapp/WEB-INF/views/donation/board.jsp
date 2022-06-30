@@ -467,15 +467,15 @@
 			<div class="fund_float loginConfirm">
 				<a class="btn_c heart"> 
 					<span class="ico_cheer">
-						<img id="heart" src="${appRoot }/resources/heart.png" />
+						<img id="heart" src="${appRoot }/resources/heart.png" style="margin-bottom: 15px"/>
 					</span> 
 					<span class="txt_cheer">응원</span>
 					<span class="num_active" id="countHeart">${count }</span>
 					<div class="after"></div>
 				</a> 
 				<a class="btn_s" onclick="share()"> <span class="ico_share">
-					<img src=""></span> 
-					<span class="txt_share" data-bs-toggle="modal">공유</span>
+					<i class="fa-solid fa-share-nodes" style="color : gray; "></i></span> 
+					<span class="txt_share" data-bs-toggle="modal" id="copy-btn">공유</span>
 				</a> 
 				<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1">
 					<span>기부하기</span>
@@ -497,14 +497,14 @@
 					<form id="donationModalForm" method="post">
 						<input type="hidden" name="donationId" value="${board.donationId }" /> 
 						<input type="hidden" value="${member.id }" name="id" /> 
-							<label for="" class="form-label">결제금액</label> 
+						<label for="" class="form-label">결제금액</label> 
 						<input class="form-control" id="" type="text" name="amount" />
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">응원 남기기</label>
 							<textarea class="form-control" id="message-text" name="content"></textarea>
 						</div>
 						<div class="modal-footer">
-							<button id="modalDonationButton"  type="submit" class="btn btn-danger">결제하기</button>
+							<span id="modalDonationButton"  class="btn btn-danger btn-kakaopay">결제하기</span>
 						</div>
 					</form>
 				</div>
@@ -514,7 +514,10 @@
 	</div>
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
-
+	<!-- 주소 복사 -->
+	<script type="module">
+  		import jquery from 'https://cdn.skypack.dev/jquery';
+	</script>
 	<!-- JavaScript Libraries -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -537,6 +540,23 @@
 
 	<script>
     	$(document).ready(function(){
+    		/*주소복사*/
+			//URL 복사
+			function copyClip(url) {
+			  var $temp = $("<input>");
+			  $("body").append($temp);
+			  $temp.val(url).select();
+			  document.execCommand("copy");
+			  $temp.remove();
+			  alert("주소가 복사되었습니다.");
+			}
+			$("#copy-btn").on("click", function (e) {
+			  e.preventDefault();
+			  var link = location.href;
+			  copyClip(link);
+			});
+
+    		
     		// 좋아요가 있는지 확인한 값을 heartVal에 저장
     		var heartVal = ${heart};
     		var count = ${count};
@@ -549,6 +569,7 @@
                 console.log(heartVal);
                 $("#heart").prop("src", '${appRoot }/resources/heart.png');
     		}
+    		
     		
     		// 좋아요 버튼을 클릭 시 실행되는 코드
     		$(".heart").click(function () {
@@ -635,7 +656,7 @@
     		
     		replyList(); // 댓글 목록 리스트 함수 실행!
     		
-    		// 기부 결제 버튼
+    		/*기부 결제 버튼
     		$("#modalDonationButton").click(function(e) {
     			e.preventDefault();
     			
@@ -644,11 +665,56 @@
     				let actionAttr = "${appRoot}/donation/give";
     				form.attr("action", actionAttr);
     				
-    				form.submit();
+    				form.submit(); 
     			}
     			
-    		});
+    		});*/
     		
+
+    		
+    		/* 카카오 페이 ajax  */
+    	    let index = {
+    	    		init:function(){
+    	    	        $(".btn-kakaopay").on("click", ()=>{ 
+    	    	        	// function(){}를 사용안하고 , ()=>{}를 사용하는 이유는 this를 바인딩하기 위해서
+    	    				this.kakaopay();
+    	    			});
+    	    		},
+
+    	    	  // 카카오페이 결제
+    	    		kakaopay:function(){
+    	    			var data = {'productName' : '${board.title}',
+    	    						'quantity' : 1,
+    	    						'totalAmount' : 300,
+    	    						'point' : 0
+    	    					  }
+    	    			$.ajax({
+    	    				url:"${appRoot}/kakaopay",
+    	    				data: data,
+    	    				dataType:"text",
+    	    				type : "GET"
+    	    			}).done(function(resp){
+    	   					console.log("일단응답:", resp);
+    	    				if(resp.status === 500){
+    	    					alert("카카오페이결제를 실패하였습니다.")
+    	    				} else{
+    	    					console.log("성공>>????")
+    	    					 // alert(resp.tid); //결제 고유 번호
+    	    					 
+    	    					//window.open(box); // 새창 열기
+    	    					$("#chat_iframe").attr("src", resp);
+    	    					//location.href = resp;
+    	    				}
+    	    			
+    	    			}).fail(function(error){
+    	    				console.log("error2");
+    	    				alert(JSON.stringify(error));
+    	    			}); 
+    	    			
+    	    		},
+    	   	}
+    	    index.init();
+    	    
     		// 로그인 여부 확인
 /*     		$('.loginConfirm').click(function(e){
     			e.preventDefault();

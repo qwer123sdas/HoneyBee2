@@ -42,10 +42,14 @@ public class TalentBoardController {
 	
 	// 게시물 리스트 
 	@RequestMapping("main")
-	public void mainPage(Model model) {
+	public void mainPage(@RequestParam(name="topic_id", defaultValue = "")String topic,
+							@RequestParam(name="sort", defaultValue = "")String sort,
+																		Model model) {
 		// 목록 가져오기
-		List<TalentBoardDto> boardList = service.findBoardList();
+		List<TalentBoardDto> boardList = service.findBoardList(topic, sort);
 		
+		model.addAttribute("topic", topic);
+		model.addAttribute("sort", sort);
 		model.addAttribute("boardList", boardList);
 	}
 	
