@@ -1,5 +1,6 @@
 package com.team.honeybee.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class FaqController {
 	@Autowired
 	private FaqService service;
 
-
+	
 	@GetMapping("insert")
 	public void writeBoard() {
 
@@ -32,11 +33,14 @@ public class FaqController {
 	private void login() {
 		
 	}
-
+	//1대1 문의 글 쓰기
 	@PostMapping("insert")
-	public String writeBoard(FaqDto faq,RedirectAttributes rttr,MultipartFile[] file) {
+	public String writeBoard(FaqDto faq,
+							 RedirectAttributes rttr,
+							 MultipartFile[] file,
+							 Principal principal) {
 		if(file != null) {
-			List<String> fileList =  new ArrayList<String>();
+			List<String> fileList = new ArrayList<String>();
 			for(MultipartFile f : file) {
 				fileList.add(f.getOriginalFilename());
 			}
@@ -44,7 +48,7 @@ public class FaqController {
 		}
 		
 		
-		
+		faq.setMemberId(principal.getName());
 		boolean success = service.addBoard(faq,file);
 		if (success) {
 			rttr.addFlashAttribute("message", "새 글이 등록되었습니다.");
@@ -55,7 +59,7 @@ public class FaqController {
 		return "redirect:/faq/faqList";
 
 	}
-
+	
 	@RequestMapping("faqList")
 	public void faqList(Model model) {
 		List<FaqDto> list = service.faqList();
@@ -84,6 +88,10 @@ public class FaqController {
 			rttr.addFlashAttribute("message", "글이 삭제 되지않았습니다.");
 		}
 		return "redirect:/faq/faqList";
+	}
+	@RequestMapping("notice")
+	public void notice() {
+		
 	}
 	
 }	

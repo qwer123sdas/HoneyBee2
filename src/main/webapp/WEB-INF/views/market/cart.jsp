@@ -57,8 +57,14 @@
 <!-- Template Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- bootstrap - JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<script>
 	function execution_daum_address(){
  		console.log("동작");
 	   new daum.Postcode({
@@ -268,6 +274,16 @@ td {
 	position: relative;
 	top: 120px;
 }
+
+.modalPopArea {
+	position: relative;
+	height: 800px;
+}
+
+.modalPopContent {
+	width: 100%;
+	height: 100%;
+}
 </style>
 <body>
 	<!-- Navbar Start -->
@@ -352,7 +368,7 @@ td {
 										<div class="">7 일</div>
 									</td>
 									<td class="text-end">
-										<div class="priceTotal">${market.price }원</div>
+										<div class="priceTotal">${market.price }</div>원
 									</td>
 								</tr>
 							</tbody>
@@ -371,19 +387,19 @@ td {
 					<div class="OrderSummary">
 						<h5
 							class="OrderSummary-price-wrapper d-flex justify-content-between">
-							<span>총 서비스 금액</span> <span class="priceTotal">${market.price }원</span>
+							<span>총 금액</span> <span class="priceTotal" id="priceTotal">${market.price }</span>원
 
 						</h5>
 						<h5
 							class="OrderSummary-price-wrapper d-flex justify-content-between">
-							<span>쿠폰 할인</span> <span class="">0원</span>
+							<span>쿠폰 할인</span> <span class="">0</span>원
 						</h5>
 
 						<div class="OrderSummary-divider"></div>
 
 						<h5
 							class="OrderSummary-price-wrapper d-flex justify-content-between">
-
+							<span>총 결제 금액</span> <span id="finalPayment">${market.price }</span>원
 						</h5>
 
 						<div>
@@ -396,7 +412,9 @@ td {
 							</div>
 						</div>
 						<div class="d-flex cart__mainbtns">
-							<button class="cart__bigorderbtn middle">결제하기</button>
+							<button id="btn-kakaopay" data-bs-toggle="modal"
+								data-bs-target="#modal1" class="cart__bigorderbtn middle">
+								결제하기</button>
 						</div>
 
 
@@ -414,18 +432,20 @@ td {
 						<table class="type05">
 							<tr>
 								<th scope="row">주문하시는 분</th>
-								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="text" name="title" required /></td>
+								<td><label class="form-label" for="input1"></label> 
+								
+								<input class="form-control" type="text" /></td>
+									
 							</tr>
 							<tr>
 								<th scope="row">휴대폰 번호</th>
 								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="email" name="phone" required /> <br /></td>
+									class="form-control" type="email" id="phone" required /> <br /></td>
 							</tr>
 							<tr>
 								<th scope="row">이메일</th>
 								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="email" name="email" required /> <br /></td>
+									class="form-control" type="email" id="email" required /> <br /></td>
 							</tr>
 						</table>
 					</section>
@@ -440,24 +460,26 @@ td {
 						<table class="type05">
 							<tr>
 								<th scope="row">받으시는 분</th>
-								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="text" name="title" required /></td>
+								<td><label class="form-label" for="input1"></label> 
+								<input class="form-control" type="text" id="orderName" /></td>
 							</tr>
 							<th>주소</th>
-							<td><input size ="50" class="address1_input" readonly="readonly">
-								<a class="address_search_btn" onclick="execution_daum_address()">주소찾기</a><br> 
-								<input size ="50" class="address2_input" readonly="readonly"><br>
-								<input size ="50" class="address3_input" readonly="readonly">
-								</td>
+							<td><input size="50" class="address1_input" id="postCode"
+								readonly="readonly"> <a class="address_search_btn"
+								onclick="execution_daum_address()">주소찾기</a><br> <input
+								size="50" class="address2_input" id="address"
+								readonly="readonly"><br> <input size="50"
+								class="address3_input" id="detailAddress" readonly="readonly">
+							</td>
 							<tr>
 								<th scope="row">휴대폰 번호</th>
-								<td><label class="form-label" for="input1"></label> <input 
-									class="form-control" type="text" name="phone" required /> <br /></td>
+								<td><label class="form-label" for="input1"></label> <input
+									class="form-control" type="text" id="phone" required /> <br /></td>
 							</tr>
 							<tr>
 								<th scope="row">요청사항</th>
 								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="text" name="email" required /> <br /></td>
+									class="form-control" type="text" id="comment" required /> <br /></td>
 							</tr>
 						</table>
 					</section>
@@ -481,11 +503,42 @@ td {
 			</ul>
 		</div>
 	</section>
+
+	<!-- 모달 -->
+
+	<div class="modal fade " id="modal1" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modalPopArea">
+					<iframe class="modalPopContent" src="" frameborder="0"
+						scrolling="no" id="chat_iframe"></iframe>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
-		var sellPrice = $
-		{
-			board.price
-		};
+    /* 최종 금액 */	
+	let payment = function(){
+        var finalPayment = $('#finalPayment').text();
+        var priceTotal = $('#priceTotal').text();
+        //var point = document.getElementById('usePoint').value;
+        console.log(finalPayment);
+        console.log(priceTotal);
+       // console.log(point);
+       // var result = (Number(priceTotal) - Number(point));
+       var result = (Number(priceTotal));
+        $("#finalPayment").text(result);
+    }
+    
+    /*물품 수량 증감*/
+		var sellPrice = ${market.price};
 		var sum = sellPrice;
 
 		$(document).ready(function() {
@@ -498,8 +551,9 @@ td {
 					$("#amount").text(amount);
 				} else {
 					$("#amount").text(plusAmount);
-					$(".priceTotal").text(priceTotal + '원');
+					$(".priceTotal").text(priceTotal);
 				}
+				payment();
 			});
 
 			$('#minusButton').click(function() {
@@ -509,12 +563,68 @@ td {
 
 				if (amount > 1) {
 					$("#amount").text(minusAmount);
-					$(".priceTotal").text(priceTotal + '원');
+					$(".priceTotal").text(priceTotal);
 				} else {
 					$("#amount").text(amount);
 				}
+				payment();
 			});
 		});
+		 /* 카카오 페이 ajax  */
+	    let index = {
+	    		init:function(){
+	    	        $("#btn-kakaopay").on("click", ()=>{ 
+	    	        	// function(){}를 사용안하고 , ()=>{}를 사용하는 이유는 this를 바인딩하기 위해서
+	    	        	var x = document.getElementById('orderName').value;
+	    	        	console.log(x);
+	    				this.kakaopay();
+	    			});
+	    		},
+	    	  // 카카오페이 결제
+	    		kakaopay:function(){
+	    			
+	    			var data = {'productName':'${market.productName}',
+	    					    'quantity':$('#amount').text(),
+	    					    'finalPayment':$('#finalPayment').text(),
+	    					    'orderName' :$('#orderName').val(),
+	    					    'postCode':$('#postCode').val(),
+	    					    'address' :$('#address').val(),
+	    					    'detailAddress':$('#detailAddress').val(),
+	    					    'phone' :$('#phone').val(),
+	    					    'comment' :$('#comment').val()
+	    					  }
+	    			//강사님 이걸 로그로 찍었을 때 값이나오게 하라는데
+	    			//이거 어떻게 하나요?!@#!@#!$@#@!%$@
+	    		    //SOS
+	    		   	console.log(data)
+	    			$.ajax({
+	    				url:"${appRoot}/market/kakaopay",
+	    				data: data,
+	    				dataType:"text",
+	    				type : "GET"
+	    			}).done(function(resp){
+	   					console.log("일단응답:", resp);
+	    				if(resp.status === 500){
+	    					alert("카카오페이결제를 실패하였습니다.")
+	    				} else{
+	    					console.log("성공>>????")
+	    					 // alert(resp.tid); //결제 고유 번호
+	    					 
+	    					//window.open(box); // 새창 열기
+	    					$("#chat_iframe").attr("src", resp);
+	    					//location.href = resp;
+	    				}
+	    			
+	    			}).fail(function(error){
+	    				console.log("error2");
+	    				alert(JSON.stringify(error));
+	    			}); 
+	    			
+	    		},
+	   	}
+	    index.init();
+	    
+		
 	</script>
 </body>
 </html>

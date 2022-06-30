@@ -335,13 +335,7 @@
                     </div>
                 </div>
                 <!-- Side widget-->
-                <div class="card border-1 mx-4 mb-4">
-                	<div>
-                		<div class="card-body ">
-                			
-                		</div>
-                	</div>
-                </div>
+                
             </div>
         </div>
      </div>

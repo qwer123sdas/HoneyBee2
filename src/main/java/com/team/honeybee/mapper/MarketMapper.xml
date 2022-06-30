@@ -4,6 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.honeybee.mapper.MarketMapper">
+	<!--마켓리스트   -->
 	<select id="listMarket"
 		resultType="com.team.honeybee.domain.MarketDto">
 		SELECT m.market_id marketId,
@@ -32,6 +33,7 @@
 	 	 WHERE m.market_id = #{market_id }       
 		 GROUP BY m.market_id     
 	</select>-->
+	<!--마켓 상세 페이지   -->
 	<select id="selectMarketId" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT market_id marketId,
 			   member_id memberId,
@@ -48,19 +50,20 @@
 	</select>
 	
 	
-	
+		<!--마켓 상세페이지 그림 불러오기   -->
 	<select id="selectFileNameByMarketId" resultType="string">
 		SELECT file fileName
 		FROM MarketFile
 		WHERE market_id = #{market_id}
 	</select>
-	
+		<!--마켓 조회수 불러오기   -->
 	<update id="updateViewCount" parameterType="int">
 	UPDATE Market 
 	set view_count = view_count +1
 	where market_id = #{marketId}
 	
 	</update>
+	<!--마켓상세 페이지  -->
 	<select id="postMakret" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT market_id marketId,
 			   member_id memberId,
@@ -75,7 +78,7 @@
 		FROM Market
 		WHERE market_id = #{market_id}
 	</select>
-	
+	<!-- 마켓 카트 -->
 	<select id="getMarketById" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT m.market_id marketId,
 			   m.member_id memberId,
@@ -91,7 +94,39 @@
 		GROUP BY marketId
 	</select>
 	
-
 	
-
+<!--	<select id="selectMarketBoard" resultType="com.team.honeybee.domain.OrderPayDto">
+		SELECT o.product_name productName,
+			   o.member_id memberId,
+			   o.nickname,
+			   o.finalPlace,
+			   o.amount,
+			   o.orderName,
+			   o.postCode,
+			   o.address,
+			   o.detailAddress,
+			   o.phone,
+			   o.comment,
+			   o.inserted,
+			   f.file thumbNailImage,
+			   COUNT(f.market_id) hasFile
+		FROM OrderPay o LEFT JOIN MarketFile f ON o.member_id = f.market_id
+					    LEFT JOIN Member m ON o.member_id = m.member_id
+		                LEFT JOIN Market ma ON o.member_id = ma.member_id
+		WHERE o.order_id = ${orderId} 
+			AND f.marketFile IS NOT NULL
+	</select>  -->
+	
+	<!-- 카카오페이 승인시 db저장  -->
+	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
+		INSERT INTO OrderPay(member_id, 
+							 product_name, 
+							 final_price, 
+							 quantity)
+			   VALUES(#{partner_user_id}, 
+			   		  #{item_name}, 
+			   		  #{amount.total},
+			   		  #{quantity})
+	</insert>
+	
 </mapper>

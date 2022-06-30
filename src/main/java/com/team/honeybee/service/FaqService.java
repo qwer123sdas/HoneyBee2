@@ -50,8 +50,8 @@ public class FaqService {
 	
 	@Transactional
 	public boolean addBoard(FaqDto faq, MultipartFile[] files) {
-		faq.setMemberId("admin");
 		
+		//게시글 등록
 		int cnt = mapper.insertBoard(faq);
 		
 		addFiles(faq.getQuestionId(), files);

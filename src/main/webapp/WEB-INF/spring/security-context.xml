@@ -13,6 +13,9 @@
 		<security:form-login always-use-default-target="true" default-target-url="/faq/question"/>
 		<security:logout/>
 		<security:remember-me/>
+		<security:headers>
+			<security:frame-options disabled="true"/>
+		</security:headers>
 	</security:http>
 	
 	
