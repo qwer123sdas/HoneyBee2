@@ -76,6 +76,7 @@
 
 
     <!-- Navbar Start -->
+    <!-- 
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <h2 class="m-0 text-primary">Solartec</h2>
@@ -104,6 +105,8 @@
             <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
+     -->
+     
     <!-- Navbar End -->
 	<!-- 
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">

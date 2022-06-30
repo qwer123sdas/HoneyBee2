@@ -19,133 +19,149 @@
 	referrerpolicy="no-referrer"></script>
 
 <style>
+body {
+	height: 1600px;
+}
 
+tr {
+	background-color: #f48fb1;
+}
+
+table {
+	text-align: left;
+	table-layout: fixed;
+	width: 756px;
+}
+
+table.table.caption-top.table-hover thead th {
+	width: 150px;
+	padding: 10px;
+	margin: 20px 10px; font-weight : bold;
+	color: #fff !important;
+	font-weight: bold;
+}
+
+thead .donation:first-child {
+	width: 50px;
+}
+
+thead .donation:nth-child(2) {
+	width: 100px;
+}
+
+table .even {
+	background-color: #fdf3f5;
+}
 </style>
 
 <script>
-
+	
 </script>
 
 <title>내가 쓴 글 : 꿀비</title>
 </head>
 <body>
 	<my:navBar current="memberInfo"></my:navBar>
-	
-	<div>
-		<table class="table caption-top table-hover">
-			<caption>기부 게시판</caption>
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">아이디</th>
-					<th scope="col">제목</th>
-					<th scope="col">enable</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list }" var="donation">
-					<tr>
-						<td>
-							<c:out value="${donation.donationId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${donation.memberId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${donation.title }"></c:out>
-						</td>
-						<td>
-							<c:out value="${donation.enable }"></c:out>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 
-		<hr />
+	<div class="main-container">
+		<div class="row">
+			<div class="col">
+				<table class="table caption-top table-hover">
+					<caption>기부 게시판</caption>
+					<thead>
+						<tr class="donation">
+							<th scope="col">#</th>
+							<th scope="col">작성자</th>
+							<th scope="col">제목</th>
+							<th scope="col">enable</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list }" var="donation">
+							<tr>
+								<td>
+									<c:out value="${donation.donationId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${donation.memberId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${donation.title }"></c:out>
+								</td>
+								<td>
+									<c:out value="${donation.enable }"></c:out>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
-		<table class="table caption-top table-hover">
-			<caption>재능판매 게시판</caption>
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">아이디</th>
-					<th scope="col">제목</th>
-					<th scope="col">enable</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list }" var="talent">
-					<tr>
-						<td>
-							<c:out value="${talent.donationId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${talent.memberId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${talent.title }"></c:out>
-						</td>
-						<td>
-							<c:out value="${talent.enable }"></c:out>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				<hr />
 
-		<hr />
+				<table class="table caption-top table-hover">
+					<caption>재능판매 게시판</caption>
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">작성자</th>
+							<th scope="col">제목</th>
+							<th scope="col">enable</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list }" var="talent">
+							<tr>
+								<td>
+									<c:out value="${talent.donationId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${talent.memberId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${talent.title }"></c:out>
+								</td>
+								<td>
+									<c:out value="${talent.enable }"></c:out>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
-		<table class="table caption-top table-hover">
-			<caption>모임 게시판</caption>
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">아이디</th>
-					<th scope="col">제목</th>
-					<th scope="col">enable</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list }" var="meeting">
-					<tr>
-						<td>
-							<c:out value="${meeting.donationId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${meeting.memberId }"></c:out>
-						</td>
-						<td>
-							<c:out value="${meeting.title }"></c:out>
-						</td>
-						<td>
-							<c:out value="${meeting.enable }"></c:out>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				<hr />
+
+				<table class="table caption-top table-hover">
+					<caption>모임 게시판</caption>
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">작성자</th>
+							<th scope="col">제목</th>
+							<th scope="col">enable</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list }" var="meeting">
+							<tr>
+								<td>
+									<c:out value="${meeting.donationId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${meeting.memberId }"></c:out>
+								</td>
+								<td>
+									<c:out value="${meeting.title }"></c:out>
+								</td>
+								<td>
+									<c:out value="${meeting.enable }"></c:out>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-	
-	<!-- 페이징 -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled">
-				<a class="page-link">Previous</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
-			</li>
-		</ul>
-	</nav>
+
 </body>
 </html>

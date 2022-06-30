@@ -57,5 +57,4 @@ public interface MemberMapper {
 	TalentBoardDto getTalentByMemberId(String memberId);
 	// 모임 게시글
 	MeetingDto getMeetingByMemberId(String memberId);
-
 }

@@ -149,7 +149,7 @@
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="index"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-		<h2 class="m-0 text-primary">꿀비</h2>
+		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
 	</a>
 
 	<button type="button" class="navbar-toggler me-4"
@@ -188,9 +188,16 @@
 
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown">
-					<a
-						class="nav-item nav-link ${current == 'memberInfo' ? 'active' : '' }"
-						href="${memberInfoUrl }">마이페이지</a>
+					<a class="nav-item nav-link dropdown-toggle${current == 'memberInfo' ? 'active' : '' }" data-toggle="dropdown"
+						href="${memberInfoUrl }">마이페이지
+					</a>
+					
+					<div class="dropdown-menu">
+						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
+						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
+						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
+						<a href="faqList" class="dropdown-item">상담 내역</a>
+					</div>
 				</li>
 				
 				<!-- 

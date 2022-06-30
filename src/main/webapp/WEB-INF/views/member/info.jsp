@@ -65,6 +65,9 @@ html, body{
 #profile .checkButton{
 	background-color: rgba(0,0,0,0);
 }
+form input #profileFile:file-selector-button{
+	display: none;
+}
 </style>
 
 <title>마이페이지</title>
@@ -207,11 +210,13 @@ html, body{
 						<div class="d-flex flex-column align-items-center text-left p-3 py-5">
 							<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
 							<label class="labels">프로필 사진</label>
-							<img class="rounded-circle mt-5"
-								src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
-								onerror="${appRoot }/resources/webContents/img/user.png"
-								width="80px" height="80px" />
-							<input type="file" name="profileFile" value="${memberInfo.profile }" accept="image/*" />
+							<div>
+								<img class="rounded-circle mt-5" id="target_img"
+									src="${imageUrl }/member/${memberInfo.memberId }/${memberInfo.profile }"
+									onerror="this.src='${appRoot }/resources/webContents/img/user.png';"
+									width="80px" height="80px" />
+							</div>
+								<input type="file" id="profileFile" value="${memberInfo.profile }" accept="image/*" />
 							<br />
 					
 							<div class="col-md-12">
