@@ -74,7 +74,7 @@
 				mt.tag,
 				m.nickname,
 				bi.main_image_name MPhoto,
-				bi.image_folder_id folderName,
+				bi.image_folder_id folderName
 			<!-- 	g.member_id guest -->
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
 						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id

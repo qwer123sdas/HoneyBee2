@@ -462,16 +462,16 @@
 	
 	// 지도를 생성합니다    
 	var map = new kakao.maps.Map(Container, Option); 
-	
+	console.log("111111111111111111111111111111111111")
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
-	
+	console.log('${meeting.address}')
 	// 주소로 좌표를 검색합니다
 	geocoder.addressSearch('${meeting.address}', function(result, status) {
-	
+		console.log("22222222222222222222222222222222222222")
 	    // 정상적으로 검색이 완료됐으면 
 	     if (status === kakao.maps.services.Status.OK) {
-	
+	    	 console.log("33333333333333333333333333333333333333")
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 	
 	        // 결과값으로 받은 위치를 마커로 표시합니다
@@ -526,7 +526,7 @@
 		e.preventDefault();
 		if('${meeting.memberId}' == null) {
 			$("#insertReplyPContentInput1").attr("disabled");
-			console.log("로그인하세요") // 나중에 로그인창 경로로 이동해야함
+			alert("로그인 후 작성하세요") // 나중에 로그인창 경로로 이동해야함
 			
 		} 
 	});
@@ -575,6 +575,7 @@
 						type : "post",
 						data : data,
 						success : function(data) {
+							alert("꿀비 모임을 취소하셨습니다.");
 							console.log("취소 성공");
 							guestList();
 						},
@@ -591,34 +592,35 @@
 			 
 		 });
 		 console.log("22222222222222222222")
-		// 모임 신청버튼 누르면 submit
-		$("#guestSubmitBtn1").click(function(e) {
-			e.preventDefault();
-			
-			const data = {meetingId : '${meeting.meetingId}'};
-			
-			$.ajax({ 
-				url : "${appRoot }/meeting/board/guest/addGuest",
-				type : "post",
-				data : data,
-				success : function(data) {
-					console.log("신청성공");
-					guestList();
-					modal.style.display = "none";
-					
-					// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
-				},
-				error :function() {
-					console.log("신청실패");
-				}
-				
-				
-			}); // ajax end
-			
-				
-		});
 		
 	 }
+	// 모임 신청버튼 누르면 submit
+	$("#guestSubmitBtn1").click(function(e) {
+		e.preventDefault();
+		
+		const data = {meetingId : '${meeting.meetingId}'};
+		
+		$.ajax({ 
+			url : "${appRoot }/meeting/board/guest/addGuest",
+			type : "post",
+			data : data,
+			success : function(data) {
+				alert("꿀비 모임 신청 성공");
+				console.log("신청성공");
+				guestList();
+				modal.style.display = "none";
+				
+				// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
+			},
+			error :function() {
+				console.log("신청실패");
+			}
+			
+			
+		}); // ajax end
+		
+			
+	});
 	
 	 // 게스트 리스트 가져오는 함수 실행
 	 guestList();
@@ -685,7 +687,6 @@
 												</div>
 											</div>
 										</div>
-										
 										
 										\${replyContent}
 										

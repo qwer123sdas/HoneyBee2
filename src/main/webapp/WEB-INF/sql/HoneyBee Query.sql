@@ -146,7 +146,7 @@ DELETE FROM MeetingReply;
 -- 3. 세이프 모드 설정
 SET SQL_SAFE_UPDATES = 1;
 ------------------------------------
-
+DELETE FROM MeetingReply;
 -- meetingGuest 테이블 생성
 CREATE TABLE MeetingGuest (
 	guest_id INT(255) PRIMARY KEY AUTO_INCREMENT,
@@ -168,12 +168,13 @@ MODIFY COLUMN content TEXT;
 DESC MeetingGuest;
 DESC BoardImage;
 DESC Meeting;
-SELECT * FROM MeetingGuest;
+SELECT * FROM MeetingGuest;Favorite
 SELECT * FROM MeetingReply;
 SELECT * FROM Meeting;
 SELECT * FROM Tag;
-ALTER TABLE MeetingGuest
-DROP COLUMN guest;
+ALTER TABLE MeetingReply
+DROP COLUMN deep
+;
 
 SELECT * FROM MeetingGuest;
 
@@ -356,7 +357,7 @@ UPDATE MeetingReply
 SELECT * FROM Meeting;
 DESC MeetingGuest;
 DESC MeetingComment;
-DESC Meeting;
+DESC MeetingReply;
 SELECT * FROM BoardImage;
 
 
@@ -381,3 +382,5 @@ SELECT * FROM BoardImage;
 						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
 						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
 		WHERE mt.meeting_id = 20 AND bi.main_image_name IS NOT NULL;
+        
+DESC Favorite;
