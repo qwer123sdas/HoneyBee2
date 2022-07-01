@@ -134,6 +134,7 @@ public class AdminController {
 	@RequestMapping("meeting")
 	public void meeting(Model model) {
 		List<MeetingDto> meetingList = service.getMeetingList();
+		System.out.println(meetingList);
 		model.addAttribute("meeting", meetingList);
 	}
 	

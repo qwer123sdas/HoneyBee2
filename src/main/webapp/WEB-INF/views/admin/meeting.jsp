@@ -37,14 +37,14 @@
 								<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
 							</c:url>
 							<div class="card" style="width: 18rem; margin: 1px;">
-							  <c:if test="${empty meeting.mainPhoto }">
+							  <c:if test="${empty meeting.MPhoto }">
 							  	<figure class="img_ico mb-4">
 							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
 							  	</figure>
 							  </c:if>
-							  <c:if test="${not empty meeting.mainPhoto }">
+							  <c:if test="${not empty meeting.MPhoto }">
 							  	<figure class="mb-6">
-						  			<img src="${imageUrl }/meeting/mainPhoto/${meeting.meetingId }/${meeting.mainPhoto }" class="img-fluid rounded" alt="">
+						  			<img src="${imageUrl }/meeting/${meeting.folderName }/${meeting.MPhoto }" class="img-fluid rounded" alt="">
 						  	  	</figure>
 						  	  </c:if>
 							  <div class="card-body">

@@ -15,7 +15,6 @@ public class MarketDto {
 	private int price;
 	private String productName;
 	private String productCode;
-	private int total;
 	private int enable;
 	private String thumbNailImage;
 	private List<String> fileName;

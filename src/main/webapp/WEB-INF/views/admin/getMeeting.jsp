@@ -77,16 +77,16 @@
 										<!-- Post title End -->
 					
 										<!-- Preview image -->
-										<c:if test="${empty meeting.mainPhoto }">
+										<c:if test="${empty meeting.MPhoto }">
 											<figure class="mb-4">
 												<img class="img-fluid rounded"
 													src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
 											</figure>
 										</c:if>
-										<c:if test="${not empty meeting.mainPhoto }">
+										<c:if test="${not empty meeting.MPhoto }">
 											<figure class="mb-4">
 												<img class="img-fluid rounded"
-													src="${imageUrl }/meeting/mainPhoto/${meeting.meetingId}/${meeting.mainPhoto}" alt="..." />
+													src="${imageUrl }/meeting/${meeting.folderName }/${meeting.MPhoto }" alt="..." />
 											</figure>
 										</c:if>
 					

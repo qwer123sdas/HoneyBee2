@@ -17,6 +17,8 @@ public interface AdminMapper {
 
 	int modifyMember(MemberDto member);
 
+	void deleteAuthByMemberId(String memberId);
+
 	int deleteMember(String memberId);
 
 	List<DonationDto> getDonationAll();
@@ -110,6 +112,9 @@ public interface AdminMapper {
 	String selectProfileByMemberId(String memberId);
 
 	int sumDonationAll();
+
+	void deleteTagByMeetingId(int meetingId);
+
 
 
 }

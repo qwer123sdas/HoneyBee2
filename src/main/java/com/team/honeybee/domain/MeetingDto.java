@@ -39,7 +39,7 @@ public class MeetingDto{
 	private int cntNum; // 현재 게스트 인원
 	private int guestNum; // 게스트 인원
 	
-	private String mainPhoto;  // 메인 사진
+	private String MPhoto;  // 메인 사진
 	private List<String> image; // 서머노트
 	private String folderName;
 	

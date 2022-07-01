@@ -68,6 +68,7 @@ public class AdminService {
 	// 멤버 삭제
 	@Transactional
 	public boolean deleteMember(String memberId) {
+		mapper.deleteAuthByMemberId(memberId);
 		String fileName = mapper.selectProfileByMemberId(memberId);
 		deleteFromAwsS3Memeber(memberId, fileName);
 		return mapper.deleteMember(memberId) == 1;
@@ -338,7 +339,7 @@ public class AdminService {
 	@Transactional
 	public void deleteMeeting(int meetingId) {
 		MeetingDto dto = mapper.selectFolderNameAndMainPhotoByMeetingId(meetingId);
-		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMainPhoto());
+		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMPhoto());
 		List<String> fileNames = mapper.selectFileNameByMeetingId(meetingId);
 		for(String fileName : fileNames) {
 			deleteFromAwsS3Meeting(dto.getFolderName(), fileName);
@@ -348,6 +349,7 @@ public class AdminService {
 		mapper.deleteMeetingCommentByMeetingId(meetingId);
 		mapper.deleteFavoriteByMeetingReplyId(meetingId);
 		mapper.deleteMeetingReplyByMeetingId(meetingId);
+		mapper.deleteTagByMeetingId(meetingId);
 		mapper.deleteMeetingByMeetingId(meetingId);
 	}
 

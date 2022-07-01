@@ -38,6 +38,11 @@
 		FROM Member
 		WHERE member_id = #{memberId}
 	</select>
+	<!-- 회원권한 삭제하기 -->
+	<delete id="deleteAuthByMemberId">
+		DELETE FROM Auth
+		WHERE member_id = #{memberId}
+	</delete>
 	<!-- 회원삭제하기 -->
 	<delete id="deleteMember">
 		DELETE FROM Member
@@ -96,7 +101,7 @@
 	<select id="selectFileNameByDonationId" resultType="String">
 		SELECT image_name image
 		FROM BoardImage
-		WHERE donation_id = #{donationId} AND main_image_name IS NULL
+		WHERE donation_id = #{donationId} AND image_name IS NOT NULL
 	</select>
 	<!-- 기부게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByDonationId">
@@ -180,7 +185,7 @@
 	<select id="selectFileNameByTalentId" resultType="string">
 		SELECT image_name image
 		FROM BoardImage
-		WHERE talent_id = #{talentId} AND main_image_name IS NULL
+		WHERE talent_id = #{talentId} AND image_name IS NOT NULL
 	</select>
 	<!-- 재능판매게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByTalentId">
@@ -204,11 +209,13 @@
 			   mem.nickname, 
 			   m.start_date startDate, 
 			   m.end_date endDate,
-			   f.file mainPhoto
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
 		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
-					   LEFT JOIN MeetingFile f ON m.meeting_id = f.meeting_id
-		GROUP BY m.meeting_id
-		ORDER BY m.meeting_id DESC
+					   LEFT JOIN BoardImage bi ON m.meeting_id = bi.meeting_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY meetingId
+		ORDER BY meetingId DESC
 	</select>
 	<!-- 모임게시글 내용가져오기 -->
 	<select id="getMeetingById" resultType="com.team.honeybee.domain.MeetingDto">
@@ -224,18 +231,17 @@
 				mt.end_date endDate,
 				mt.tag,
 				m.nickname,
-				f.file mainPhoto,
-				t.hash_tag hashTag,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
 				g.member_id guest
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
-						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
-						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
-						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
-		WHERE mt.meeting_id = #{meetingId}
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
+						LEFT JOIN MeetingGuest g ON mt.meeting_id = g.meeting_id
+		WHERE mt.meeting_id = #{meetingId} AND bi.main_image_name IS NOT NULL
 	</select>
 	<!-- 모임게시판 사진폴더명과 메인사진 가져오기 -->
 	<select id="selectFolderNameAndMainPhotoByMeetingId" resultType="com.team.honeybee.domain.MeetingDto">
-		SELECT main_image_name mainPhoto,
+		SELECT main_image_name MPhoto,
 			   image_folder_id folderName
 		FROM BoardImage
 		WHERE meeting_id = #{meetingId} AND main_image_name IS NOT NULL
@@ -244,7 +250,7 @@
 	<select id="selectFileNameByMeetingId" resultType="string">
 		SELECT image_name image
 		FROM BoardImage
-		WHERE meeting_id = #{meetingId} AND main_image_name IS NULL
+		WHERE meeting_id = #{meetingId} AND image_name IS NOT NULL
 	</select>
 	<!-- 모임게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByMeetingId">
@@ -269,6 +275,11 @@
 	<!-- 모임게시판 댓글 삭제 -->
 	<delete id="deleteMeetingReplyByMeetingId">
 		DELETE FROM MeetingReply
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 태그 삭제 -->
+	<delete id="deleteTagByMeetingId">
+		DELETE FROM Tag
 		WHERE meeting_id = #{meetingId}
 	</delete>
 	<!-- 모임게시판 글 삭제 -->
@@ -298,7 +309,6 @@
 			   inserted,
 			   price,
 			   product_name productName,
-			   total,
 			   enable
 		FROM Market
 		WHERE market_id = #{marketId}
