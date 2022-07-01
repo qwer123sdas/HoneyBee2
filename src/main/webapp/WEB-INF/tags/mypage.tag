@@ -11,7 +11,7 @@
 	border: 0;
 	font-size: 30px;
 }
-.offcanvasLeft {
+.offcanvasRight {
 	text-align: center;
 	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 	font-weight: 500;
@@ -22,7 +22,7 @@
 
 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
 	data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="toggleButton">
-	<i class="fa-solid fa-bars"></i></button>
+	<i class="fa-solid fa-angles-left"></i></button>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 	aria-labelledby="offcanvasRightLabel">

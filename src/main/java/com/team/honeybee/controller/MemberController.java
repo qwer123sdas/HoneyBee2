@@ -228,7 +228,7 @@ public class MemberController {
 //		System.out.println(otpValue);
 //		System.out.println(newPw);
 //		System.out.println(newPwConfirm);
-		if(newPw.equals(newPwConfirm)) {
+		if(newPw != null && !newPw.equals("") && newPw.equals(newPwConfirm)) {
 			service.changePw(memberId, newPw);
 			rttr.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
 			return "redirect:/member/login";
@@ -312,7 +312,7 @@ public class MemberController {
 		
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
-				return "redirect:/member/index"; 
+				return "redirect:/admin/index"; 
 			}
 		}
 		

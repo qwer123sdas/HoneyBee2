@@ -17,7 +17,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
 <script type="text/javascript">
 	var msg = "${msg}";
 	if (msg != "") {
@@ -78,7 +82,9 @@ body{
 					<div class="panel-body">
 						<div class="text-center">
 							<h1 class="h4 text-gray-900 mb-2">아이디 찾기</h1>
-							<p class="mb-4">이름과 이메일을 입력해주세요.</p>
+							<c:if test="${empty message }">
+								<p class="mb-4">이름과 이메일을 입력해주세요.</p>
+							</c:if>
 						</div>
 						
 						<c:if test="${empty message }">
@@ -100,11 +106,19 @@ body{
 						</c:if>
 						
 						<c:if test="${not empty message }">
-							<h2 class="text-center">회원님의 아이디는 ${message } 입니다.</h2>
+							<h2 class="text-center">${message }</h2>
 						</c:if>
 
 						<hr />
 
+						<c:if test="${not empty message }">
+							<div class="shift-a-wrap">
+								<a class="btn btn-secondary" href="findIdView"> 다시 시도하기 </a>
+							</div>
+						</c:if>
+						
+						<br />
+						
 						<div class="shift-a-wrap">
 							<a class="btn btn-secondary" href="initpw"> 비밀번호 찾기 </a>
 						</div>

@@ -67,13 +67,6 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	
-	.login-input-wrap{
-		width: 465px;
-		height: 48px;
-		border: solid 1px;
-		background: white;
-	}
 	.password-wrap{
 		margin-top: 13px;
 	}
@@ -82,7 +75,6 @@
 		width: 450px;
 		margin-top: 10px;
 		font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-		font-size: 14px;
 		margin-left: 10px;
 		height: 30px;
 	}

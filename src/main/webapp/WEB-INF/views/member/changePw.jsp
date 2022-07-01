@@ -17,7 +17,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
 <style>
 .main-container{
 	border: 5px;
@@ -69,6 +73,29 @@
 	});
 </script>
 
+<style>
+.main-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+	margin-top: 21px;
+}
+.main-container .main-wrap{
+	border: 3px solid #f9bf2d;
+	padding: 40px;
+	display: inline-block;
+	width: 500px;
+	min-width: 400px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+   	border-radius: 10px;
+   	-webkit-transition: all 0.4s ease;
+   	transition: all 0.4s ease;
+}
+
+</style>
+
 </head>
 <body>
 	<my:navBar current="changePw"></my:navBar>
@@ -79,13 +106,13 @@
 				<div class="form-content">
 					<div class="form-items">
 						<form method="post">
-							<div class="inputBoxes">
+							<div>
 								<input type="hidden" name="memberId" value="${memberId }" />
 								<!-- OTP 확인 -->
-								<div class="col-md-8">
+								<div class="input-wrap checkOtp-wrap">
 									인증번호
-									<input type="hidden" id="otp_value" value="${OTP }" />
 									<br />
+									<input type="hidden" id="otp_value" value="${OTP }" />
 									<input type="text" id="otp" name="otpValue" />
 									<br />
 									<button type="button" id="checkOtpButton"
@@ -93,7 +120,7 @@
 								</div>
 	
 								<!-- 새 비밀번호 -->
-								<div class="gap-3 col-md-8">
+								<div class="input-wrap newPassword-wrap">
 									새 비밀번호
 									<br />
 									<input type="password" name="newPw" id="pwInput" />
