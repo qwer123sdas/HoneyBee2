@@ -15,9 +15,9 @@ public class TalentBoardDto {
 	
 	private String title;
 	private String content;
+	private String productCode;
 	
 	private String productName;
-	private String productCode;
 	private String price;
 	private String selfIntroduction;  // 강사 자기소개
 	private String classContent; // 수업 항목

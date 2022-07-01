@@ -13,5 +13,4 @@ public class KakaoPayReadyVO {
     
     //내가 필요해서 만든 property
     private int point;  // 적립금
-    private char boardType;
 }

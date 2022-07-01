@@ -199,6 +199,7 @@ public class DonationBoardService {
 	//--------------------------------------------------------------------------------------------------------------------
 	
 	// 기부금 결제
+	/*
 	@Transactional
 	public void donate(int donationId, int amount, String content, String memberId) {
 		// 후기 저장
@@ -216,17 +217,8 @@ public class DonationBoardService {
 		payMapper.addAmount(donationId);
 		
 		
-		// 포인트 적립
-		int point = amount / 10; // 10% 적립금
-		Date now = new Date(); //유효기간 1년
-		Calendar cal = Calendar.getInstance(); 
-		cal.setTime(now);
-		cal.add(Calendar.YEAR, 1); //1년 더하기
-		Date date = cal.getTime();
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // mysql date형식에 맞게 변환
-		
-		pointService.pointAdd(memberId, point, df.format(date), "기부금적립");
 		
 	}
+	*/
 
 }

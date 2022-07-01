@@ -239,6 +239,7 @@ textarea {
 							<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="">
 						</figure>
 					</c:if>
+					
 					<!-- 별점 -->
 		            <div class="Stars" style="--rating: ${board.averageStarRating };" aria-label="Rating of this product is 2.3 out of 5.">
 		            	<div class="star-text">${board.averageStarRating } (${board.starCount}개의 평가)</div>

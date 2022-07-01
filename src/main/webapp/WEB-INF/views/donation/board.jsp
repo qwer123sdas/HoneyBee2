@@ -392,20 +392,9 @@
 		<!-- Body Content -->
 		<div id="body_cont">
 			<div class="cont_box">
-				<%-- <!-- 대표 이미지-->
-				<c:if test="${empty board.MPhoto }">
-					<figure class="img_ico mb-4">
-						<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
-					</figure>
-				</c:if>
-				<c:if test="${not empty board.MPhoto }">
-					<figure class="mb-4">
-						<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}" alt="">
-					</figure>
-				</c:if> --%>
-				<!-- <span class="img_ico"><img src=""></span> -->
 				<span class="txt_body">${board.content }</span>
-
+				<!-- 제품 코드 -->
+				<input type="hidden" id="productCode" value="${board.productCode }"/>
 					
 				<!-- 해쉬 태그 -->
 				<div class="d-flex justify-content-center">
@@ -475,7 +464,9 @@
 				</a> 
 				<a class="btn_s" onclick="share()"> <span class="ico_share">
 					<i class="fa-solid fa-share-nodes" style="color : gray; "></i></span> 
-					<span class="txt_share" data-bs-toggle="modal" id="copy-btn">공유</span>
+					<span class="txt_share" data-bs-toggle="modal" id="copy-btn">
+						공유
+					</span>
 				</a> 
 				<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1">
 					<span>기부하기</span>
@@ -501,7 +492,7 @@
 						<input class="form-control"  type="text" name="amount" id="amount"/>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">응원 남기기</label>
-							<textarea class="form-control" id="message-text" name="content" id= "content"></textarea>
+							<textarea class="form-control" id="message-text" name="content"></textarea>
 						</div>
 						<div class="modal-footer">
 							<span id="modalDonationButton"  class="btn btn-danger btn-kakaopay">결제하기</span>
@@ -688,17 +679,16 @@
     	    						'totalAmount' : $('#amount').val() + "",
     	    						'point' : 0,
     	    						'boardType' : 'D',
-    	    						'replyDto' : {
-    	    							'donationId' : "${board.donationId}",
-    	    							'content' : $('#content').val(),
-    	    							'amount' : $('#amount').val() + ""
-    	    						}
+    	    						'productCode' : $('#productCode').val(),
+   	    							'donationId' : "${board.donationId}",
+   	    							'content' : $('#message-text').val()
     	    					  }
     	    			$.ajax({
     	    				url:"${appRoot}/kakaopay",
-    	    				data: data,
+    	    				data: JSON.stringify(data),
+    	    				contentType : 'application/json',
     	    				dataType:"text",
-    	    				type : "GET"
+    	    				type : "POST"
     	    			}).done(function(resp){
     	   					console.log("일단응답:", resp);
     	    				if(resp.status === 500){

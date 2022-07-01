@@ -37,7 +37,7 @@ public class DonationReplyController {
 		}
 	}
 	
-	// 댓글 추가
+	/* 댓글 추가
 	@RequestMapping(path="add", produces = "text/plain;charset=UTF-8")
 	public String addReply(DonationReplyDto reply, Principal principal) {
 		if(principal != null) {
@@ -48,7 +48,7 @@ public class DonationReplyController {
 		
 		
 		return "redirect:/donation/board/" + reply.getDonationId();
-	}
+	}*/
 	
 	
 }

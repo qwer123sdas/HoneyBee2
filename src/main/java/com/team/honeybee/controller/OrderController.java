@@ -1,6 +1,9 @@
 package com.team.honeybee.controller;
 
 import java.security.Principal;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -9,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +24,9 @@ import com.team.honeybee.service.DonationReplyService;
 import com.team.honeybee.service.KakaoPayService;
 import com.team.honeybee.service.OrderService;
 import com.team.honeybee.service.PointService;
+import com.team.honeybee.vo.DonationReplyVO;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
+import com.team.honeybee.vo.TalentVO;
 
 @Controller
 @PropertySource("classpath:jdbc.properties")
@@ -41,7 +48,7 @@ public class OrderController {
 		
 	}
 	
-	DonationReplyDto replyDto;
+	DonationReplyVO replyVO;
 	
 	// 구매할 게시판 정보를 결제 페이지로 보내기
 	@GetMapping("order/cart/{talentId}")
@@ -63,30 +70,31 @@ public class OrderController {
 	}
 	
 	
-	// 카카오 페이 요청
-	@GetMapping("kakaopay")
+	// 카카오 페이 요청(기부 게시판 + 재능판매 + 마켓)
+	@PostMapping(path="kakaopay", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String kakaoPayReady(Principal principal, String productName, 
-								String quantity, String totalAmount, 
-								int point, DonationReplyDto replyDto,
-								char boardType) {
+	public String kakaoPayReady(Principal principal,@RequestBody DonationReplyVO replyVO) {
 		String partner_user_id = principal.getName();
 		
-		this.replyDto = replyDto;
-		replyDto.setMemberId(partner_user_id);
-		System.out.println(replyDto);
+		System.out.println(replyVO);
 		
-		if(totalAmount != "0") {
+		replyVO.setMemberId(partner_user_id);
+		this.replyVO = replyVO;
+		
+		if(replyVO.getTotalAmount() != "0") {
 			// 카카오 결제 준비하기	- 결제요청 service 실행.
 			System.out.println("요청준비");
-			return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point, boardType);
+			return kakaopayService.kakaoPayReady(partner_user_id, replyVO);
 		}
-		// 바로 결제처리해야됨.
-		return kakaopayService.kakaoPayReady(partner_user_id, productName, quantity, totalAmount, point, boardType);
+		
+		
+		// 무료라서 바로 결제처리해야됨.
+		return kakaopayService.kakaoPayReady(partner_user_id, replyVO);
 		//return "redirect:/order/success";
 			
 	}
 	
+
 	// 카카오 페이 승인
 	@Transactional
 	@RequestMapping("order/kakaoPaySuccess")
@@ -96,16 +104,14 @@ public class OrderController {
 		
 		KakaoPayApprovalVO kakaoPayApprovalVo = kakaopayService.kakaoPaySuccessInfo(pg_token, partner_user_id);
 		
-		// 기부 게시판 댓글 db에 저장
-		if(replyDto != null) {
-			System.out.println("댓글db가는 중");
-			replyService.addReply(replyDto);
+		
+		
+		
+		// 아래 부분 서비스에 전부 처리하도록 하기
+		// 기부 게시판-------------------------------------------
+		if(replyVO.getBoardType() == 'D') {
+			return "redirect:/donation/board/" + replyVO.getDonationId();
 		}
-		
-		// 구입항목 db에 저장
-		service.setKakaoPayData(kakaoPayApprovalVo);
-		
-
 		
 		
 		return "redirect:/order/success";

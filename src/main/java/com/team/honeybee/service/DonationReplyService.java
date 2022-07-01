@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.team.honeybee.domain.DonationReplyDto;
 import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.mapper.DonationReplyMapper;
+import com.team.honeybee.vo.DonationReplyVO;
 
 @Service
 public class DonationReplyService {
@@ -31,8 +32,11 @@ public class DonationReplyService {
 	}
 	
 	// 댓글 추가
-	public void addReply(DonationReplyDto reply) {
-		replyMapper.addReply(reply);
+	public void addReply(DonationReplyVO replyVO) {
+		replyMapper.addReply(replyVO);
+		
+		// 기부금액 저장
+		payMapper.donate(replyVO.getTotalAmount(), replyVO.getMemberId(), replyVO.getDonationId(), replyVO.getReplyId());
 	}
 	
 

@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.team.honeybee.vo.DonationReplyVO;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 import com.team.honeybee.vo.KakaoPayReadyVO;
 
@@ -29,6 +30,12 @@ public class KakaoPayService {
 	
 	@Autowired
 	PointService pointService;
+	
+	@Autowired
+	OrderService service;
+	
+	@Autowired
+	DonationReplyService replyService;
 
 	@Value("${kakao.pay.admin}")
 	private String adminKey;
@@ -37,12 +44,13 @@ public class KakaoPayService {
 	
     private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
-	private char boardType;
 	
-	public String kakaoPayReady(String partner_user_id, String productName, 
-								String quantity, String totalAmount, 
-								int point, char boardType) {
+	private DonationReplyVO replyVO;
+	
+	
+	public String kakaoPayReady(String partner_user_id, DonationReplyVO replyVO) {
 		RestTemplate restTemplate = new RestTemplate();
+		
 		
 		// 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
@@ -56,9 +64,9 @@ public class KakaoPayService {
         params.add("cid", "TC0ONETIME"); // 가맹점 코드
         params.add("partner_order_id", "partner_order_id"); // 가맹점 주문번호
         params.add("partner_user_id", partner_user_id);// 가맹점 회원 id
-        params.add("item_name", productName);// 상품명
-        params.add("quantity", quantity); // 상품 수량
-        params.add("total_amount", totalAmount); // 총 금액
+        params.add("item_name", replyVO.getProductName());// 상품명
+        params.add("quantity", replyVO.getQuantity()); // 상품 수량
+        params.add("total_amount", replyVO.getTotalAmount()); // 총 금액
         params.add("tax_free_amount", "20"); // 부가세
         params.add("approval_url", "http://localhost:8080/honeybee/order/kakaoPaySuccess?partner_user_id=" + partner_user_id);	// 결제 성공 시 가야할 approval_url
         params.add("cancel_url", "http://localhost:8080/honeybee/order/kakaoPayFail");// 결제 실패 시
@@ -72,9 +80,9 @@ public class KakaoPayService {
 			//restTemplate를 통해서 kakaoPayReadyVO에 response 담기
 			// 요청 URL + 요청할 내용 을 통해 POST 요청을 보내고 결과를, 해당 객체로 반환받는다
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-            kakaoPayReadyVO.setPoint(point);  // honeybee 포인트 저장
-            kakaoPayReadyVO.setBoardType(boardType);
-            this.boardType = boardType;
+            kakaoPayReadyVO.setPoint(replyVO.getPoint());  // honeybee 포인트 저장
+            this.replyVO = replyVO;
+    		
             // response 중, getNext_redirect_pc_url을 ajax에 보내기
             return kakaoPayReadyVO.getNext_redirect_pc_url();
         } catch (RestClientException e) {
@@ -122,15 +130,17 @@ public class KakaoPayService {
 			System.out.println(kakaoPayApprovalVO.getItem_name());
 			System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
 			
+			
+			// 포인트---------------------------------------
 			String comment;
-			if(boardType == 'D') {
+			if(replyVO.getBoardType() == 'D') {
 				comment = "기부금";
 			}else {
 				comment = "재능판매";
 			}
 			
 			// 포인트 사용 여부 기록
-			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), comment);
+			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_user_id(), kakaoPayReadyVO.getPoint(), comment);
 			
 			// 포인트 적립
 			int resultPayment = kakaoPayApprovalVO.getAmount().getTotal();
@@ -142,6 +152,21 @@ public class KakaoPayService {
 			Date date = cal.getTime();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // mysql date형식에 맞게 변환
 			pointService.pointAdd(kakaoPayApprovalVO.getPartner_user_id(), point, df.format(date), comment);
+			
+			
+			// 게시판-------------------------------------------
+			kakaoPayApprovalVO.setProductCode(replyVO.getProductCode());
+			
+			if(replyVO.getBoardType() == 'D') {
+				System.out.println("댓글db가는 중");
+				// 기부 댓글 내용  db에 저장
+				replyService.addReply(replyVO);
+				// 기부한 항목 db에 저장
+				service.setKakaoPayData(kakaoPayApprovalVO);
+			}else {
+				// 재능판매 구입항목 db에 저장
+				service.setKakaoPayData(kakaoPayApprovalVO);
+			}
 			
             return kakaoPayApprovalVO;
         

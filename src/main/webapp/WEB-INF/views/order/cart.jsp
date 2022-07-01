@@ -259,6 +259,9 @@ td {
 	                    		</div>
 	                    	</div>
 	                    	
+	                    	<!-- 제품 코드 -->
+							<input type="hidden" id="productCode" value="${board.productCode }"/>
+	                    	
 	                    	
 	                    	<!-- 주문 옵션 테이블 I-->
 							<table class="cart__list">
@@ -487,14 +490,16 @@ td {
     			var data = {'productName' : '${board.productName}',
     						'quantity' : $('#amount').text(),
     						'totalAmount' : Number($('#finalPayment').text()),
-    						'point' : $('#pointTotal').text()
+    						'point' : $('#pointTotal').text(),
+    						'productCode' : $('#productCode').val()
     					  }
     			payment();
     			$.ajax({
     				url:"${appRoot}/kakaopay",
-    				data: data,
+    				data: JSON.stringify(data),
+    				contentType : 'application/json',
     				dataType:"text",
-    				type : "GET"
+    				type : "POST"
     			}).done(function(resp){
    					console.log("일단응답:", resp);
     				if(resp.status === 500){

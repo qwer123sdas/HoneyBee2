@@ -17,6 +17,7 @@ public class DonationBoardDto {
 	
 	private String title;
 	private String content;
+	private String productCode;
 	
 	private String topic;   // 카테고리 번호
 	private List<String> hashTag; // 해쉬테그

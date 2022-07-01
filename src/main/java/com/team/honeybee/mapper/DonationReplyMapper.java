@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.team.honeybee.domain.DonationReplyDto;
+import com.team.honeybee.vo.DonationReplyVO;
 
 @Mapper
 public interface DonationReplyMapper {
@@ -14,7 +15,7 @@ public interface DonationReplyMapper {
 	List<DonationReplyDto> listReplyByBoardId(@Param("donationId")int donationId, @Param("loginId")String loginId);
 	
 	// 댓글 추가
-	int addReply(DonationReplyDto reply);
+	int addReply(DonationReplyVO replyVO);
 
 
 }

@@ -10,6 +10,7 @@
 			   t.product_name productName,
 			   t.work_date workDate,
 			   t.class_content classContent,
+			   t.product_code productCode,
 			   m.member_id memberId,
 			   m.nickname,
 			   bi.main_image_name MPhoto,
@@ -26,11 +27,13 @@
 							 product_name, 
 							 final_price, 
 							 quantity,
-							 tid)
+							 tid,
+							 product_code)
 			   VALUES(#{partner_user_id}, 
 			   		  #{item_name}, 
 			   		  #{amount.total},
 			   		  #{quantity},
-			   		  #{tid})
+			   		  #{tid},
+			   		  #{productCode})
 	</insert>
 </mapper>

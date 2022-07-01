@@ -17,8 +17,8 @@
 	 	<![CDATA[
 		 { call sp_point_use(
 	                #{memberId},
-	                #{iPoint},
-	                #{iComment},
+	                #{point},
+	                #{comment},
 	
 	                #{oResultCode, mode=OUT, jdbcType=VARCHAR, javaType=string},
 	                #{oPointId, mode=OUT, jdbcType=BINARY, javaType=string}

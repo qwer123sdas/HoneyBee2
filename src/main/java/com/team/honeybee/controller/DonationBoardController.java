@@ -82,6 +82,7 @@ public class DonationBoardController {
 	}
 	
 	// 기부하기
+	/*
 	@PostMapping("give")
 	public String donate(int donationId, int amount, String content, Principal principal) {
 		String memberId = principal.getName();
@@ -90,7 +91,7 @@ public class DonationBoardController {
 		return "redirect:/donation/board/" + donationId;
 		
 	}
-	
+	*/
 	// [임시] 입력 게시판
 	@GetMapping("write")
 	public void wirte() {
