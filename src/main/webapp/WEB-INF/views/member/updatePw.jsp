@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+
+<style>
+.main-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+	margin-top: 21px;
+}
+.main-container .main-wrap{
+	border: 3px solid #f9bf2d;
+	padding: 40px;
+	display: inline-block;
+	width: 500px;
+	min-width: 400px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+   	border-radius: 10px;
+   	-webkit-transition: all 0.4s ease;
+   	transition: all 0.4s ease;
+}
+#submitButton{
+	align-items: center;
+}
+</style>
 
 <title>마이페이지 비밀번호 변경</title>
 
@@ -30,9 +56,11 @@
 
 </head>
 <body>
-	<div class="container">
-		<div class="row justtify-content-center">
-			<div class="col-12 col-lg-6">
+	<my:navBar current="updatePw"></my:navBar>
+	
+	<div class="main-container">
+		<div class="main-wrap">
+			<div class="updatePw-input-section-wrap">
 				<h1>비밀번호 변경</h1>
 				<form method="post">
 					<label for="pwInput1" class="form-label">
@@ -53,8 +81,10 @@
 					
 					<div class="form-text" id="pwMessage"></div>
 					
-					<div class="form-button mt-3">
-						<button id="submitButton" class="btn btn-block">비밀번호 변경</button>
+					<br />
+					
+					<div class="d-flex justify-content-center">
+						<button id="submitButton" class="btn btn-secondary">비밀번호 변경하기</button>
 					</div>
 				</form>
 			</div>

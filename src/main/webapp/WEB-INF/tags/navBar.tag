@@ -14,6 +14,7 @@
 <c:url value="/member/findIdView" var="findIdViewUrl"></c:url>
 <c:url value="/member/findId" var="findIdUrl"></c:url>
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
+<c:url value="/member/updatePw" var="updatePwUrl"></c:url>
 <c:url value="/member/changePw" var="changePwUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>

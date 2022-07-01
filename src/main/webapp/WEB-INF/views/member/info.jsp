@@ -271,7 +271,9 @@ form input #profileFile:file-selector-button{
 								<button class="btn btn-danger btn-lg" type="button" data-bs-toggle="modal"
 									data-bs-target="#modalSheet1">삭제</button>
 							</div>
-	
+							
+							<hr />
+							
 							<span><a href="updatePw">비밀번호 변경하러 가기</a></span>
 						</div>
 					</div>
