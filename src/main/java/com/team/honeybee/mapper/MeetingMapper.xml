@@ -38,19 +38,23 @@
 				mt.end_date endDate,
 				mt.topic, 
 				m.nickname,
-				f.file fileName
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
-						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
 									<!-- 나중에 파일 입력 추가 해야함 -->
 		<if test='topic != ""'>
-		WHERE mt.topic = #{topic}
+		WHERE mt.topic = #{topic} AND mt.enable = 1 
 		</if>
-		GROUP BY mt.Meeting_id
+		<if test="topic == ''">
+		WHERE mt.enable = 1 
+		</if>
+		GROUP BY mt.meeting_id
 		<if test='sort == "" || sort=="1"'>
-		ORDER BY mt.Meeting_id DESC
+		ORDER BY mt.meeting_id DESC
 		</if>
 		<if test='sort == "2"'>
-		ORDER BY mt.Meeting_id ASC
+		ORDER BY mt.meeting_id ASC
 		</if>
 
 	</select>
@@ -69,14 +73,13 @@
 				mt.end_date endDate,
 				mt.tag,
 				m.nickname,
-				f.file fileName,
-				<!-- t.hash_tag hashTag, -->
-				g.member_id guest
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
+			<!-- 	g.member_id guest -->
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
-						LEFT JOIN MeetingFile f ON mt.meeting_id = f.meeting_id
-						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
-						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
-		WHERE mt.meeting_id = #{meetingId}
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
+						<!-- LEFT JOIN MeetingGuest g ON mt.meeting_id = g.meeting_id -->
+		WHERE mt.meeting_id = #{meetingId} AND bi.main_image_name IS NOT NULL
 	</select>
 	
 	<!-- 해쉬태그 가져오기 -->
@@ -85,5 +88,11 @@
 		FROM Tag
 		WHERE meeting_id = #{meetingId}
 	</select>
+	
+	<!-- 메인 사진 저장  -->
+	<insert id="insertMainPhoto" >
+		INSERT INTO BoardImage(meeting_id, main_image_name, member_id, image_folder_id)
+		VALUES (#{meetingId}, #{mainPhoto}, #{memberId}, #{folderName})
+	</insert>
 	
 </mapper>

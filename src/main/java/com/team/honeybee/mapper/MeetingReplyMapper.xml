@@ -11,7 +11,7 @@
 							      , content
 							      , step
 							      , refOrder
-							      , delete_info<!-- 삭제 유무 설정 -->
+							      , delete_info <!-- 삭제 유무 설정 -->
 				 			      )
 		        VALUES ( 
 		                  #{memberId}
@@ -19,7 +19,7 @@
 		                , #{content}
 					    , 0
 					    , 0
-					    , 'N' <!-- 삭제가 안된 상태 1 -->
+					    , 'N' <!-- 삭제가 안된 상태 N, 삭제된 상태는 Y -->
 		               )
 	</insert>
 	
@@ -30,7 +30,7 @@
 							      , meeting_id <!-- 보드 id -->
 							      , content 
 							      , refNum <!-- 그룹 num -->
-							      , step   <!-- 들여쓰기 -->
+							      , step   <!-- 순서(들여쓰기) -->
 							      , refOrder <!-- 그룹내에서의 순서-->
 							      , delete_info<!-- 삭제 유무 설정 -->
 				 			      )
@@ -38,23 +38,23 @@
 		                  #{memberId}
 		                , #{meetingId}		 
 		                , #{content}
-		                , #{meetingReplyId}
-					    , ( SELECT MAX_STEP
-					          FROM ( 
-					                 SELECT NVL(MAX(step), 0)+1 AS MAX_STEP 
+		                , #{meetingReplyId} <!-- refNum 그룹 num -->
+					    , ( SELECT MAX_STEP <!-- step 순서(들여쓰기) -->
+					          FROM (  <!-- NVL(A,'A의값이 없는 경우의 값') -->
+					                 SELECT NVL(MAX(step), 0)+1 AS MAX_STEP <!-- 자식은 1, 손자가 입력되면1+1 -->
 					                   FROM MeetingReply 
 									  WHERE meeting_reply_id = #{meetingReplyId}
 								   ) AA
 						   ) 
-						, IFNULL( (SELECT MAX_STEP
-						             FROM (SELECT NVL(MAX(refOrder)+1, 1) AS MAX_STEP
+						, IFNULL( (SELECT MAX_STEP <!-- refOrder 그룹내의 순서값 넣기 -->
+						             FROM (SELECT NVL(MAX(refOrder)+1, 1) AS MAX_STEP <!-- 자식은 1, 손자가 입력되면1+1 -->
 						                     FROM MeetingReply 
 						                    WHERE meeting_id = #{meetingId}
-						                      AND refNum = #{meetingReplyId}
-						                    GROUP BY refNum
+						                      AND refNum = #{meetingReplyId} <!-- 자식은 부모의, 손자는 자식의 id값 할당 -->
+						                    GROUP BY refNum <!-- 그룹num 이므로 정렬시 계층형 정렬이 됨 -->
 						                   ) TEMP
-						           ), 1)
-						, 'N' <!-- 삭제가 안된 상태 1 -->					                 
+						           ), 1) <!-- 안의 서브 쿼리는 refOrder에 해당, IFNULL 일 경우 자식이므로 1 넣어주기 -->
+						, 'N' <!-- 삭제가 안된 상태 N -->					                 
 		         FROM DUAL
 	</insert>
 	
@@ -130,7 +130,7 @@
 	<!-- 댓글 삭제(화면에만 삭제처리, DB에는 남아있음) -->
 	<update id="deleteMeetingReply">
 		UPDATE MeetingReply 
-		   SET delete_info = 'Y'
+		   SET delete_info = 'Y' <!-- 삭제된 상태는 Y 할당 -->
 		 WHERE meeting_reply_id = #{meetingReplyId}
 	</update>
 	

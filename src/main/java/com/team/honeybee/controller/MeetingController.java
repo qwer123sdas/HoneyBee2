@@ -42,16 +42,21 @@ public class MeetingController {
 	 
 	@PostMapping("insert")
 	public String meetingInsertProcess(MeetingDto meeting, 
-						@RequestParam("mainPhoto") MultipartFile mainPhoto, 
-						@RequestParam("hashTagRaw") String hashTagRaw,
-						Principal principal, 
-						RedirectAttributes rttr) {
+										MeetingGuestDto guest,
+										@RequestParam("guestNum") int guestNum,
+										@RequestParam("mainPhoto") MultipartFile mainPhoto, 
+										@RequestParam("hashTagRaw") String hashTagRaw,
+										@RequestParam(name="folderName")String folderName, 
+										Principal principal, 
+										RedirectAttributes rttr) {
 		
 		// 로그인 회원 아이디값 넣기
 		String memberId = principal.getName();
 		meeting.setMemberId(memberId);
+		// 게스트 인원 넣기
+		guest.setGuestNum(guestNum);
 
-		boolean success = service.insertBoard(meeting, mainPhoto, hashTagRaw); 
+		boolean success = service.insertBoard(meeting, mainPhoto, hashTagRaw, folderName); 
 		
 		if (success) {
 			rttr.addFlashAttribute("message", "새 글이 등록되었습니다.");
@@ -69,6 +74,7 @@ public class MeetingController {
 		
 		// 모임 리스트 
 		List<MeetingDto> list = service.meetingList(sort, topic);
+		System.out.println(list);
 		
 		model.addAttribute("meetingList", list);
 		// sort, topic 추가

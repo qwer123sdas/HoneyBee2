@@ -3,9 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
+<% request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
@@ -24,16 +22,10 @@
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
-	rel="stylesheet">
-
-<!-- google font 추가함 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+	  rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	   rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet"
@@ -259,10 +251,6 @@
 
 </style>
 
-<!-- 카카오지도 라이브러리 불러오기 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
-
 
 <!-- JavaScript Libraries -->
 <!--Jquery -->
@@ -457,10 +445,13 @@
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
 
+<!-- 카카오지도 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
+
 
 <script>
 	$(document).ready(function() {
-		    	
+
 	/* 카카오 지도 api 시작 */
 	
 	var Container = document.getElementById('map'), // 지도를 표시할 div 
@@ -655,6 +646,16 @@
 							for (let i = 0; i < list.length; i++) {
 								const leftMargin = 40 * list[i].step + "px";
 								
+								// 댓글 삭제시 변경요소 컨텐츠따로 빼기
+								let replyContent = `
+									<div class="ms-3 replyContent\${list[i].meetingReplyId}">
+									\${list[i].content }</div>
+								`;
+								if (list[i].deleteInfo === "Y") {
+									replyContent = `<div class="ms-3 replyContentDelete\${list[i].meetingReplyId}"><i class="fa-solid fa-circle-exclamation"></i>삭제된 댓글입니다!</div>`;
+								}			
+								
+								
 								const replyElement = $(`<div class='d-flex mb-4 replyForm1\${list[i].meetingReplyId }' style='margin-left: \${leftMargin}'/>`);
 								replyElement.html(`
 									<div class="flex-shrink-0" >
@@ -684,9 +685,9 @@
 												</div>
 											</div>
 										</div>
-										<div class="ms-3 replyContent\${list[i].meetingReplyId}">
-										\${list[i].content }</div>
-										<div class="ms-3 replyContentDelete\${list[i].meetingReplyId} d-none">삭제된 댓글입니다.</div>
+										
+										
+										\${replyContent}
 										
 										<div class="replyUpdateArea d-none">
 											<form class="replyUpdateAreaForm">
@@ -820,8 +821,8 @@
 									
 									
 									const data = { meetingId : '${meeting.meetingId}',
-													meetingReplyId : $(".replyDelete").attr("data-reply-id"),
-													deleteInfo : $(".replyDelete").attr("data-reply-status")};
+													meetingReplyId : $(this).attr("data-reply-id"),
+													deleteInfo : $(this).attr("data-reply-status")};
 					
 									console.log(data);	
 									if(confirm("삭제하시겠습니까?")) {
@@ -845,9 +846,7 @@
 	                						},
 	                						complete : function() {
 	        									console.log("댓글 삭제 요청 끝");
-	                							$(".replyContentDelete" + list[i].meetingReplyId).removeClass("d-none");
-	                							$(this).closest(".replyForm").find(".replyUpdateArea").removeClass("d-none");
-	                							$(".replyContent" + list[i].meetingReplyId).addClass("d-none");
+	                						
 	        								}
 	                						
 	                					}); // 댓글 삭제 ajax end 
@@ -937,6 +936,7 @@
 					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
 				</ul>
 				<h1>${meeting.meetingId }</h1>
+				<h1>${meeting.memberId }</h1>
 				<p>모임일시:${meeting.meetingDate }</p>
 				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
 				<form id="guestInsertForm1"

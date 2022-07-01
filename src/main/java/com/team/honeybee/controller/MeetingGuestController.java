@@ -53,8 +53,10 @@ public class MeetingGuestController {
 		String memberId = principal.getName();
 
 		// 현재 인원수 가져오기
-		int cntNum = service.meetingSelectGuest(guest, meetingId);
+		int cntNum = 0;
+		cntNum = service.meetingSelectGuest(guest, meetingId);
 		System.out.println("현재 인원수" + cntNum);
+		System.out.println("현재 인원수" + guest);
 
 		// 등록전 존재여부 확인을 가져옴
 		String yn = service.guestSelectOverlap(memberId, meetingId);

@@ -73,13 +73,16 @@ public class MeetingReplyService {
 
 	// 댓글 가져오기
 	public List<MeetingReplyDto> listReplyByMeetingId(int meetingId) {
+		// 부모의 댓글 0, 0, 0을 먼저 가져온다
 		List<MeetingReplyDto> parents = mapper.selectParentsByMeetingId(meetingId);
 		
+		// 부모 댓글의 사이즈만큼 for문이 돌아간다.
 		for (int i = 0; i < parents.size(); i++) {
 			List<MeetingReplyDto> child = mapper.selectChildByParentId(parents.get(i).getMeetingReplyId());
+			// for문을 돌리면서 자식댓글을 부모댓글에 붙여준다.
 			parents.addAll(i+1, child);
 		}
-		
+		// 부모의 자식을 붙여서 최종 리턴해준다.
 		return parents;
 	}
 }

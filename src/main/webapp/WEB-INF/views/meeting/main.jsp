@@ -199,15 +199,6 @@
           	<c:forEach items="${meetingList }" var="meeting">
 		 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
 				<div class="service-item rounded overflow-hidden">
-					<%-- <c:forEach items="${file.fileName }" var="file">
-							<%
-							/* 특수기호가 포함된 파일명 encoding */
-							String file = (String) pageContext.getAttribute("file");
-							String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
-							pageContext.setAttribute("encodedFileName", encodedFileName);
-							
-							%>
-		            </c:forEach> --%>
 		            <img class="img-fluid" src="${appRoot}/resources/webContents/img/img-600x400-1.jpg" alt="">
 		                <div class="position-relative p-4 pt-0">
 		                    <div class="service-icon">

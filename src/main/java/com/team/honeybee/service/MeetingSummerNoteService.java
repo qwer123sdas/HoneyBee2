@@ -27,10 +27,12 @@ public class MeetingSummerNoteService {
 	private MeetingSummerNoteMapper mapper;
 	
 	// s3 bucket
-	private S3Client s3;
+	private S3Client amazonS3; 
 	
-	// 내꺼 aws
-	String myAwsS3 = "https://bucket0207-0811.s3.ap-northeast-2.amazonaws.com";
+	// 내꺼 aws String myAwsS3 = "https://bucket0207-0811.s3.ap-northeast-2.amazonaws.com";
+	
+	// 팀장님
+	private final String awsS3Url = "https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/"; 
 	
 	@Value("${aws.s3.bucketName}")
 	private String bucketName;
@@ -38,12 +40,12 @@ public class MeetingSummerNoteService {
 	@PostConstruct
 	public void init() {
 		Region region = Region.AP_NORTHEAST_2;
-		this.s3 = S3Client.builder().region(region).build();
+		this.amazonS3 = S3Client.builder().region(region).build();
 	}
 	
 	@PreDestroy // 자원 닫기
 	public void destory() {
-		this.s3.close();
+		this.amazonS3.close();
 	}
 	
 
@@ -54,6 +56,7 @@ public class MeetingSummerNoteService {
 			String savedImageName = summerNoteUploadImageName(multipartImage); 
 					
 			String imageUrl = saveTextAreaPhotoAwsS3(memberId, multipartImage, savedImageName, folderId);
+			System.out.println("imageUrl " + imageUrl);
 			return imageUrl;
 			}
 		
@@ -62,15 +65,16 @@ public class MeetingSummerNoteService {
 	}
 		// 서머노트 사진 등록 메소드
 		private String saveTextAreaPhotoAwsS3(String memberId, MultipartFile multipartImage, String savedImageName, String folderId) {
-			
 			MeetingSummerNoteDto SND = new MeetingSummerNoteDto();
+			System.out.println(memberId);
 			
-			SND.setMemberId(memberId);
+			SND.setMemberId(memberId); 
 			SND.setImageName(savedImageName);
 			SND.setImageFolderId(folderId);
 			
 			// db에 위 3가지 정보 저장
 			mapper.insertImage(SND);  
+			System.out.println(SND.getImageId());
 			
 			String key = "meeting/" + folderId + "/" + savedImageName;
 			
@@ -82,27 +86,32 @@ public class MeetingSummerNoteService {
 					.build(); 								 
 			
 			RequestBody requestBody;
-			
+			System.out.println(SND.getImageId());
 			try {
 				// image_url만 저장
-				mapper.uploadImageUrl(myAwsS3 + key, SND.getImageId());
+				System.out.println(awsS3Url + key);
+				mapper.uploadImageUrl(awsS3Url + key, SND.getImageId());
 				requestBody = RequestBody.fromInputStream(multipartImage.getInputStream(), multipartImage.getSize());
-				
+				System.out.println(SND.getImageId());
 				// s3에 저장
-				s3.putObject(putObjectRequest, requestBody);
+				amazonS3.putObject(putObjectRequest, requestBody);
 				
 				return key;
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new RuntimeException(e); 
 			}
+			
 		}
 		
 		public String summerNoteUploadImageName(MultipartFile file) {
 			// 이름의 겹치치 않게 파일명 전환
-			String originalFileName = file.getOriginalFilename();	//오리지날 파일명
-			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+			String originalFileName = file.getOriginalFilename(); //오리지날 파일명
+			//파일 확장자
+			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	
+			//저장될 파일명
+			String savedFileName = UUID.randomUUID() + extension;	
 			
 			return savedFileName;
 		}

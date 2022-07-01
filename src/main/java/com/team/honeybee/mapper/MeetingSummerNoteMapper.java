@@ -8,10 +8,10 @@ import com.team.honeybee.domain.MeetingSummerNoteDto;
 
 public interface MeetingSummerNoteMapper {
 	// db 저장
-	void insertImage(MeetingSummerNoteDto sND);
+	void insertImage(MeetingSummerNoteDto SND);
 
 	// url 저장
-	void uploadImageUrl(@Param("imageUrl") String imageUrl, int imageId);
+	void uploadImageUrl(@Param("imageUrl") String imageUrl, @Param("imageId") int imageId);
 	
 	// url로 image_folder_id 가져오기
 	String getImageFolderIdImageUrl(String string);

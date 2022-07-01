@@ -273,7 +273,14 @@ SELECT r.meeting_reply_id meetingReplyId,
 ALTER TABLE MeetingReply
 MODIFY COLUMN delete_info varchar(10) DEFAULT 'N';
 SELECT * FROM MeetingReply;
-DESC MeetingReply;
+DESC Meeting;
+DESC MeetingGuest;
+ALTER TABLE MeetingReply
+MODIFY COLUMN delete_info varchar(10) DEFAULT 'N';
+
+SELECT COUNT(member_id) cntNum
+		FROM MeetingGuest
+		WHERE meeting_id = 13;
 
 UPDATE MeetingReply 
 		   SET delete_info = 'y'
@@ -337,10 +344,40 @@ SELECT r.meeting_reply_id meetingReplyId,
 		WHERE r.meeting_id = 13;
         
 ALTER TABLE MeetingReply DROP meeting_reply_parent;
-ALTER TABLE MeetingReply DROP deep;
+ALTER TABLE Meeting DROP longitude;
+;
 ALTER TABLE MeetingReply DROP meeting_reply_gnum;
 
-
+ALTER TABLE MeetingGuest DROP guest;
 UPDATE MeetingReply 
 		   SET delete_info = 'N'
 		 WHERE meeting_reply_id = '187';
+         
+SELECT * FROM Meeting;
+DESC MeetingGuest;
+DESC MeetingComment;
+DESC Meeting;
+SELECT * FROM BoardImage;
+
+
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.tag,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
+				t.hash_tag hashTag,
+				g.member_id guest
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
+						LEFT JOIN Tag t ON mt.meeting_id = t.meeting_id
+						LEFT JOIN MeetingGuest g ON t.meeting_id = g.meeting_id
+		WHERE mt.meeting_id = 20 AND bi.main_image_name IS NOT NULL;

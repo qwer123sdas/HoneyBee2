@@ -38,7 +38,7 @@ public class MeetingService {
 	private MeetingSummerNoteMapper summerNoteMapper;
 	
 	// s3 bucket
-	private S3Client s3;
+	private S3Client amazonS3;
 	
 	@Value("${aws.s3.bucketName}")
 	private String bucketName;
@@ -46,27 +46,18 @@ public class MeetingService {
 	@PostConstruct
 	public void init() {
 		Region region = Region.AP_NORTHEAST_2;
-		this.s3 = S3Client.builder().region(region).build();
+		this.amazonS3 = S3Client.builder().region(region).build();
 	}
 	
 	@PreDestroy // 자원 닫기
 	public void destory() {
-		this.s3.close();
+		this.amazonS3.close();
 	}
 	
-	// 해쉬태그 분리 로직 매소드
-	private void hashTagInsertBoardBymeetingId(String hashTagRaw, int meetingId) {
-		
-		String hashTag[] = hashTagRaw.split("#");
-		for(int i = 1; i < hashTag.length; i++) {
-			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), meetingId);
-		}
-		
-	}
 	
 	// 게시물 등록
 	@Transactional
-	public boolean insertBoard(MeetingDto meeting, MultipartFile mainPhoto, String hashTagRaw) { 
+	public boolean insertBoard(MeetingDto meeting, MultipartFile mainPhoto, String hashTagRaw, String folderName) { 
 		// 게시글 등록
 		int cnt = mapper.insertMeeting(meeting);
 		// 해쉬태그 매소드에 태그랑 아이디값 넣기
@@ -74,10 +65,10 @@ public class MeetingService {
 		
 		// 메인사진 등록
 		if(mainPhoto.getSize() > 0) {
-			// db 저장
-			mapper.insertFile(meeting.getMeetingId(), mainPhoto.getOriginalFilename());
-			// s3 저장
-			saveFileAwsS3(meeting.getMeetingId(), mainPhoto);
+			// db 메인사진 저장
+			mapper.insertMainPhoto(meeting.getMeetingId(), mainPhoto.getOriginalFilename(), meeting.getMemberId(), folderName);
+			// s3 bucket 메인사진 등록
+			saveMainPhotoAwsS3(meeting.getMeetingId(), mainPhoto, folderName);
 		}
 		
 		// Jsoup :  실제 이미지 업로드 확인
@@ -93,12 +84,14 @@ public class MeetingService {
 		System.out.println("isImage : "+ isImage);
 		
 		// 사용하지 않는 이미지 리스트
-		String imageFolderId = summerNoteMapper.getImageFolderIdImageUrl(isImage.get(0));
+		String imageFolderId = folderName;
+		System.out.println("사용하지 않는 이미지 리스트 imageFolderId " + imageFolderId);
 		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);
+		System.out.println(dbImageUrlList);
 				
 		// 리스트 비교해서 없는것 db에서 삭제
 		for(String imageUrl : dbImageUrlList) {
-			if(! isImage.contains(imageUrl)) {
+			if(imageUrl != null && !isImage.contains(imageUrl)) {
 				// db 지우기
 				System.out.println("db 지우기");
 				summerNoteMapper.deleteImage(imageUrl);
@@ -107,12 +100,23 @@ public class MeetingService {
 				deleteFromAwsS3(imageUrl);
 			}
 		}
-		// donationId 넣어주기
+		// meetingId 넣어주기
 		summerNoteMapper.setMeetingId(meeting.getMeetingId(), imageFolderId);
 		
 		
 		
 		return cnt == 1;
+	}
+	
+	// 해쉬태그 분리 로직 매소드
+	private void hashTagInsertBoardBymeetingId(String hashTagRaw, int meetingId) {
+		System.out.println("해쉬ㅣ태그 : " + hashTagRaw);
+		System.out.println(meetingId);
+		String hashTag[] = hashTagRaw.split("#");
+		for(int i = 1; i < hashTag.length; i++) {
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), meetingId);
+		}
+		
 	}
 	
 	// 모임 리스트(topic추가함)
@@ -153,9 +157,9 @@ public class MeetingService {
 	*/
 	
 	// s3 bucket 메인사진 등록
-	private void saveFileAwsS3(int meetingId, MultipartFile file) {
+	private void saveMainPhotoAwsS3(int meetingId, MultipartFile mainPhoto, String folderName) {
 		
-		String key = "meeting/mainPhoto/" + meetingId + "/" + file.getOriginalFilename();
+		String key = "meeting/" + folderName + "/" + mainPhoto.getOriginalFilename();
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 					.acl(ObjectCannedACL.PUBLIC_READ) 
@@ -166,9 +170,9 @@ public class MeetingService {
 			
 			RequestBody requestBody;
 			try {                                          
-				requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
+				requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
+				amazonS3.putObject(putObjectRequest, requestBody);
 				
-				s3.putObject(putObjectRequest, requestBody);
 			} catch (IOException e) {
 				e.printStackTrace();
 				
@@ -180,8 +184,8 @@ public class MeetingService {
 	// aws의 s3에서 사진삭제 메소드
 	private void deleteFromAwsS3(String fileName) {
 		System.out.println("삭제");
-		System.out.println(fileName.substring(75));
-		String key = fileName.substring(75);
+		System.out.println(fileName.substring(56)); // 팀플 56
+		String key = fileName.substring(56);
 			
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()
@@ -189,7 +193,7 @@ public class MeetingService {
 				.key(key)
 				.build();
 			
-		s3.deleteObject(deleteBucketRequest);
+		amazonS3.deleteObject(deleteBucketRequest);
 			
 		}
 	
