@@ -21,6 +21,7 @@
 	flex-direction:column;
 	align-items: center;
 	margin-top: 21px;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 .main-container .main-wrap{
 	border: 3px solid #f9bf2d;

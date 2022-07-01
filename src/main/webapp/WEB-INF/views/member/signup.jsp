@@ -13,7 +13,7 @@
 <style>
 
 *, body {
-    font-family:"Roboto", sans-serif;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -26,7 +26,6 @@ html, body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	overflow: hidden;
 }
 
 
@@ -69,12 +68,11 @@ html, body {
 }
 
 .form-content h1 {
-    color: #333333;
-    text-align: left;
-	font-family:"Roboto", sans-serif;
+    color: #ffd740;
+    text-align: center;
+	font-family: Century Gothic, sans-serif;
 	font-weight: 700;
     font-size: 50px;
-    font-weight: 300;
     line-height: 20px;
     margin-bottom: 30px;
 }
@@ -85,7 +83,7 @@ html, body {
 }
 
 .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
-    width: 100%;
+    width: 80%;
     padding: 9px 20px;
     border: 1px solid #f9c22d;
     outline: 0;
@@ -99,11 +97,62 @@ html, body {
     margin-top: 16px;
 }
 
-.form-content button{
-	color: #333333;
-	width: 300px;
+.input-group #checkIdButton{
+	margin: 15px 1px 1px 1px;
+	padding: 1px;
+	border: 1px;
+	display: inline-block;
+}
+
+.input-group #checkEmailButton{
+	margin: 15px 1px 1px 1px;
+	padding: 1px;
+	border: 1px;
+	display: inline-block;
+}
+
+.input-group #checkNickNameButton{
+	margin: 15px 1px 1px 1px;
+	padding: 1px;
+	border: 1px;
+	display: inline-block;
+}
+
+.form-items button{
+	color: #fff;
+	width: 40px;
 	display:flex;
 	margin: 0 auto;
+	justify-content: center;
+}
+
+.buttonGroup #submitButton1{
+	color: #000000;
+	font-weight: bolder;
+	width: 363.19px;
+	display:flex;
+	margin: 0 auto;
+	justify-content: center;
+}
+
+#form1 col-md-12 {
+	position: relative;
+}
+
+#form1 .input-group .btn {
+	position: absolute;
+	right: 44px;
+	top: 1.5px;
+	bottom: 1.5px;
+	height: 41px;
+}
+
+#form1 input {
+	border-radius : 14px;
+}
+
+.input-group {
+	justify-content: center;
 }
 
 </style>
@@ -259,9 +308,9 @@ html, body {
 						
 						<div class="col-md-12">
 							<!-- 아이디 -->
-							<input type="text" name="memberId" placeholder="아이디"/>
-							<div class="buttonGroup">
-								<button id="checkIdButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							<div class="input-group">
+								<input type="text" name="memberId" placeholder="아이디"/>
+								<button id="checkIdButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
 							</div>
 						</div>
 						<div class="form-text" id="memberIdMessage"></div>
@@ -288,17 +337,17 @@ html, body {
 						
 						<div class="col-md-12">
 							<!-- 이메일 -->
-							<input type="email" name="email" placeholder="이메일" /> 
-							<div class="buttonGroup">
-								<button id="checkEmailButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							<div class="input-group">
+								<input type="email" name="email" placeholder="이메일" /> 
+								<button id="checkEmailButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
 							</div>
 						</div>
 						<div class="form-text" id="memberEmailMessage"></div>
 						<div class="col-md-12">
 							<!-- 닉네임 -->
-							<input type="text" name="nickname" placeholder="닉네임" />
-							<div class="buttonGroup">
-								<button id="checkNickNameButton" type="button" class="btn btn-secondary doubleCheck">중복 확인</button>
+							<div class="input-group">
+								<input type="text" name="nickname" placeholder="닉네임" />
+								<button id="checkNickNameButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
 							</div>
 						</div>
 						<div class="form-text" id="memberNickNameMessage"></div>

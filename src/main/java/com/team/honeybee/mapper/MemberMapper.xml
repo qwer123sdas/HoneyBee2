@@ -160,25 +160,28 @@
 		WHERE question_id = #{questionId}
 	</delete>
 	
-	<!-- 자기가 쓴 기부글 -->
+	<!-- 자기가 쓴 게시글 -->
 	<select id="getDonationByMemberId" resultType="com.team.honeybee.domain.DonationBoardDto">
 		SELECT donation_id donationId, member_id memberId, title, enable
 		FROM Donation
 		WHERE member_id = #{memberId}
-		ORDER BY enable DESC, donation_id DESC
+		GROUP BY donation_id
+		ORDER BY donation_id DESC
 	</select>
 	
 	<select id="getTalentByMemberId" resultType="com.team.honeybee.domain.TalentBoardDto">
 		SELECT talent_id talentId, member_id memberId, title, enable
 		FROM Talent
 		WHERE member_id = #{memberId}
-		ORDER BY enable DESC, talent_id DESC
+		GROUP BY talent_id
+		ORDER BY talent_id DESC
 	</select>
 	
 	<select id="getMeetingByMemberId" resultType="com.team.honeybee.domain.MeetingDto">
 		SELECT meeting_id meetingId, member_id memberId, title, enable
 		FROM Meeting
 		WHERE member_id = #{memberId}
-		ORDER BY enable DESC, meeting_id DESC
+		GROUP BY meeting_id
+		ORDER BY meeting_id DESC
 	</select>
 </mapper> 

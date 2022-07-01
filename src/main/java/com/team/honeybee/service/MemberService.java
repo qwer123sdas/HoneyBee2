@@ -259,19 +259,19 @@ public class MemberService {
 	}
 	
 	// 기부 게시글
-	public DonationBoardDto getDonationByMemberId(String memberId) {
+	public List<DonationBoardDto> getDonationByMemberId(String memberId) {
 		
 		return mapper.getDonationByMemberId(memberId);
 	}
 
 	// 재능기부 게시글
-	public TalentBoardDto getTalentByMemberId(String memberId) {
+	public List<TalentBoardDto> getTalentByMemberId(String memberId) {
 		
 		return mapper.getTalentByMemberId(memberId);
 	}
 
 	// 모임 게시글
-	public MeetingDto getMeetingByMemberId(String memberId) {
+	public List<MeetingDto> getMeetingByMemberId(String memberId) {
 		
 		return mapper.getMeetingByMemberId(memberId);
 	}

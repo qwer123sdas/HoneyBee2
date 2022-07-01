@@ -81,6 +81,7 @@
 		border: none;
 		width: 450px;
 		margin-top: 10px;
+		font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 		font-size: 14px;
 		margin-left: 10px;
 		height: 30px;

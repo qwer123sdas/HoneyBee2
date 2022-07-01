@@ -24,7 +24,7 @@
 	padding: 80px;
 }
 header{
-	font-family: sans-serif;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 	text-align: center;
 }
 article{

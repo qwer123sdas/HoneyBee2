@@ -28,7 +28,7 @@
 
 <style>
 *, body{
-	font-family: 'Poppins' sans-serif;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 	font-weight: 400;
 }
 html, body{
@@ -216,7 +216,7 @@ form input #profileFile:file-selector-button{
 									onerror="this.src='${appRoot }/resources/webContents/img/user.png';"
 									width="80px" height="80px" />
 							</div>
-								<input type="file" id="profileFile" value="${memberInfo.profile }" accept="image/*" />
+								<input type="file" name="profileFile" id="profileFile" value="${memberInfo.profile }" accept="image/*" />
 							<br />
 					
 							<div class="col-md-12">

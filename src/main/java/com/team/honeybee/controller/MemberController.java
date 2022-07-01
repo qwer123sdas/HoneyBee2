@@ -295,10 +295,9 @@ public class MemberController {
 	// 내가 쓴 게시글 모음
 	@RequestMapping("myBoard")
 	public void myBoard(Principal principal, Model model) {
-		DonationBoardDto donation = service.getDonationByMemberId(principal.getName());
-		TalentBoardDto talent = service.getTalentByMemberId(principal.getName());
-		MeetingDto meeting = service.getMeetingByMemberId(principal.getName());
-		
+		List<DonationBoardDto> donation = service.getDonationByMemberId(principal.getName());
+		List<TalentBoardDto> talent = service.getTalentByMemberId(principal.getName());
+		List<MeetingDto> meeting = service.getMeetingByMemberId(principal.getName());
 		model.addAttribute("donation", donation);
 		model.addAttribute("talent", talent);
 		model.addAttribute("meeting", meeting);
@@ -313,7 +312,7 @@ public class MemberController {
 		
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
-				return "redirect:/admin/index"; 
+				return "redirect:/member/index"; 
 			}
 		}
 		

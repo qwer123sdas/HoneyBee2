@@ -35,7 +35,7 @@ public class MeetingDto{
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate endDate; // 모임 종료일
 	private String tag;
-	
+	private int enable;
 	private String mainPhoto;  // 메인 사진
 	private List<String> image; // 서머노트 
 	private String folderName;

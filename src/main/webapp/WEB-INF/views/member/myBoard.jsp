@@ -25,10 +25,7 @@
 <style>
 body {
 	height: 1600px;
-}
-
-tr {
-	background-color: #f48fb1;
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 
 table {
@@ -53,8 +50,16 @@ thead .donation:nth-child(2) {
 	width: 100px;
 }
 
-table .even {
-	background-color: #fdf3f5;
+table thead tr.headDonation{
+	background-color: #f48fb1;
+}
+
+table thead tr.headTalent{
+	background-color: #f48fb1;
+}
+
+table thead tr.headMeeting{
+	background-color: #f48fb1;
 }
 </style>
 
@@ -73,7 +78,7 @@ table .even {
 				<table class="table caption-top table-hover">
 					<caption>기부 게시판</caption>
 					<thead>
-						<tr class="donation">
+						<tr class="headDonation">
 							<th scope="col">#</th>
 							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
@@ -81,7 +86,7 @@ table .even {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list }" var="donation">
+						<c:forEach items="${donation }" var="donation">
 							<tr>
 								<td>
 									<c:out value="${donation.donationId }"></c:out>
@@ -105,7 +110,7 @@ table .even {
 				<table class="table caption-top table-hover">
 					<caption>재능판매 게시판</caption>
 					<thead>
-						<tr>
+						<tr class="headTalent">
 							<th scope="col">#</th>
 							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
@@ -113,10 +118,10 @@ table .even {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list }" var="talent">
+						<c:forEach items="${talent }" var="talent">
 							<tr>
 								<td>
-									<c:out value="${talent.donationId }"></c:out>
+									<c:out value="${talent.talentId }"></c:out>
 								</td>
 								<td>
 									<c:out value="${talent.memberId }"></c:out>
@@ -137,7 +142,7 @@ table .even {
 				<table class="table caption-top table-hover">
 					<caption>모임 게시판</caption>
 					<thead>
-						<tr>
+						<tr class="headMeeting">
 							<th scope="col">#</th>
 							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
@@ -145,10 +150,10 @@ table .even {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list }" var="meeting">
+						<c:forEach items="${meeting }" var="meeting">
 							<tr>
 								<td>
-									<c:out value="${meeting.donationId }"></c:out>
+									<c:out value="${meeting.meetingId }"></c:out>
 								</td>
 								<td>
 									<c:out value="${meeting.memberId }"></c:out>
