@@ -32,7 +32,7 @@
 	font-weight: 400;
 }
 html, body{
-	height: 1600px;
+	height: 1700px;
 	background: url("https://cdn.pixabay.com/photo/2022/03/24/16/39/background-7089456_960_720.png");
 	background-repeat: no-repeat;
 	background-size: cover;

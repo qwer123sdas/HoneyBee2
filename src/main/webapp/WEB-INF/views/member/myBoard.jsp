@@ -1,82 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="a" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
-	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-	referrerpolicy="no-referrer"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
-	
+<!-- dataTable style -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- dataTable -->
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<!-- dataTable bootstrap5 -->
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<!-- initializing dataTable -->
+<script>
+	$(document).ready(function () {
+	    $('#donationBoard').DataTable();
+	});
+	$(document).ready(function () {
+	    $('#talentBoard').DataTable();
+	});
+	$(document).ready(function () {
+	    $('#meetingBoard').DataTable();
+	});
+</script>
+
 <style>
 body {
 	height: 1600px;
 	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
-
-table {
-	text-align: left;
-	table-layout: fixed;
-	width: 756px;
-}
-
-table.table.caption-top.table-hover thead th {
-	width: 150px;
-	padding: 10px;
-	margin: 20px 10px; font-weight : bold;
-	color: #fff !important;
+caption{
+	color: #53a0c1;
 	font-weight: bold;
+	font-size: 25px;
 }
-
-thead .donation:first-child {
-	width: 50px;
-}
-
-thead .donation:nth-child(2) {
-	width: 100px;
-}
-
-table thead tr.headDonation{
-	background-color: #f48fb1;
-}
-
-table thead tr.headTalent{
-	background-color: #f48fb1;
-}
-
-table thead tr.headMeeting{
-	background-color: #f48fb1;
+thead tr{
+	color: #fff;
+	background-color: #87d1f4;
 }
 </style>
-
-<script>
-	
-</script>
 
 <title>내가 쓴 글 : 꿀비</title>
 </head>
 <body>
-	<my:navBar current="memberInfo"></my:navBar>
-
+	<a:boardNavBar current="myBoard"></a:boardNavBar>
 	<div class="main-container">
 		<div class="row">
 			<div class="col">
-				<table class="table caption-top table-hover">
-					<caption>기부 게시판</caption>
+				<table class="table caption-top table-hover" id="donationBoard" style="width: 100%">
+					<caption>&#60;기부 게시판&#62;</caption>
 					<thead>
 						<tr class="headDonation">
 							<th scope="col">#</th>
@@ -107,8 +84,8 @@ table thead tr.headMeeting{
 
 				<hr />
 
-				<table class="table caption-top table-hover">
-					<caption>재능판매 게시판</caption>
+				<table class="table caption-top table-hover" id="talentBoard" style="width: 100%">
+					<caption>&#60;재능판매 게시판&#62;</caption>
 					<thead>
 						<tr class="headTalent">
 							<th scope="col">#</th>
@@ -139,8 +116,8 @@ table thead tr.headMeeting{
 
 				<hr />
 
-				<table class="table caption-top table-hover">
-					<caption>모임 게시판</caption>
+				<table class="table caption-top table-hover" id="meetingBoard" style="width: 100%">
+					<caption>&#60;모임 게시판&#62;</caption>
 					<thead>
 						<tr class="headMeeting">
 							<th scope="col">#</th>

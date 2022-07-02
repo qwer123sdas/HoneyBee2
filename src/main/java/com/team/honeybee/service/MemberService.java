@@ -243,6 +243,7 @@ public class MemberService {
 		// 파일 테이블 삭제
 		mapper.deleteFileById(id);
 	}
+	
 	//상담내용 사진 삭제
 	private void deleteFormAwsS3(int id, String fileName) {
 		String key = "faq/" + id + "/" + fileName;
@@ -252,6 +253,7 @@ public class MemberService {
 		s3.deleteObject(deleteObjectRequest);
 
 	}
+	
     //상담 내용 불러오기
 	public FaqDto getFaqById(int questionId) {
 		// TODO Auto-generated method stub
