@@ -78,6 +78,12 @@
 <!-- Template Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
+	
+<!-- flatpickr 달력 api -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_orange.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script><script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
 <!-- daum 주소검색 api 추가 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -89,6 +95,13 @@
 .was-validated :invalid ~.invalid-feedback, .was-validated :invalid ~.invalid-tooltip {
 	display: block;
 }
+.outer {
+  display: flex;
+}
+
+.inner {
+  margin: 0 auto;
+}
 
 .g-3, .gy-3 {
 	bs-gutter-y: 1rem;
@@ -99,6 +112,7 @@
 .row {
     bs-gutter-x: 1.5rem;
 }
+
 .bg-light {
     bs-bg-opacity: 1;
 }
@@ -118,11 +132,22 @@
 	user-select: none;
 }
 
-@media ( min-width : 768px) {
+.outer-div {
+  display: flex;
+  justify-content : center;
+}
+
+.inner-div {
+  margin: 600px;
+}
+
+@media ( min-width : 1000px) {
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;
 	}
 }
+
+
 </style>
 
 </head>
@@ -140,9 +165,9 @@
 
 
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-5 mb-5">
-		<div class="container py-5">
-			<h1 class="display-3 text-white mb-3 animated slideInDown">꿀벌 기부를 제안해주세요!</h1>
+	<div class="container-fluid bg-warning bg-gradient py-5 mt-4">
+		<div class="container bg-warning bg-gradient text-dark ">
+			<h1 class="display-2 text-dark mt-5 animated slideInDown text-center" >꿀벌 기부를 제안해주세요!</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>
 	</div>
@@ -151,216 +176,171 @@
 	<!-- Nav bar -->
 	<nav:navbar></nav:navbar>
 
-    
-<div class="container">
-    <div class="py-5 text-center">
-      <p class="lead">제안관련 소개문구나 안내문구를 추가해주세요</p>
-    </div>
+		<div class="container col-10">
+			<div class="py-5 text-center">
+				<h3 class="lead">
+					<i class="fa-brands fa-forumbee"></i>
+					꿀비팀은 이용자에게 다양한 기부활동을 알리고,
+					<br />
+					더 많은 분들이 관심을 갖고 참여할 수 있도록 제안 캠페인을 진행하고 있습니다.
+				</h3>
+			</div>
+		<div id="donationContentInfo" style="margin-left: 300px;">
+			<form class="needs-validation" novalidate
+				action="${appRoot }/donation/board/write" method="POST"
+				enctype="multipart/form-data">
+				<div class="col-10">
+						<h3 class="col-10 text-center ">
+							프로젝트 모금함 작성
+							<i class="fa-solid fa-feather"></i>
+						</h3>
 
-    <div class="row g-5">
-      <div class="col-md-5 col-lg-4 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
-          <span class="badge bg-primary rounded-pill">3</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$12</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Second product</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Third item</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
-            </div>
-            <span class="text-success">−$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
-          </li>
-        </ul>
+					<br />
+					<br />
 
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate>
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
+					<div class="row gy-3">
+						<div class="col-md-3">
+							<label for="country" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-1"></i>
+									.주제를 선택하세요
+								</h3>
+							</label>
+							<select class="form-select" id="subtopic" name="topic">
+								<option value="0">전체</option>
+								<option value="1">어린이</option>
+								<option value="2">장애인</option>
+								<option value="3">어려운 이웃</option>
+								<option value="4">환경</option>
+							</select>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
 
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
+						<br />
 
-            <div class="col-12">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
-              <div class="invalid-feedback">
-                  Your username is required.
-                </div>
-              </div>
-            </div>
+						<div class="col-10">
+							<label for="firstName" class="form-label col-15">
+								<h3 class="lead">
+									<i class="fa-regular fa-2"></i>
+									.기부 제목 짓기
+								</h3>
+							</label>
+							<!-- maxlength : 글자수 제한  -->
+							<input type="text" class="form-control" name="title"
+								placeholder="최대 30자까지 작성 가능합니다." maxlength="25" required>
+							<div class="invalid-feedback">필수 선택사항 입니다.</div>
+						</div>
 
-            <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
-            </div>
+						<br />
 
-            <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
-            </div>
+						<div class="col-10">
+							<label for="formFile" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-3"></i>
+									.메인이미지로 좋은 인상 주기
+								</h3>
+							</label>
+							<input class="form-control" type="file" id="formFile"
+								name="mainPhoto" accept="image/*" required>
+							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
+						</div>
+					
+						<br />
+					
+						<div class="col-10">
+							<label for="lastName" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-4"></i>
+									.기부 스토리 텔링
+								</h3>
+							</label>
+							<textarea class="textarea" id="summernote" name="content"
+								required> </textarea>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
 
-            <div class="col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
+						<br />
 
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
+						<div class="input_tag col-10">
+							<label for="tag" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-5"></i>
+									.태그로 기부자와 소통하기
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="address"
+								name="hashTagLump" placeholder="#을 붙여 해시테그를 입력해주세요" required>
+							<input type="hidden" id="folderName" name="folderName" />
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+					</div>
+		
+			<hr class="my-4 " style="width: 83%">
 
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
+					<h4 class="mb-3 ">
+						<i class="fa-solid fa-star"></i>
+						중요 입력사항!
+					</h4>
 
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-          </div>
+					<br />
 
-          <hr class="my-4">
+					<div class="row gy-3">
+						<div class="col-md-4">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-6"></i>
+									.마감날짜
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="expired"
+								pattern="|d{4}-|d{2}-|d{2}" name="expired" required
+								th:field="*{expired}" value="">
+							<small class="text-muted">선택한 날짜를 정확히 확인해 주세요.</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
 
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-          </div>
+						<div class="col-md-6">
+							<label for="cc-number" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-7"></i>
+									.모금 목표금액
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="cc-number"
+								name="goal" placeholder="정확한 금액을 입력해주세요." required>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+					</div>
+				</div>
 
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
+					<hr class="my-4 " style="width: 70%">
+				
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="same-address">위 입력사항이
+							정확히 기록되었는지 확인하셨나요?</label>
+					</div>
 
-          <hr class="my-4">
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">제안하신 내용은
+							꿀비 요정이 검토 후 등록됨을 확인하셨나요?</label>
+					</div>
 
-          <h4 class="mb-3">Payment</h4>
 
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
-            </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
-            </div>
-          </div>
 
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
+				<br>
+				<div style="margin-left: 420px">
+					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center">
+						꿀비팀에게 제안하기
+						<i class="fa-solid fa-hands-clapping"></i>
+					</button>
+				</div>
+			
+			</form>
+		</div>
+	</div>
 
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">꿀비에게 기부요청!</button>
-        </form>
-      </div>
-    </div>
-   </div>
 
 
 	<!-- foot bar -->
@@ -395,7 +375,7 @@ $('#folderName').val('padding-' + randomNum);
 $(document).ready(function() {
 		//여기 아래 부분
 		$('#summernote').summernote({
-			  height: 300,                 // 에디터 높이
+			  height: 700,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
 			  maxHeight: null,             // 최대 높이
 			  focus: true,       
@@ -438,10 +418,15 @@ $(document).ready(function() {
         }
 	});
 	
+	//  flatpickr 달력 기본 설정
+	var fp = flatpickr(document.getElementById("expired"), {
+				'monthSelectorType' : 'static',
+				"locale" : "ko"
+		});
 
 (function () {
   'use strict'
-
+// forms 입력 유효성 검사 : 특정 항목을 다 입력하지 못하면 submit 이벤트가 발생되지 않는다. 
   var forms = document.querySelectorAll('.needs-validation')
 
   Array.prototype.slice.call(forms)
