@@ -113,7 +113,10 @@ public class MeetingController {
 		
 	}
 	
-	
+	@GetMapping("donation")
+	public void Insert() {
+		
+	}
 	
 	@GetMapping("login")
 	public void login() {
