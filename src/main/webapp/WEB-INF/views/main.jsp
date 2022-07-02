@@ -1,6 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Solartec - Renewable Energy Website Template</title>
@@ -10,28 +10,72 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
+	<!--font-awesome  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+   <!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
+
+<!-- Jquery -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	referrerpolicy="no-referrer"></script>
+
 </head>
-
+<style>
+ .center{
+ 	display: flex;
+	align-items: center;
+	justify-content: center;
+ }
+.temp{
+	width: 165px;
+	height: 70px;
+	background: blue;
+	margin-right: 10px;
+	border-radius: 100px;
+	
+}
+.right{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+.main_image{
+	height: 40px;
+	padding-top : 50px;
+	padding-right : 50px;
+	padding-bottom: 30px;
+}
+</style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -104,130 +148,99 @@
     <!-- Navbar End -->
 
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-1.jpg'>">
-                <img class="img-fluid" src="img/carousel-1.jpg" alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-2.jpg'>">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>">
-                <img class="img-fluid" src="img/carousel-3.jpg" alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Carousel End -->
-
-
-    <!-- Feature Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-                            <i class="fa fa-users text-white"></i>
-                        </div>
-                        <h1 class="mb-0" data-toggle="counter-up">3453</h1>
-                    </div>
-                    <h5 class="mb-3">Happy Customers</h5>
-                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-                            <i class="fa fa-check text-white"></i>
-                        </div>
-                        <h1 class="mb-0" data-toggle="counter-up">4234</h1>
-                    </div>
-                    <h5 class="mb-3">Project Done</h5>
-                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-                            <i class="fa fa-award text-white"></i>
-                        </div>
-                        <h1 class="mb-0" data-toggle="counter-up">3123</h1>
-                    </div>
-                    <h5 class="mb-3">Awards Win</h5>
-                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-                            <i class="fa fa-users-cog text-white"></i>
-                        </div>
-                        <h1 class="mb-0" data-toggle="counter-up">1831</h1>
-                    </div>
-                    <h5 class="mb-3">Expert Workers</h5>
-                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Feature Start -->
-
-
-    <!-- About Start -->
+    
+	<!-- About Start -->
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
         <div class="container about px-lg-0">
             <div class="row g-0 mx-lg-0">
-                <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="">
-                    </div>
-                </div>
+                
                 <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                     <div class="p-lg-5 pe-lg-0">
-                        <h6 class="text-primary">About Us</h6>
-                        <h1 class="mb-4">25+ Years Experience In Solar & Renewable Energy Industry</h1>
-                        <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Diam dolor diam ipsum</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Aliqu diam amet diam et eos</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
-                        <a href="" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Explore More</a>
+                        <h1 class="mb-4">기부 마켓 No.1 꿀비에서 원하는 기부를 찾아보세요!</h1>
+                        <form action="${appRoot }/search"class="d-flex" role="search">
+                       		<div class="input-group mb-2" style="width: 600px">
+                       			<input type="hidden" name="type" value="donation"/>
+					     		<input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search">
+					     		<button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+					     	</div>
+					    </form>
+                        <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn btn-primary rounded-pill py-1 px-3 mt-3">#우크라이나</a>
                     </div>
                 </div>
+                
+                <div class="col-lg-6 ps-lg-0 wow fadeIn main_image" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100 ">
+                        <img class="position-absolute img-fluid w-100 h-100 " src="${appRoot}/resources/main_donation.jpg" style="object-fit: cover;" alt="">
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
     <!-- About End -->
+
+
+	<!-- Feature Start -->
+    <div class="my-5 py-5 " style="background: gray;">
+    	
+        <div class="container right">
+        	<div class="">
+	            <div class="row">
+
+	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3" >
+	                    <div class="d-flex align-items-center mb-4">
+	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
+	                            <i class="fa fa-users text-white"></i>
+	                        </div>
+	                        <h1 class="mb-0" data-toggle="counter-up">3453</h1>
+	                    </div>
+	                    <h5 class="mb-3">우리가 함께 모은 기부금</h5>
+	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+	                </div>
+	                
+	                
+	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
+	                    <div class="d-flex align-items-center mb-4">
+	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
+	                            <i class="fa fa-check text-white"></i>
+	                        </div>
+	                        <h1 class="mb-0" data-toggle="counter-up">4234</h1>
+	                    </div>
+	                    <h5 class="mb-3">꿀비를 이용하고 있는 고객분들</h5>
+	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+	                </div>
+	                
+	            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feature Start -->
+
+	 <!-- Feature Start -->
+    <div class="container-xxl py-5">
+    	
+        <div class="container center">
+            <div class="row g-5">
+            
+                <div class="temp">
+                </div>
+                
+                <div class="temp">
+                </div>
+                
+                <div class="temp">
+                </div>
+                
+                <div class="temp">
+                </div>
+                
+                <div class="temp">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Feature Start -->
 
 
     <!-- Service Start -->
@@ -741,19 +754,25 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
+<!-- JavaScript Libraries -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+	<!-- Template Javascript -->
+	<script src="${appRoot }/resources/webContents/js/main.js"></script>
 </body>
 
 </html>

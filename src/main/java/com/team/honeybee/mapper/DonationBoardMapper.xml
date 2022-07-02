@@ -52,11 +52,37 @@
 						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
 		WHERE d.donation_id = #{donationId} AND bi.main_image_name IS NOT NULL
 	</select>
+	
+	
 	<!-- 해쉬태그 가져오기 -->
 	<select id="getHashTag" resultType="String">
 		SELECT hash_tag
 		FROM Tag
 		WHERE donation_id = #{donationId}
+	</select>
+	
+	
+	<select id="selectDonationBoardBySearch" resultType="com.team.honeybee.domain.DonationBoardDto">
+		SELECT d.donation_id donationId,
+				d.title,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.goal,
+				d.current_amount currentAmount,
+				d.topic,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
+		<if test="keyword != ''">
+		WHERE d.title LIKE #{keyword} AND d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1 AND bi.main_image_name IS NOT NULL
+		</if>
+		<if test="keyword == ''">
+		WHERE d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1 AND bi.main_image_name IS NOT NULL
+		</if>
+		GROUP BY d.donation_id
+		ORDER BY d.donation_id DESC 
 	</select>
 	
 	

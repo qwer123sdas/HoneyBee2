@@ -300,12 +300,7 @@ textarea {
                             <!-- Single comment-->
                             <container> 
                             	<div>
-                            		<div class="d-flex justify-content-start">서비스 후기</div>
-                            		<div class="d-flex justify-content-end">
-                            			<div>최신순</div>
-                            			<div>별점 높은 순</div>
-                            			<div>별점 낮은 순</div>
-                            		</div>
+                            		<div class="d-flex justify-content-start mb-3">서비스 후기</div>
                             	</div>
                             	<div id="replyList"></div>
 								<!-- 리뷰 출력-->
@@ -462,12 +457,12 @@ textarea {
                    <!-- 지도api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
-                   <script>
-           			var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            		mapOption = {
-            			center : new daum.maps.LatLng(37.55324495357845, 126.97270338940449), // 지도의 중심좌표
-            			level : ${board.mapLevel} // 지도의 확대 레벨
-            		};
+       <script>
+        		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+          		mapOption = {
+          			center : new daum.maps.LatLng(37.55324495357845, 126.97270338940449), // 지도의 중심좌표
+          			level : ${board.mapLevel} // 지도의 확대 레벨
+          		};
 
            		//지도를 미리 생성
            		var map = new daum.maps.Map(mapContainer, mapOption);
@@ -687,7 +682,6 @@ textarea {
 								<div class="fw-bold d-flex justify-content-between">
 									<a class="small fw-medium" href="#!">
 										<span id="flip" class="replyText">답글 작성</span>
-										<span class="replyCnt" style="">0</span>
 									</a>
 								</div>
 							</div>
@@ -760,10 +754,34 @@ textarea {
 	    			
 				} // success 끝
 			}); // ajax 끝
-		}// ready 끝
+		} //reviewList 함수 = 댓글 리스트 끝
 		
+		
+		/*
+		// 자식댓글(답글) 등록
+		replyElement.find(".insertReplyChildButton").click(function() {
+			const data = $(this).closest(".childReplyAreaForm").serialize();
+			$.ajax({ // 자식댓글(답글) 출력
+				url : "${appRoot }/meeting/reply/insertReplyC",
+				type : "post",
+				data : data,
+				success : function(data) {
+					console.log("댓글 등록성공");
+					// 등록 완료후 초기화
+					$("#insertReplyChildInput").val("");
+					parentsReplyList();
+				},
+				error : function() {
+					console.log("댓글 등록 실패");
+				}
+			});// 자식댓글(답글) 등록 ajax end
+		}); // 자식댓글(답글) 등록 end
+		
+		
+		replyListElement.append(replyElement);
+		*/
 		reviewList(); // 댓글 목록 리스트 함수 실행!
-	});
+	});// ready 끝
 
 </script>
 </body>

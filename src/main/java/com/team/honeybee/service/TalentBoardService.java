@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
 import com.team.honeybee.mapper.SummerNoteMapper;
@@ -190,6 +191,12 @@ public class TalentBoardService {
 		
 		amazonS3.deleteObject(deleteBucketRequest);
 		
+	}
+	
+	// 메인 화면, 검색 목록
+	public List<TalentBoardDto> selectTalentBoardBySearch(String string) {
+		System.out.println(string);
+		return mapper.selectTalentBoardBySearch(string);
 	}
 	
 

@@ -28,7 +28,7 @@ public class FavoriteController {
 		if(dto.getType() == 'D') {
 			count =  service.countHeart(dto.getDonationId());
 		}else {
-			
+			// talent는 갯수를 화면에서 안보여줘도 되므로 안넣음
 		}
 		
 		dto.setCount(count);

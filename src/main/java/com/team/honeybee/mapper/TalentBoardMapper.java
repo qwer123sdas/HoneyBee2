@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.team.honeybee.domain.DonationBoardDto;
 import com.team.honeybee.domain.SummerNoteDto;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.domain.TalentReivewDto;
@@ -24,6 +25,9 @@ public interface TalentBoardMapper {
 						 @Param("mainPhoto")String mainPhoto, 
 						 @Param("memberId")String memberId,
 						 @Param("folderName")String folderName);
+	
+	//메인 화면, 검색 목록
+	List<TalentBoardDto> selectTalentBoardBySearch(String string);
 	
 	
 	

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationBoardDto;
 
@@ -29,6 +28,9 @@ public interface DonationBoardMapper {
 	DonationBoardDto getBoard(int donationId);
 	// 해쉬태그 가져오기
 	List<String> getHashTag(int donationId);
+	
+	// 메인 화면, 검색 목록
+	List<DonationBoardDto> selectDonationBoardBySearch(String keyword);
 
 	
 	

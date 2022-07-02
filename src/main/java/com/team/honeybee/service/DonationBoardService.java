@@ -195,6 +195,11 @@ public class DonationBoardService {
 		
 	}
 	
+	// 메인 화면, 검색 목록
+	public List<DonationBoardDto> selectDonationBoardBySearch(String keyword) {
+		return mapper.selectDonationBoardBySearch(keyword);
+	}
+	
 
 	//--------------------------------------------------------------------------------------------------------------------
 	
