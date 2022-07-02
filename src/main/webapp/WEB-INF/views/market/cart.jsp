@@ -591,7 +591,8 @@ td {
 	    					    'address' :$('#address').val(),
 	    					    'detailAddress':$('#detailAddress').val(),
 	    					    'phone' :$('#phone').val(),
-	    					    'comment' :$('#comment').val()
+	    					    'comment' :$('#comment').val(),
+	    					    'productCode' :'${market.productCode}'
 	    					  }
 	    			//강사님 이걸 로그로 찍었을 때 값이나오게 하라는데
 	    			//이거 어떻게 하나요?!@#!@#!$@#@!%$@

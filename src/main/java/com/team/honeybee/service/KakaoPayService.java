@@ -15,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.team.honeybee.mapper.MarketMapper;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 import com.team.honeybee.vo.KakaoPayReadyVO;
 import com.team.honeybee.vo.OrderPayVO;
@@ -28,6 +29,8 @@ public class KakaoPayService {
 
 	@Value("${kakao.pay.admin}")
 	private String adminKey;
+	@Autowired
+	private MarketMapper mapper;
 	
 	private static final String HOST = "https://kapi.kakao.com";
 	
@@ -118,6 +121,17 @@ public class KakaoPayService {
 				System.out.println(kakaoPayApprovalVO.getItem_name());
 				System.out.println("총액 : " + kakaoPayApprovalVO.getAmount().getTotal());
 				
+				/* 금요일 작업
+				OrderPayVO orderpayVo = new OrderPayVO();
+				orderpayVo.setOrderName(orderName);
+				orderpayVo.setPhone(phone);
+				orderpayVo.setPostCode(postCode);
+				orderpayVo.setAddress(address);
+				orderpayVo.setDetailAddress(detailAddress);
+				orderpayVo.setComment(comment);
+				mapper.insertOrderPay(orderPayVo);
+				*/	
+						
 				// 포인트 사용 여부 기록
 				//pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_order_id(), kakaoPayReadyVO.getPoint(), "재능판매");
 				

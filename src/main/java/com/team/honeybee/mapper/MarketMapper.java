@@ -23,10 +23,10 @@ public interface MarketMapper {
 	MarketDto getMarketById(int marketId);
 
 	// 구매할 게시판 정보를 결제 페이지로 보내기
-	/*	OrderPayDto selectMarketBoard(int orderId);*/
+    OrderPayDto selectMarketBoard(int orderId);
 		
 		// 카카오 페이 승인후, db에 저장
-		void insertKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo);
+	void insertKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo);
 	
 
 

@@ -13,5 +13,6 @@ public class OrderPayVO {
 	private String detailAddress;
 	private String phone;
 	private String comment;
+	private String productCode;
 	
 }

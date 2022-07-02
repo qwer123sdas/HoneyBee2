@@ -45,27 +45,7 @@ public class MarketService {
 	@Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
-	private void saveFileAwsS3(int marketId, MultipartFile file) {
-		String key = "board/" + marketId + "/" + file.getOriginalFilename();
-		
-		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-				.acl(ObjectCannedACL.PUBLIC_READ)
-				.bucket(bucketName)
-				.key(key)
-				.build();
-		
-		RequestBody requestBody;
-		try {
-			requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
-			s3.putObject(putObjectRequest, requestBody);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-		
-		
-	}
+	
 	
 	
 	//마켓 물건 리스트

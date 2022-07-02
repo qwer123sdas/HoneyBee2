@@ -76,16 +76,11 @@ public class MarketController {
 	
 	
 	
-	/* 구매할 게시판 정보를 결제 페이지로 보내기
-		@GetMapping("market/cart/{marketId}")
+	 //구매할 게시판 정보를 결제 페이지로 보내기
+	/*	@GetMapping("market/cart/{marketId}")
 		public String cartPage(@PathVariable int orderId, Model model, Principal principal) {
 			OrderPayDto order = service.selectMarketBoard(orderId);
-			//이걸 보내야 되는 거니까 아마도 이거 문제일 듯 지금 거래 내역은 올라가는데
-			//여기있는 내용은 올라가지가 않아.
-			//그리고 이 컨트롤러가 결제페이지로 보내는거니까
-			//여기를 마켓아이디로 바꾸고 오더 아이디를 조인하는 식으로 넣으면 될거 같은데.
-			//잘 못건들면 큰일날 거 같아서 손도 못대고 있습니다.
-			// 회원 총 포인트 가져오기
+		
 			int memberTotalPoint = pointService.getSUMPoint(principal.getName());
 			
 			model.addAttribute("order", order);
@@ -108,7 +103,8 @@ public class MarketController {
 									String address,
 									String detailAddress,
 									String phone,
-									String comment) {
+									String comment,
+									String productCode) {
 			System.out.println(productName);
 			System.out.println(quantity);
 			System.out.println(finalPayment);
@@ -126,6 +122,7 @@ public class MarketController {
 			orderpayVO.setDetailAddress(detailAddress);
 			orderpayVO.setPhone(phone);
 			orderpayVO.setComment(comment);
+			orderpayVO.setProductCode(productCode);
 					
 		
 				if(finalPayment != "0") {

@@ -42,7 +42,6 @@
 			   inserted,
 			   price,
 			   product_name productName,
-			   total,
 			   view_count viewCount,
 			   enable
 		FROM Market

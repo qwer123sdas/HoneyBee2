@@ -41,6 +41,12 @@
 
 <title>Insert title here</title>
 </head>
+<style>
+h1{
+color: #ffc107;
+}
+
+</style>
 <body>
 	<my:navbar></my:navbar>
 	<my:faq1tag></my:faq1tag>
@@ -53,24 +59,27 @@
 			<table class="table">
 			<colgroup>
 							<col style="width: 10%">
-							<col style="width: 50%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 10%">
+							<col style="width: 60%">
+							<col style="width: 15%">
+							<col style="width: 15%">
+				
 						</colgroup>
-					<thead>
+				
 						<tr>
 							<th><i class="fa-solid fa-hashtag"></i></th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th><i class="fa-solid fa-calendar"></i></th>
 						</tr>
-					</thead>
-					<tbody>
+				
+				
 						<tr style="justify-content: center;">
-							<td>준비 중 입니다.</td>
+						<td style="colspan : 4;"></td>
+						<td style="text-align: center;">준비중 입니다.</td>
+						<td></td>
+						<td></td>
 						</tr>
-					</tbody>
+					
 				</table>
 			
 			</div>
