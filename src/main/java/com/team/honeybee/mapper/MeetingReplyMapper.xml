@@ -59,37 +59,6 @@
 	</insert>
 	
 	<!-- 조상 댓글 목록 출력 -->
-	<select id="selectAllMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
-		SELECT r.meeting_reply_id meetingReplyId,
-			   r.meeting_id meetingId,
-			   r.member_id memberId,
-			   r.content,
-			   r.inserted,
-			   r.delete_info deleteInfo,
-			   m.nickname
-		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
-		WHERE r.meeting_id = #{meetingId}
-	</select>
-	
-	<!--  자식 댓글 목록 출력 -->
-	<select id="selectAllChildrenByParentReplyId" resultType="com.team.honeybee.domain.MeetingReplyDto">
-		SELECT r.meeting_reply_id meetingReplyId,
-			   r.meeting_id meetingId,
-			   r.member_id memberId,
-			   r.content,
-			   r.inserted,
-			   r.delete_info deleteInfo,
-			   m.nickname
-		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
-		 WHERE refNum = (select refNum
-						   from MeetingReply
-					      where meeting_reply_id = r.meeting_reply_id
-				   	        and step > 0
-						)	
-		ORDER BY meeting_reply_id
-	
-	</select>
-	
 	<select id="selectParentsByMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
 		SELECT r.meeting_reply_id meetingReplyId,
 			   r.meeting_id meetingId,
@@ -99,12 +68,13 @@
 			   r.step,
 			   r.delete_info deleteInfo,
 			   m.nickname
-		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		 FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.meeting_id = #{meetingId} 
 		  AND r.step = 0 -- 최상위 부모
 		ORDER BY meetingReplyId DESC
 	</select>
-
+	
+	<!--  자식 댓글 목록 출력 -->
 	<select id="selectChildByParentId" resultType="com.team.honeybee.domain.MeetingReplyDto">
 		SELECT r.meeting_reply_id meetingReplyId,
 			   r.meeting_id meetingId,
@@ -114,7 +84,7 @@
 			   r.step,
 			   r.delete_info deleteInfo,
 			   m.nickname
-		FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		 FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
 		WHERE r.refNum = #{parentId} 
 		ORDER BY meetingReplyId DESC
 	</select>
@@ -134,12 +104,38 @@
 		 WHERE meeting_reply_id = #{meetingReplyId}
 	</update>
 	
-	<!-- 댓글 삭제(DB삭제 쿼리) 
-	<update id="deleteMeetingReply">
-		DELETE FROM MeetingReply
-		 WHERE meeting_reply_id = #{meetingReplyId}
-	</update>
-	-->
-	
 
+	<!-- 안쓰는 쿼리들
+	<select id="selectAllChildrenByParentReplyId" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.delete_info deleteInfo,
+			   m.nickname
+		 FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE refNum = ( SELECT refNum
+						   FROM MeetingReply
+					      WHERE meeting_reply_id = r.meeting_reply_id
+				   	        AND step > 0
+						)	
+	 ORDER BY meetingReplyId DESC
+	
+	</select>
+	 -->	
+	
+	
+	<select id="selectAllMeetingId" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT r.meeting_reply_id meetingReplyId,
+			   r.meeting_id meetingId,
+			   r.member_id memberId,
+			   r.content,
+			   r.inserted,
+			   r.delete_info deleteInfo,
+			   m.nickname
+		  FROM MeetingReply r JOIN Member m ON r.member_id = m.member_id
+		 WHERE r.meeting_id = #{meetingId}
+	</select>
+	
 </mapper>

@@ -7,15 +7,15 @@
 	<!-- 현재 인원수 가져오기 -->
 	<select id="meetingSelectGuest" resultType="Integer"> 
 		SELECT COUNT(member_id) cntNum
-		FROM MeetingGuest
-		WHERE meeting_id = #{meetingId}
+		  FROM MeetingGuest
+		 WHERE meeting_id = #{meetingId}
 	</select>
 	
 	<!-- 게스트 목록 가져오기 -->
 	<select id="selectGuestInfo" resultType="String">
 		SELECT member_id
-		FROM MeetingGuest
-		WHERE meeting_id = #{meetingId}
+		  FROM MeetingGuest
+		 WHERE meeting_id = #{meetingId}
 	</select>
 	
 	<!-- 게스트 등록전 중복 체크 -->

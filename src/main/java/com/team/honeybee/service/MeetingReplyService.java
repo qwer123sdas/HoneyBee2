@@ -29,25 +29,14 @@ public class MeetingReplyService {
 		return replyList;
 	}
 	
-	// 본글에 대한 자식 여부 
-	
-	
-	
-	// 로그인 회원 댓글입력 
-	@Transactional
+	// 부모 댓글 입력
 	public boolean insertMeetingReply(MeetingReplyDto reply) {
 		
 		int cnt = mapper.insertMeetingReply(reply);
-		// 댓글입력시 생성번호를 부모 댓글 번호로 넣기
-		// reply.setMeetingReplyParent(reply.getMeetingReplyId());
-		// reply.setMeetingReplyGnum(reply.getMeetingReplyId());
-		// mapper.updateMeetingReplyParent(reply);
-
-	
 		return cnt == 1;
 	}
 
-	// 자식 댓글 입력 메소드 
+	// 자식 댓글 입력 
 	public void insertMeetingReplyChild(MeetingReplyDto reply) {
 		// TODO Auto-generated method stub
 		
@@ -83,6 +72,7 @@ public class MeetingReplyService {
 			parents.addAll(i+1, child);
 		}
 		// 부모의 자식을 붙여서 최종 리턴해준다.
+		
 		return parents;
 	}
 }

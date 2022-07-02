@@ -86,14 +86,16 @@ public class MeetingController {
 	// 기부모임 게시물 보기
 	@RequestMapping("board/{meetingId}")
 	public String getMeetingBoard(@PathVariable int meetingId, Model model) {
+		
 		// 게시물 정보 가져옴
 		MeetingDto board = service.getBoardByMeetingId(meetingId);
+		
+		// 게스트 목록 가져오기
+		List<String> guestList = guestService.selectGuestInfo(meetingId);
 		
 		// 댓글 리스트
 		List<MeetingReplyDto> replyList = replyService.getReplyByMeetingId(meetingId);
 		
-		// 게스트 목록 가져오기
-		List<String> guestList = guestService.selectGuestInfo(meetingId);
 
 		model.addAttribute("meeting", board); // 게시물
 		// 댓글 목록
