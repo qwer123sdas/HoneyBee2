@@ -22,7 +22,6 @@ public class MeetingDto{
 	private String postcode;
 	private String address;
 	private String detailAddress;
-	private List<String> guest; // meetingGuest table에서 meeting_id로 사용중
 	private String topic; // 카테고리 번호
 	private List<String> hashTag; // 해쉬태그 hash_tag
 	
@@ -43,6 +42,8 @@ public class MeetingDto{
 	private List<String> image; // 서머노트
 	private String folderName;
 	
+	private int enable;
+
 	
 	
 	

@@ -3,7 +3,6 @@ package com.team.honeybee.listener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 /**
  * Application Lifecycle Listener implementation class AppListener
