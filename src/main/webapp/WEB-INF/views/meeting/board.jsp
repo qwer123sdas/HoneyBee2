@@ -907,17 +907,6 @@
 			});
 		 console.log("666666666666666");
 		
-		
-		/* 지금은 전체 실행
-		// 자식 댓글창 슬라이드 이벤트 핸들러 메소드 만들기
-		var flipClick = document.getElementById("flip");
-		var panel = document.getElementById("panel");
-		
-		flip.addEventListener("click", function(e) {
-			$("#panel").slideToggle("slow");
-		})
-		*/
-		
 });
 	    
 </script>

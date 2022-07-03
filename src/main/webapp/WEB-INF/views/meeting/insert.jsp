@@ -41,50 +41,95 @@
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
-	rel="stylesheet">
-
-<!-- google font 추가함 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link
-	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
-	rel="stylesheet">
-<link
-	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-<link
-	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
-	rel="stylesheet">
+<link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
-<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${appRoot }/resources/webContents/css/style.css"
-	rel="stylesheet">
+<link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+	
+<!-- flatpickr 달력 api -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_orange.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script><script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
 <!-- daum 주소검색 api 추가 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- summernote  -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	
+<style>
+.is-invalid ~.invalid-feedback, .is-invalid ~.invalid-tooltip,
+.was-validated :invalid ~.invalid-feedback, .was-validated :invalid ~.invalid-tooltip {
+	display: block;
+}
+.outer {
+  display: flex;
+}
+
+.inner {
+  margin: 0 auto;
+}
+
+.g-3, .gy-3 {
+	bs-gutter-y: 1rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+    
+.row {
+    bs-gutter-x: 1.5rem;
+}
+
+.bg-light {
+    bs-bg-opacity: 1;
+}
+.invalid-feedback {
+	display: none;
+	width: 100%;
+	margin-top: 0.25rem;
+	font-size: .875em;
+	color: #dc3545;
+}
+
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.outer-div {
+  display: flex;
+  justify-content : center;
+}
+
+.inner-div {
+  margin: 600px;
+}
+
+@media ( min-width : 1000px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+
+</style>
+
 </head>
 <body>
 	<!-- Spinner Start -->
@@ -99,14 +144,10 @@
 
 
 
-	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
-
-
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-5 mb-5">
-		<div class="container py-5">
-			<h1 class="display-3 text-white mb-3 animated slideInDown">꿀벌모집</h1>
+	<div class="container-fluid bg-warning bg-gradient py-5 mt-4">
+		<div class="container bg-warning bg-gradient text-dark ">
+			<h1 class="display-2 text-dark mt-5 animated slideInDown text-center" >꿀비 모두의 행동을 제안해주세요!</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>
 	</div>
@@ -114,80 +155,250 @@
 
 	<!-- Nav bar -->
 	<nav:navbar></nav:navbar>
-	<!-- 모임 데이터 처리용(나중에 제안서로 변경예정) -->
-	<div class="container mt-4">
-		<div class="row">
-			<div class="col-lg-8">
-				<h1>꿀벌 모집 제안서</h1>
-				<form action="${appRoot }/meeting/insert" method="post"
-					enctype="multipart/form-data">
-					<!-- meeting_id : 자동생성
-					member_id : 권한처리 -->
 
-					<label for="titleInput" class="form-label">제목</label>
-					<input type="text" name="title" id="titleInput" />
-
-					<br>
-
-					<select name="topic" id="form-select">
-						<option selected="selected">모임 주제를 선택해 주세요</option>
-						<option value="0">전체</option>
-						<option value="1">어린이</option>
-						<option value="2">장애인</option>
-						<option value="3">어려운 이웃</option>
-						<option value="4">환경</option>
-					</select>
-
-					<br>
-
-					<label for="contentsTextarea" class="form-label">본문</label>
-					<textarea class="textarea" id="summernote" name="content"> </textarea>  
-				
-
-					<br>
-
-					<label for="address">모임장소</label>
-					<input type="text" name="postcode" id="postcode" placeholder="우편번호">
-					<input type="button" onclick="daumPostCode()" value="우편번호 찾기">
-					<input type="text" id="address" name="address" placeholder="주소">
-					<input type="text" id="detailAddress" name="detailAddress"
-						placeholder="상세주소">
-
-					<br>
-
-					메인 사진
-					<input multiple="multiple" type="file" name="mainPhoto"
-						accept="image/*" />
-					<input type="hidden" id="folderName" name="folderName" />
-
-					<br>
-					<!-- 태그 입력 -->
-					<label for="hashTagRaw">태그</label>
-					<input type="text" name="hashTagRaw" placeholder="태그를 입력해주세요" />
-
-
-					<!-- guest : 모임보드에서 넘겨줄 값 -->
-					<label for="guest_num">모집 인원</label>
-					<input type="number" name="guestNum" id="guestNum" />
-
-					<label for="meeting_date">모임 날짜</label>
-					<input type="date" name="meetingDate" id="meetingDate" />
-
-					<!-- inserted : 자동생성 -->
-					start_date :
-					<label for="start_date">모집 시작일</label>
-					<input type="date" name="startDate" id="startDate" />
-
-					end_date :
-					<label for="end_date">모집 종료일</label>
-					<input type="date" name="endDate" id="endDate" />
-
-					<button class="btn btn-primary">전송</button>
-
-				</form>
+		<div class="container col-10">
+			<div class="py-5 text-center">
+				<h3 class="lead">
+					<i class="fa-brands fa-forumbee"></i>
+					꿀비팀은 이용자에게 다양한 모두의행동을 알리고,
+					<br />
+					더 많은 분들이 관심을 갖고 참여할 수 있도록 제안 캠페인을 진행하고 있습니다.
+				</h3>
 			</div>
+		<div id="donationContentInfo" style="margin-left: 300px;">
+			<form class="needs-validation" novalidate action="${appRoot }/meeting/insert" method="post" enctype="multipart/form-data">
+				<div class="col-10">
+						<h3 class="col-10 text-center ">
+							프로젝트 모두의행동 제안
+							<i class="fa-solid fa-feather"></i>
+						</h3>
+
+					<br />
+					<br />
+
+					<div class="row gy-3">
+						<div class="col-md-3">
+							<label for="country" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-1"></i>
+									.행동 주제 선택
+								</h3>
+							</label>
+							<select class="form-select" id="subtopic" name="topic" required>
+								<option value="0">전체</option>
+								<option value="1">어린이</option>
+								<option value="2">장애인</option>
+								<option value="3">어려운 이웃</option>
+								<option value="4">환경</option>
+							</select>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="col-10">
+							<label for="firstName" class="form-label col-15">
+								<h3 class="lead">
+									<i class="fa-regular fa-2"></i>
+									.모두의행동 제목 짓기
+								</h3>
+							</label>
+							<!-- maxlength : 글자수 제한  -->
+							<input type="text" class="form-control" name="title"
+								placeholder="최대 30자까지 작성 가능합니다." maxlength="30" required>
+							<div class="invalid-feedback">필수 선택사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="col-10">
+							<label for="formFile" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-3"></i>
+									.메인 이미지로 모두의행동을 보여주세요
+								</h3>
+							</label>
+							<input class="form-control" type="file" id="formFile"
+								name="mainPhoto" accept="image/*" required>
+							<input type="hidden" id="folderName" name="folderName" />
+							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
+						</div>
+					
+						<br />
+					
+						<div class="col-10">
+							<label for="lastName" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-4"></i>
+									.꿀비들의 마음을 움직이는 모두의행동 스토리를 작성해 보세요
+								</h3>
+							</label>
+							<textarea class="textarea" id="summernote" name="content"
+								required> </textarea>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="input_tag col-10">
+							<label for="tag" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-5"></i>
+									.태그로 모두의행동 표현하기
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="address"
+								name="hashTagRaw" placeholder="#을 붙여 해시테그를 입력해주세요" required>
+							<!-- <input type="hidden" id="folderName" name="folderName" / -->
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+					</div>
+		
+			<hr class="my-4 " style="width: 83%">
+
+					<h4 class="mb-3 ">
+						<i class="fa-solid fa-star"></i>
+						모두의행동 중요 입력사항입니다!
+					</h4>
+
+					<br />
+
+					<div class="row gy-3">
+						<div class="col-md-3">
+							<label for="guestNum" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-6"></i>
+									.모집 인원
+								</h3>
+							</label>
+							<input type="number" class="form-control" name="guestNum" id="guestNum" placeholder="명" required/>
+							<small class="text-muted">인원을 입력하세요</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+					
+						<div class="col-md-5">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-7"></i>
+									.모집 시작일
+								</h3>
+							</label> <!-- type="date가 아님" -->
+							<input type="text" class="form-control" id="startDate"
+								pattern="|d{4}-|d{2}-|d{2}" name="startDate" required
+								th:field="*{startDate}" value="">
+							<small class="text-muted">모집 시작 입력일 확인</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<br />
+						
+						<div class="col-md-5">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-8"></i>
+									.모집 종료일
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="endDate"
+								pattern="|d{4}-|d{2}-|d{2}" name="endDate" required
+								th:field="*{endDate}" value="">
+							<small class="text-muted">모임 종료 입력일 확인</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<div class="col-md-5">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-9"></i>
+									.모임 날짜
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="meetingDate"
+								pattern="|d{4}-|d{2}-|d{2}" name="meetingDate" required
+								th:field="*{meetingDate}" value="">
+							<small class="text-muted">모두의행동 시작일 확인</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<div class="col-md-3">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-1"></i>
+									<i class="fa-solid fa-0"></i>
+									.모두의행동 모임 장소
+								</h3>
+							</label>
+							<input class="form-control" type="text" name="postcode" id="postcode" placeholder="우편번호" required>
+							<small class="text-muted">입력된 우편번호를 확인해주세요</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<div class="col-md-3">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-1 "></i>
+									<i class="fa-solid fa-0"></i>
+									
+								</h3>
+							</label>
+							<input class="form-control" type="button" onclick="daumPostCode()" value="우편번호 찾기"><br/>
+							<small class="text-muted">우편번호를 검색하세요</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<div class="col-md-6">
+							<label for="expired" class="form-label">
+								<h3 class="lead ">
+									<i class="fa-regular fa-1"></i>
+									<i class="fa-solid fa-0"></i>
+									
+								</h3>
+							<input class="form-control" type="text" id="address" name="address" placeholder="주소" required>
+							<input class="form-control" type="text" id="detailAddress" name="detailAddress"
+								placeholder="상세주소" required>
+							<small class="text-muted">입력된 주소를 확인해주세요</small>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+							</label>
+						</div>
+					</div>
+				</div>
+
+					<hr class="my-4 " style="width: 70%">
+				
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="same-address">
+						모두의행동 모집 정보를 꼼꼼하게 입력하셨나요?</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">
+						제안하신 모두의행동은 개인의 이익이 아닌 공공을 위한 행동입니까?
+						</label>
+					</div>
+					
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">제안하신 내용은
+							꿀비 요정이 검토 후 등록됨을 확인하셨나요?</label>
+					</div>
+
+
+
+				<br>
+				<div style="margin-left: 420px">
+					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center">
+						꿀비팀에게 제안하기
+						<i class="fa-solid fa-hands-clapping"></i>
+					</button>
+				</div>
+			
+			</form>
 		</div>
 	</div>
+
+
 
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
@@ -215,91 +426,118 @@
 	<script src="${appRoot }/resources/webContents/js/main.js"></script>
 </body>
 <script>
-	//다음 주소검색
-	console.log(2)
-	function daumPostCode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-	
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}
-	
-				// 우편번호와 주소 정보를 해당 input에 넣는다.
-				document.getElementById('postcode').value = data.zonecode;
-				document.getElementById("address").value = addr;
-				// 커서를 상세주소 입력 포커스
-				document.getElementById("detailAddress").focus();
+//다음 주소검색
+console.log(2)
+function daumPostCode() {
+	new daum.Postcode({
+		oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var addr = ''; // 주소 변수
+
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				addr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				addr = data.jibunAddress;
 			}
-		})
-		
-		.open();
-	}
+
+			// 우편번호와 주소 정보를 해당 input에 넣는다.
+			document.getElementById('postcode').value = data.zonecode;
+			document.getElementById("address").value = addr;
+			// 커서를 상세주소 입력 포커스
+			document.getElementById("detailAddress").focus();
+		}
+	})
 	
-	// 서머노트
-	$(document).ready(function() {
+	.open();
+}
+
+//서머노트
+$(document).ready(function() {
 		// 서머노트 파일명 랜덤값으로
 		//여기 아래 부분
-			const randomNum = Math.floor(Math.random() * 1000000000);
-			$('#folderName').val('padding-' + randomNum);
-			
-			$('#summernote').summernote({
-				  height: 300,                 // 에디터 높이
-				  minHeight: null,             // 최소 높이
-				  maxHeight: null,             // 최대 높이
-				  focus: true,       
-				  // 에디터 로딩후 포커스를 맞출지 여부
-				  lang: "ko-KR",					// 한글 설정
-				  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-				  callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-						onImageUpload : function(images, editor, welEditable) {
-				            // 파일 업로드(다중업로드를 위해 반복문 사용)
-							for (let i = 0; i < images.length; i++) {
-								console.log(images[i]);
-								uploadSummernoteMeetingImageFile(images[i]);
-	            			}
-						}
-				  }
-			});
+		const randomNum = Math.floor(Math.random() * 1000000000);
+		$('#folderName').val('padding-' + randomNum);
+		$('#summernote').summernote({
+			  height: 700,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,       
+			  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+			  callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload : function(images, editor, welEditable) {
+			            // 파일 업로드(다중업로드를 위해 반복문 사용)
+						for (let i = 0; i < images.length; i++) {
+							console.log(images[i]);
+               		 		uploadImageToS3ForSummerNote(images[i]);
+            			}
+					}
+			  }
+		});
 		
-		function uploadSummernoteMeetingImageFile(image) {
-			data = new FormData(); // file 객체
-			data.append("image", image); // file ajax에서 넘겨줌
-			data.append("folderId", 'padding-' + randomNum); // 폴더 난수 넘기기
-			console.log();
-			$.ajax({
-				url : '${appRoot}/uploadSummernoteMeetingImageFile',
-				data : data,
-				type : "POST",
-				cash : false,
-				contentType : false,
-				processData : false,
-				enctype : 'multipart/form-data',
-				success : function(data) {
-					console.log("데이타 : " + data);
-					console.log("유알엘 " + data.fileUrl);
-					// aws s3에 저장한 이미지 url을 넘김 summernote에서 보임
-					$('#summernote').summernote('editor.insertImage', data.url);
-				},
-				error :function(data) {
-					alert(data.responseText);
-				}
-			});
-		}
-		
-		
-		
-		
-	
+        function uploadImageToS3ForSummerNote(image) {
+            data = new FormData(); // file를 담을 객체
+            data.append("image", image); // file를 담고 ajax에서 넘겨줌
+            data.append("folderId", 'padding-'+ randomNum); // 폴더 난수 넘기기
+            $.ajax({
+                url: '${appRoot}/uploadImageToS3ForSummerNote/donation',
+                data: data,
+                type: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                success: function(data) {
+                	console.log(data);
+                	console.log(data.fileUrl);
+                	
+                    // aws s3에 저장한 이미지 url을 넘기므로 summernote에서 보이게 됨
+                    $('#summernote').summernote('editor.insertImage', data.url);  
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
+        }
 	});
-</script>
+	
+	//  flatpickr 달력 기본 설정
+	var fp = flatpickr(document.getElementById("startDate"), {
+				'monthSelectorType' : 'static',
+				"locale" : "ko"
+		});
+	
+	var fp = flatpickr(document.getElementById("endDate"), {
+		'monthSelectorType' : 'static',
+		"locale" : "ko"
+	});
+	
+	var fp = flatpickr(document.getElementById("meetingDate"), {
+		'monthSelectorType' : 'static',
+		"locale" : "ko"
+	});
 
+(function () {
+  'use strict'
+// forms 입력 유효성 검사 : 특정 항목을 다 입력하지 못하면 submit 이벤트가 발생되지 않는다. 
+  var forms = document.querySelectorAll('.needs-validation')
+
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 </html>
