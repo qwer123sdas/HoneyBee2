@@ -51,6 +51,12 @@
 	text-transform: uppercase;
 	outline: none;
 }
+.navbar .navbar-nav .nav-link:hover{
+	color: #fbc02d;
+}
+.navbar .navbar-nav .nav-link:active {
+	color: #fbc02d;
+}
 
 .navbar .dropdown-toggle:after {
 	border: none;
