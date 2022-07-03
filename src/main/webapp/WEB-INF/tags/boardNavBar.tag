@@ -45,16 +45,17 @@
 .navbar .navbar-nav .nav-link {
 	margin-right: 30px;
 	padding: 25px 0;
-	color: var(- -dark);
+	color: #1A2A36;
 	font-size: 15px;
 	font-weight: 500;
 	text-transform: uppercase;
 	outline: none;
 }
-
-.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link.active
-	{
-	color: var(- -primary);
+.navbar .navbar-nav .nav-link:hover{
+	color: #fbc02d;
+}
+.navbar .navbar-nav .nav-link:active {
+	color: #fbc02d;
 }
 
 .navbar .dropdown-toggle:after {
@@ -90,6 +91,7 @@
 		transition: .5s;
 	}
 	.navbar .nav-item:hover .dropdown-menu {
+		color: #fbc02d;
 		top: 100%;
 		visibility: visible;
 		transition: .5s;
@@ -102,7 +104,18 @@
 	}
 }
 </style>
-
+<!-- fontAwesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+	rel="stylesheet">
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="index"
@@ -150,7 +163,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown">
 					<a
-						class="nav-item nav-link dropdown-toggle${current == 'memberInfo' ? 'active' : '' }"
+						class="nav-item nav-link dropdown-toggle ${current == 'memberInfo' ? 'active' : '' }"
 						data-toggle="dropdown" href="${memberInfoUrl }">마이페이지 </a>
 
 					<div class="dropdown-menu">
@@ -197,8 +210,7 @@
 			</div>
 			<a href=""
 				class="btn btn-warning rounded-0 py-4 px-lg-5 d-none d-lg-block">
-				둘러보기
-				<i class="fa fa-arrow-right ms-3"></i>
+				둘러보기<i class="fa fa-arrow-right ms-3"></i>
 			</a>
 		</div>
 	</div>
