@@ -51,12 +51,6 @@
 	text-transform: uppercase;
 	outline: none;
 }
-.navbar .navbar-nav .nav-link:hover{
-	color: #fbc02d;
-}
-.navbar .navbar-nav .nav-link:active {
-	color: #fbc02d;
-}
 
 .navbar .dropdown-toggle:after {
 	border: none;
@@ -102,6 +96,50 @@
 		align-items: flex-start;
 		margin: 0;
 	}
+@media ( prefers-reduced-motion : reduce) {
+	.btn {
+		transition: none
+	}
+}
+
+.btn-primary {
+	background-color: #fbc02d;
+	border-color: #fbc02d
+}
+
+.btn-primary:hover {
+	color: #000;
+	background-color:#fdd835;
+	border-color: #fdd835
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+	color: #000;
+	background-color: #fdd835;
+	border-color: #fdd835;
+	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
+}
+
+.btn-check:checked+.btn-primary, .btn-check:active+.btn-primary,
+	.btn-primary:active, .btn-primary.active, .show>.btn-primary.dropdown-toggle
+	{
+	color: #000;
+	background-color: #fdd835;
+	border-color: #fdd835
+}
+
+.btn-check:checked+.btn-primary:focus, .btn-check:active+.btn-primary:focus,
+	.btn-primary:active:focus, .btn-primary.active:focus, .show>.btn-primary.dropdown-toggle:focus
+	{
+	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
+}
+
+.btn-primary:disabled, .btn-primary.disabled {
+	color: #000;
+	background-color: #fbc02d;
+	border-color: #fbc02d
+}
+
 }
 </style>
 <!-- fontAwesome -->
@@ -116,6 +154,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
 	rel="stylesheet">
+	
+
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="index"
@@ -209,7 +249,7 @@
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
 			<a href=""
-				class="btn btn-warning rounded-0 py-4 px-lg-5 d-none d-lg-block">
+				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
 				둘러보기<i class="fa fa-arrow-right ms-3"></i>
 			</a>
 		</div>

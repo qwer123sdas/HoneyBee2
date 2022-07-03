@@ -2711,14 +2711,14 @@ textarea.form-control-lg {
 
 .btn-primary:hover {
 	color: #000;
-	background-color: #51cc82;
-	border-color: #47c97b
+	background-color:#fdd835;
+	border-color: #fdd835
 }
 
 .btn-check:focus+.btn-primary, .btn-primary:focus {
 	color: #000;
-	background-color: #51cc82;
-	border-color: #47c97b;
+	background-color: #fdd835;
+	border-color: #fdd835;
 	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
 }
 
@@ -2726,8 +2726,8 @@ textarea.form-control-lg {
 	.btn-primary:active, .btn-primary.active, .show>.btn-primary.dropdown-toggle
 	{
 	color: #000;
-	background-color: #5bcf89;
-	border-color: #47c97b
+	background-color: #fdd835;
+	border-color: #fdd835
 }
 
 .btn-check:checked+.btn-primary:focus, .btn-check:active+.btn-primary:focus,
