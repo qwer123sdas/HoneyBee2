@@ -47,7 +47,8 @@
 				d.product_code productCode,
 				d.current_amount currentAmount,
 				bi.main_image_name MPhoto,
-				bi.image_folder_id folderName
+				bi.image_folder_id folderName,
+				IF(m.member_id = #{memberId}, 1, 0) own
 		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
 						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
 		WHERE d.donation_id = #{donationId} AND bi.main_image_name IS NOT NULL
@@ -112,6 +113,19 @@
 		INSERT INTO BoardImage(donation_id, main_image_name, member_id, image_folder_id)
 		VALUES (#{donationId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
+	
+	
+	<update id="updateDonationBoard">
+		UPDATE Donation SET(title = #{title},
+							content = #{content},
+							topic = #{topic},
+							expired = #{expired},
+							goal = #{goal})
+				WHERE donation_id = #{donationId}
+	</update>
+	
+	
+	
 	
 
 	

@@ -22,7 +22,20 @@
 		WHERE image_url = #{imageUrl}
 	</delete>
 	
+	<!-- 메인 사진관련 image_id 거져오기 -->
+	<select id="selectBoardImageId" resultType="int">
+		SELECT image_id
+		FROM BoardImage
+		WHERE main_image_name = #{oldMainPhoto}
+	</select>
 	
+	<!-- 메인 사진 수정 -->
+	<update id="updateBoardImage">
+		UPDATE BoardImage SET(main_image_name)
+						VALUES(#{originalFilename})
+						WHERE image_id = #{boardImageId}
+	</update>
+		
 	<!-- =======================================================================================================  -->
 	<!-- Donation===============================================================================================  -->
 

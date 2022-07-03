@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,13 @@ public class TalentBoardController {
 	public String boardPage(@PathVariable int talentId, Model model, Principal principal) {
 		
 		// 게시글 정보 가져오기
-		TalentBoardDto board = service.getBoard(talentId);
+		TalentBoardDto board;
+		if(principal != null) {
+			board = service.getBoardWithOwnByTalentId(talentId, principal.getName());
+		}else {
+			board = service.getBoardByTalentId(talentId);
+		}
+		
 		
 		// 수업 항목 list로 보내기
 		String classContents = board.getClassContent();
@@ -144,9 +151,27 @@ public class TalentBoardController {
 	}
 	
 	// 게시글 수정
-	@RequestMapping("modify")
-	public void talentBoardModify() {
+	@GetMapping("modify/{talentId}")
+	public String talentBoardModifyPage(@PathVariable int talentId, Model model) {
+		TalentBoardDto dto = service.getBoardByTalentId(talentId);
+		String classContents = dto.getClassContent();
+		String[] classContentList = classContents.substring(1).split("/");
 		
+		model.addAttribute("classContent", classContentList);
+		model.addAttribute("board", dto);
+		return "talent/modify";
+	}
+	
+	@PostMapping("modify")
+	public String talentBoardModify(String jsonByTalent, MultipartFile mainPhoto, 
+									String oldMainPhoto,String folderName) {
+		// json 역직렬화하고 dto에 set하기
+		System.out.println("작성하기!");
+		Gson gson = new Gson();
+		TalentBoardDto dto = gson.fromJson(jsonByTalent, TalentBoardDto.class);
+		
+		service.updateTalentBoard(dto, mainPhoto, folderName, oldMainPhoto);
+		return "talent/modify/" + dto.getTalentId();
 	}
 	
 

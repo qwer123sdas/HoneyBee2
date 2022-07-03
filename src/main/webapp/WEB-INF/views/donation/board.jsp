@@ -382,6 +382,13 @@
             	<div class="backCircleImg">
             		<img class="headerImg" src="${appRoot}/resources/webContents/img/donation_${board.topic }.png">
             	</div>
+            	<c:if test="${board.own == 1 }">
+	            	<div class="backCircleImg">
+	            		<form action="${appRoot }/donation/modify/${board.donationId}">
+	            			<button>수정하기</button>
+	            		</form>
+	            	</div>
+            	</c:if>
             </div>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>

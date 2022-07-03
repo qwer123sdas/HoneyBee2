@@ -53,7 +53,8 @@
 				t.class_content classContent,
 				m.nickname,
 				bi.main_image_name MPhoto,
-				bi.image_folder_id folderName
+				bi.image_folder_id folderName,
+				IF(m.member_id = #{memberId}, 1, 0) own
 		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
 					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
 					  
@@ -95,7 +96,6 @@
 							 address,
 							 detail_address,
 							 work_date,
-							 number_people,
 							 self_introduction,
 							 class_content,
 							 product_code)
@@ -109,7 +109,6 @@
 				#{address},
 				#{detailAddress},
 				#{workDate},
-				#{numberOfPeople},
 				#{selfIntroduction},
 				#{classContent},
 				#{productCode})
@@ -118,8 +117,23 @@
 		INSERT INTO BoardImage(talent_id, main_image_name, member_id, image_folder_id)
 		VALUES(#{talentId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
-
-
+	
+	<!-- 게시글 수정 -->
+	<update id="updateTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto">
+		UPDATE Talent SET(title = #{title}, 
+							content = #{content},
+							 price = #{price}, 
+							 product_name = #{productName},
+							 topic = #{topic},
+							 map_level = #{mapLevel},
+							 address = #{address},
+							 detail_address = #{detailAddress},
+							 work_date = #{workDate},
+							 self_introduction = #{selfIntroduction},
+							 class_content = #{classContent})
+					WHERE talent_id = #{talentId}
+	</update>
+	
 	
 
 </mapper>	

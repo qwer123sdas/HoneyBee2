@@ -16,7 +16,7 @@ public interface TalentBoardMapper {
 	List<TalentBoardDto> findBoardList(@Param("topic")String topic, @Param("sort")String sort);
 	
 	// 게시물 정보 가져오기
-	TalentBoardDto getBoard(int talentId);
+	TalentBoardDto getBoard(@Param("talentId")int talentId, @Param("memberId")String memberId);
 	
 	// 게시물 작성
 	void setTalentBoard(TalentBoardDto dto);
@@ -28,6 +28,12 @@ public interface TalentBoardMapper {
 	
 	//메인 화면, 검색 목록
 	List<TalentBoardDto> selectTalentBoardBySearch(String string);
+
+	// update--------------------------------------------------------------------
+	// 게시글 수정 작업
+	void updateTalentBoard(TalentBoardDto dto);
+	
+	
 	
 	
 	

@@ -42,6 +42,8 @@ public class TalentBoardDto {
 	
 	
 	// db에 없는 정보
+	private int own;
+	
     private int totalPrice; //총 가격(할인 적용된 가격 * 주문 수량)
     private double averageStarRating;
     

@@ -37,6 +37,9 @@ public class DonationBoardDto {
 	private int favorite;  // 좋아요
 	private int enable;   // 게재 권한
 	
+	// db에 없는 property
+	private int own;
+	
 	
 	// 달성률 계산
 	public int getAchievementRate() {

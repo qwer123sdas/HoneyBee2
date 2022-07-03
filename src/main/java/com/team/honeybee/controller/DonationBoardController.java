@@ -53,10 +53,16 @@ public class DonationBoardController {
 	@Transactional
 	public String board(@PathVariable int donationId, Model model, Principal principal) {
 		// 게시글 정보 가져오기
-		DonationBoardDto board = service.getBoard(donationId);
+		DonationBoardDto board;
+		if(principal == null) {
+			// 로그인 x
+			board = service.getBoardByBoardId(donationId);
+		}else {
+			// 로그인 o
+			board = service.getBoardWithOwnByBoardId(donationId, principal.getName());
+		}
 		model.addAttribute("board", board);
 		model.addAttribute("principal", principal);
-		
 		
 		// 좋아요 디비에서 정보 찾기
 		FavoriteDto favoriteDto = new FavoriteDto();
@@ -80,6 +86,8 @@ public class DonationBoardController {
 		
 		return "donation/board";
 	}
+	
+	
 	
 	// 기부하기
 	/*
@@ -112,6 +120,25 @@ public class DonationBoardController {
 		return "redirect:/donation/main";
 	}
 	
+	
+	@RequestMapping("modify/{donationId}")
+	public String modifyPage(@PathVariable int donationId, Model model) {
+		DonationBoardDto dto =  service.getBoardByBoardId(donationId);
+		model.addAttribute("board", dto);
+		return "donation/modify";
+	}
+	
+	@PostMapping("modify")
+	public String modifyDonationBoard(DonationBoardDto dto, 
+										@RequestParam(name="hashTagLump")String hashTagLump, 
+										@RequestParam(name="mainPhoto")MultipartFile mainPhoto,
+										@RequestParam(name="folderName")String folderName,
+										@RequestParam(name="oldMainPhoto")String oldMainPhoto) {
+		
+		service.updateDonationBoard(dto, hashTagLump, mainPhoto, folderName, oldMainPhoto);
+		
+		return "donation/board/" + dto.getDonationId();
+	}
 
 	
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,7 @@
         		<label for="username" class="form-label">메인 사진</label>
          		<div class="input-group has-validation">
             		<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
-						<img id="imgChange" src="${appRoot }/resources/600x400image.jpg"  alt="메인 사진 업로드" >
+						<img id="imgChange" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}"  alt="메인 사진 업로드" >
 					</a>
 					<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*" onchange="readURL(this);">
 					<div id="image_container"></div>
@@ -88,7 +89,7 @@
          	<div class="col-12">
           		<label for="username" class="form-label">게시글 제목</label>
           		<div class="input-group has-validation">
-	             	<input type="text" class="form-control" id="title" placeholder="" required>
+	             	<input type="text" class="form-control" id="title" placeholder="" value='${board.title }' required>
 	           		<div class="invalid-feedback">
 	               		Your title is required.
 	             	</div>
@@ -97,7 +98,7 @@
 	
 	        <div class="col-12">
 	           <label for="email" class="form-label">게시글 내용</label>
-	           <textarea class="textarea"  id="summernote"> </textarea>
+	           <textarea class="textarea"  id="summernote" >${board.content } </textarea>
 	           <div class="invalid-feedback">
 	             Please enter a valid email address for shipping updates.
 	           </div>
@@ -105,7 +106,7 @@
 	
 	        <div class="col-12">
 	           <label for="address" class="form-label">판매물품이름</label>
-	           <input type="text" class="form-control" id="productName" placeholder="" required>
+	           <input type="text" class="form-control" id="productName" value="${board.productName }" placeholder="" required>
 	           <div class="invalid-feedback">
 	             Please enter your productName.
 	           </div>
@@ -115,6 +116,12 @@
 	           	<label for="address" class="form-label">수업& 작업 내용</label>
 	           	<div id="box">
             		<input class="btn btn-outline-secondary" type="button" value="추가" onclick="add_textbox()">
+            		<c:forEach items="${classContent }" var="classContent">
+	            		<p>
+	            			<input type="text" class="form-control classContent mb-3" value="${classContent }"/>
+	            			<input type="button" value="삭제" class="btn btn-secondary mb-3" onclick="remove(this)"/>
+	            		</p>
+            		</c:forEach>
         		</div>
 	          	<div class="invalid-feedback">
 	            	 Please enter your productName.
@@ -137,12 +144,12 @@
 	        		</div>
 	       	</div>
 	       	<div class="col-12">
-	       		<input type="number" class="form-control" id="price" placeholder="가격">
+	       		<input type="number" class="form-control" id="price" value="${board.price }" placeholder="가격">
 	       	</div>
 	       	
 	       	<div class="col-6">
 	           <label for="address" class="form-label">작업일 / 수업일</label>
-	           <input type="number" class="form-control"  id="workDate" placeholder="" required>
+	           <input type="number" class="form-control"  id="workDate" placeholder="" value="${board.workDate }" required>
 	           <div class="invalid-feedback">
 	             Please enter your working day.
 	           </div>
@@ -150,7 +157,7 @@
 	         
 	         <div class="col-12">
 	           <label for="address" class="form-label">강사 한줄 소개 </label>
-	           <input type="text" class="form-control"  id="selfIntroduction" placeholder="" required>
+	           <input type="text" class="form-control"  id="selfIntroduction" placeholder="" value='${board.selfIntroduction }' required>
 	           <div class="invalid-feedback">
 	             Please enter your introduction.
 	           </div>
@@ -170,13 +177,13 @@
 			<div class="col-12">
 				<div class="map_wrap my-3">
 					<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-					<label class="form-label my-2" id="clickLatlng">주소 : </label> <!-- 주소 기록 -->
+					<label class="form-label my-2" id="clickLatlng">주소 : ${board.address }</label> <!-- 주소 기록 -->
 				</div>
 			</div>
 			<hr class="my-4">
 			<div class="col-7 my-2">
 				<label class="form-label">상세 주소 :  </label> <!-- 주소 기록 -->
-				<input type="text" class="form-control" id="detailAddress" placeholder="" required>
+				<input type="text" class="form-control" id="detailAddress" value="${board.detailAddress }"placeholder="" required>
 				<div class="invalid-feedback">
 			    	Please enter a valid address.
 			    </div>
@@ -185,6 +192,7 @@
 	      	<hr class="my-4">
 			<input type="hidden" id="jsonByTalent" name="jsonByTalent"/>
 			<input type="hidden" id="folderName" name="folderName" />
+			<input type="hidden" id="oldMainPhoto" name="oldMainPhoto" />
 	       	<button class="w-100 btn btn-primary btn-lg" id="insertTalent" type="submit" >제출하기</button>
 	     </form>
 	   </div>
@@ -201,9 +209,12 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
 	<script>
+	//document.getElementById('selfIntroduction').val() = ${board.selfIntroduction};
+	
 	/* 폴더명 */
-	const randomNum = Math.floor(Math.random() * 1000000000);
-	$('#folderName').val('padding-' + randomNum);
+	$('#folderName').val(${board.folderName});
+	
+	$('#oldMainPhoto').val(${board.MPhoto});
 	
 	//메인 사진 이미지
 	function readURL(input) {
@@ -352,7 +363,7 @@
 			$('#jsonByTalent').val(JSON.stringify(data));
 			
 			let form1 = $("#talentWriteForm");
-			let actionAttr = "${appRoot }/talent/write";
+			let actionAttr = "${appRoot }/talent/modify";
 			form1.attr("action", actionAttr);
 			
 			form1.submit();
@@ -375,6 +386,20 @@
 	
 	//주소-좌표 변환 객체를 생성
 	var geocoder = new daum.maps.services.Geocoder();
+	// 행정도 주소로 좌표 검색
+	geocoder.addressSearch('${board.address}', function(results, status) {
+		if (status === daum.maps.services.Status.OK) {
+		var result = results[0]; //첫번째 결과의 값을 활용
+		// 해당 주소에 대한 좌표를 받아서
+		var coords = new daum.maps.LatLng(result.y, result.x);
+
+
+       	 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+
+		}
+	})
+	
 	
 	// 마커표시----------------------------------------------------
 	// 지도를 클릭한 위치에 표출할 마커입니다

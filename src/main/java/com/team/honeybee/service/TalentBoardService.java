@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.honeybee.domain.DonationBoardDto;
@@ -65,6 +66,8 @@ public class TalentBoardService {
 	public List<TalentBoardDto> findBoardList(String topic, String sort) {
 		// 리스트 불러오기
 		List<TalentBoardDto> boardList =  mapper.findBoardList(topic, sort);
+		
+		
 		// 각 리스트에 각 게시판의 평점 넣기
 		for(TalentBoardDto board : boardList) {
 			int talentId = board.getTalentId();
@@ -85,9 +88,12 @@ public class TalentBoardService {
 	}
 	
 	// 특정 게시물 정보 가져오기
-	public TalentBoardDto getBoard(int talentId) {
+	// 로그인 x
+	public TalentBoardDto getBoardByTalentId(int talentId) {
 		// 별점 총합 가져오기 + 평균내기
 		TalentReivewDto reviewDto = reviewMapper.getTotalStarRating(talentId);
+		
+		
 		double sum = reviewDto.getStarSum();
 		int count = reviewDto.getStarCount();
 		double result = 0;
@@ -95,12 +101,34 @@ public class TalentBoardService {
 			result = sum / count;
 		}
 		
-		// 메인 사진 이름 가져오기??
-		TalentBoardDto dto =  mapper.getBoard(talentId);
+		// 게시글 내용물 가져오기
+		TalentBoardDto dto =  mapper.getBoard(talentId, null);
 		dto.setStarCount(count);
 		dto.setAverageStarRating(result);
 		
 		return dto;
+	}
+	
+	// 로그인 o
+	public TalentBoardDto getBoardWithOwnByTalentId(int talentId, String memberId) {
+		// 별점 총합 가져오기 + 평균내기
+		TalentReivewDto reviewDto = reviewMapper.getTotalStarRating(talentId);
+		
+		
+		double sum = reviewDto.getStarSum();
+		int count = reviewDto.getStarCount();
+		double result = 0;
+		if(count != 0) {
+			result = sum / count;
+		}
+		
+		// 게시글 내용물 가져오기
+		TalentBoardDto dto =  mapper.getBoard(talentId, memberId);
+		dto.setStarCount(count);
+		dto.setAverageStarRating(result);
+		
+		return dto;
+		
 	}
 
 	// 게시글 작성하기
@@ -117,7 +145,7 @@ public class TalentBoardService {
 			mapper.insertMainPhoto(dto.getTalentId(), mainPhoto.getOriginalFilename(), dto.getMemberId(), folderName);
 			
 			// s3 저장
-			saveMainPhotoAwsS3(dto.getTalentId(), mainPhoto, folderName); 
+			saveMainPhotoAwsS3(mainPhoto, folderName); 
 		}
 		
 		// Jsoup :  서머노트 수정된 이미지 업로드 판별
@@ -155,7 +183,7 @@ public class TalentBoardService {
 		
 	}
 	// 메인 사진 등록 메소드
-	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto, String folderName) {
+	private void saveMainPhotoAwsS3(MultipartFile mainPhoto, String folderName) {
 		// board/temp/12344.png
 		String key = "talent/" + folderName + "/" + mainPhoto.getOriginalFilename();
 		
@@ -192,12 +220,66 @@ public class TalentBoardService {
 		amazonS3.deleteObject(deleteBucketRequest);
 		
 	}
+	// 게시글 수정, 메인 사진 S3수정
+	private void deleteFromAwsS3FromNewMainPhoto(MultipartFile newMainPhoto, String folderName) {
+		String key = "talent/" + folderName + "/" + newMainPhoto.getOriginalFilename();
+				
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		amazonS3.deleteObject(deleteBucketRequest);
+	}
 	
 	// 메인 화면, 검색 목록
 	public List<TalentBoardDto> selectTalentBoardBySearch(String string) {
 		System.out.println(string);
 		return mapper.selectTalentBoardBySearch(string);
 	}
+
+	
+	// 게시글 수정 작업
+	@Transactional
+	public void updateTalentBoard(TalentBoardDto dto, MultipartFile mainPhoto, String folderName, String oldMainPhoto) {
+		// 메인 사진 수정 할 때,
+		if(mainPhoto.getOriginalFilename() != oldMainPhoto) {
+			//기존 것 삭제
+			deleteFromAwsS3FromNewMainPhoto(mainPhoto, folderName);
+			// 새로 업로드
+			saveMainPhotoAwsS3(mainPhoto, folderName);
+			// db 수정
+			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
+		}
+		
+		// Jsoup :  서머노트 수정된 이미지 업로드 판별
+		Document doc = Jsoup.parse(dto.getContent());
+		Elements imgs = doc.select("img[src]");
+		// 정말 사용하는 이미지 리스트
+		List<String> isImage = new ArrayList<>();
+		for(Element img : imgs) {
+			isImage.add(img.attr("src"));
+		}
+		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(folderName);
+		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
+		for(String imageUrl : dbImageUrlList) {
+			if(imageUrl !=null && !isImage.contains(imageUrl)) {
+				// db 지우기
+				System.out.println("db 지우기");
+				summerNoteMapper.deleteImage(imageUrl);
+				
+				// s3 지우기
+				deleteFromAwsS3(imageUrl);
+			}
+		}
+		
+		
+		// 수정된 게시글 내용 넣기
+		mapper.updateTalentBoard(dto);
+	}
+	
 	
 
 	

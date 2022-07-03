@@ -398,6 +398,22 @@ textarea {
                 		</div>
                 	</div>
                 </div>
+                
+                <c:if test="${board.own == 1 }">
+	                <div class="card border-1 mx-4 mb-4">
+	                	<div>
+	                		<div class="card-body pb-0 teacher-body">
+	                			<form action="${appRoot }/talent/modify/${board.talentId}" method="get">
+	                				<button>수정하기</button>
+	                			</form>
+	                			<form action="${appRoot }/talent/remove" >
+	                				<button>삭제하기</button>
+	                			</form>
+	                			
+	                		</div>
+	                	</div>
+	                </div>
+                </c:if>
             </div>
         </div>
      </div>

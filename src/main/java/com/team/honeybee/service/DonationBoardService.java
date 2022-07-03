@@ -78,14 +78,23 @@ public class DonationBoardService {
 	}
 	
 	// 기부 게시글 보기
+	// 로그인 x
 	@Transactional
-	public DonationBoardDto getBoard(int donationId) {
-		DonationBoardDto dto = mapper.getBoard(donationId);
+	public DonationBoardDto getBoardByBoardId(int donationId) {
+		DonationBoardDto dto = mapper.getBoard(donationId, null);
 		
 		// 해쉬태그 가져오기
 		List<String> hashTags = mapper.getHashTag(donationId);
 		dto.setHashTag(hashTags);
 		
+		return dto;
+	}
+	// 로그인 o
+	public DonationBoardDto getBoardWithOwnByBoardId(int donationId, String memberId) {
+		DonationBoardDto dto = mapper.getBoard(donationId, memberId);
+		// 해쉬태그 가져오기
+		List<String> hashTags = mapper.getHashTag(donationId);
+		dto.setHashTag(hashTags);
 		return dto;
 	}
 
@@ -106,7 +115,7 @@ public class DonationBoardService {
 			mapper.insertMainPhoto(dto.getDonationId(), mainPhoto.getOriginalFilename(), dto.getMemberId(), folderName);
 			
 			// s3 저장
-			saveMainPhotoAwsS3(dto.getDonationId(), mainPhoto, folderName); 
+			saveMainPhotoAwsS3(mainPhoto, folderName); 
 		}
 		
 		
@@ -157,7 +166,7 @@ public class DonationBoardService {
 	
 	
 	// 메인 사진 등록 메소드
-	private void saveMainPhotoAwsS3(int donationId, MultipartFile mainPhoto, String folderName) {
+	private void saveMainPhotoAwsS3(MultipartFile mainPhoto, String folderName) {
 		// board/temp/12344.png
 		String key = "donation/" + folderName + "/" + mainPhoto.getOriginalFilename();
 		
@@ -200,6 +209,62 @@ public class DonationBoardService {
 		return mapper.selectDonationBoardBySearch(keyword);
 	}
 	
+	
+	// 게시글 수정
+	public void updateDonationBoard(DonationBoardDto dto, String hashTagLump, MultipartFile mainPhoto,
+									String folderName, String oldMainPhoto) {
+		// 게시글 항목 저장
+		mapper.updateDonationBoard(dto);
+		System.out.println("dto : " + dto);
+		
+		// 해쉬 태그 분류 + db에 넣는 메소드
+		makeHashTagWithoutShop(hashTagLump, dto.getDonationId());
+		
+		// 메인 사진 수정 할 때,
+		if(mainPhoto.getOriginalFilename() != oldMainPhoto) {
+			//기존 것 삭제
+			deleteFromAwsS3FromNewMainPhoto(mainPhoto, folderName);
+			// 새로 업로드
+			saveMainPhotoAwsS3(mainPhoto, folderName);
+			// db 수정
+			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
+		}
+		
+		// Jsoup :  서머노트 수정된 이미지 업로드 판별
+		Document doc = Jsoup.parse(dto.getContent());
+		Elements imgs = doc.select("img[src]");
+		// 정말 사용하는 이미지 리스트
+		List<String> isImage = new ArrayList<>();
+		for(Element img : imgs) {
+			isImage.add(img.attr("src"));
+		}
+		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(folderName);
+		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
+		for(String imageUrl : dbImageUrlList) {
+			if(imageUrl !=null && !isImage.contains(imageUrl)) {
+				// db 지우기
+				System.out.println("db 지우기");
+				summerNoteMapper.deleteImage(imageUrl);
+				
+				// s3 지우기
+				deleteFromAwsS3(imageUrl);
+			}
+		}
+	}
+
+	// 게시글 수정, 메인 사진 S3수정
+	private void deleteFromAwsS3FromNewMainPhoto(MultipartFile newMainPhoto, String folderName) {
+		String key = "donation/" + folderName + "/" + newMainPhoto.getOriginalFilename();
+				
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		amazonS3.deleteObject(deleteBucketRequest);
+	}
 
 	//--------------------------------------------------------------------------------------------------------------------
 	
