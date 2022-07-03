@@ -75,6 +75,13 @@
 	padding-right : 50px;
 	padding-bottom: 30px;
 }
+.btn-outline-success{
+	border-color: white;
+}
+.input-outline-success{
+	border-color: white;
+	border: 2px;
+}
 </style>
 <body>
     <!-- Spinner Start -->
@@ -150,7 +157,7 @@
 
     
 	<!-- About Start -->
-    <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container-fluid overflow-hidden px-lg-0" style="background-color: #fbc02d">
         <div class="container about px-lg-0">
             <div class="row g-0 mx-lg-0">
                 
@@ -159,12 +166,16 @@
                         <h1 class="mb-4">기부 마켓 No.1 꿀비에서 원하는 기부를 찾아보세요!</h1>
                         <form action="${appRoot }/search"class="d-flex" role="search">
                        		<div class="input-group mb-2" style="width: 600px">
-                       			<input type="hidden" name="type" value="donation"/>
-					     		<input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search">
-					     		<button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                       			<input type="hidden" name="type" value="donation" />
+					     		<input class="form-control input-outline-success" type="search" name="keyword" placeholder="Search" aria-label="Search">
+					     		<button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: white"></i></button>
 					     	</div>
 					    </form>
-                        <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn btn-primary rounded-pill py-1 px-3 mt-3">#우크라이나</a>
+                        <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#우크라이나</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시1" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시1</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시2" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시2</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시3" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시3</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시4" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시4</a>
                     </div>
                 </div>
                 
@@ -181,7 +192,7 @@
 
 
 	<!-- Feature Start -->
-    <div class="my-5 py-5 " style="background: gray;">
+    <div class="py-5 " style="background: gray;">
     	
         <div class="container right">
         	<div class="">
@@ -218,8 +229,9 @@
 
 	 <!-- Feature Start -->
     <div class="container-xxl py-5">
-    	
+    	<div class="row ">인기 있는 기부 태그</div>
         <div class="container center">
+        	
             <div class="row g-5">
             
                 <div class="temp">

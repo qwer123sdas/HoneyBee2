@@ -113,6 +113,7 @@ public class TalentBoardController {
 							String folderName, 
 							Principal principal) {
 		// json 역직렬화하고 dto에 set하기
+		System.out.println("작성하기!");
 		Gson gson = new Gson();
 		TalentBoardDto dto = gson.fromJson(jsonByTalent, TalentBoardDto.class);
 		dto.setMemberId(principal.getName());
@@ -140,6 +141,12 @@ public class TalentBoardController {
 	@ResponseBody
 	public List<TalentReivewDto> getReivewList(int talentId) {
 		return reviewService.selectReviewList(talentId);
+	}
+	
+	// 게시글 수정
+	@RequestMapping("modify")
+	public void talentBoardModify() {
+		
 	}
 	
 

@@ -37,7 +37,7 @@
 		<div class="tr_oneLine">
 			<div>카테고리 분류</div>
 			<div style="width: 40%;">
-				<select id="topic" class="topic" id="topic" name="mainCategory">
+				<select id="topic" class="topic" name="mainCategory">
 					<option class="selectTopic" value="">카테고리 선택</option>
 					<option class="selectTopic" value="1">문서, 취업</option>
 					<option class="selectTopic" value="2">생활, 레슨</option>

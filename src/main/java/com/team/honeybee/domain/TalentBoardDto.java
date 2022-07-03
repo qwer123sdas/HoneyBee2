@@ -35,6 +35,7 @@ public class TalentBoardDto {
 	
 	private int mapLevel;
 	private String address;
+	private String detailAddress;
 	
 	private int starRating; // 평점
 	private String topic;
