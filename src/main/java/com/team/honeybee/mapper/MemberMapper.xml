@@ -200,7 +200,7 @@
 		FROM MeetingComment
 		WHERE member_id = #{memberId}
 		GROUP BY meetingCommentId
-		ORDER BY meetingCommentId
+		ORDER BY meetingCommentId DESC
 	</select>
 		
 	<!-- 기부 후기글 삭제 -->
@@ -214,4 +214,8 @@
 		WHERE reply_id = #{replyId}
 	</delete>
 	
+	<delete id="deleteMeetingCommentByMeetingCommentId">
+		DELETE FROM MeetingComment
+		WHERE meeting_comment_id = #{meetingCommentId}
+	</delete>
 </mapper> 

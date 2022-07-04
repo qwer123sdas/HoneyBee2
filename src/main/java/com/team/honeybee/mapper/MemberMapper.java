@@ -65,5 +65,7 @@ public interface MemberMapper {
 	void deleteDonationPayByReplyId(String replyId);
 	// 기부 후기글 삭제
 	boolean deleteDonationReplyByReplyId(String replyId);
+	// 모임 후기글 삭제
+	boolean deleteMeetingCommentByMeetingCommentId(String meetingCommentId);
 
 }

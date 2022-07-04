@@ -12,8 +12,7 @@ import lombok.Data;
 public class MeetingCommentDto {
 	// 후기
 	private int meetingCommentId;
-	private int meetingId;
-	private String memeberId;
+	private String memberId;
 	private String content;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate inserted;

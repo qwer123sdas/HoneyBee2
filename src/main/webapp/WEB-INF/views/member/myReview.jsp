@@ -26,6 +26,7 @@
 		let tr;
 		// 테이블 클릭시 데이터 가져오기
 		$("#donationReply tbody").on('click', 'tr', function() {
+			
 			let str = "";
 			let tdArr = new Array();
 			
@@ -41,13 +42,14 @@
 			console.log(tdArr);
 			
 			$("#replyIdResult").val(td.eq(0).text());
+			$("#donationReplyDeleteButtonWrapper").show();
 		});
 	});
 	$(document).ready(function() {
-		$('#meetingReply').DataTable();
+		$('#meetingComment').DataTable();
 		let tr;
 		// 테이블 클릭시 데이터 가져오기
-		$("#meetingReply tbody").on('click', 'tr', function() {
+		$("#meetingComment tbody").on('click', 'tr', function() {
 			let str = "";
 			let tdArr = new Array();
 			
@@ -62,6 +64,8 @@
 			
 			console.log(tdArr);
 			
+			$("#meetingCommentIdResult").val(td.eq(0).text());
+			$("#meetingCommentDeleteButtonWrapper").show();
 		});
 	});
 </script>
@@ -92,9 +96,9 @@ thead tr{
 				<form action="deleteDonationReply" method="post">
 					<input type="hidden" name="replyId" id="replyIdResult" />
 					<div class="d-flex flex-row-reverse">
-						<input type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="삭제"></input>
+						<input id="donationReplyDeleteButtonWrapper" style="display: none;" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="삭제"></input>
 					</div>
-					<!-- Modal -->
+					<!-- Donation Reply Modal -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
@@ -149,10 +153,34 @@ thead tr{
 
 				<hr />
 
+				<form action="deleteMeetingComment" method="post">
+					<input type="hidden" name="meetingCommentId" id="meetingCommentIdResult" />
+					<div class="d-flex flex-row-reverse">
+						<input id="meetingCommentDeleteButtonWrapper" style="display: none;" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" value="삭제"/>
+					</div>
+					<!-- Meeting Comment Modal -->
+					<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="staticBackdropLabel">모임 후기 삭제</h5>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        정말로 삭제하시겠습니까?
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					        <button type="submit" class="btn btn-danger">삭제</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</form>
 				<table class="table caption-top table-hover" id="meetingComment" style="width: 100%">
 					<caption>&#60;내가 쓴 모임 댓글&#62;</caption>
 					<thead>
-						<tr class="headMeeting">
+						<tr class="headMeetingComment">
 							<th scope="col">#</th>
 							<th scope="col">작성자</th>
 							<th scope="col">후기</th>

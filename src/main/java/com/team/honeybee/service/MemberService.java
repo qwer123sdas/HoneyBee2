@@ -286,4 +286,8 @@ public class MemberService {
 		mapper.deleteDonationPayByReplyId(replyId);
 		return mapper.deleteDonationReplyByReplyId(replyId);
 	}
+
+	public boolean deleteMeetingCommentByMeetingCommentId(String meetingCommentId) {
+		return mapper.deleteMeetingCommentByMeetingCommentId(meetingCommentId);
+	}
 }

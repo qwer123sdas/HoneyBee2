@@ -326,6 +326,14 @@ public class MemberController {
 		return "redirect:/member/myReview";
 	}
 	
+	@PostMapping("deleteMeetingComment")
+	public String deleteMeetingComment(String meetingCommentId) {
+		System.out.println(meetingCommentId);
+		boolean success = service.deleteMeetingCommentByMeetingCommentId(meetingCommentId);
+		System.out.println(success);
+		return "redirect:/member/myReview";
+	}
+	
 	// 유저/어드민 로그인 따로
 	@GetMapping("loginSuccess")
 	public String loginSuccess(Authentication authentication) {
