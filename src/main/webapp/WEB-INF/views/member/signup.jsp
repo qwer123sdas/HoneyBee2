@@ -386,7 +386,10 @@ html, body {
 						<br />
 						<div class="col-md-12">
 							<!-- 생년월일 -->
+							생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="date" name="birth" placeholder="생년월일" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
 						<br />
 						
