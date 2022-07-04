@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ attribute name="current"%>
 
 <c:url value="/board/list" var="listUrl"></c:url>
@@ -17,7 +18,6 @@
 <c:url value="/member/changePw" var="changePwUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
-<c:url value="/meeting/login" var="loginUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -45,17 +45,16 @@
 .navbar .navbar-nav .nav-link {
 	margin-right: 30px;
 	padding: 25px 0;
-	color: #1A2A36;
+	color: var(- -dark);
 	font-size: 15px;
 	font-weight: 500;
 	text-transform: uppercase;
 	outline: none;
 }
-.navbar .navbar-nav .nav-link:hover{
-	color: #fbc02d;
-}
-.navbar .navbar-nav .nav-link:active {
-	color: #fbc02d;
+
+.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link.active
+	{
+	color: var(- -primary);
 }
 
 .navbar .dropdown-toggle:after {
@@ -91,7 +90,6 @@
 		transition: .5s;
 	}
 	.navbar .nav-item:hover .dropdown-menu {
-		color: #fbc02d;
 		top: 100%;
 		visibility: visible;
 		transition: .5s;
@@ -102,74 +100,61 @@
 		align-items: flex-start;
 		margin: 0;
 	}
-@media ( prefers-reduced-motion : reduce) {
-	.btn {
-		transition: none
-	}
+	
+.d-none{
+	color: #fff !important;
 }
-
-.btn-primary {
-	background-color: #fbc02d;
-	border-color: #fbc02d
-}
-
-.btn-primary:hover {
-	color: #000;
-	background-color:#fdd835;
-	border-color: #fdd835
-}
-
-.btn-check:focus+.btn-primary, .btn-primary:focus {
-	color: #000;
-	background-color: #fdd835;
-	border-color: #fdd835;
-	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
-}
-
-.btn-check:checked+.btn-primary, .btn-check:active+.btn-primary,
-	.btn-primary:active, .btn-primary.active, .show>.btn-primary.dropdown-toggle
-	{
-	color: #000;
-	background-color: #fdd835;
-	border-color: #fdd835
-}
-
-.btn-check:checked+.btn-primary:focus, .btn-check:active+.btn-primary:focus,
-	.btn-primary:active:focus, .btn-primary.active:focus, .show>.btn-primary.dropdown-toggle:focus
-	{
-	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
-}
-
-.btn-primary:disabled, .btn-primary.disabled {
-	color: #000;
-	background-color: #fbc02d;
-	border-color: #fbc02d
-}
-
 }
 </style>
-<!-- fontAwesome -->
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
 	rel="stylesheet">
-	
+
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	referrerpolicy="no-referrer"></script>
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="index"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-		<h2 class="m-0 text-primary">
-			<img src="${appRoot }/resources/webContents/img/honeybee1.jpg"
-				style="width: 200px; height: 75.6px;" />
-		</h2>
+		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
 	</a>
 
 	<button type="button" class="navbar-toggler me-4"
@@ -186,12 +171,12 @@
 						href="${mainPageUrl }">홈</a>
 				</li>
 			</sec:authorize>
-
-			<li class="nav-item">
-				<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
-					href="${aboutUrl }">About 꿀비</a>
-			</li>
-
+			
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
+						href="${aboutUrl }">About 꿀비</a>
+				</li>
+				
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<a class="nav-item nav-link" href="#">기부하기</a>
@@ -208,10 +193,10 @@
 
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown">
-					<a
-						class="nav-item nav-link dropdown-toggle ${current == 'memberInfo' ? 'active' : '' }"
-						data-toggle="dropdown" href="${memberInfoUrl }">마이페이지 </a>
-
+					<a class="nav-item nav-link dropdown-toggle${current == 'memberInfo' ? 'active' : '' }" data-toggle="dropdown"
+						href="${memberInfoUrl }">마이페이지
+					</a>
+					
 					<div class="dropdown-menu">
 						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
 						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
@@ -220,7 +205,7 @@
 						<a href="faqList" class="dropdown-item">상담 내역</a>
 					</div>
 				</li>
-
+				
 				<!-- 
 				<ul class="">
 					<li class="dropdown-item">회원 정보 수정</li>
@@ -257,52 +242,41 @@
 			</div>
 			<a href=""
 				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
-				둘러보기<i class="fa fa-arrow-right ms-3"></i>
+				둘러보기
+				<i class="fa fa-arrow-right ms-3"></i>
 			</a>
 		</div>
 	</div>
+
+	<!-- form.d-flex>input.form-control.me-2[type=search]+button.btn.btn-outline-success -->
+	<!--
+				<form action="${listUrl }" class="d-flex">
+					<div class="input-group">
+						<select name="type" id="" class="form-select"
+							style="flex: 0 0 100px;">
+							<option value="all"
+								${param.type != 'title' && param.type != 'body' ? 'selected' : '' }>전체</option>
+							<option value="title" ${param.type == 'title' ? 'selected' : '' }>제목</option>
+							<option value="body" ${param.type == 'body' ? 'selected' : ''}>본문</option>
+						</select>
+
+						<input type="search" class="form-control" name="keyword" />
+						<button class="btn btn-outline-success">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</form>
+ -->
+
 </nav>
 
 
 
 
 
-<!-- Navbar Start -->
-<!-- 
-    <nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s" style="background-color: white;">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="text-primary m-0">Baker</h1>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="product.html" class="nav-item nav-link">Products</a>
-                <a href="${loginUrl }" class="nav-item nav-link">로그인</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
-                    </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <div class=" d-none d-lg-flex">
-                <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle">
-                    <i class="fa fa-phone text-primary"></i>
-                </div>
-                <div class="ps-3">
-                    <small class="text-primary mb-0">Call Us</small>
-                    <p class="text-light fs-5 mb-0">+012 345 6789</p>
-                </div>
-            </div>
-        </div>
-    </nav>
-     -->
-<!-- Navbar End -->
+
+
+
+
+
+

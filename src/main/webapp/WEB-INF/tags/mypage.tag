@@ -38,6 +38,8 @@
 		<hr />
 		<a href="myReview">내가 쓴 후기</a>
 		<hr />
+		<a href="#" class="dropdown-item">구매 내역</a>
+		<hr />
 		<a href="faqList">상담내역</a>
 	</div>
 </div>

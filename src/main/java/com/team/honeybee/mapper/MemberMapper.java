@@ -57,4 +57,15 @@ public interface MemberMapper {
 	List<TalentBoardDto> getTalentByMemberId(String memberId);
 	// 모임 게시글
 	List<MeetingDto> getMeetingByMemberId(String memberId);
+	// 기부 후기글
+	List<DonationReplyDto> getDonationReplyByMemberId(String memberId);
+	// 모임 후기글
+	List<MeetingCommentDto> getMeetingCommentByMemberId(String memberId);
+	// 기부금 삭제
+	void deleteDonationPayByReplyId(String replyId);
+	// 기부 후기글 삭제
+	boolean deleteDonationReplyByReplyId(String replyId);
+	// 모임 후기글 삭제
+	boolean deleteMeetingCommentByMeetingCommentId(String meetingCommentId);
+
 }

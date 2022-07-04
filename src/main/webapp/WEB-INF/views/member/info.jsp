@@ -196,7 +196,7 @@ form input #profileFile:file-selector-button{
 </head>
 <body>
 	<!-- 임시 navBar -->
-	<my:navBar current="info"></my:navBar>
+	<my:mainNavBar current="info"></my:mainNavBar>
 	<my:mypage></my:mypage>
 	<div class="container">
 		<div class="row">
