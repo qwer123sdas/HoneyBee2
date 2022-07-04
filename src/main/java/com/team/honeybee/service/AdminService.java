@@ -277,6 +277,12 @@ public class AdminService {
 		MeetingDto meeting = mapper.getMeetingById(meetingId);
 		return meeting;
 	}
+	
+	// 로그인 안한 유저, 게스트 목록 가져오기
+	public List<String> selectGuestInfo(int meetingId) {
+		
+		return mapper.selectGuestInfo(meetingId);
+	}
 
 	// 재능판매게시글 내용보기
 	public TalentDto getTalent(int talentId) {
@@ -339,12 +345,12 @@ public class AdminService {
 	@Transactional
 	public void deleteMeeting(int meetingId) {
 		MeetingDto dto = mapper.selectFolderNameAndMainPhotoByMeetingId(meetingId);
+		mapper.deleteBoardImageByMeetingId(meetingId);
 		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMPhoto());
 		List<String> fileNames = mapper.selectFileNameByMeetingId(meetingId);
 		for(String fileName : fileNames) {
 			deleteFromAwsS3Meeting(dto.getFolderName(), fileName);
 		}
-		mapper.deleteBoardImageByMeetingId(meetingId);
 		mapper.deleteMeetingGuestByMeetingId(meetingId);
 		mapper.deleteMeetingCommentByMeetingId(meetingId);
 		mapper.deleteFavoriteByMeetingReplyId(meetingId);

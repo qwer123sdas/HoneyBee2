@@ -115,6 +115,8 @@ public interface AdminMapper {
 
 	void deleteTagByMeetingId(int meetingId);
 
+	List<String> selectGuestInfo(int meetingId);
+
 
 
 }

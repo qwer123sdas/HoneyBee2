@@ -143,7 +143,10 @@ public class AdminController {
 	public void getMeeting(int meetingId, Model model) {
 		MeetingDto dto = service.getMeeting(meetingId);
 		System.out.println(dto);
+		// 게스트 목록 가져오기
+		List<String> guestList = service.selectGuestInfo(meetingId);
 		model.addAttribute("meeting", dto);
+		model.addAttribute("guestList", guestList);
 	}
 	
 	// 모임게시글 삭제

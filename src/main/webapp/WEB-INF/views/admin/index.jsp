@@ -4,6 +4,9 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <% request.setCharacterEncoding("utf-8"); %>
+
+<c:url value="/logout" var="logoutUrl"></c:url>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +19,7 @@
 <link href="${resources }/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 
-<title>Insert title here</title>
+<title>관리자 메인페이지</title>
 </head>
 <body>
     <!-- Page Wrapper -->
@@ -89,25 +92,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="${appRoot }/resources/admin/vendor/jquery/jquery.min.js"></script>

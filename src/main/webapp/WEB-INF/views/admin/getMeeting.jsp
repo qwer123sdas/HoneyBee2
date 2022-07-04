@@ -29,6 +29,49 @@
 			}
 		});
 	});
+	
+	$(document).ready(function() {
+		/* 카카오 지도 api 시작 */
+		
+		var Container = document.getElementById('map'), // 지도를 표시할 div 
+			Option = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(Container, Option); 
+		console.log("111111111111111111111111111111111111")
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		console.log('${meeting.address}')
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${meeting.address}', function(result, status) {
+			console.log("22222222222222222222222222222222222222")
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		    	 console.log("33333333333333333333333333333333333333")
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		        
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});
+	});
+		
+		/* 카카오 지도 api 끝남 */
 </script>
 
 <title>Insert title here</title>
@@ -96,6 +139,11 @@
 											<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
 											<h4 class="fw-bolder mb-4 mt-5">모임 장소 : ${meeting.address }
 												${meeting.detailAddress }</h4>
+											<!-- 카카오 지도 api -->
+											<div class="border mb-3 container shadow p-3 mb-3 bg-body rounded">
+												<div id="map"
+													style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
+											</div>
 										</section>
 									</article>
 									
@@ -113,17 +161,15 @@
 											<div class="row">
 												<div class="col">
 													<!-- 게스트 목록 출력 -->
-														<c:forEach items="${meetingGuest }" var="guest">
+														<c:forEach items="${guestList }" var="guest">
 															<ul class="list-group list-group-flush">
 																<!-- select 내용이 1개 뿐이다. -->
 															  <li class="list-group-item d-flex justify-content-between">
 															  	<i class="fa-solid fa-user-check"></i>${guest}
-															  	<a class="small fw-medium" href="${appRoot }/meeting/board/deleteGuest">
-															 	 <i id="deleteGuest" class="fa-solid fa-calendar-xmark">취소</i></a>
 															  </li> 
 															</ul>
 														</c:forEach>
-													<!-- 신청자만 신청완료 버튼 보임 
+													<%-- 신청자만 신청완료 버튼 보임 
 													<sec:authorize access="isAuthenticated()">
 														<sec:authentication property="principal" var="principal"/>
 															<c:if test="${principal.username == meeting.guest }" >
@@ -134,17 +180,7 @@
 																</button>
 															</c:if>
 													</sec:authorize>
-													-->
-													<c:if test="${not empty message }">
-														<div class="alert alert-primary">
-															${message }
-														</div>
-													</c:if>
-													<button type="button" id="insertGuestBtn1"
-														class="btn btn-lg btn-primary mt-5 w-100">
-														<i class="fa-solid fa-heart-circle-check"></i>
-														함께할께요!
-													</button>
+													--%>
 												</div>
 											</div>
 										</div>
