@@ -32,13 +32,15 @@
                 <nav:topbar></nav:topbar>
 
 				<div class="container-fluid">
-					<a class="btn btn-primary" href="${appRoot }/admin/insert">판매글 작성</a>
-					<div class="row">
+					<div class="d-flex justify-content-center align-items-center" style="margin-bottom: 15px;">
+						<a class="btn btn-primary" href="${appRoot }/admin/insert">판매글 작성</a>
+					</div>
+					<div class="row d-flex justify-content-start">
 						<c:forEach items="${market }" var="market">
 							<c:url value="/admin/getMarket" var="getUrl">
 								<c:param name="marketId" value="${market.marketId }"></c:param>
 							</c:url>
-							<div class="card" style="width: 18rem; margin: 1px;">
+							<div class="card" style="width: 23rem; margin: 1px;">
 							  <c:if test="${not market.hasFile }">
 							  	<figure class="img_ico mb-4">
 							  		<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="" />
