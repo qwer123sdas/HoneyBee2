@@ -65,8 +65,8 @@
 
 </head>
 <body>
-	<my:navBar current="faqList"></my:navBar>
-	<form action="${appRoot }/faq/remove" method="post">
+	<my:mainNavBar current="faqList"></my:mainNavBar>
+	<form action="${appRoot }/member/removeFaq" method="post">
 		<div class="container">
 			<div class="row">
 				<div class="col-8 mt-5 ms-5">
@@ -94,7 +94,7 @@
 							<c:forEach items="${faqList}" var="faq">
 								<tr>
 									<td>${faq.questionId }</td>
-									<td><c:url value="/faq/faqGet" var="getUrl">
+									<td><c:url value="/member/faqGet" var="getUrl">
 											<c:param name="questionId" value="${faq.questionId }"></c:param>
 										</c:url> <a href="${getUrl }"> <c:out value="${faq.title }" />
 									</a></td>

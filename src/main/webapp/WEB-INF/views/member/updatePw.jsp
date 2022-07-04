@@ -61,7 +61,7 @@
 
 </head>
 <body>
-	<my:navBar current="updatePw"></my:navBar>
+	<my:mainNavBar current="updatePw"></my:mainNavBar>
 	
 	<div class="main-container">
 		<div class="main-wrap">
