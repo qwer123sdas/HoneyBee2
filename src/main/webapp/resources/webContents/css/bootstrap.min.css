@@ -2139,7 +2139,7 @@ textarea.form-control-lg {
 }
 
 .form-check-input:focus {
-	border-color: #99e1b6;
+	border-color: #ffe082;
 	outline: 0;
 	box-shadow: 0 0 0 .25rem rgba(50, 195, 108, 0.25)
 }
@@ -2468,7 +2468,7 @@ textarea.form-control-lg {
 	width: 100%;
 	margin-top: .25rem;
 	font-size: .875em;
-	color: #198754
+	color: #ffa000
 }
 
 .valid-tooltip {
@@ -2530,17 +2530,17 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-select:valid:focus, .form-select.is-valid:focus {
-	border-color: #198754;
+	border-color: #ffa000;
 	box-shadow: 0 0 0 .25rem rgba(25, 135, 84, 0.25)
 }
 
 .was-validated .form-check-input:valid, .form-check-input.is-valid {
-	border-color: #198754
+	border-color: #ffa000
 }
 
 .was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked
 	{
-	background-color: #198754
+	background-color: #ffa000
 }
 
 .was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus
@@ -2550,7 +2550,7 @@ textarea.form-control-lg {
 
 .was-validated .form-check-input:valid ~ .form-check-label,
 	.form-check-input.is-valid ~ .form-check-label {
-	color: #198754
+	color: #ffa000
 }
 
 .form-check-inline .form-check-input ~ .valid-feedback {
@@ -2711,14 +2711,14 @@ textarea.form-control-lg {
 
 .btn-primary:hover {
 	color: #000;
-	background-color: #51cc82;
-	border-color: #47c97b
+	background-color:#fdd835;
+	border-color: #fdd835
 }
 
 .btn-check:focus+.btn-primary, .btn-primary:focus {
 	color: #000;
-	background-color: #51cc82;
-	border-color: #47c97b;
+	background-color: #fdd835;
+	border-color: #fdd835;
 	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
 }
 
@@ -2726,8 +2726,8 @@ textarea.form-control-lg {
 	.btn-primary:active, .btn-primary.active, .show>.btn-primary.dropdown-toggle
 	{
 	color: #000;
-	background-color: #5bcf89;
-	border-color: #47c97b
+	background-color: #fdd835;
+	border-color: #fdd835
 }
 
 .btn-check:checked+.btn-primary:focus, .btn-check:active+.btn-primary:focus,

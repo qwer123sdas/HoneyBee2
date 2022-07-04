@@ -100,6 +100,10 @@
 		align-items: flex-start;
 		margin: 0;
 	}
+	
+.d-none{
+	color: #fff !important;
+}
 }
 </style>
 

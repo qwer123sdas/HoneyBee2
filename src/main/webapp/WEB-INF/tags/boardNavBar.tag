@@ -45,16 +45,17 @@
 .navbar .navbar-nav .nav-link {
 	margin-right: 30px;
 	padding: 25px 0;
-	color: var(- -dark);
+	color: #1A2A36;
 	font-size: 15px;
 	font-weight: 500;
 	text-transform: uppercase;
 	outline: none;
 }
-
-.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link.active
-	{
-	color: var(- -primary);
+.navbar .navbar-nav .nav-link:hover{
+	color: #fbc02d;
+}
+.navbar .navbar-nav .nav-link:active {
+	color: #fbc02d;
 }
 
 .navbar .dropdown-toggle:after {
@@ -90,6 +91,7 @@
 		transition: .5s;
 	}
 	.navbar .nav-item:hover .dropdown-menu {
+		color: #fbc02d;
 		top: 100%;
 		visibility: visible;
 		transition: .5s;
@@ -100,8 +102,65 @@
 		align-items: flex-start;
 		margin: 0;
 	}
+@media ( prefers-reduced-motion : reduce) {
+	.btn {
+		transition: none
+	}
+}
+
+.btn-primary {
+	background-color: #fbc02d;
+	border-color: #fbc02d
+}
+
+.btn-primary:hover {
+	color: #000;
+	background-color:#fdd835;
+	border-color: #fdd835
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+	color: #000;
+	background-color: #fdd835;
+	border-color: #fdd835;
+	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
+}
+
+.btn-check:checked+.btn-primary, .btn-check:active+.btn-primary,
+	.btn-primary:active, .btn-primary.active, .show>.btn-primary.dropdown-toggle
+	{
+	color: #000;
+	background-color: #fdd835;
+	border-color: #fdd835
+}
+
+.btn-check:checked+.btn-primary:focus, .btn-check:active+.btn-primary:focus,
+	.btn-primary:active:focus, .btn-primary.active:focus, .show>.btn-primary.dropdown-toggle:focus
+	{
+	box-shadow: 0 0 0 .25rem rgba(43, 166, 92, 0.5)
+}
+
+.btn-primary:disabled, .btn-primary.disabled {
+	color: #000;
+	background-color: #fbc02d;
+	border-color: #fbc02d
+}
+
 }
 </style>
+<!-- fontAwesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+	rel="stylesheet">
+	
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
@@ -150,7 +209,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown">
 					<a
-						class="nav-item nav-link dropdown-toggle${current == 'memberInfo' ? 'active' : '' }"
+						class="nav-item nav-link dropdown-toggle ${current == 'memberInfo' ? 'active' : '' }"
 						data-toggle="dropdown" href="${memberInfoUrl }">마이페이지 </a>
 
 					<div class="dropdown-menu">
@@ -196,9 +255,8 @@
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
 			<a href=""
-				class="btn btn-warning rounded-0 py-4 px-lg-5 d-none d-lg-block">
-				둘러보기
-				<i class="fa fa-arrow-right ms-3"></i>
+				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
+				둘러보기<i class="fa fa-arrow-right ms-3"></i>
 			</a>
 		</div>
 	</div>
