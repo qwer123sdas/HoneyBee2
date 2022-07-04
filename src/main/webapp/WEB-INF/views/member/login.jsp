@@ -130,7 +130,7 @@
 </head>
 <body>
 	<!-- 임시 navBar -->
-	<my:navBar current="login"></my:navBar>
+	<my:mainNavBar current="login"></my:mainNavBar>
 
 	<div class="main-container">
 		<div class="main-wrap">

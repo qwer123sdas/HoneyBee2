@@ -46,7 +46,7 @@ article .inputId{
 <title>비밀번호 찾기 : 꿀비</title>
 </head>
 <body>
-	<my:navBar current="initpw"></my:navBar>
+	<my:mainNavBar current="initpw"></my:mainNavBar>
 	
 	<div class="main-container">
 		<div class="main-wrap">

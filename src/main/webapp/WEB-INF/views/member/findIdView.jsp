@@ -73,7 +73,7 @@ body{
 <title>아이디 찾기</title>
 </head>
 <body>
-	<my:navBar current="findIdView"></my:navBar>
+	<my:mainNavBar current="findIdView"></my:mainNavBar>
 	
 	<div class="main-container">
 		<div class="main-wrap">

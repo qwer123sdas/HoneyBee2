@@ -316,7 +316,7 @@ html, body {
 </head>
 <body>
 
-<my:navBar current="signup"></my:navBar>
+<my:mainNavBar current="signup"></my:mainNavBar>
 
 <div class="form-body">
 	<div class="row">

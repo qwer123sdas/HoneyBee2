@@ -98,7 +98,7 @@
 
 </head>
 <body>
-	<my:navBar current="changePw"></my:navBar>
+	<my:mainNavBar current="changePw"></my:mainNavBar>
 	
 	<div class="main-container">
 		<div class="main-wrap">

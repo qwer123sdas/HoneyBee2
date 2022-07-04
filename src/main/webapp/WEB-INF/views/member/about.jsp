@@ -64,7 +64,7 @@ section {
 
 </head>
 <body>
-	<my:navBar current="about"></my:navBar>
+	<my:mainNavBar current="about"></my:mainNavBar>
 
 	<section></section>
 	<!-- about 내용 -->

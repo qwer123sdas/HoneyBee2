@@ -65,7 +65,7 @@
 
 </head>
 <body>
-	<my:navBar current="faqList"></my:navBar>
+	<my:mainNavBar current="faqList"></my:mainNavBar>
 	<form action="${appRoot }/member/removeFaq" method="post">
 		<div class="container">
 			<div class="row">
