@@ -17,6 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.team.honeybee.domain.MeetingCommentDto;
 import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.mapper.MeetingMapper;
 import com.team.honeybee.mapper.MeetingSummerNoteMapper;
@@ -196,6 +197,12 @@ public class MeetingService {
 		amazonS3.deleteObject(deleteBucketRequest);
 			
 		}
+	
+	// 후기 입력 모달
+	public void meetingCommentAdd(String memberId, String content) {
+		mapper.meetingCommentAdd(memberId, content);
+		
+	}
 	
 	/* 데스크탑 저장용 메소드
 	// 파일 저장 메소드

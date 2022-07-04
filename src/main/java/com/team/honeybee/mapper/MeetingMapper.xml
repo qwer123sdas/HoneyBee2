@@ -95,4 +95,10 @@
 		VALUES (#{meetingId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
 	
+	<!-- 후기 입력 모달 -->
+	<insert id="meetingCommentAdd" >
+		INSERT INTO MeetingComment (member_id, content)
+		VALUES (#{memberId}, #{content})
+	</insert>
+	
 </mapper>

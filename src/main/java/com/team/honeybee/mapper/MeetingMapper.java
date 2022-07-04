@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.team.honeybee.domain.MeetingCommentDto;
 import com.team.honeybee.domain.MeetingDto;
 
 public interface MeetingMapper {
@@ -31,6 +32,11 @@ public interface MeetingMapper {
 
 	// 현재 인원수 가져오기
 	int meetingSelectGuest(int meetingId);
+
+	// 후기 입력 모달
+	void meetingCommentAdd(@Param("memberId") String memberId, @Param("content") String content);
+	
+	
 
 	
 	

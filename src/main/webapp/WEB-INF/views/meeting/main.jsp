@@ -38,6 +38,11 @@
 
     <!-- Template Stylesheet -->
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+    
+    <!-- jQuery Modal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    
 </head>
 	<style>
 	.group_catelist {
@@ -123,7 +128,7 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="${appRoot }/meeting/insert">모임제안</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#" id="commentAdd"  >후기작성</a></li>
                     <li class="breadcrumb-item text-white active" aria-current="page">Projects</li>
                 </ol>
             </nav>
@@ -193,6 +198,9 @@
  					</div>
  				</div>
             
+            <form id="commentAddForm1" action="${appRoot }/meeting/commentAdd" method="post">
+            	<input type="hidden" name="content" id="content"  />
+            </form>
             
             <!-- 게시물 리스트 -->
             <div class="row g-4">
@@ -271,17 +279,16 @@
         </div>
     </div>
     <!-- Testimonial End -->
-        
 
+	
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
+	
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -295,8 +302,22 @@
 
     <!-- Template Javascript -->
     <script src="${appRoot }/resources/webContents/js/main.js"></script>
-    
+<script>
+$(document).ready(function() {
 
+	$("#commentAdd").click(function(e) {
+		e.preventDefault();
+		
+		const content = window.prompt("모두의행동 후기를 남겨주세요!");
+		document.getElementById('content').setAttribute("value",content);
+		console.log(content);
+		console.log(document.getElementById('content'));
+		$("#commentAddForm1").submit();
+	});
+
+});
+
+</script>
 </body>
 
 </html>

@@ -440,8 +440,6 @@
 		<!-- page contents end -->
 	</div>
 
-
-
 	<!-- foot bar -->
 	<nav:footbar></nav:footbar>
 
@@ -925,8 +923,6 @@
 					<li>문의 사항은 댓글을 남겨주세요</li>
 					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
 				</ul>
-				<h1>${meeting.meetingId }</h1>
-				<h1>${meeting.memberId }</h1>
 				<p>모임일시:${meeting.meetingDate }</p>
 				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
 				<form id="guestInsertForm1"

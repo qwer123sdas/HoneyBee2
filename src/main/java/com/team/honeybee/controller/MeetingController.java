@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.honeybee.domain.MeetingCommentDto;
 import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.MeetingGuestDto;
 import com.team.honeybee.domain.MeetingReplyDto;
@@ -107,14 +108,21 @@ public class MeetingController {
 		return "/meeting/board";
 	}
 	
+	// 후기입력 모달
+	@PostMapping("commentAdd")
+	public String meetingCommentAdd(Principal principal, @RequestParam("content") String content) {
+		if (principal != null) {
+			String memberId = principal.getName();
+			
+			service.meetingCommentAdd(memberId, content);
+		}
+		
+		return "redirect:/meeting/main";
+	}
+	
 	// 입력위해 만듬 나중에 제안하기로 이동함
 	@GetMapping("insert")
 	public void meetingInsert() {
-		
-	}
-	
-	@GetMapping("donation")
-	public void Insert() {
 		
 	}
 	
