@@ -216,7 +216,7 @@
 	           <div class="col mb-5">
 		            <div class="card border-0  h-100">
 		                <!-- Product image-->
-		               	<img class="image card-img-top rounded-4"  src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${list.folderName }/${list.MPhoto}" alt="..." />
+		               	<img class="image card-img-top rounded-4"  src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/talent/${list.folderName }/${list.MPhoto}" alt="..." />
 		                <!-- Product details-->
 		                <div class="card-body">
 		                    <div class="text">

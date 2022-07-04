@@ -171,7 +171,7 @@ public class TalentBoardController {
 		TalentBoardDto dto = gson.fromJson(jsonByTalent, TalentBoardDto.class);
 		
 		service.updateTalentBoard(dto, mainPhoto, folderName, oldMainPhoto);
-		return "talent/modify/" + dto.getTalentId();
+		return "redirect:/talent/main";
 	}
 	
 

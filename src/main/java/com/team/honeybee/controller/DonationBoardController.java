@@ -120,10 +120,16 @@ public class DonationBoardController {
 		return "redirect:/donation/main";
 	}
 	
-	
+	// 수정 게시판
 	@RequestMapping("modify/{donationId}")
 	public String modifyPage(@PathVariable int donationId, Model model) {
 		DonationBoardDto dto =  service.getBoardByBoardId(donationId);
+		
+		String hashTags = "";
+		for(int i = 0; i < dto.getHashTag().size(); i++) {
+			hashTags += "#" + dto.getHashTag().get(i);
+		}
+		model.addAttribute("hashTags", hashTags);
 		model.addAttribute("board", dto);
 		return "donation/modify";
 	}
@@ -135,9 +141,10 @@ public class DonationBoardController {
 										@RequestParam(name="folderName")String folderName,
 										@RequestParam(name="oldMainPhoto")String oldMainPhoto) {
 		
+		System.out.println("제목 " + dto.getTitle());
 		service.updateDonationBoard(dto, hashTagLump, mainPhoto, folderName, oldMainPhoto);
 		
-		return "donation/board/" + dto.getDonationId();
+		return "redirect:/donation/board/" + dto.getDonationId();
 	}
 
 	

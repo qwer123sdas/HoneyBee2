@@ -206,7 +206,7 @@
 			  					  		<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
 			  					  	</c:if>
 			  					  	<c:if test="${not empty list.MPhoto }">
-			  					  		<img class="img-fluid" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="">
+			  					  		<img class="img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="">
 			  					  	</c:if> 
 			                        <div class="position-relative p-4 pt-0">
 			                            <div class="service-icon">

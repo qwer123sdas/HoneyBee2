@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.team.honeybee.mapper.DonationPayMapper;
 import com.team.honeybee.vo.DonationReplyVO;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 import com.team.honeybee.vo.KakaoPayReadyVO;
@@ -138,6 +139,7 @@ public class KakaoPayService {
 			}else {
 				comment = "재능판매";
 			}
+			// replyVO.getBoardType() == 'T'  replyVO.getBoardType() == 'M'은 "마켓"
 			
 			// 포인트 사용 여부 기록
 			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_user_id(), kakaoPayReadyVO.getPoint(), comment);
@@ -159,14 +161,19 @@ public class KakaoPayService {
 			
 			if(replyVO.getBoardType() == 'D') {
 				System.out.println("댓글db가는 중");
-				// 기부 댓글 내용  db에 저장
+				// 기부 댓글 내용  db에 저장 + 총액 계산
 				replyService.addReply(replyVO);
-				// 기부한 항목 db에 저장
+				// 기부한 항목 db에 저장 
 				service.setKakaoPayData(kakaoPayApprovalVO);
+				// 총합 계산
+				
 			}else {
 				// 재능판매 구입항목 db에 저장
 				service.setKakaoPayData(kakaoPayApprovalVO);
 			}
+			
+			// replyVO.getBoardType() == 'M' 이면 
+			// marketSerivce.add(); 해야함.
 			
             return kakaoPayApprovalVO;
         

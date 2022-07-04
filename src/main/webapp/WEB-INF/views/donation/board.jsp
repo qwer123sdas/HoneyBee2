@@ -253,7 +253,7 @@
 
 /* 메인 사진 */
 .page-header-main {
-    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}) center center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}) center center no-repeat;
     background-size: cover;
     margin-top : 75px;
     opacity: 0.85;
@@ -298,7 +298,12 @@
     margin-left : 3px;
     color: #1A2A36;
 }
-
+.modify-button{
+	border: 0px;
+	text-align: center;
+	font-size: 10px;
+	background-color: red;
+}
 /* 대댓글 토글버튼 */
 
 .mondy-wide{
@@ -385,7 +390,7 @@
             	<c:if test="${board.own == 1 }">
 	            	<div class="backCircleImg">
 	            		<form action="${appRoot }/donation/modify/${board.donationId}">
-	            			<button>수정하기</button>
+	            			<button class="modify-button">수정하기</button>
 	            		</form>
 	            	</div>
             	</c:if>
@@ -629,13 +634,6 @@
 											<span class="d-flex">
 												<div class="me-2">\${list[i].nickname }</div> 
 												<div class="mondy-wide"> \${list[i].amountMakedDecimalFormat } 원 </div>
-												<div class="dropdown" >
-												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-												  <div class="dropdown-content">
-												    <a href="#">수정</a>
-												    <a href="#">삭제</a>
-												  </div>
-												</div>
 											</span>
 										</div>
 									</div>

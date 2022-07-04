@@ -175,7 +175,6 @@ public class TalentBoardService {
 			}
 		}
 
-		// donationId 넣어주기
 		// 게시글 작성 까지, 업로드 될 이미지에 id넣기
 		summerNoteMapper.setTalentIdByTalent(dto.getTalentId(), imageFolderId);
 		
@@ -233,6 +232,7 @@ public class TalentBoardService {
 		amazonS3.deleteObject(deleteBucketRequest);
 	}
 	
+	
 	// 메인 화면, 검색 목록
 	public List<TalentBoardDto> selectTalentBoardBySearch(String string) {
 		System.out.println(string);
@@ -244,7 +244,12 @@ public class TalentBoardService {
 	@Transactional
 	public void updateTalentBoard(TalentBoardDto dto, MultipartFile mainPhoto, String folderName, String oldMainPhoto) {
 		// 메인 사진 수정 할 때,
-		if(mainPhoto.getOriginalFilename() != oldMainPhoto) {
+		System.out.println("메인 사진 수정");
+		System.out.println(mainPhoto.getOriginalFilename());
+		System.out.println(oldMainPhoto);
+		System.out.println(dto);
+		if(mainPhoto.getOriginalFilename() != oldMainPhoto && !mainPhoto.isEmpty()) {
+			System.out.println("삭제?");
 			//기존 것 삭제
 			deleteFromAwsS3FromNewMainPhoto(mainPhoto, folderName);
 			// 새로 업로드
@@ -274,6 +279,8 @@ public class TalentBoardService {
 				deleteFromAwsS3(imageUrl);
 			}
 		}
+		// 게시글 작성 까지, 업로드 될 이미지에 id넣기
+		summerNoteMapper.setTalentIdByTalent(dto.getTalentId(), folderName);
 		
 		
 		// 수정된 게시글 내용 넣기

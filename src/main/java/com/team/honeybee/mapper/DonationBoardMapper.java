@@ -32,8 +32,10 @@ public interface DonationBoardMapper {
 	// 메인 화면, 검색 목록
 	List<DonationBoardDto> selectDonationBoardBySearch(String keyword);
 	
-	// 게시글 수정
+	// 게시글 수정-------------------------------
 	void updateDonationBoard(DonationBoardDto dto);
+	// 기존에 있는 해쉬태그 삭제
+	void removeExistingHashTag(int donationId);
 	
 
 	

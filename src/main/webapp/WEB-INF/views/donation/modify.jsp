@@ -65,9 +65,6 @@
 <link
 	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
 	rel="stylesheet">
-<link
-	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
-	rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
@@ -137,6 +134,7 @@
 		font-size: 3.5rem;
 	}
 }
+
 </style>
 
 </head>
@@ -176,7 +174,7 @@
 			</div>
 		<div id="donationContentInfo" style="margin-left: 300px;">
 			<form class="needs-validation" novalidate
-				action="${appRoot }/donation/board/write" method="POST"
+				action="${appRoot }/donation/modify" method="POST"
 				enctype="multipart/form-data">
 				<div class="col-10">
 						<h3 class="col-10 text-center ">
@@ -229,8 +227,15 @@
 									.메인이미지로 좋은 인상 주기
 								</h3>
 							</label>
-							<input class="form-control" type="file" id="formFile" value=""
-								name="mainPhoto" accept="image/*" required>
+							<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
+								<img id="imgChange" 
+									src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}"  
+									alt="메인 사진 업로드"  style="width: 600px;">
+							</a>
+							<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*" onchange="readURL(this);">
+							<div id="image_container"></div>
+							
+							<%-- <input class="form-control" type="file" id="formFile" value="${board.MPhoto }" name="mainPhoto" accept="image/*" required> --%>
 							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
 						</div>
 					
@@ -256,11 +261,14 @@
 									.태그로 기부자와 소통하기
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="hashTag" value="${board.hashTag }"
-								name="hashTagLump" placeholder="#을 붙여 해시테그를 입력해주세요" required>
-								
+							<input type="text" class="form-control" id="hashTag" value="${hashTags }"  name="hashTagLump" placeholder="#을 붙여 해시테그를 입력해주세요" required>
+							
+							<!-- 숨겨진 부분 -->
+							<input type="hidden" name="donationId" value="${board.donationId }"/>
 							<input type="hidden" id="folderName" name="folderName" />
-							<input type="hidden" name="oldMainPhoto" value="${board.MPhoto }"/>
+							<input type="hidden" name="oldMainPhoto" id="oldMainPhoto"/>
+							
+							
 							<div class="invalid-feedback">필수 입력사항 입니다.</div>
 						</div>
 					</div>
@@ -360,15 +368,20 @@
 </body>
 <script>
 /* 폴더명 */
-$('#folderName').val(${board.folderName});
-
-var hashTags = "${board.hashTag}";
-var hashTag;
-for(var i = 0; i < hashTags.length; i++){
-	hashTag += "#" + hashTags[i];
+$('#folderName').val('${board.folderName}');
+$('#oldMainPhoto').val('${board.MPhoto}');
+//메인 사진 이미지
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('imgChange').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    document.getElementById('imgChange').src = "";
+  }
 }
-$('#hashTag').val() = hashTag;
-
 $(document).ready(function() {
 		//여기 아래 부분
 		$('#summernote').summernote({
@@ -393,7 +406,8 @@ $(document).ready(function() {
         function uploadImageToS3ForSummerNote(image) {
             data = new FormData(); // file를 담을 객체
             data.append("image", image); // file를 담고 ajax에서 넘겨줌
-            data.append("folderId", 'padding-'+ randomNum); // 폴더 난수 넘기기
+            data.append("folderId", $('#folderName').val()); // 폴더 난수 넘기기
+            
             $.ajax({
                 url: '${appRoot}/uploadImageToS3ForSummerNote/donation',
                 data: data,
@@ -413,13 +427,14 @@ $(document).ready(function() {
                 }
             });
         }
+});
+	
+//  flatpickr 달력 기본 설정
+var fp = flatpickr(document.getElementById("expired"), {
+			'monthSelectorType' : 'static',
+			"locale" : "ko"
 	});
 	
-	//  flatpickr 달력 기본 설정
-	var fp = flatpickr(document.getElementById("expired"), {
-				'monthSelectorType' : 'static',
-				"locale" : "ko"
-		});
 (function () {
   'use strict'
 // forms 입력 유효성 검사 : 특정 항목을 다 입력하지 못하면 submit 이벤트가 발생되지 않는다. 
@@ -434,6 +449,6 @@ $(document).ready(function() {
         form.classList.add('was-validated')
       }, false)
     })
-})()
+});
 </script>
 </html>

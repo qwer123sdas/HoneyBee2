@@ -9,7 +9,7 @@
 		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
 		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
 	</insert>
-	
+	<!-- 서머노트 유효성 검사 -->
 	<update id="uploadImageUrl">
 		UPDATE BoardImage
 		SET image_url = #{imageUrl}
@@ -31,9 +31,9 @@
 	
 	<!-- 메인 사진 수정 -->
 	<update id="updateBoardImage">
-		UPDATE BoardImage SET(main_image_name)
-						VALUES(#{originalFilename})
-						WHERE image_id = #{boardImageId}
+		UPDATE BoardImage 
+		SET main_image_name = #{originalFilename}
+		WHERE image_id = #{boardImageId}
 	</update>
 		
 	<!-- =======================================================================================================  -->

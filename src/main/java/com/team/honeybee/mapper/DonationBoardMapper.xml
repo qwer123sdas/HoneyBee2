@@ -95,13 +95,15 @@
 							member_id,
 							topic,
 							expired,
-							goal)
+							goal,
+							product_code)
 				VALUES(#{title}, 
 						#{content},
 						#{memberId},
 						#{topic},
 						#{expired}, 
-						#{goal})
+						#{goal},
+						#{productCode})
 	</insert>
 	<!-- 태그 넣기  -->
 	<insert id="setHashTag">
@@ -114,15 +116,20 @@
 		VALUES (#{donationId}, #{mainPhoto}, #{memberId}, #{folderName})
 	</insert>
 	
-	
+	<!-- 게시글 수정 -->
 	<update id="updateDonationBoard">
-		UPDATE Donation SET(title = #{title},
+		UPDATE Donation SET title = #{title},
 							content = #{content},
 							topic = #{topic},
 							expired = #{expired},
-							goal = #{goal})
+							goal = #{goal}
 				WHERE donation_id = #{donationId}
 	</update>
+	<!-- 기존에 있는 해쉬태그 삭제 -->
+	<delete id="removeExistingHashTag">
+		DELETE FROM Tag
+		WHERE donation_id = #{donationId}
+	</delete>
 	
 	
 	

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -102,6 +103,9 @@ public class DonationBoardService {
 	@Transactional
 	public void dontaionBoardWrite(DonationBoardDto dto, MultipartFile mainPhoto, String hashTagLump, String folderName) {
 		// 게시글 항목 저장
+		String productCode = UUID.randomUUID().toString();
+		dto.setProductCode(productCode);
+		
 		mapper.dontaionBoardWrite(dto);
 		System.out.println("dto : " + dto);
 		
@@ -133,10 +137,8 @@ public class DonationBoardService {
 		// 사용하지 않는 이미지 리스트
 		// image_folder_id로 해당 db에 있는 이미지 정보 가져오기
 		String imageFolderId = folderName;
-		System.out.println(" imageFolderId : " + imageFolderId); // 
 		
 		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);
-		System.out.println("사용하지 않는 이미지 리스트 dbImageUrlList : " + dbImageUrlList);
 		
 		// 리스트끼리 비교해서 없는 것 분별하고 없는 거 db에서 삭제하기
 		for(String imageUrl : dbImageUrlList) {
@@ -154,55 +156,7 @@ public class DonationBoardService {
 		
 
 	}
-	// 해쉬태그 분류하기 + db에 넣기 메소드
-	public void makeHashTagWithoutShop(String hashTagLump, int donationId) {
-		
-		String hashTag[] = hashTagLump.split("#");
-		for(int i = 1; i < hashTag.length; i++) {
-			// hashTags.add(hashTag[i].replaceAll(" ", "")); // 띄어쓰기 제거 후 넣기
-			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), donationId);
-		}
-	}
 	
-	
-	// 메인 사진 등록 메소드
-	private void saveMainPhotoAwsS3(MultipartFile mainPhoto, String folderName) {
-		// board/temp/12344.png
-		String key = "donation/" + folderName + "/" + mainPhoto.getOriginalFilename();
-		
-		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
-				.bucket(bucketName) 					// bucket 위치 설정
-				.key(key)								// 키
-				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
-		
-		RequestBody requestBody;
-		try {
-			requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
-			amazonS3.putObject(putObjectRequest, requestBody);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
-		}
-	}
-	
-	// ++ aws의 s3에서 summerNote에 없는 사진 삭제 메소드
-	private void deleteFromAwsS3(String imageUrl) {
-		System.out.println("삭제 가동");
-		// 내거 75
-		// 팀플 56
-		System.out.println(imageUrl.substring(56));
-		String key = imageUrl.substring(56);
-		System.out.println(key);
-		DeleteObjectRequest deleteBucketRequest;
-		deleteBucketRequest = DeleteObjectRequest.builder()
-				.bucket(bucketName)
-				.key(key)
-				.build();
-		
-		amazonS3.deleteObject(deleteBucketRequest);
-		
-	}
 	
 	// 메인 화면, 검색 목록
 	public List<DonationBoardDto> selectDonationBoardBySearch(String keyword) {
@@ -217,13 +171,14 @@ public class DonationBoardService {
 		mapper.updateDonationBoard(dto);
 		System.out.println("dto : " + dto);
 		
-		// 해쉬 태그 분류 + db에 넣는 메소드
-		makeHashTagWithoutShop(hashTagLump, dto.getDonationId());
+		// 해쉬 태그 분류 + db 수정 메소드
+		modifyHashTagWithoutShop(hashTagLump, dto.getDonationId());
 		
 		// 메인 사진 수정 할 때,
-		if(mainPhoto.getOriginalFilename() != oldMainPhoto) {
+		System.out.println("메인사진 : " + mainPhoto.getOriginalFilename());
+		if(mainPhoto.getOriginalFilename() != oldMainPhoto && !mainPhoto.isEmpty()) {
 			//기존 것 삭제
-			deleteFromAwsS3FromNewMainPhoto(mainPhoto, folderName);
+			deleteFromAwsS3FromNewMainPhoto(oldMainPhoto, folderName);
 			// 새로 업로드
 			saveMainPhotoAwsS3(mainPhoto, folderName);
 			// db 수정
@@ -251,11 +206,54 @@ public class DonationBoardService {
 				deleteFromAwsS3(imageUrl);
 			}
 		}
+		// donationId 넣어주기
+		summerNoteMapper.setDonationId(dto.getDonationId(), folderName);
 	}
-
-	// 게시글 수정, 메인 사진 S3수정
-	private void deleteFromAwsS3FromNewMainPhoto(MultipartFile newMainPhoto, String folderName) {
-		String key = "donation/" + folderName + "/" + newMainPhoto.getOriginalFilename();
+	
+	// 메인 사진 등록 메소드
+	private void saveMainPhotoAwsS3(MultipartFile mainPhoto, String folderName) {
+		// board/temp/12344.png
+		String key = "donation/" + folderName + "/" + mainPhoto.getOriginalFilename();
+		
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
+				.bucket(bucketName) 					// bucket 위치 설정
+				.key(key)								// 키
+				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		
+		RequestBody requestBody;
+		try {
+			requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
+			amazonS3.putObject(putObjectRequest, requestBody);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
+		}
+	}
+		
+	
+	
+	// ++ aws의 s3에서 summerNote에 없는 사진 삭제 메소드
+	private void deleteFromAwsS3(String imageUrl) {
+		System.out.println("삭제 가동");
+		// 내거 75
+		// 팀플 56
+		System.out.println(imageUrl.substring(56));
+		String key = imageUrl.substring(56);
+		System.out.println(key);
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		amazonS3.deleteObject(deleteBucketRequest);
+		
+	}
+		
+	// 게시글 수정, 기존 메인 사진 S3수정
+	private void deleteFromAwsS3FromNewMainPhoto(String oldMainPhoto, String folderName) {
+		String key = "donation/" + folderName + "/" + oldMainPhoto;
 				
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()
@@ -266,6 +264,30 @@ public class DonationBoardService {
 		amazonS3.deleteObject(deleteBucketRequest);
 	}
 
+	
+	// 해쉬태그 분류하기 + db에 넣기 메소드
+	public void makeHashTagWithoutShop(String hashTagLump, int donationId) {
+		
+		String hashTag[] = hashTagLump.split("#");
+		for(int i = 1; i < hashTag.length; i++) {
+			// hashTags.add(hashTag[i].replaceAll(" ", "")); // 띄어쓰기 제거 후 넣기
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), donationId);
+		}
+	}
+		
+	// 해쉬태그 분류 + 수정한 값 db에 넣기
+	public void modifyHashTagWithoutShop(String hashTagLump, int donationId) {
+		String hashTag[] = hashTagLump.split("#");
+		
+		// 기존에 있는 것 삭제하기
+		mapper.removeExistingHashTag(donationId);
+		
+		for(int i = 1; i < hashTag.length; i++) {
+			System.out.println(hashTag[i].replaceAll(" ", ""));
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), donationId);
+		}
+	}
+		
 	//--------------------------------------------------------------------------------------------------------------------
 	
 	// 기부금 결제

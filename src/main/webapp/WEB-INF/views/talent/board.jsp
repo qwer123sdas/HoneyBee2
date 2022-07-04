@@ -265,7 +265,7 @@ textarea {
                        	<c:if test="${not empty board.address }">
 	                        <div class="map_wrap">
 								<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-								<p>주소 : ${board.address }</p>							
+								<p>주소 : ${board.address } ${board.detailAddress }</p>							
 							</div>
 						</c:if>
 	                        
@@ -314,22 +314,6 @@ textarea {
                                 <div class="ms-3">
                                     <div class="fw-bold">Commenter Name</div>
                                     If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                    <!-- Child comment 1-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                        </div>
-                                    </div>
-                                    <!-- Child comment 2-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When you put money directly to a problem, it makes a good headline.
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- 댓글 끝 -->
@@ -694,12 +678,6 @@ textarea {
 	    					
                             <div class="">
                             	<div class="replyContent"> \${list[i].content}</div>
-                            	<div class="">
-								<div class="fw-bold d-flex justify-content-between">
-									<a class="small fw-medium" href="#!">
-										<span id="flip" class="replyText">답글 작성</span>
-									</a>
-								</div>
 							</div>
 					
 							<div id="panel" class="childReplyArea" style="display:none;">

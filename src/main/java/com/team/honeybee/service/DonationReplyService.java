@@ -30,13 +30,21 @@ public class DonationReplyService {
 		//int amount = payMapper.selectDonateMoney(donationId, );
 		return replyMapper.listReplyByBoardId(donationId, loginId);
 	}
-	
 	// 댓글 추가
 	public void addReply(DonationReplyVO replyVO) {
+		// DonationReply 테이블에 저장
 		replyMapper.addReply(replyVO);
 		
+		// DonationPay 테이블에 저장
 		// 기부금액 저장
 		payMapper.donate(replyVO.getTotalAmount(), replyVO.getMemberId(), replyVO.getDonationId(), replyVO.getReplyId());
+		// 총액 계산
+		payMapper.addAmount(replyVO.getDonationId());
+	}
+	
+	// 댓글만 추가
+	public void onlyAddReply(DonationReplyVO reply) {
+		replyMapper.addReply(reply);
 	}
 	
 

@@ -1,7 +1,6 @@
 package com.team.honeybee.controller;
 
 import java.security.Principal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.honeybee.domain.DonationReplyDto;
 import com.team.honeybee.service.DonationReplyService;
+import com.team.honeybee.vo.DonationReplyVO;
 
 @Controller
 @RequestMapping("donation/reply")
@@ -37,18 +37,18 @@ public class DonationReplyController {
 		}
 	}
 	
-	/* 댓글 추가
+	//댓글만 추가
 	@RequestMapping(path="add", produces = "text/plain;charset=UTF-8")
-	public String addReply(DonationReplyDto reply, Principal principal) {
+	public String addReply(DonationReplyVO reply, Principal principal) {
 		if(principal != null) {
 			String memberId = principal.getName();
 			reply.setMemberId(memberId);
-			service.addReply(reply);
+			service.onlyAddReply(reply);
 		}
 		
 		
 		return "redirect:/donation/board/" + reply.getDonationId();
-	}*/
+	}
 	
 	
 }

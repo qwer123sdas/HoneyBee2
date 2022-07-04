@@ -120,17 +120,17 @@
 	
 	<!-- 게시글 수정 -->
 	<update id="updateTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto">
-		UPDATE Talent SET(title = #{title}, 
-							content = #{content},
-							 price = #{price}, 
-							 product_name = #{productName},
-							 topic = #{topic},
-							 map_level = #{mapLevel},
-							 address = #{address},
-							 detail_address = #{detailAddress},
-							 work_date = #{workDate},
-							 self_introduction = #{selfIntroduction},
-							 class_content = #{classContent})
+		UPDATE Talent SET title = #{title}, 
+						  content = #{content},
+						  price = #{price}, 
+						  product_name = #{productName},
+						  topic = #{topic},
+						  map_level = #{mapLevel},
+						  address = #{address},
+						  detail_address = #{detailAddress},
+						  work_date = #{workDate},
+						  self_introduction = #{selfIntroduction},
+						  class_content = #{classContent}
 					WHERE talent_id = #{talentId}
 	</update>
 	

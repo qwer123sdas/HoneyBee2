@@ -16,6 +16,6 @@ public interface DonationReplyMapper {
 	
 	// 댓글 추가
 	int addReply(DonationReplyVO replyVO);
-
+	
 
 }

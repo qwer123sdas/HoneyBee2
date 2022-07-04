@@ -111,6 +111,8 @@ public class OrderController {
 		// 기부 게시판-------------------------------------------
 		if(replyVO.getBoardType() == 'D') {
 			return "redirect:/donation/board/" + replyVO.getDonationId();
+		}else if(replyVO.getBoardType() == 'T') {
+			
 		}
 		
 		
