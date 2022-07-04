@@ -124,7 +124,7 @@
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 	
     
 
@@ -231,7 +231,7 @@
 
     
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
     
 
 

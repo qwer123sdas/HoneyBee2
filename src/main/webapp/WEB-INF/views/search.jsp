@@ -54,7 +54,7 @@
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 	    <!-- Service Start -->
 	<!-- Page Header Start -->
 	

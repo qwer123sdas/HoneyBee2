@@ -75,7 +75,7 @@
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 	    <!-- Service Start -->
 	<!-- Page Header Start -->
 	
@@ -154,7 +154,7 @@
 	
 	
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>

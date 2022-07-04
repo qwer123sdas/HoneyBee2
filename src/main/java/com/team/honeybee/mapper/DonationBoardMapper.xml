@@ -44,6 +44,7 @@
 				d.inserted,
 				d.expired,
 				d.goal,
+				d.enable,
 				d.product_code productCode,
 				d.current_amount currentAmount,
 				bi.main_image_name MPhoto,

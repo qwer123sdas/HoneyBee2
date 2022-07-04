@@ -212,7 +212,7 @@ textarea {
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 	<!-- Page Header Start -->
 	<div class="container-fluid page-header-main py-5 mb-5">
 		<div class="container py-5">
@@ -388,12 +388,8 @@ textarea {
 	                	<div>
 	                		<div class="card-body pb-0 teacher-body">
 	                			<form action="${appRoot }/talent/modify/${board.talentId}" method="get">
-	                				<button>수정하기</button>
+	                				<button class="btn btn-warning buyButton" >수정하기</button>
 	                			</form>
-	                			<form action="${appRoot }/talent/remove" >
-	                				<button>삭제하기</button>
-	                			</form>
-	                			
 	                		</div>
 	                	</div>
 	                </div>
@@ -446,7 +442,7 @@ textarea {
 
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
     
 
 

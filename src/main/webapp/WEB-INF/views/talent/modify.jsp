@@ -157,7 +157,7 @@
 	<!-- Page Header End -->
 
 	<!-- Nav bar -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 
 		<div class="container col-15">
 			<div class="py-5 text-center">
@@ -376,8 +376,7 @@
 
 				<div class="col-12">
 					<div class="map_wrap my-3">
-						<div id="map"
-							style="width: 900px; height: 500px; position: relative; overflow: hidden;"></div>
+						<div id="map" style="width: 900px; height: 500px; position: relative; overflow: hidden;"></div>
 						<label class="form-label my-2" id="clickLatlng">주소 : ${board.address }</label>
 						<!-- 주소 기록 -->
 					</div>
@@ -423,7 +422,7 @@
 
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 	<!-- ?? -->
 	<script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

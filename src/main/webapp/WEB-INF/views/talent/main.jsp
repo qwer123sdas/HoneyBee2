@@ -126,7 +126,7 @@
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 	<!-- Page Header Start -->
 	<div class="container-fluid page-header-main py-5">
 		<div class="container py-5">
@@ -243,7 +243,7 @@
    	</section>
 	
 		<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
     
 
 

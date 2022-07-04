@@ -161,7 +161,7 @@
 	<!-- Page Header End -->
 
 	<!-- Nav bar -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 
 		<div class="container col-10">
 			<div class="py-5 text-center">
@@ -342,7 +342,7 @@
 
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
 
 	<!-- JavaScript Libraries -->

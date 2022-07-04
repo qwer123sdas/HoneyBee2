@@ -365,7 +365,7 @@
 
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<nav:navbar_kim></nav:navbar_kim>
 
 
 <%-- 	<!-- Page Header Start -->
@@ -461,33 +461,56 @@
 			
 		</div>
 	</div>
-
-	<div class="container mt-5" id="wrap_cnt_prom">
-		<div class="row">
-			<!-- 응원하기 하단바 -->
-			<div class="fund_float loginConfirm">
-				<a class="btn_c heart"> 
-					<span class="ico_cheer">
-						<img id="heart" src="${appRoot }/resources/heart.png" style="margin-bottom: 15px"/>
-					</span> 
-					<span class="txt_cheer">응원</span>
-					<span class="num_active" id="countHeart">${count }</span>
-					<div class="after"></div>
-				</a> 
-				<a class="btn_s" onclick="share()"> <span class="ico_share">
-					<i class="fa-solid fa-share-nodes" style="color : gray; "></i></span> 
-					<span class="txt_share" data-bs-toggle="modal" id="copy-btn">
-						공유
-					</span>
-				</a> 
-				<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1">
-					<span>기부하기</span>
-				</a>
+	<c:if test="${board.enable ==  0}">
+		<div class="container mt-5" id="wrap_cnt_prom">
+			<div class="row">
+				<!-- 응원하기 하단바 -->
+				<div class="fund_float loginConfirm">
+					<a class="btn_c"> 
+					</a>
+					<a class="btn_s" > 
+						<span class="txt_share" >
+							승인을 기다리고 
+						</span>
+					</a> 
+					<a class="btn_d" style="background: #434343; text-align: left;">
+						<span class="txt_share" >
+							있는 중 입니다
+						</span>
+					</a>
+				</div>
+				<!-- 응원하기 하단바 END-->
 			</div>
-			<!-- 응원하기 하단바 END-->
 		</div>
-	</div>
-
+	</c:if>
+	
+	<c:if test="${board.enable ==  1}">
+		<div class="container mt-5" id="wrap_cnt_prom">
+			<div class="row">
+				<!-- 응원하기 하단바 -->
+				<div class="fund_float loginConfirm">
+					<a class="btn_c heart"> 
+						<span class="ico_cheer">
+							<img id="heart" src="${appRoot }/resources/heart.png" style="margin-bottom: 15px"/>
+						</span> 
+						<span class="txt_cheer">응원</span>
+						<span class="num_active" id="countHeart">${count }</span>
+						<div class="after"></div>
+					</a> 
+					<a class="btn_s" onclick="share()"> <span class="ico_share">
+						<i class="fa-solid fa-share-nodes" style="color : gray; "></i></span> 
+						<span class="txt_share" data-bs-toggle="modal" id="copy-btn">
+							공유
+						</span>
+					</a> 
+					<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1">
+						<span>기부하기</span>
+					</a>
+				</div>
+				<!-- 응원하기 하단바 END-->
+			</div>
+		</div>
+	</c:if>
 	<!--ajax로 로그인에 따라 버튼누를 권한 처리하기!  -->
 	<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -516,7 +539,7 @@
 		</div>
 	</div>
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 	<!-- 주소 복사 -->
 	<script type="module">
   		import jquery from 'https://cdn.skypack.dev/jquery';
