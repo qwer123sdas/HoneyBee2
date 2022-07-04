@@ -78,6 +78,7 @@ h2 {
 			<my:faq></my:faq>
 			<div class="col-8 mt-3 ms-5">
 				<h1>고객 센터</h1>
+				
 				<!-- /Row -->
 				<div class="my-4">
 					<ul class="nav nav-tabs nav-fill justify-content-center ">
@@ -91,6 +92,9 @@ h2 {
 						</li>
 					</ul>
 				</div>
+				
+				
+				
 				<!-- 기부 관련-->
 				<section class="mb-5" id="mainContentContainer">
 					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
@@ -99,13 +103,13 @@ h2 {
 							<h2 class="accordion-header" id="headingOne">
 								<button class="accordion-button" type="button"
 									data-bs-toggle="collapse" data-bs-target="#collapseOne"
-									aria-expanded="true" aria-controls="collapseOne">허니비는
+									aria-expanded="true" aria-controls="collapseOne">꿀비는
 									어떤 사이트 인가요?</button>
 							</h2>
 							<div id="collapseOne" class="accordion-collapse collapse show"
 								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									<strong>허니비는 재능 거래 마켓</strong> 플랫폼으로서, 자신이 가지고 있는 재능을 판매할 수 있는
+									<strong>꿀비는 재능 거래 마켓</strong> 플랫폼으로서, 자신이 가지고 있는 재능을 판매할 수 있는
 									사이트 입니다.
 								</div>
 							</div>
@@ -170,6 +174,10 @@ h2 {
 				</section>
 				</article>
 
+
+
+
+
 				<!-- 마켓 -->
 				<section class="mb-5 d-none" id="cancleAndRefundConatiner">
 					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
@@ -178,13 +186,13 @@ h2 {
 							<h2 class="accordion-header" id="headingOne">
 								<button class="accordion-button" type="button"
 									data-bs-toggle="collapse" data-bs-target="#collapseOne"
-									aria-expanded="true" aria-controls="collapseOne">허니비
+									aria-expanded="true" aria-controls="collapseOne">꿀비
 									마켓은 무엇인가요?</button>
 							</h2>
 							<div id="collapseOne" class="accordion-collapse collapse show"
 								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									<strong>허니비 사이트의 마켓</strong> 플랫폼으로서, 각종 사이트의 상품을 판매합니다.
+									<strong>꿀비 사이트의 마켓</strong> 플랫폼으로서, 각종 사이트의 상품을 판매합니다.
 								</div>
 							</div>
 						</div>
@@ -229,6 +237,7 @@ h2 {
 									data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										아직 배송지 변경 기능을 구현하지 않았기 때문에 혹시 변경요청이 있을 경우 아래의 번호로 전화해주시길 바랍니다.
+										<br />
 										honey 서비스 <strong>010-xxxx-xxxx</strong>
 
 									</div>
