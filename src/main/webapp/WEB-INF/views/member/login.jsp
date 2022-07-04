@@ -39,7 +39,7 @@
 		display:flex;
 		flex-direction:column;
 		align-items: center;
-		margin-top: 260px;
+		margin-top: 150px;
 	}
 	
 	.main-container .main-wrap{
