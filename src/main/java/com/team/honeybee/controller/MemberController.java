@@ -284,7 +284,7 @@ public class MemberController {
 	}
 
 	//마이 페이지 삭제
-	@PostMapping("delete")
+	@PostMapping("removeFaq")
 	public String removeFaq(@RequestParam("questionIdList") List<Integer> questionIdList, RedirectAttributes rttr) {
 		boolean success = false;
 		for (int questionId : questionIdList) {
@@ -309,6 +309,23 @@ public class MemberController {
 		model.addAttribute("meeting", meeting);
 	}
 
+	// 내가 쓴 댓글 모음
+	@RequestMapping("myReview")
+	public void myReview(Principal principal, Model model) {
+		List<DonationReplyDto> donationReply = service.getDonationReplyByMemberId(principal.getName());
+		List<MeetingCommentDto> meetingComment = service.getMeetingCommentByMemberId(principal.getName());
+		model.addAttribute("donationReply", donationReply);
+		model.addAttribute("meetingComment", meetingComment);
+	}
+	
+	@PostMapping("deleteDonationReply")
+	public String deleteDonationReply(String replyId) {
+		System.out.println(replyId);
+		boolean success = service.deleteDonationReplyByReplyId(replyId);
+		System.out.println(success);
+		return "redirect:/member/myReview";
+	}
+	
 	// 유저/어드민 로그인 따로
 	@GetMapping("loginSuccess")
 	public String loginSuccess(Authentication authentication) {

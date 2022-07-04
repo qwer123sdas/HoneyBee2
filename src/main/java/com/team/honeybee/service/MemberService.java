@@ -256,25 +256,34 @@ public class MemberService {
 	
     //상담 내용 불러오기
 	public FaqDto getFaqById(int questionId) {
-		// TODO Auto-generated method stub
 		return mapper.getFaq(questionId);
 	}
 	
 	// 기부 게시글
 	public List<DonationBoardDto> getDonationByMemberId(String memberId) {
-		
 		return mapper.getDonationByMemberId(memberId);
 	}
 
 	// 재능기부 게시글
 	public List<TalentBoardDto> getTalentByMemberId(String memberId) {
-		
 		return mapper.getTalentByMemberId(memberId);
 	}
 
 	// 모임 게시글
 	public List<MeetingDto> getMeetingByMemberId(String memberId) {
-		
 		return mapper.getMeetingByMemberId(memberId);
+	}
+
+	public List<DonationReplyDto> getDonationReplyByMemberId(String memberId) {
+		return mapper.getDonationReplyByMemberId(memberId);
+	}
+
+	public List<MeetingCommentDto> getMeetingCommentByMemberId(String memberId) {
+		return mapper.getMeetingCommentByMemberId(memberId);
+	}
+
+	public boolean deleteDonationReplyByReplyId(String replyId) {
+		mapper.deleteDonationPayByReplyId(replyId);
+		return mapper.deleteDonationReplyByReplyId(replyId);
 	}
 }

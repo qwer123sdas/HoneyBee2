@@ -216,6 +216,7 @@
 						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
 						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
 						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
+						<a href="#" class="dropdown-item">구매 내역</a>
 						<a href="faqList" class="dropdown-item">상담 내역</a>
 					</div>
 				</li>

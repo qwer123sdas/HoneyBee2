@@ -13,6 +13,12 @@
 		<security:form-login always-use-default-target="true" login-page="/member/login" default-target-url="/member/loginSuccess"/>
 		<security:logout logout-success-url="/member/login"/>
 		<security:remember-me/>
+		<security:intercept-url pattern="/member/info" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/updatePw" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/faqGet" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/faqList" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/myBoard" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/myReview" access="isAuthenticated()"/>
 	</security:http>
 	
 	<security:authentication-manager>
