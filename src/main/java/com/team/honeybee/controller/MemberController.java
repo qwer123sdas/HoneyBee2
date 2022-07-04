@@ -318,7 +318,7 @@ public class MemberController {
 
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
-				return "redirect:/member/index";
+				return "redirect:/admin/index";
 			}
 		}
 
