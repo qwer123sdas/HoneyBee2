@@ -76,10 +76,70 @@ h2 {
 		<!-- Row -->
 		<div class="row">
 			<my:faq></my:faq>
-			<div class="col-8 mt-3 ms-5">
+			<div class="col-8 mt-4 ms-5">
 				<h1>고객 센터</h1>
-				
-				<!-- /Row -->
+				<br />
+
+				<p align="left">
+					<span style="font-size: 14px;"><span
+						style="font-size: 32px;"><strong><span
+								style="color: #ffc107;">Q.</span></strong></span> <strong><span
+							style="color: #ffc107; font-size: 18px;">꿀비는 무슨 사이트</span><span
+							style="color: #ffc107; font-size: 18px;">인가요?</span></strong></span>
+				</p>
+				<p align="left">
+					<span style="font-size: 14px;"><strong><span
+							style="color: #ffc107; font-size: 32px;">A.</span></strong><span
+						style="font-size: 32px;"> </span>꿀비는 다양한 재능을 <span
+						style="color: rgb(0, 0, 0); background-color: rgb(153, 220, 255);"><strong><span
+								style="color: #ffc107; background-color: rgb(255, 255, 255);">구매</span></strong></span>
+						또는 <strong><span
+							style="color: #ffc107; background-color: rgb(255, 255, 255);">판매</span></strong>
+						하는 오픈마켓 거래 서비스입니다.</span>
+				</p>
+				<p align="left" style="line-height: 1.8;">
+					<span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						(쉽게 생각해서, 여러분들이 흔히 <u>쇼핑몰에서 옷을 구매하는것처럼</u> 꿀비에서는 재능있는 사람의
+					</span>
+				</p>
+				<p align="left" style="line-height: 1.8;">
+					<span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>재능을
+							구매할 수 있습니다.</u>)
+					</span>
+				</p>
+				<p align="center">
+					<br />
+				</p>
+
+
+				<p align="left">
+					<span style="font-size: 14px;"><span
+						style="font-size: 32px;"><strong><span
+								style="color: #ffc107;">Q.</span></strong></span>&nbsp; 재능이라는게 정확히 어떤걸 사고판다는
+						얘기인가요?</span>
+				</p>
+				<p align="left">
+					<span style="font-size: 14px;"><strong><span
+							style="color: #ffc107; font-size: 32px;">A.</span></strong><span
+						style="font-size: 32px;"> </span><strong>여러분들이 필요로 하는
+							모든것을 재능으로써 거래</strong>를 할수 있습니다.</span>
+				</p>
+				<p align="left">
+					<span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						예를 들어, 디자인을 의뢰하고 싶다거나, 마케팅을 의뢰하고 싶다거나, 프로그램을 의뢰하고 싶다거나 </span>
+				</p>
+				<p align="left">
+					<span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						문서작성을 대행한다거나 또는 생활에 필요한것들을 의뢰, 구매, 대행 한다거나 등등.. </span>
+				</p>
+				<p align="left">
+					<span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<strong><u><span
+								style="color: rgb(0, 0, 0); color: #ffc107;">여러분들이 필요로 하는
+									모든것을 꿀비를 통하여 거래</span></u></strong>를 할수 있습니다.
+					</span> <br /> <br /> <br /> <br /> 
+
+					<!-- /Row -->
 				<div class="my-4">
 					<ul class="nav nav-tabs nav-fill justify-content-center ">
 						<li class="nav-item">
@@ -92,12 +152,14 @@ h2 {
 						</li>
 					</ul>
 				</div>
-				
-				
-				
+
+
+
 				<!-- 기부 관련-->
 				<section class="mb-5" id="mainContentContainer">
+
 					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
+					<br />
 					<div class="accordion" id="accordionExample">
 						<div class="accordion-item">
 							<h2 class="accordion-header" id="headingOne">
@@ -124,7 +186,7 @@ h2 {
 							<div id="collapseTwo" class="accordion-collapse collapse"
 								aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									허니비는 자유롭게 자신의 재능을 판매할 수 있고, <strong>자신이 사소하다고 생각 하더라도</strong>
+									꿀비는 자유롭게 자신의 재능을 판매할 수 있고, <strong>자신이 사소하다고 생각 하더라도</strong>
 									자유롭게 판매할 수 있습니다.
 								</div>
 							</div>
@@ -180,17 +242,20 @@ h2 {
 
 				<!-- 마켓 -->
 				<section class="mb-5 d-none" id="cancleAndRefundConatiner">
+
 					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
+					<br />
 					<div class="accordion" id="accordionExample1">
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingOne">
+							<h2 class="accordion-header" id="headingOne1">
 								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseOne"
-									aria-expanded="true" aria-controls="collapseOne">꿀비
+									data-bs-toggle="collapse" data-bs-target="#collapseOne1"
+									aria-expanded="true" aria-controls="collapseOne1">꿀비
 									마켓은 무엇인가요?</button>
 							</h2>
-							<div id="collapseOne" class="accordion-collapse collapse show"
-								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div id="collapseOne1" class="accordion-collapse collapse show"
+								aria-labelledby="headingOne1"
+								data-bs-parent="#accordionExample1">
 								<div class="accordion-body">
 									<strong>꿀비 사이트의 마켓</strong> 플랫폼으로서, 각종 사이트의 상품을 판매합니다.
 								</div>
@@ -198,61 +263,61 @@ h2 {
 						</div>
 						<div class="accordion" id="accordionExample1">
 							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingTwo">
+								<h2 class="accordion-header" id="headingTwo2">
 									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-										aria-expanded="false" aria-controls="collapseTwo">
+										data-bs-toggle="collapse" data-bs-target="#collapseTwo2"
+										aria-expanded="false" aria-controls="collapseTwo2">
 										상품의 판매금은 어디에 사용되나요?</button>
 								</h2>
-								<div id="collapseTwo" class="accordion-collapse collapse"
-									aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+								<div id="collapseTwo2" class="accordion-collapse collapse"
+									aria-labelledby="headingTwo2"
+									data-bs-parent="#accordionExample1">
 									<div class="accordion-body">
 										판매된 금액은 사이트의 운영 및 여러가지에 이용되며, <strong>일정 금액은 기부</strong> 됩니다.
 									</div>
 								</div>
 							</div>
 							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingThree">
+								<h2 class="accordion-header" id="headingThree3">
 									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#collapseThree"
-										aria-expanded="false" aria-controls="collapseThree">
+										data-bs-toggle="collapse" data-bs-target="#collapseThree3"
+										aria-expanded="false" aria-controls="collapseThree3">
 										환불은 어떻게 가능한가요?</button>
 								</h2>
-								<div id="collapseThree" class="accordion-collapse collapse"
-									aria-labelledby="headingThree"
-									data-bs-parent="#accordionExample">
+								<div id="collapseThree3" class="accordion-collapse collapse"
+									aria-labelledby="headingThree3"
+									data-bs-parent="#accordionExample1">
 									<div class="accordion-body">아직 환불절차는 미완성이기 때문에 1대1 문의를
 										사용해 주시길 바랍니다.</div>
 								</div>
 							</div>
 							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingfour">
+								<h2 class="accordion-header" id="headingfour4">
 									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#collapsefour"
-										aria-expanded="false" aria-controls="collapsefour">
+										data-bs-toggle="collapse" data-bs-target="#collapsefour4"
+										aria-expanded="false" aria-controls="collapsefour4">
 										배송지가 변경되었어요.</button>
 								</h2>
-								<div id="collapsefour" class="accordion-collapse collapse"
-									aria-labelledby="headingfour"
-									data-bs-parent="#accordionExample">
+								<div id="collapsefour4" class="accordion-collapse collapse"
+									aria-labelledby="headingfour4"
+									data-bs-parent="#accordionExample1">
 									<div class="accordion-body">
 										아직 배송지 변경 기능을 구현하지 않았기 때문에 혹시 변경요청이 있을 경우 아래의 번호로 전화해주시길 바랍니다.
-										<br />
-										honey 서비스 <strong>010-xxxx-xxxx</strong>
+										<br /> honey 서비스 <strong>010-xxxx-xxxx</strong>
 
 									</div>
 								</div>
 							</div>
 							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingfive">
+								<h2 class="accordion-header" id="headingfive5">
 									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#collapsefive"
+										data-bs-toggle="collapse" data-bs-target="#collapsefive5"
 										aria-expanded="false" aria-controls="collapsefive">
 										해외에서 주문할 수 있나요?</button>
 								</h2>
-								<div id="collapsefive" class="accordion-collapse collapse"
-									aria-labelledby="headingfive"
-									data-bs-parent="#accordionExample">
+								<div id="collapsefive5" class="accordion-collapse collapse"
+									aria-labelledby="headingfive5"
+									data-bs-parent="#accordionExample1">
 									<div class="accordion-body">해외 주문도 가능 합니다만, 기간이 좀 더 소요될 수
 										있습니다.</div>
 								</div>

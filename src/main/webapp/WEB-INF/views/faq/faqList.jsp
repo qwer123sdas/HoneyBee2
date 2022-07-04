@@ -63,7 +63,7 @@
 <body>
 	<my:navbar></my:navbar>
 	<my:faq1tag></my:faq1tag>
-	<form action="${appRoot }/faq/remove" method="post">
+	<form action="${appRoot }/faq/removeFaq" method="post">
 		<div class="container">
 			<div class="row">
 				<my:faq></my:faq>

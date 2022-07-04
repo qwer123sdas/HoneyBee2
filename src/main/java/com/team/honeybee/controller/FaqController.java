@@ -56,7 +56,7 @@ public class FaqController {
 			rttr.addFlashAttribute("message", "새 글이 등록되지 않았습니다.");
 		}
 
-		return "redirect:/faq/faqList";
+		return "redirect:/faq/question";
 
 	}
 	
@@ -76,7 +76,7 @@ public class FaqController {
 		FaqDto faq =service.getFaqById(questionId);
 		model.addAttribute("faq",faq);
 	}
-	@PostMapping("remove")
+	@PostMapping("removeFaq")
 	public String removeFaq(@RequestParam("questionIdList") List<Integer> questionIdList,RedirectAttributes rttr) {
 		boolean success = false;
 		for(int questionId : questionIdList) {			

@@ -228,9 +228,7 @@
 							  <li class="nav-item">
 							    <button class="flex-sm-fill text-sm-center nav-link" id="cancleAndRefundNav">취소 환불</button>
 							  </li>
-							  <li class="nav-item">
-							    <button class="flex-sm-fill text-sm-center nav-link" id="replyNav">후기</button>
-							  </li>
+							  
 							</ul>
 					</div>
                     <!-- 메인 컨텐츠-->
@@ -247,7 +245,7 @@
                 
                 <!-- 취소 환불 -->
                 <section class="mb-5 d-none" id="cancleAndRefundConatiner">
-                    <h2 class="fw-bolder mb-4 mt-5">취소 및 환불 규정</h2>
+                    <h2 class="fw-bolder mb-4 mt-5" style="color: #ffc107;">취소 및 환불 규정</h2>
                     <p class="fs-5 mb-4">[환불 가이드라인]</p>
                     <p class="fs-5 mb-4">일반적으로 소비자는 자신이 체결한 전자상거래 계약에 대해 그 계약의 내용을 불문하고 
                     					  그 청약철회 및 계약해제의 기간(통상 7일) 
@@ -255,48 +253,7 @@
                     <p class="fs-5 mb-4"></p>
                 </section>
                 
-                <!-- 댓글-->
-                <section class="mb-5 d-none" id="replyContainer">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                            <!-- Comment with nested comments-->
-                            <div class="d-flex mb-4">
-                                <!-- Parent comment-->
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                    <!-- Child comment 1-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                        </div>
-                                    </div>
-                                    <!-- Child comment 2-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When you put money directly to a problem, it makes a good headline.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single comment-->
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                
                 
                 
             </div>
@@ -324,7 +281,7 @@
 							
 						<section>
 				
-				<button type="button" class="btn btn-warning">장바구니</button>
+				
 				<c:url value="/market/cart" var="buyUrl">
 					<c:param name="marketId" value="${market.marketId }"></c:param>
 				</c:url>
@@ -387,16 +344,7 @@
 			$("#mainContentContainer").addClass("d-none");
 			$("#replyContainer").addClass("d-none");
 		});
-		/* 후기 */
-		$("#replyNav").click(function(){
-			$('#replyNav').addClass('active');
-			$("#mainContentNav").removeClass("active");
-			$("#cancleAndRefundNav").removeClass("active");
-			
-			$('#replyContainer').removeClass("d-none");
-			$("#mainContentContainer").addClass("d-none");
-			$("#cancleAndRefundConatiner").addClass("d-none");
-		});
+		
 	});
 </script>
 </body>

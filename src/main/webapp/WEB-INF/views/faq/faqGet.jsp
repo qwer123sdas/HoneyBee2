@@ -55,12 +55,23 @@
 								name="title" required id="input1" readonly />
 						</div>
 						<br />
+						
+						
+						
+						
+						
+						
+						<br />
 						<div>
 							<label class="form-label" for="textarea1">본문</label>
 							<textarea class="form-control" id="textarea1" cols="30" rows="10"
 								name="content" readonly>${faq.content }</textarea>
 						</div>
 						<br />
+						
+						
+						
+						
 						<div>
 							<label for="form-label" class="form-label"> 이메일 :</label>
 							<input type="form-control" id="email"  cols="30" value="${faq.email }" readonly />
@@ -68,6 +79,7 @@
 						</div>
 						
 						</div>
+						
 
 				</div>
 			</div>

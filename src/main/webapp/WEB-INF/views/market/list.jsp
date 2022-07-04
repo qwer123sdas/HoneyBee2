@@ -23,10 +23,6 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 
 
-
-
-
-
 </head>
 <body>
 	<my:navbar></my:navbar>
@@ -35,10 +31,10 @@
 
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5 ">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 d-flex justify-content-start">
                    
                     <c:forEach items="${list }" var="list">
-                        <div class="card ms-auto">  
+                        <div class="card" style="width: 25rem; margin: 12px;">  
                           <c:if test = "${not list.hasFile }">
                             <img class="card-img-top" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
                            </c:if>
@@ -48,7 +44,7 @@
 								String encodedFileName = java.net.URLEncoder.encode(market.getThumbNailImage(), "utf-8");
 								pageContext.setAttribute("encodedFileName", encodedFileName);
 								%>
-                          		<img class="image card-img-top rounded-4" style="height:268px; object-fit: cover;" src="${imageUrl}/market/${list.marketId}/${encodedFileName}">
+                          		<img class="image card-img-top rounded-4" style="height:230px; object-fit: cover;" src="${imageUrl}/market/${list.marketId}/${encodedFileName}">
                           		
                           	</c:if> 
                             <!-- Product details-->
@@ -58,7 +54,7 @@
                                     <h5 class="fw-bolder">${list.productName }
                              </h5>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="d-flex justify-content-center small text-warning mb-2" 	style="color: #ffc107;">
                                      <%--여기가 가격 --%>${list.price }원
                                     
                                     </div>

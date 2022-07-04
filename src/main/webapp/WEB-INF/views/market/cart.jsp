@@ -121,6 +121,7 @@
 }
 	</script>
 <style>
+
 .mainImg {
 	display: block;
 	width: 120px;
@@ -212,11 +213,13 @@ td {
 .OrderHeadr-Text {
 	font-weight: bold;
 	font-size: 24px;
+
 }
 
 .OrderTitle {
 	font-size: 18px;
 	font-weight: bold;
+	
 }
 
 .Order-wrapper {
@@ -284,6 +287,8 @@ td {
 	width: 100%;
 	height: 100%;
 }
+
+	
 </style>
 <body>
 	<!-- Navbar Start -->
@@ -306,7 +311,7 @@ td {
 		<div class="OrderHeadr">
 			<h1 class="OrderHeadr-Text">
 				결제하기
-				</h2>
+				</h1>
 		</div>
 
 		<div class="row">
@@ -427,28 +432,7 @@ td {
 			<div class="col-lg-8">
 				<!-- Featured blog post-->
 				<div class="card mb-4">
-					<section class="OrderInfo">
-						<h3>주문자 정보</h3>
-						<table class="type05">
-							<tr>
-								<th scope="row">주문하시는 분</th>
-								<td><label class="form-label" for="input1"></label> 
-								
-								<input class="form-control" type="text" /></td>
-									
-							</tr>
-							<tr>
-								<th scope="row">휴대폰 번호</th>
-								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="email" id="phone" required /> <br /></td>
-							</tr>
-							<tr>
-								<th scope="row">이메일</th>
-								<td><label class="form-label" for="input1"></label> <input
-									class="form-control" type="email" id="email" required /> <br /></td>
-							</tr>
-						</table>
-					</section>
+					
 
 				</div>
 			</div>
@@ -456,7 +440,7 @@ td {
 				<!-- Featured blog post-->
 				<div class="card mb-4">
 					<section class="OrderInfo">
-						<h3>배송지 정보</h3>
+						<h3 >주문자 정보</h3>
 						<table class="type05">
 							<tr>
 								<th scope="row">받으시는 분</th>
@@ -466,7 +450,7 @@ td {
 							<th>주소</th>
 							<td><input size="50" class="address1_input" id="postCode"
 								readonly="readonly"> <a class="address_search_btn"
-								onclick="execution_daum_address()">주소찾기</a><br> <input
+								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black;">주소찾기</a><br> <input
 								size="50" class="address2_input" id="address"
 								readonly="readonly"><br> <input size="50"
 								class="address3_input" id="detailAddress" readonly="readonly">

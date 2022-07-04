@@ -64,7 +64,7 @@ td.insertTable2 {
 td.insertTable3 {
 	border: 1px solid #444444;
 	text-align: center;
-	height: 500px;
+	height: 400px;
 }
 
 h1 {
@@ -72,7 +72,7 @@ h1 {
 }
 
 textarea {
-	height: 500px;
+	height: 400px;
 	border: none;
 	resize: none;
 }
