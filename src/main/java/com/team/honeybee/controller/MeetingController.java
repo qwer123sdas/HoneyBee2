@@ -120,6 +120,38 @@ public class MeetingController {
 		return "redirect:/meeting/main";
 	}
 	
+	// 게시판 수정전 기존 게시물 선택, 기존 해시태그
+	@RequestMapping("modify/{meetingId}")
+	public String getMeetingBoardModify(@PathVariable int meetingId, Model model) {
+		
+		MeetingDto board = service.getBoardByMeetingId(meetingId);
+		
+		String hashTags = "";
+		for(int i = 0; i < board.getHashTag().size(); i++) {
+			hashTags += "#" + board.getHashTag().get(i);
+		}
+		
+		model.addAttribute("hashTags", hashTags);
+		model.addAttribute("meeting", board);
+		
+		return "meeting/modify";
+		
+	}
+	
+	// 게시판 수정
+	@PostMapping("modify1")
+	public String updateByMeetingBoard(MeetingDto meeting, 
+										@RequestParam(name="hashTagRaw")String hashTagRaw, 
+										@RequestParam(name="mainPhoto")MultipartFile mainPhoto,
+										@RequestParam(name="folderName")String folderName,
+										@RequestParam(name="oldMainPhoto")String oldMainPhoto) {
+		
+		
+		service.updateByMeetingBoard(meeting, hashTagRaw, mainPhoto, folderName, oldMainPhoto);
+		
+		return "redirect:/meeting/board/" + meeting.getMeetingId();
+	}
+	
 	// 입력위해 만듬 나중에 제안하기로 이동함
 	@GetMapping("insert")
 	public void meetingInsert() {
@@ -128,6 +160,11 @@ public class MeetingController {
 	
 	@GetMapping("login")
 	public void login() {
+		
+	}
+	
+	@GetMapping("modify")
+	public void modify() {
 		
 	}
 	

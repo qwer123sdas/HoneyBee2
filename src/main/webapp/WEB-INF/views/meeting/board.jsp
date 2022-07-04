@@ -376,7 +376,6 @@
 							<!-- 댓글 대댓글 출력 ajax 처리 -->
 
 							<div id="parentsReplyList" class="parentsReplyList"></div>
-
 						</div>
 					</div>
 				</section>
@@ -430,6 +429,16 @@
 									<i class="fa-solid fa-heart-circle-check"></i>
 									함께할께요!
 								</button>
+								
+								<!-- 게시글 수정버튼 추가 -->
+								<c:if test="${meeting.own == 1 }">
+					            	<div class="backCircleImg">
+					            		<form action="${appRoot }/meeting/modify/${meeting.meetingId}">
+											<button type="button" id="modifyBtn1" class="btn btn-light mt-5 w-100">
+											<i class="fa-solid fa-list-ul">모두의행동 수정</i></button>
+					            		</form>
+					            	</div>
+				            	</c:if>
 							</div>
 						</div>
 					</div>

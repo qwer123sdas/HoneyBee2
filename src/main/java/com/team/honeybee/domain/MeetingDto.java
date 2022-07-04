@@ -40,6 +40,9 @@ public class MeetingDto{
 	private String MPhoto;  // 메인 사진
 	private List<String> image; // 서머노트 
 	private String folderName;
+	
+	// 작성자만 수정 가능하도록 추가함
+	private boolean own; 
 
 
 	

@@ -89,6 +89,12 @@
 		WHERE meeting_id = #{meetingId}
 	</select>
 	
+	<!-- 기존 해쉬태그 삭제 -->
+	<delete id="deleteHashTagByMeetingId">
+		DELETE FROM Tag
+		 WHERE meeting_id = #{meetingId}
+	</delete>
+	
 	<!-- 메인 사진 저장  -->
 	<insert id="insertMainPhoto" >
 		INSERT INTO BoardImage(meeting_id, main_image_name, member_id, image_folder_id)

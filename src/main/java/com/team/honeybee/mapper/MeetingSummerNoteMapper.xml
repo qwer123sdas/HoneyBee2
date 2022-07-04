@@ -43,4 +43,18 @@
 		 WHERE image_folder_id = #{imageFolderId}
 	</update>
 	
+	<!-- 게시글 수정시 메인사진 id 가져오기 -->
+	<select id="selectBoardImageId">
+		SELECT image_id
+		  FROM BoardImage
+		 WHERE main_image_name = #{oldMainPhoto}
+	</select>
+	
+	<!-- 게시글 메인 사진 db 수정 -->
+	<update id="updateBoardImage">
+		UPDATE BoardImage 
+		   SET main_image_name = #{originalFilename}
+		 WHERE image_id = #{boardImageId}
+	</update>
+	
 </mapper>

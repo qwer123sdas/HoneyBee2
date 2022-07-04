@@ -128,6 +128,15 @@
 	}
 }
 
+.classContent{
+	widows: 80px;
+}
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 400px;
+}
+
 
 </style>
 
@@ -167,7 +176,7 @@
 				</h3>
 			</div>
 		<div id="donationContentInfo" style="margin-left: 220px;">
-			<form class="needs-validation" novalidate action="${appRoot }/meeting/insert" method="post" enctype="multipart/form-data">
+			<form class="needs-validation" novalidate action="" method="get" enctype="multipart/form-data">
 				<div class="col-10">
 						<h3 class="col-10 text-center ">
 							프로젝트 모두의행동 제안
@@ -205,7 +214,7 @@
 								</h3>
 							</label>
 							<!-- maxlength : 글자수 제한  -->
-							<input type="text" class="form-control" name="title"
+							<input type="text" class="form-control" name="title" value="${meeting.title }"
 								placeholder="최대 30자까지 작성 가능합니다." maxlength="30" required>
 							<div class="invalid-feedback">필수 선택사항 입니다.</div>
 						</div>
@@ -219,7 +228,7 @@
 									.태그로 모두의행동 표현하기
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="address1"
+							<input type="text" class="form-control" id="address1" value="${meeting.hashTag }"
 								name="hashTagRaw" placeholder="#을 붙여 해시테그를 입력해주세요" required>
 							<!-- <input type="hidden" id="folderName" name="folderName" / -->
 							<div class="invalid-feedback">필수 입력사항 입니다.</div>
@@ -234,8 +243,17 @@
 									.메인 이미지로 모두의행동을 보여주세요
 								</h3>
 							</label>
-							<input class="form-control" type="file" id="formFile"
-								name="mainPhoto" accept="image/*" required>
+							
+							<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
+								<img id="imgChange" 
+									src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/meeting/${meeting.folderName }/${meeting.MPhoto}"  
+									alt="메인 사진 업로드"  style="width: 600px;">
+							</a>
+							<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*" onchange="readURL(this);">
+							<div id="image_container"></div>
+							
+							<!-- <input class="form-control" type="file" id="formFile"
+								name="mainPhoto" accept="image/*" required> -->
 							<input type="hidden" id="folderName" name="folderName" />
 							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
 						</div>
@@ -251,7 +269,7 @@
 								<small class="text-muted">꿀비들에게 보여줄 사진은 드래그로 추가하세요!</small>
 							</label>
 							<textarea class="textarea" id="summernote" name="content"
-								required> </textarea>
+								required>${meeting.content } </textarea>
 							<div class="invalid-feedback">필수 입력사항 입니다.</div>
 						</div>
 
@@ -274,7 +292,7 @@
 									.모집 인원
 								</h3>
 							</label>
-							<input type="number" class="form-control" name="guestNum" id="guestNum" placeholder="명" required/>
+							<input type="number" class="form-control" name="guestNum" id="guestNum" value="${meeting.guestNum }" placeholder="명" required/>
 							<small class="text-muted">인원을 입력하세요</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
 						</div>
@@ -286,7 +304,7 @@
 									.모임 날짜
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="meetingDate"
+							<input type="text" class="form-control" id="meetingDate" value="${meeting.meetingDate }"
 								pattern="|d{4}-|d{2}-|d{2}" name="meetingDate" required
 								th:field="*{meetingDate}" value="">
 							<small class="text-muted">모두의행동 시작일 확인</small>
@@ -302,7 +320,7 @@
 									.모집 시작일
 								</h3>
 							</label> <!-- type="date가 아님" -->
-							<input type="text" class="form-control" id="startDate"
+							<input type="text" class="form-control" id="startDate" value="${meeting.startDate }"
 								pattern="|d{4}-|d{2}-|d{2}" name="startDate" required
 								th:field="*{startDate}" value="">
 							<small class="text-muted">모집 시작 입력일 확인</small>
@@ -316,13 +334,18 @@
 									.모집 종료일
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="endDate"
+							<input type="text" class="form-control" id="endDate" value="${meeting.endDate }"
 								pattern="|d{4}-|d{2}-|d{2}" name="endDate" required
 								th:field="*{endDate}" value="">
 							<small class="text-muted">모임 종료 입력일 확인</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
 						</div>
 						
+						<!-- 카카오 지도 api -->
+						<div class="border mb-3 container shadow p-3 mb-3 bg-body rounded">
+							<div id="map"
+								style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
+						</div>
 						
 						<div class="col-md-6">
 							<label for="expired" class="form-label">
@@ -333,7 +356,7 @@
 								</h3>
 							</label>
 							<div class="input-group">
-								<input class="form-control " type="text" name="postcode" id="postcode" placeholder="우편번호" required>
+								<input class="form-control " type="text" name="postcode" id="postcode" value="${meeting.postcode }" placeholder="우편번호" required>
 								<input class="form-control" type="button" onclick="daumPostCode()" value="우편번호 찾기"><br/>
 							</div>
 								<small class="text-muted">검색한 우편번호를 확인해주세요.</small>
@@ -341,8 +364,8 @@
 						</div>
 						
 						<div class="col-md-10">
-							<input class="form-control" type="text" id="address" name="address" placeholder="주소" required>
-							<input class="form-control" type="text" id="detailAddress" name="detailAddress" 
+							<input class="form-control" type="text" id="address" name="address" value="${meeting.address }" placeholder="주소" required>
+							<input class="form-control" type="text" id="detailAddress" name="detailAddress"  value="${meeting.detailAddress }"
 								placeholder="상세주소" required>
 							<small class="text-muted">입력된 주소를 확인해주세요</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
@@ -355,20 +378,20 @@
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="save-info">
 						<label class="form-check-label" for="same-address">
-						모두의행동 모집 정보를 꼼꼼하게 입력하셨나요?</label>
-					</div>
-
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="save-info">
-						<label class="form-check-label" for="save-info">
-						제안하신 모두의행동은 개인의 이익이 아닌 공공을 위한 행동입니까?
-						</label>
+						모두의행동 모집 수정사항을 꼼꼼하게 입력하셨나요?</label>
 					</div>
 					
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="save-info">
-						<label class="form-check-label" for="save-info">제안하신 내용은
-							꿀비 요정이 검토 후 등록됨을 확인하셨나요?</label>
+						<label class="form-check-label" for="same-address">
+						모두의행동 시작일이 얼마 남지 않은 경우 불편함이 있을 수 있습니다.</label>
+					</div>
+
+				
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">수정하신 내용은
+							꿀비 요정이 검토 후 바로 등록됨을 확인하셨나요?</label>
 					</div>
 
 
@@ -376,7 +399,7 @@
 				<br>
 				<div style="margin-left: 450px">
 					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center">
-						꿀비팀에게 제안하기
+						모두의행동 수정!
 						<i class="fa-solid fa-hands-clapping"></i>
 					</button>
 				</div>
@@ -411,6 +434,10 @@
 
 	<!-- Template Javascript -->
 	<script src="${appRoot }/resources/webContents/js/main.js"></script>
+	
+	<!-- 카카오지도 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
+	
 </body>
 <script>
 //다음 주소검색
@@ -442,8 +469,50 @@ function daumPostCode() {
 	.open();
 }
 
-//서머노트
 $(document).ready(function() {
+	
+/* 카카오 지도 api 시작 */
+	
+	var Container = document.getElementById('map'), // 지도를 표시할 div 
+		Option = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level: 3 // 지도의 확대 레벨
+		};  
+	
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(Container, Option); 
+	console.log("111111111111111111111111111111111111")
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	console.log('${meeting.address}')
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${meeting.address}', function(result, status) {
+		console.log("22222222222222222222222222222222222222")
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+	    	 console.log("33333333333333333333333333333333333333")
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
+	        });
+	        infowindow.open(map, marker);
+	
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	}); 
+	
+	/* 카카오 지도 api 끝남 */
+
+		//서머노트
 		// 서머노트 파일명 랜덤값으로
 		//여기 아래 부분
 		const randomNum = Math.floor(Math.random() * 1000000000);

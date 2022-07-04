@@ -24,6 +24,12 @@ public interface MeetingSummerNoteMapper {
 	
 	// meetingId 넣어주기
 	void setMeetingId(@Param("meetingId")int meetingId, @Param("imageFolderId")String imageFolderId);
+
+	// 게시글 수정시 메인사진 id 가져오기
+	int selectBoardImageId(String oldMainPhoto);
+
+	// 게시글 메인 사진 db 수정
+	void updateBoardImage(int boardImageId, String originalFilename);
 	
 	
 

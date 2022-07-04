@@ -120,6 +120,17 @@ public class MeetingService {
 		
 	}
 	
+	// 해쉬태그 업데이트 분리 로직 매소드
+	private void updatehashTagBymeetingId(String hashTagRaw, int meetingId) {
+		// 기존 해시태그 삭제
+		mapper.deleteHashTagByMeetingId(meetingId);
+		
+		String hashTag[] = hashTagRaw.split("#");
+		for(int i = 1; i < hashTag.length; i++) {
+			mapper.setHashTag(hashTag[i].replaceAll(" ", ""), meetingId);
+		}
+	}
+	
 	// 모임 리스트(topic추가함)
 	@Transactional
 	public List<MeetingDto> meetingList(String sort, String topic) {
@@ -157,50 +168,125 @@ public class MeetingService {
 	}
 	*/
 	
+	
+	// 후기 입력 모달
+	public void meetingCommentAdd(String memberId, String content) {
+		mapper.meetingCommentAdd(memberId, content);
+		
+	}
+	
+	// 게시판 수정
+	public void updateByMeetingBoard(MeetingDto meeting, String hashTagRaw, 
+										MultipartFile mainPhoto, String folderName,
+										String oldMainPhoto) {
+		
+		// 게시글 업데이트
+		mapper.updateByMeetingBoard(meeting);
+
+		// 해쉬태그 업데이트
+		updatehashTagBymeetingId(hashTagRaw, meeting.getMeetingId());
+
+		// 메인 사진 수정
+		System.out.println("메인사진 : " + mainPhoto.getOriginalFilename());
+		if (mainPhoto.getOriginalFilename() != oldMainPhoto && !mainPhoto.isEmpty()) {
+			// 기존 사진 삭제
+			deleteFromAwsS3FromNewMainPhoto(oldMainPhoto, folderName);
+			
+			// 새로운 사진 업로드
+			saveMainPhotoAwsS3(meeting.getMeetingId(), mainPhoto, folderName);
+			
+			// 게시글 사진 db 수정
+			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
+		}
+
+		// Jsoup : 수정된 이미지 업로드 구분
+		Document doc = Jsoup.parse(meeting.getContent());
+		Elements imgs = doc.select("img[src]");
+
+		// 실제 사용 이미지 리스트
+		List<String> isImage = new ArrayList<>();
+		for (Element img : imgs) {
+			isImage.add(img.attr("src"));
+		}
+
+		System.out.println("isImage : " + isImage);
+
+		// 사용하지 않는 이미지 리스트
+		String imageFolderId = folderName;
+		System.out.println("사용하지 않는 이미지 리스트 imageFolderId " + imageFolderId);
+		
+		List<String> dbImageUrlList = summerNoteMapper.getImageUrlByImageFolderId(imageFolderId);
+		System.out.println(dbImageUrlList);
+
+		// 리스트 비교해서 없는것 db에서 삭제
+		for (String imageUrl : dbImageUrlList) {
+			if (imageUrl != null && !isImage.contains(imageUrl)) {
+				// db 지우기
+				System.out.println("db 지우기");
+				summerNoteMapper.deleteImage(imageUrl);
+
+				// s3 지우기
+				deleteFromAwsS3(imageUrl);
+			}
+		}
+		// meetingId 넣어주기
+		summerNoteMapper.setMeetingId(meeting.getMeetingId(), imageFolderId);
+
+	}
+	
+
 	// s3 bucket 메인사진 등록
 	private void saveMainPhotoAwsS3(int meetingId, MultipartFile mainPhoto, String folderName) {
 		
 		String key = "meeting/" + folderName + "/" + mainPhoto.getOriginalFilename();
 		
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-					.acl(ObjectCannedACL.PUBLIC_READ) 
-					.bucket(bucketName) 
-					.key(key) 
-					.build(); 
+				.acl(ObjectCannedACL.PUBLIC_READ) 
+				.bucket(bucketName) 
+				.key(key) 
+				.build(); 
+		
+		
+		RequestBody requestBody;
+		try {                                          
+			requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
+			amazonS3.putObject(putObjectRequest, requestBody);
 			
+		} catch (IOException e) {
+			e.printStackTrace();
 			
-			RequestBody requestBody;
-			try {                                          
-				requestBody = RequestBody.fromInputStream(mainPhoto.getInputStream(), mainPhoto.getSize());
-				amazonS3.putObject(putObjectRequest, requestBody);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-				
-				throw new RuntimeException(e);
-			}
+			throw new RuntimeException(e);
 		}
+	}
 	
+	// 게시글 수정용, 기존 사진 삭제 메소드
+	private void deleteFromAwsS3FromNewMainPhoto(String oldMainPhoto, String folderName) {
+		String key = "meeting/" + folderName + "/" + oldMainPhoto;
+		
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		amazonS3.deleteObject(deleteBucketRequest);
+		
+	}
 	
 	// aws의 s3에서 사진삭제 메소드
 	private void deleteFromAwsS3(String fileName) {
 		System.out.println("삭제");
 		System.out.println(fileName.substring(56)); // 팀플 56
 		String key = fileName.substring(56);
-			
+		
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
 				.key(key)
 				.build();
-			
+		
 		amazonS3.deleteObject(deleteBucketRequest);
-			
-		}
-	
-	// 후기 입력 모달
-	public void meetingCommentAdd(String memberId, String content) {
-		mapper.meetingCommentAdd(memberId, content);
 		
 	}
 	

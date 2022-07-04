@@ -30,11 +30,17 @@ public interface MeetingMapper {
 	// 해쉬 태그 가져오기
 	List<String> getHashTag(int meetingId);
 
+	// 기존 해시태그 삭제
+	void deleteHashTagByMeetingId(int meetingId);
+	
 	// 현재 인원수 가져오기
 	int meetingSelectGuest(int meetingId);
 
 	// 후기 입력 모달
 	void meetingCommentAdd(@Param("memberId") String memberId, @Param("content") String content);
+	
+	// 게시글 업데이트
+	void updateByMeetingBoard(MeetingDto meeting);
 	
 	
 
