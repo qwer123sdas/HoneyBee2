@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.AdminMapper">
+	<!-- 현재 모인 기부금 합계 -->
+	<select id="sumDonationAll" resultType="int">
+		SELECT SUM(current_amount)
+		FROM Donation
+	</select>
+	<!-- 회원목록 가져오기 -->
+	<select id="getMember" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT 
+			member_id memberId,
+		 	name,
+		 	email,
+		 	nickname,
+		 	postcode,
+		 	phone
+		 FROM Member
+		 WHERE member_id != 'admin'
+		 ORDER BY create_date DESC
+	</select>
+	<!-- 회원수정하기 -->
+	<update id="modifyMember">
+		UPDATE Member
+		SET member_id = #{memberId},
+			name = #{name},
+			email = #{email},
+			nickname = #{nickname},
+			postcode = #{postcode},
+			phone = #{phone}
+		WHERE member_id = #{memberId}
+	</update>
+	<!-- 회원 프로필 가져오기 -->
+	<select id="selectProfileByMemberId" resultType="string">
+		SELECT profile
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
+	<!-- 회원권한 삭제하기 -->
+	<delete id="deleteAuthByMemberId">
+		DELETE FROM Auth
+		WHERE member_id = #{memberId}
+	</delete>
+	<!-- 회원삭제하기 -->
+	<delete id="deleteMember">
+		DELETE FROM Member
+		WHERE member_id = #{memberId}
+	</delete>
+	<!-- 기부게시글 전체가져오기 -->
+	<select id="getDonationAll" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id donationId,
+				d.title,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.enable,
+				d.goal,
+				d.current_amount currentAmount,
+				d.topic,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY d.donation_id
+		ORDER BY enable ASC, expired ASC
+	</select>
+	<!-- 기부게시글 내용가져오기 -->
+	<select id="getDonationById" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT d.donation_id donationId,
+				d.title,
+				d.content,
+				m.nickname,
+				d.inserted,
+				d.expired,
+				d.goal,
+				d.current_amount currentAmount,
+				d.enable,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Donation d LEFT JOIN Member m ON d.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON d.donation_id = bi.donation_id
+		WHERE d.donation_id = #{donationId} AND bi.main_image_name IS NOT NULL
+	</select>
+	<!-- 기부게시글 등록허용 -->
+	<update id="registerDonation">
+		UPDATE Donation
+		SET enable = 1
+		WHERE donation_id = #{donationId}
+	</update>
+	<!-- 기부게시판 사진폴더와 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMPhotoByDonationId" resultType="com.team.honeybee.domain.DonationDto">
+		SELECT main_image_name MPhoto,
+			   image_folder_id folderName
+		FROM BoardImage
+		WHERE donation_id = #{donationId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 기부게시판 서머노트이미지 가져오기 -->
+	<select id="selectFileNameByDonationId" resultType="String">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE donation_id = #{donationId} AND image_name IS NOT NULL
+	</select>
+	<!-- 기부게시판 사진 삭제 -->
+	<delete id="deleteBoardImageByDonationId">
+		DELETE FROM BoardImage
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 기부게시판 태그 삭제 -->
+	<delete id="deleteTagByDonationId">
+		DELETE FROM Tag
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 기부게시판 좋아요 삭제 -->
+	<delete id="deleteFavoriteByDonationId">
+		DELETE FROM Favorite
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 기부게시판 기부금 삭제 -->
+	<delete id="deleteDonationPayByDonationId">
+		DELETE FROM DonationPay
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 기부게시판 댓글 삭제 -->
+	<delete id="deleteDonationReplyByDonationId">
+		DELETE FROM DonationReply
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 기부게시판 글 삭제 -->
+	<delete id="deleteDonationByDonationId">
+		DELETE FROM Donation
+		WHERE donation_id = #{donationId}
+	</delete>
+	<!-- 재능판매게시글 전체가져오기 -->
+	<select id="getTalentAll" resultType="com.team.honeybee.domain.TalentDto">
+		SELECT t.talent_id talentId,
+			   t.title,
+			   m.nickname,
+			   t.enable enable,
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY talentId
+		ORDER BY enable ASC, talentId DESC
+	</select>
+	<!-- 재능판매게시글 내용가져오기 -->
+	<select id="getTalentById" resultType="com.team.honeybee.domain.TalentDto">
+		SELECT t.talent_id talentId,
+		      	t.title, 
+				t.content,
+				t.price, 
+				t.topic, 
+				t.map_level mapLevel, 
+				t.address,
+				t.product_name productName,
+				t.work_date workDate,
+				t.number_people numberOfPeople,
+				t.self_introduction selfIntroduction,
+				t.class_content classContent,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+		WHERE t.talent_id = #{talentId} AND bi.main_image_name IS NOT NULL
+	</select>
+	<!-- 재능판매 등록허용 -->
+	<update id="registerTalent">
+		UPDATE Talent
+		SET enable = 1
+		WHERE talent_id = #{talentId}
+	</update>
+	<!-- 재능판매게시판 사진폴더와 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMPhotoByTalentId" resultType="com.team.honeybee.domain.TalentDto">
+		SELECT main_image_name MPhoto,
+			   image_folder_id folderName
+		FROM BoardImage
+		WHERE talent_id = #{talentId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 재능판매게시판 서머노트사진 가져오기 -->
+	<select id="selectFileNameByTalentId" resultType="string">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE talent_id = #{talentId} AND image_name IS NOT NULL
+	</select>
+	<!-- 재능판매게시판 사진 삭제 -->
+	<delete id="deleteBoardImageByTalentId">
+		DELETE FROM BoardImage
+		WHERE talent_id = #{talentId}
+	</delete>
+	<!-- 재능판매게시판 후기 삭제 -->
+	<delete id="deleteTalentReviewByTalentId">
+		DELETE FROM TalentReview
+		WHERE talent_id = #{talentId}
+	</delete>
+	<!-- 재능판매게시판 글 삭제 -->
+	<delete id="deleteTalentByTalentId">
+		DELETE FROM Talent
+		WHERE talent_id = #{talentId}
+	</delete>
+	<!-- 모임게시글 전체가져오기 -->
+	<select id="getMeetingAll" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT m.meeting_id meetingId, 
+			   m.title, 
+			   mem.nickname, 
+			   m.start_date startDate, 
+			   m.end_date endDate,
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
+		FROM Meeting m LEFT JOIN Member mem ON m.member_id = mem.member_id
+					   LEFT JOIN BoardImage bi ON m.meeting_id = bi.meeting_id
+		WHERE bi.main_image_name IS NOT NULL
+		GROUP BY meetingId
+		ORDER BY meetingId DESC
+	</select>
+	<!-- 모임게시글 내용가져오기 -->
+	<select id="getMeetingById" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.tag,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
+		WHERE mt.meeting_id = #{meetingId} AND bi.main_image_name IS NOT NULL
+	</select>
+	<!-- 게스트목록 가져오기 -->
+	<select id="selectGuestInfo" resultType="com.team.honeybee.domain.MeetingGuestDto">
+		SELECT member_id
+		FROM MeetingGuest
+		WHERE meeting_id = #{meetingId}
+	</select>
+	<!-- 모임게시판 사진폴더명과 메인사진 가져오기 -->
+	<select id="selectFolderNameAndMainPhotoByMeetingId" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT main_image_name MPhoto,
+			   image_folder_id folderName
+		FROM BoardImage
+		WHERE meeting_id = #{meetingId} AND main_image_name IS NOT NULL
+	</select>
+	<!-- 모임게시판 서머노트 가져오기 -->
+	<select id="selectFileNameByMeetingId" resultType="string">
+		SELECT image_name image
+		FROM BoardImage
+		WHERE meeting_id = #{meetingId} AND image_name IS NOT NULL
+	</select>
+	<!-- 모임게시판 사진 삭제 -->
+	<delete id="deleteBoardImageByMeetingId">
+		DELETE FROM BoardImage
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 게스트 삭제 -->
+	<delete id="deleteMeetingGuestByMeetingId">
+		DELETE FROM MeetingGuest
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 후기 삭제 -->
+	<delete id="deleteMeetingCommentByMeetingId">
+		DELETE FROM MeetingComment
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 댓글좋아요 삭제 -->
+	<delete id="deleteFavoriteByMeetingReplyId">
+		DELETE FROM Favorite
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 댓글 삭제 -->
+	<delete id="deleteMeetingReplyByMeetingId">
+		DELETE FROM MeetingReply
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 태그 삭제 -->
+	<delete id="deleteTagByMeetingId">
+		DELETE FROM Tag
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 모임게시판 글 삭제 -->
+	<delete id="deleteMeetingByMeetingId">
+		DELETE FROM Meeting
+		WHERE meeting_id = #{meetingId}
+	</delete>
+	<!-- 기부마켓게시글 전체가져오기 -->
+	<select id="getMarketAll" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT m.market_id marketId,
+			   m.member_id memberId,
+			   m.title, 
+			   m.product_name productName, 
+			   m.price,
+			   f.file thumbNailImage,
+			   COUNT(f.market_id) hasFile
+		FROM Market m LEFT JOIN MarketFile f ON m.market_id = f.market_id
+		GROUP BY m.market_id
+		ORDER BY m.market_id DESC
+	</select>
+	<!-- 기부마켓게시글 내용가져오기 -->
+	<select id="selectMarketById" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT market_id marketId,
+			   member_id memberId,
+			   title,
+			   content,
+			   inserted,
+			   price,
+			   product_name productName,
+			   enable
+		FROM Market
+		WHERE market_id = #{marketId}
+	</select>
+	<!-- 기부마켓아이디로 파일이름들 가져오기 -->
+	<select id="selectFileNameByMarketId" resultType="string">
+		SELECT file fileName
+		FROM MarketFile
+		WHERE market_id = #{marketId}
+	</select>
+	<!-- 기부마켓 글 등록하기 -->
+	<insert id="inserMarket" useGeneratedKeys="true" keyColumn="marketId" keyProperty="marketId">
+		INSERT INTO Market (member_id, title, content, price, product_name, product_code)
+		VALUES(#{memberId}, #{title}, #{content}, #{price}, #{productName}, #{productCode})
+	</insert>
+	<!-- 기부마켓 글 수정하기 -->
+	<update id="updateMarket">
+		UPDATE Market
+		SET title = #{title},
+			content = #{content},
+			product_name = #{productName},
+			price = #{price}
+		WHERE market_id = #{marketId}
+	</update>
+	<!-- 기부마켓 글 삭제하기 -->
+	<delete id="deleteMarket">
+		DELETE FROM Market
+		WHERE market_id = #{marketId}
+	</delete>
+	<!-- 기부마켓 파일 등록하기 -->
+	<insert id="insertFile">
+		INSERT INTO MarketFile (market_id, file)
+		VALUES (#{marketId}, #{file})
+	</insert>
+	<!-- 기부마켓아이디로 파일 삭제하기 -->
+	<delete id="deleteFileByMarketId">
+		DELETE FROM MarketFile
+		WHERE market_id = #{marketId}
+	</delete>
+	<!-- 기부마켓아이디와 파일이름으로 파일 삭제하기 -->
+	<delete id="deleteFileByMarketIdAndFileName">
+		DELETE FROM MarketFile
+		WHERE market_id = #{marketId}
+			AND file = #{file}
+	</delete>
+	<!-- 1대1문의 글 전체가져오기 -->
+	<select id="getFaqAll" resultType="com.team.honeybee.domain.FaqDto">
+		SELECT f.question_id questionId, 
+			   f.member_id memberId, 
+			   f.title, 
+			   f.content, 
+			   f.inserted, 
+			   f.email,
+			   f.enable,
+			   ff.file thumbNailImage
+		FROM Faq f LEFT JOIN FaqFile ff ON f.question_id = ff.question_id
+		GROUP BY questionId
+		ORDER BY enable ASC, questionId DESC
+	</select>
+	<!-- 1대1문의 글 내용가져오기 -->
+	<select id="getFaqById" resultType="com.team.honeybee.domain.FaqDto">
+		SELECT question_id questionId, 
+			   member_id memberId, 
+			   title, 
+			   content, 
+			   inserted, 
+			   email,
+			   enable
+		FROM Faq
+		WHERE question_id = #{questionId}
+	</select>
+	<!-- s3에서 1대1문의관련 파일들을 가져옴 -->
+	<select id="selectFileNameByFaqId" resultType="String">
+		SELECT file fileName
+		FROM FaqFile
+		WHERE question_id = #{questionId}
+	</select>
+	<!-- 1대1문의 관련 파일 삭제 -->
+	<delete id="deleteFileByFaqId">
+		DELETE FROM FaqFile
+		WHERE question_id = #{questionId}
+	</delete>
+	<!-- 1대1문의 답변완료 -->
+	<update id="modifyFaqEnableById">
+		UPDATE Faq
+		SET enable = 1
+		WHERE question_id = #{questionId}
+	</update>
+	<!-- 1대1문의 글 삭제 -->
+	<delete id="deleteFaqById">
+		DELETE FROM Faq
+		WHERE question_id = #{questionId}
+	</delete>
+</mapper>

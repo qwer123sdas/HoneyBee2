@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.MemberMapper">
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.team.honeybee.domain.MemberDto" >
+		INSERT INTO Member (member_id, pw, name, email, nickname, postcode, address, detail, birth, phone)
+		VALUES (#{memberId}, #{pw}, #{name}, #{email}, #{nickname}, #{postcode}, #{address}, #{detail}, #{birth}, #{phone})
+	</insert>
+	
+	<!-- 아이디 체크 -->
+	<select id="countMemberId" resultType="int">
+		SELECT COUNT(member_id) 
+		FROM Member 
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 이메일 체크 -->
+	<select id="countMemberEmail" resultType="int">
+		SELECT COUNT(email) 
+		FROM Member 
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 닉네임 체크 -->
+	<select id="countMemberNickName" resultType="int">
+		SELECT COUNT(nickname)
+		FROM Member 
+		WHERE nickname = #{nickname}
+	</select>
+
+	<!-- 권한 추가 -->
+	<insert id="insertAuth">
+		INSERT INTO Auth(member_id, role)
+		VALUES(#{memberId}, #{auth})
+	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="int">
+		SELECT COUNT(member_id)
+		FROM Member
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="findId2" resultType="String">
+		SELECT member_id
+		FROM Member
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<!-- 마이페이지 -->
+	<select id="memberInfo" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT member_id memberId, pw, name, email, nickname, postcode, address, detail, phone, profile
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
+	
+ 	<!-- 회원 탈퇴 -->
+	<delete id="deleteMemberById">
+		DELETE FROM Member
+		WHERE member_id = #{memberId}
+	</delete>
+	
+	<!-- 회원 권한 삭제 -->
+	<delete id="deleteAuthById">
+		DELETE FROM Auth
+		WHERE member_id = #{memberId}
+	</delete>
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember">
+		UPDATE Member
+		SET email = #{email},
+			nickname = #{nickname},
+			postcode = #{postcode},
+			address = #{address},
+			detail = #{detail},
+			<if test="profile != null">
+			profile = #{profile},
+			</if>
+			phone = #{detail}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<select id="selectMemberById" resultType="com.team.honeybee.domain.MemberDto">
+		SELECT member_id, pw
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 이메일 가져오기 -->
+	<select id="selectEmailById" resultType="string">
+		SELECT email
+		FROM Member
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 회원 비밀번호 변경 -->
+	<update id="initPwByMemberId">
+		UPDATE Member
+		SET pw = #{pw}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- 마이페이지 회원 비밀번호 변경 -->
+	<update id="updatePw">
+		UPDATE Member
+		SET pw = #{newPw}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- 프로필 사진 업로드 -->
+	<update id="updateFile">
+		UPDATE Member
+		SET profile = #{profile}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- 정현씨 부분 start -->
+	<!-- 마이페이지 상담리스트 가져오기-->
+	<select id="Faqlist" resultType="com.team.honeybee.domain.FaqDto">
+		SELECT question_id questionId,
+		member_id memberId,
+		title,
+		inserted,
+		email,
+		enable
+		FROM Faq
+		WHERE member_id = #{memberId}
+		order by enable DESC, question_id desc
+		
+	</select>
+	<!-- 마이페이지 상담내용 가져오기 -->
+	<select id="getFaq" resultType="com.team.honeybee.domain.FaqDto">
+	SELECT question_id questionId,
+	       member_id memberId,
+	       title,
+	       content, 
+	       email
+	  FROM Faq
+	  WHERE question_id = #{questionId}
+	</select>
+	<!-- s3에서 지우고 그림파일 삭제 -->
+	<delete id="deleteFileById">
+		DELETE FROM FaqFile
+		WHERE question_id = #{questionId}
+	</delete>
+	<!--상담내용(그림) 가져오기  -->
+	<select id="selectFileNameById" resultType="string">
+		SELECT file fileName
+		FROM FaqFile
+		WHERE question_id = #{questionId}
+	</select>
+	<!-- 상담내용 제거-->
+	<delete id="deleteFaq">
+		DELETE FROM Faq
+		WHERE question_id = #{questionId}
+	</delete>
+	<!-- 정현씨 부분 end -->
+	
+	<!-- 자기가 쓴 게시글 -->
+	<select id="getDonationByMemberId" resultType="com.team.honeybee.domain.DonationBoardDto">
+		SELECT donation_id donationId, member_id memberId, title, enable
+		FROM Donation
+		WHERE member_id = #{memberId}
+		GROUP BY donation_id
+		ORDER BY donation_id DESC
+	</select>
+	
+	<select id="getTalentByMemberId" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT talent_id talentId, member_id memberId, title, enable
+		FROM Talent
+		WHERE member_id = #{memberId}
+		GROUP BY talent_id
+		ORDER BY talent_id DESC
+	</select>
+	
+	<select id="getMeetingByMemberId" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT meeting_id meetingId, member_id memberId, title, enable
+		FROM Meeting
+		WHERE member_id = #{memberId}
+		GROUP BY meeting_id
+		ORDER BY meeting_id DESC
+	</select>
+	
+	<!-- 기부 후기글 -->
+	<select id="getDonationReplyByMemberId" resultType="com.team.honeybee.domain.DonationReplyDto">
+		SELECT dr.donation_id donationId, dr.reply_id replyId, dr.member_id memberId, dr.content, dr.inserted, dp.amount amount
+		FROM DonationReply dr LEFT JOIN DonationPay dp ON dr.reply_id = dp.reply_id
+		WHERE dr.member_id = #{memberId}
+		GROUP BY replyId
+		ORDER BY replyId DESC
+	</select>
+	
+	<!-- 모임 후기글 -->
+	<select id="getMeetingCommentByMemberId" resultType="com.team.honeybee.domain.MeetingCommentDto">
+		SELECT meeting_comment_id meetingCommentId, member_id memberId, content, inserted
+		FROM MeetingComment
+		WHERE member_id = #{memberId}
+		GROUP BY meetingCommentId
+		ORDER BY meetingCommentId DESC
+	</select>
+		
+	<!-- 기부 후기글 삭제 -->
+	<delete id="deleteDonationPayByReplyId">
+		DELETE FROM DonationPay
+		WHERE reply_id = #{replyId}
+	</delete>
+	
+	<delete id='deleteDonationReplyByReplyId'>
+		DELETE FROM DonationReply
+		WHERE reply_id = #{replyId}
+	</delete>
+	
+	<delete id="deleteMeetingCommentByMeetingCommentId">
+		DELETE FROM MeetingComment
+		WHERE meeting_comment_id = #{meetingCommentId}
+	</delete>
+</mapper> 
