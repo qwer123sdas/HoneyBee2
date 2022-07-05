@@ -569,7 +569,7 @@ td {
 	    			
 	    			var data = {'productName':'${market.productName}',
 	    					    'quantity':$('#amount').text(),
-	    					    'finalPayment':$('#finalPayment').text(),
+	    					    'totalAmount':Number($('#finalPayment').text()),
 	    					    'orderName' :$('#orderName').val(),
 	    					    'postCode':$('#postCode').val(),
 	    					    'address' :$('#address').val(),
@@ -583,10 +583,11 @@ td {
 	    		    //SOS
 	    		   	console.log(data)
 	    			$.ajax({
-	    				url:"${appRoot}/market/kakaopay",
-	    				data: data,
+	    				url:"${appRoot}/kakaopay",
+	    				data: JSON.stringify(data),
+	    				contentType : 'application/json',
 	    				dataType:"text",
-	    				type : "GET"
+	    				type : "POST"
 	    			}).done(function(resp){
 	   					console.log("일단응답:", resp);
 	    				if(resp.status === 500){

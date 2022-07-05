@@ -37,8 +37,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<my:navbar></my:navbar>
-	<my:faq1tag></my:faq1tag>
+
+
 <div class="container">
 		<div class="row">
 			<div class="col">		

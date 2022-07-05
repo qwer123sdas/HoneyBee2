@@ -43,7 +43,7 @@ public class TalentBoardService {
 	@Autowired
 	TalentReviewMapper reviewMapper;
 	
-	@Value("${aws.s3.bucketName}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 

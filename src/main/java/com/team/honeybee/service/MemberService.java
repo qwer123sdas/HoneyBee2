@@ -290,4 +290,18 @@ public class MemberService {
 	public boolean deleteMeetingCommentByMeetingCommentId(String meetingCommentId) {
 		return mapper.deleteMeetingCommentByMeetingCommentId(meetingCommentId);
 	}
+	//구매 리스트 불러오기
+		public List<OrderPayDto> payList(String memberId) {
+			// TODO Auto-generated method stub
+			return mapper.paylist(memberId);
+		}
+		//구매 리스트 내용 불러오기
+		public OrderPayDto payGet(int orderId) {
+			// TODO Auto-generated method stub
+			return mapper.payget(orderId);
+		}
+
+		public MarketDto getMarket(String productCode) {
+			return mapper.selectMarket(productCode);
+		}
 }

@@ -197,7 +197,7 @@ form input #profileFile:file-selector-button{
 <body>
 	<!-- 임시 navBar -->
 	<my:mainNavBar current="info"></my:mainNavBar>
-	<my:mypage></my:mypage>
+	
 	<div class="container">
 		<div class="row">
 			<div class="d-flex flex-row justify-content-center">

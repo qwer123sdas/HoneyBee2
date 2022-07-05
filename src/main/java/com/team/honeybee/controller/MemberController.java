@@ -349,4 +349,33 @@ public class MemberController {
 
 		return "redirect:/member/index";
 	}
+	// 마이페이지에 주문내역 불러오기
+		@GetMapping("payList")
+		public void payList(Model model, Principal principal) {
+			List<OrderPayDto> list = service.payList(principal.getName());
+			System.out.println(list);
+			List<MarketDto> marketList = new ArrayList<>();
+			for (OrderPayDto opd : list) {
+				System.out.println(opd.getProductCode());
+				MarketDto market = service.getMarket(opd.getProductCode());
+				marketList.add(market);
+			}
+			System.out.println(marketList);
+			model.addAttribute("payList", list);
+			model.addAttribute("marketList", marketList);
+		}
+
+		// 마이페이지 주문 상세 내용 불러오기
+		@GetMapping("payGet")
+		public void payGet(int orderId, Model model) {
+			OrderPayDto opd = service.payGet(orderId);
+			System.out.println(opd);
+			MarketDto market = service.getMarket(opd.getProductCode());
+			System.out.println(market);
+//				TalentDto talent = service.getTalent(opd.getProductCode());
+			model.addAttribute("opd", opd);
+			model.addAttribute("market", market);
+//				model.addAttribute("talent", talent);
+		}
+	
 }
