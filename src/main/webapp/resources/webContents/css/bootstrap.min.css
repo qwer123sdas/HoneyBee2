@@ -204,7 +204,7 @@ a {
 }
 
 a:hover {
-	color: #fbc02d
+	color: #000000
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -1886,9 +1886,9 @@ progress {
 .form-control:focus {
 	color: #9B9B9B;
 	background-color: #fff;
-	border-color: #99e1b6;
+	border-color: #fff59d;
 	outline: 0;
-	box-shadow: 0 0 0 .25rem rgba(50, 195, 108, 0.25)
+	box-shadow: 0 0 0 .25rem rgba(251, 192, 45, 0.25)
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -2268,7 +2268,7 @@ textarea.form-control-lg {
 }
 
 .form-range::-webkit-slider-thumb:active {
-	background-color: #c2edd3
+	background-color: #ffcc80;
 }
 
 .form-range::-webkit-slider-runnable-track {
@@ -2299,7 +2299,7 @@ textarea.form-control-lg {
 }
 
 .form-range::-moz-range-thumb:active {
-	background-color: #c2edd3
+	background-color: #ffcc80;
 }
 
 .form-range::-moz-range-track {
@@ -2502,7 +2502,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
-	border-color: #198754;
+	border-color: #ffa000;
 	box-shadow: 0 0 0 .25rem rgba(25, 135, 84, 0.25)
 }
 
@@ -2514,7 +2514,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-select:valid, .form-select.is-valid {
-	border-color: #198754
+	border-color: #ffa000
 }
 
 .was-validated .form-select:valid:not([multiple]):not([size]),
