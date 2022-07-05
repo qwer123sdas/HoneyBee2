@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <%@ page import="java.util.*"%>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -282,6 +283,9 @@ form input #profileFile:file-selector-button{
 		</div>
 	</div>
 
+	<!-- footer -->
+	<nav:footbar_kim></nav:footbar_kim>
+	
 	<!-- 회원 탈퇴 암호 확인 Modal -->
 	<div class="modal fade" id="modalSheet1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">

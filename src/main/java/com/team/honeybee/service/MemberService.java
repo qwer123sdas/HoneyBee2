@@ -304,4 +304,8 @@ public class MemberService {
 		public MarketDto getMarket(String productCode) {
 			return mapper.selectMarket(productCode);
 		}
+
+		public int countMember() {
+			return mapper.countMember();
+		}
 }

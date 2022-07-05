@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,7 +146,6 @@ h3 {
 	<!-- Page content-->
 	<div class="container">
 		<div class="row">
-		
 			<div class="col-8 mt-5 ms-5">
 				<article>
 					<section>
@@ -154,10 +154,14 @@ h3 {
 						<div class="orderPage">
 							<div class="orderPageTitle d-flex justify-content-around">
 								<div class="orderPageSub">
-									<strong>주문일자 ｜ <strong>${opd.inserted }</strong></strong>
+									<strong>
+										주문일자 ｜
+										<strong>${opd.inserted }</strong>
+									</strong>
 								</div>
 								<div class="orderPageSub">
-									주문번호 ｜ <strong>2022062359064601 </strong>
+									주문번호 ｜
+									<strong>2022062359064601 </strong>
 								</div>
 								<div class="orderPageButton ">
 									<a href="${getMarketUrl }">재구매</a>
@@ -181,9 +185,11 @@ h3 {
 							<tbody>
 								<tr>
 									<td style="width: 200px; font-size: 12px">2022062359064601</td>
-									<td><img class="mainImg" width="180px" height="auto"
-										src="${imageUrl }/market/${market.marketId }/${market.thumbNailImage}"
-										alt="" /></td>
+									<td>
+										<img class="mainImg" width="180px" height="auto"
+											src="${imageUrl }/market/${market.marketId }/${market.thumbNailImage}"
+											alt="" />
+									</td>
 									<td class="table-left">${opd.finalPayment}
 										<p>(${opd.amount})개</p>
 									</td>
@@ -195,7 +201,8 @@ h3 {
 							</tbody>
 						</table>
 					</section>
-					<br /> <br />
+					<br />
+					<br />
 					<section>
 						<!-- 구매/거래 정보 -->
 						<h3>주문/결제 금액 정보</h3>
@@ -228,7 +235,8 @@ h3 {
 							</tbody>
 						</table>
 					</section>
-					<br /> <br />
+					<br />
+					<br />
 					<section>
 						<div>
 							<!-- 배송지 정보-->
@@ -267,37 +275,40 @@ h3 {
 				</article>
 			</div>
 		</div>
-		<!-- Back to Top -->
-		<a href="#"
-			class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-			class="bi bi-arrow-up"></i></a>
-		<!-- JavaScript Libraries -->
-		<!--Jquery -->
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-			referrerpolicy="no-referrer"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
-		<script
-			src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
-		<!-- Template Javascript -->
-		<script src="${appRoot }/resources/webContents/js/main.js"></script>
-		<script>
-			$(document).ready(function() {
-				/*버튼 */
+	</div>
+	<nav:footbar_kim></nav:footbar_kim>
+	<!-- Back to Top -->
+	<a href="#"
+		class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top">
+		<i class="bi bi-arrow-up"></i>
+	</a>
+	<!-- JavaScript Libraries -->
+	<!--Jquery -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+		referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+	<!-- Template Javascript -->
+	<script src="${appRoot }/resources/webContents/js/main.js"></script>
+	<script>
+		$(document).ready(function() {
+			/*버튼 */
 
-			});
-		</script>
+		});
+	</script>
 </body>
 </html>

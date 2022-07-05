@@ -17,6 +17,8 @@
 <c:url value="/member/changePw" var="changePwUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
+<c:url value="/donation/main" var="donationMainUrl"></c:url>
+<c:url value="/meeting/main" var="meetingMainUrl"></c:url>
 <c:url value="/meeting/login" var="loginUrl"></c:url>
 
 <%-- 회원정보링크 --%>
@@ -188,15 +190,22 @@
 			</sec:authorize>
 
 			<li class="nav-item">
-				<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
-					href="${aboutUrl }">About 꿀비</a>
-			</li>
-
+					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
+						href="${aboutUrl }">About 꿀비</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
+						href="${meetingMainUrl }">모두의행동</a>
+				</li>
+				
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link" href="#">기부하기</a>
+					<a class="nav-item nav-link" ${current == 'main' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
 				</li>
 			</sec:authorize>
+			
+			
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
@@ -208,57 +217,36 @@
 
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown">
-					<a
-						class="nav-item nav-link dropdown-toggle ${current == 'memberInfo' ? 'active' : '' }"
-						data-toggle="dropdown" href="${memberInfoUrl }">마이페이지 </a>
-
+					<a class="nav-item nav-link dropdown-toggle${current == 'memberInfo' ? 'active' : '' }" data-toggle="dropdown"
+						href="${memberInfoUrl }">마이페이지
+					</a>
+					
 					<div class="dropdown-menu">
 						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
 						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
 						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
-						<a href="#" class="dropdown-item">구매 내역</a>
+						<a href="payList" class="dropdown-item">구매 내역</a>
 						<a href="faqList" class="dropdown-item">상담 내역</a>
 					</div>
 				</li>
-
-				<!-- 
-				<ul class="">
-					<li class="dropdown-item">회원 정보 수정</li>
-					<li class="dropdown-item">1:1 문의</li>
-					<li class="dropdown-item">내가 쓴 리뷰</li>
-					<li class="dropdown-item">내가 쓴 기부</li>
-				</ul>
-				 -->
 			</sec:authorize>
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link" href="${loginUrl }">로그인</a>
+					<a class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" href="${loginUrl }">로그인<i class="fa fa-arrow-right ms-3"></i></a>
 				</li>
 			</sec:authorize>
 
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<button class="btn btn-link nav-link" type="submit"
-						form="logoutForm1">로그아웃</button>
-				</li>
-			</sec:authorize>
-			<!-- 
-			<sec:authorize access="isAuthenticated()">
-				<li class="nav-item">
-					<c:if test="">
-					</c:if>
+					<button class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" type="submit"
+						form="logoutForm1">로그아웃 <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
 				</li>
 			</sec:authorize>
 			
-			 -->
 			<div class="d-none">
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
-			<a href=""
-				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
-				둘러보기<i class="fa fa-arrow-right ms-3"></i>
-			</a>
 		</div>
 	</div>
 </nav>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
@@ -118,7 +118,7 @@
 
 
    	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<my:mainNavBar current="meetingMain"></my:mainNavBar>
 
 
     <!-- Page Header Start -->
@@ -282,7 +282,7 @@
 
 	
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<my:footbar_kim></my:footbar_kim>
     <!-- Footer End -->
 
     <!-- Back to Top -->

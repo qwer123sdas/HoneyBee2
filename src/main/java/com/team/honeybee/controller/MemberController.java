@@ -40,8 +40,8 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("index")
-	public void index1() {
+	@RequestMapping("main")
+	public void mainHomePage() {
 
 	}
 
@@ -53,7 +53,7 @@ public class MemberController {
 		if (success) {
 
 			rttr.addFlashAttribute("message", "회원가입이 완료되었습니다.");
-			return "redirect:/member/index";
+			return "redirect:/main";
 
 		} else {
 
@@ -259,7 +259,7 @@ public class MemberController {
 			return "redirect:/member/login";
 		} else {
 			rttr.addFlashAttribute("message", "비밀번호 변경에 실패하였습니다.");
-			return "redirect:/member/index";
+			return "redirect:/main";
 		}
 	}
 
@@ -347,7 +347,7 @@ public class MemberController {
 			}
 		}
 
-		return "redirect:/member/index";
+		return "redirect:/main";
 	}
 	// 마이페이지에 주문내역 불러오기
 		@GetMapping("payList")

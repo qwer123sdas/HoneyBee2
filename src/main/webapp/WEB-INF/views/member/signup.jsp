@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -317,97 +318,97 @@ html, body {
 <body>
 
 <my:mainNavBar current="signup"></my:mainNavBar>
-
-<div class="form-body">
-	<div class="row">
-		<div class="form-holder">
-			<div class="form-content">
-				<div class="form-items">
-					<form id="form1" action="${appRoot }/member/signup" method="post" class="requires-validation" novalidate>
-						<h1>꿀비 회원 가입</h1>
-						
-						<div class="col-md-12">
-							<!-- 아이디 -->
-							<div class="input-group">
-								<input type="text" name="memberId" placeholder="아이디"/>
-								<button id="checkIdButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+	<div class="form-body">
+		<div class="row">
+			<div class="form-holder">
+				<div class="form-content">
+					<div class="form-items">
+						<form id="form1" action="${appRoot }/member/signup" method="post" class="requires-validation" novalidate>
+							<h1>꿀비 회원 가입</h1>
+							
+							<div class="col-md-12">
+								<!-- 아이디 -->
+								<div class="input-group">
+									<input type="text" name="memberId" placeholder="아이디"/>
+									<button id="checkIdButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+								</div>
 							</div>
-						</div>
-						<div class="form-text" id="memberIdMessage"></div>
-						<br />
-						
-						<div class="col-md-12">
-							<!-- 비밀번호 -->
-							<input id="pwInput1" type="password" name="pw" placeholder="비밀번호"/>
-						</div>
-						<br />
-						
-						<div class="col-md-12">
-							<!-- 비밀번호 확인 -->
-							<input id="pwInput2" type="password" name="pwConfirm" placeholder="비밀번호 확인"/>
-						</div>
-						<div class="form-text" id="pwMessage"></div>
-						<br />
-						
-						<div class="col-md-12">
-							<!-- 이름 -->
-							<input type="text" name="name" placeholder="이름" /> 
-						</div>
-						<br />
-						
-						<div class="col-md-12">
-							<!-- 이메일 -->
-							<div class="input-group">
-								<input type="email" name="email" placeholder="이메일" /> 
-								<button id="checkEmailButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+							<div class="form-text" id="memberIdMessage"></div>
+							<br />
+							
+							<div class="col-md-12">
+								<!-- 비밀번호 -->
+								<input id="pwInput1" type="password" name="pw" placeholder="비밀번호"/>
 							</div>
-						</div>
-						<div class="form-text" id="memberEmailMessage"></div>
-						<div class="col-md-12">
-							<!-- 닉네임 -->
-							<div class="input-group">
-								<input type="text" name="nickname" placeholder="닉네임" />
-								<button id="checkNickNameButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+							<br />
+							
+							<div class="col-md-12">
+								<!-- 비밀번호 확인 -->
+								<input id="pwInput2" type="password" name="pwConfirm" placeholder="비밀번호 확인"/>
 							</div>
-						</div>
-						<div class="form-text" id="memberNickNameMessage"></div>
-						<div class="col-md-12">
-							<!-- 우편번호 -->
-							<input type="text" name="postcode" placeholder="우편번호" />
-						</div>
-						<div class="col-md-12">
-							<!-- 주소 -->
-							<input type="text" name="address" placeholder="주소" />
-						</div>
-						<div class="col-md-12">
-							<!-- 상세주소 -->
-							<input type="text" name="detail" placeholder="상세주소" />
-						</div>
-						<br />
-						<div class="col-md-12">
-							<!-- 생년월일 -->
-							생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="date" name="birth" placeholder="생년월일" />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
-						<br />
-						
-						<div class="col-md-12">
-							<!-- 전화 -->
-							<input type="text" name="phone" placeholder="전화" />
-						</div>
-						<br />
-						
-						<div class="buttonGroup">
-							<button id="submitButton1" class="btn btn-warning create-account" disabled>회원가입</button>
-						</div>
-					</form>
+							<div class="form-text" id="pwMessage"></div>
+							<br />
+							
+							<div class="col-md-12">
+								<!-- 이름 -->
+								<input type="text" name="name" placeholder="이름" /> 
+							</div>
+							<br />
+							
+							<div class="col-md-12">
+								<!-- 이메일 -->
+								<div class="input-group">
+									<input type="email" name="email" placeholder="이메일" /> 
+									<button id="checkEmailButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+								</div>
+							</div>
+							<div class="form-text" id="memberEmailMessage"></div>
+							<div class="col-md-12">
+								<!-- 닉네임 -->
+								<div class="input-group">
+									<input type="text" name="nickname" placeholder="닉네임" />
+									<button id="checkNickNameButton" type="button" class="btn btn-warning doubleCheck"><i class="fa-solid fa-check"></i></button>
+								</div>
+							</div>
+							<div class="form-text" id="memberNickNameMessage"></div>
+							<div class="col-md-12">
+								<!-- 우편번호 -->
+								<input type="text" name="postcode" placeholder="우편번호" />
+							</div>
+							<div class="col-md-12">
+								<!-- 주소 -->
+								<input type="text" name="address" placeholder="주소" />
+							</div>
+							<div class="col-md-12">
+								<!-- 상세주소 -->
+								<input type="text" name="detail" placeholder="상세주소" />
+							</div>
+							<br />
+							<div class="col-md-12">
+								<!-- 생년월일 -->
+								생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="date" name="birth" placeholder="생년월일" />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							</div>
+							<br />
+							
+							<div class="col-md-12">
+								<!-- 전화 -->
+								<input type="text" name="phone" placeholder="전화" />
+							</div>
+							<br />
+							
+							<div class="buttonGroup">
+								<button id="submitButton1" class="btn btn-warning create-account" disabled>회원가입</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>
 

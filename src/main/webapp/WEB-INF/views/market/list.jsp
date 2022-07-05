@@ -11,22 +11,53 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <!-- Libraries Stylesheet -->
-    <link href="${appRoot }/resources/webContents/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="${appRoot }/resources/webContents/css/bootstrap.min.css" rel="stylesheet">
+<!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+	<!--font-awesome  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
 
-    <!-- Template Stylesheet -->
-    <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
+   <!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
+
+<!-- Jquery -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
 <!-- Section-->
-
+	<my:mainNavBar current="marketList"></my:mainNavBar>
+	
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5 ">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 d-flex justify-content-start">
