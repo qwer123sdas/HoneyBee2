@@ -1,4 +1,3 @@
-
 package com.team.honeybee.domain;
 
 import java.time.LocalDate;

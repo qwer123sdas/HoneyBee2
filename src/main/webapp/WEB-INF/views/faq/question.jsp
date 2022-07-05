@@ -70,8 +70,7 @@ h2 {
 }
 </style>
 <body>
-	<my:navbar></my:navbar>
-	<my:faq1tag></my:faq1tag>
+
 	<div class="container">
 		<!-- Row -->
 		<div class="row">
@@ -396,6 +395,6 @@ h2 {
 		});
 	</script>
 
-	<my:footbar></my:footbar>
+
 </body>
 </html>

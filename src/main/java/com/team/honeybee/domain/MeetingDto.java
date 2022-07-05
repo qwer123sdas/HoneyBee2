@@ -33,15 +33,17 @@ public class MeetingDto{
 	private LocalDate startDate; // 모집 시작일
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate endDate; // 모임 종료일
+	
+	private int guestNum;
 	private String tag;
 	
-	private int cntNum; // 현재 게스트 인원
-	private int guestNum; // 게스트 인원
-	
 	private String MPhoto;  // 메인 사진
-	private List<String> image; // 서머노트
+	private List<String> image; // 서머노트 
 	private String folderName;
 	
+	// 작성자만 수정 가능하도록 추가함
+	private boolean own; 
+
 	private int enable;
 
 	

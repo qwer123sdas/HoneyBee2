@@ -18,4 +18,7 @@ public class FavoriteDto {
 	private char type;
 	
 	
+	// favorite 테이블
+	private int meetingId; 
+	private int meetingReplyId; // 댓글 좋아요
 }

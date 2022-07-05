@@ -297,6 +297,10 @@
 
 
 /*** Project Portfolio ***/
+#MeetinglistContainer {
+	display:flex;
+	flex-direction: row; /* 가로배치 추가 */
+}
 #portfolio-flters li {
     display: inline-block;
     font-weight: 500;
@@ -304,7 +308,6 @@
     cursor: pointer;
     transition: .5s;
     border-bottom: 2px solid transparent;
-    
 }
 
 #portfolio-flters li:hover,

@@ -70,7 +70,7 @@
                                 
                </div>
         </section>
-<my:footbar></my:footbar>
+
   
 
 </body>

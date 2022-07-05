@@ -218,4 +218,43 @@
 		DELETE FROM MeetingComment
 		WHERE meeting_comment_id = #{meetingCommentId}
 	</delete>
+	<!-- 마이페이지 구매내역 가져오기-->
+	<select id="paylist"
+		resultType="com.team.honeybee.domain.OrderPayDto">
+		SELECT 
+		order_id orderId,
+		member_id memberId,
+		product_name productName,
+		final_price finalPayment,
+		inserted,
+		quantity amount,
+		product_code productCode
+		FROM OrderPay
+		WHERE member_id = #{memberId}
+	</select>
+		<!-- 구매 상세 페이지 -->
+	<select id="payget" resultType="com.team.honeybee.domain.OrderPayDto" >
+		SELECT order_id orderId,
+		       member_id memberId,
+		       product_name productName,
+		       final_price finalPayment,
+		       quantity amount,
+		       inserted,
+		       product_code productCode
+		  FROM OrderPay
+			 WHERE order_id = #{orderId}
+	</select>
+	<!-- 프로덕트코드로 마켓 내용 가져오기 -->
+	<select id="selectMarket" resultType="com.team.honeybee.domain.MarketDto">
+		SELECT m.market_id marketId,
+			   m.title,
+			   m.content,
+			   m.price,
+			   f.file thumbNailImage,
+			   m.product_code productCode
+		FROM Market m LEFT JOIN MarketFile f ON m.market_id = f.market_id
+		WHERE m.product_code = #{productCode}
+		GROUP BY marketId
+	</select>
+	
 </mapper> 
