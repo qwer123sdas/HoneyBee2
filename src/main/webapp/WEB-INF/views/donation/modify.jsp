@@ -163,7 +163,7 @@
 	<!-- Nav bar -->
 	<nav:navbar_kim></nav:navbar_kim>
 
-		<div class="container col-10">
+		<div class="container col-15">
 			<div class="py-5 text-center">
 				<h3 class="lead">
 					<i class="fa-brands fa-forumbee"></i>

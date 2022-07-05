@@ -1,311 +1,627 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<!--font-awesome  -->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Blog Post - Start Bootstrap Template</title>
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!--bootstrap  -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
 	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Bulma  -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+<!-- google font 추가함 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link
+	href="${appRoot }/resources/webContents/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="${appRoot }/resources/webContents/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${appRoot }/resources/webContents/css/style.css"
+	rel="stylesheet">
+	
+
 <!-- summernote  -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-
-
-<title>재능 공유 게시글 작성</title>
-</head>
 <style>
+.is-invalid ~.invalid-feedback, .is-invalid ~.invalid-tooltip,
+.was-validated :invalid ~.invalid-feedback, .was-validated :invalid ~.invalid-tooltip {
+	display: block;
+}
+.outer {
+  display: flex;
+}
+
+.inner {
+  margin: 0 auto;
+}
+
+.g-3, .gy-3 {
+	bs-gutter-y: 1rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+    
+.row {
+    bs-gutter-x: 1.5rem;
+}
+
+.bg-light {
+    bs-bg-opacity: 1;
+}
+.invalid-feedback {
+	display: none;
+	width: 100%;
+	margin-top: 0.25rem;
+	font-size: .875em;
+	color: #dc3545;
+}
+
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.outer-div {
+  display: flex;
+  justify-content : center;
+}
+
+.inner-div {
+  margin: 600px;
+}
+
+@media ( min-width : 1000px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+.classContent{
+	widows: 80px;
+}
 .map_wrap {
 	position: relative;
-	width: 80%;
+	width: 100%;
 	height: 400px;
 }
 
-
 </style>
+
+</head>
 <body>
-	<form id="talentWriteForm" method="POST" onsubmit="return checks()" enctype="multipart/form-data">
-		<div class="tr_oneLine">
-			<div>카테고리 분류</div>
-			<div style="width: 40%;">
-				<select id="topic" class="topic" name="mainCategory">
-					<option class="selectTopic" value="">카테고리 선택</option>
-					<option class="selectTopic" value="1">문서, 취업</option>
-					<option class="selectTopic" value="2">생활, 레슨</option>
-					<!-- <option class="selectTopic" value="3">IT, 프로그래밍</option>
-					<option class="selectTopic" value="4">콘텐츠 제작</option>
-					<option class="selectTopic" value="5">핸드메이드</option>
-					<option class="selectTopic" value="6">마켓팅</option>
-					<option class="selectTopic" value="7">기타</option> -->
-				</select> 
-				<select id="subtopic" class="subtopic">
-					<option value="0">주제 선택1</option>
-				</select>
+	<!-- Spinner Start -->
+	<div id="spinner"
+		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+		<div class="spinner-border text-primary"
+			style="width: 3rem; height: 3rem;" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<!-- Spinner End -->
+
+
+
+	<!-- Page Header Start -->
+	<div class="container-fluid bg-warning bg-gradient py-5 mt-4">
+		<div class="container bg-warning bg-gradient text-dark ">
+			<h1 class="display-2 text-dark mt-5 animated slideInDown text-center" >꿀벌 재능 나눔&판매를 제안해주세요!</h1>
+			<nav aria-label="breadcrumb animated slideInDown"></nav>
+		</div>
+	</div>
+	<!-- Page Header End -->
+
+	<!-- Nav bar -->
+	<nav:navbar_kim></nav:navbar_kim>
+
+		<div class="container col-15">
+			<div class="py-5 text-center">
+				<h3 class="lead">
+					<i class="fa-brands fa-forumbee"></i>
+					꿀비팀은 이용자에게 다양한 재능 나눔&판매활동을 알리고,
+					<br />
+					더 많은 분들이 관심을 갖고 참여할 수 있도록 제안 캠페인을 진행하고 있습니다.
+				</h3>
+			</div>
+		<div id="tr_oneLine" style="margin-left: 220px;">
+			<form class="needs-validation" novalidate id="talentWriteForm" onsubmit="return checks()"
+				action="" method="POST"
+				enctype="multipart/form-data">
+				<div class="col-10">
+						<h3 class="col-10 text-center ">
+							프로젝트 재능 나눔&판매 작성
+							<i class="fa-solid fa-feather"></i>
+						</h3>
+
+					<br />
+					<br />
+
+					<div class="row gy-3">
+						<div class="col-md-3">
+							<label for="country" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-1"></i>
+									.주제를 선택하세요
+								</h3>
+							</label>
+							<select class="form-select topic" id="topic" name="mainCategory">
+								<option class="selectTopic" value="">카테고리 선택</option>
+				            	<option class="selectTopic" value="1">문서, 취업</option>
+				            	<option class="selectTopic" value="2">생활, 레슨</option>
+				            	<option class="selectTopic" value="3">IT</option>
+				            	<option class="selectTopic" value="4">콘텐츠</option>
+				            	<option class="selectTopic" value="5">핸드메이드</option>
+				            	<option class="selectTopic" value="6">마켓팅</option>
+				            	<option class="selectTopic" value="7">번역</option>
+							</select>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="col-10">
+							<label for="firstName username" class="form-label col-15">
+								<h3 class="lead">
+									<i class="fa-regular fa-2"></i>
+									.재능 나눔&판매 제목 짓기
+								</h3>
+							</label>
+							<!-- maxlength : 글자수 제한  -->
+							<input type="text" class="form-control" name="title" id="title"
+								placeholder="최대 30자까지 작성 가능합니다." maxlength="30" required>
+							<div class="invalid-feedback">필수 선택사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="col-10">
+							<label for="formFile " class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-3"></i>
+									.메인이미지로 좋은 인상 주기
+								</h3>
+							</label>
+							<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
+								<img id="imgChange" src="${appRoot }/resources/600x400image.jpg"  alt="메인 사진 업로드" >
+							</a>
+							<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*" onchange="readURL(this);">
+							<div id="image_container"></div>
+							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
+						</div>
+					
+						<br />
+					
+						<div class="col-15">
+							<label for="title" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-4"></i>
+									.재능 나눔&판매 스토리 텔링
+								</h3>
+							</label>
+							<br>
+							<textarea class="textarea" id="summernote" name="content"
+								required>${board.content } </textarea>
+							<div class="invalid-feedback">필수 입력사항 입니다.</div>
+						</div>
+
+						<br />
+
+						<div class="col-md-6">
+							<label for="cc-number" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-5"></i>
+									.강사님을 한줄로 소개해주세요.
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="selfIntroduction"placeholder="꿀비들에게 강사님을 소개해주세요." required>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<br />
+						
+						<div class="col-md-8">
+							<label for="title" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-6"></i>
+									.같이 할 수업&작업 내용 소개하기
+								</h3>
+							</label>
+							<br>
+							<div id="box">
+								<div class="input-group"> <!-- input-group으로 버튼 합쳤어요  -->
+									<input type="text" class="form-control classContent" id="classContent" placeholder="" required>
+				            		<input class="btn btn-outline-secondary" type="button" value="추가" onclick="add_textbox()">
+								</div>
+			            		
+								<div class="invalid-feedback">필수 입력사항 입니다.</div>
+			        		</div>
+						</div>
+					</div>
+				</div> 
+
+				<br/>
+				<br/>
 				
-			</div>
-			<br />
+					<h4 class="mb-3 ">
+						<i class="fa-solid fa-star"></i>
+						중요 입력사항!
+					</h4>
+
+					<br />
+					
+						<div class="col-md-6">
+							<label for="cc-number" class="form-label">
+								<h3 class="lead">
+									<i class="fa-solid fa-7"></i>
+									.판매 물품이름
+								</h3>
+							</label>
+							<input type="text" class="form-control" id="productName" placeholder="정확한 이름을 입력해주세요" required>
+							<div class="invalid-feedback">필수 입력 사항입니다.</div>
+						</div>
+						
+						<br/>
+
+					<div class="row gy-3">
+						<div class="col-10">
+							<label for="expired" class="form-label">
+								<h3 class="lead">
+									<i class="fa-regular fa-8"></i>
+									.재능 나눔&판매 금액 정하기
+								</h3>
+							</label>
+							<div class="col-10">
+					            <div class="form-check">
+					              <input type="radio" class="form-check-input"  id="free" name="pay" value="free" onclick="showPriceSelect()" required>
+					              <label class="form-check-label" for="credit">무료 재능</label>
+					            </div>
+					            <div class="form-check">
+					              <input type="radio" class="form-check-input" id="pay" name="pay" value="pay" onclick="showPriceSelect()" checked required>
+					              <label class="form-check-label" for="debit">유로 재능</label>
+					            </div>
+					             <div class="col-6">
+						       		<input type="number" class="form-control" id="price"  placeholder="금액을 입력하세요">
+					            	<div class="invalid-feedback">필수 입력 사항입니다.</div>
+					            </div>
+							</div>
+						</div>
+							
+					</div>
+
+				
+				<br/>
+
+				<div class="col-md-4">
+					<label for="expired" class="form-label">
+						<h3 class="lead">
+							<i class="fa-regular fa-9"></i>
+							.작업&수업일을 알려주세요
+						</h3>
+					</label>
+					<!-- type="date가 아님" -->
+					<input type="number" class="form-control" id="workDate"
+						name="workDate"  required>
+					<small class="text-muted">작업&수업일 확인하세요</small>
+					<div class="invalid-feedback">필수 입력 사항입니다.</div>
+				</div>
+
+				<br/>
+				<br/>
+				
+				
+				<h4 class="mb-3">
+					<i class="fa-solid fa-map-location"> 선택) 추가 정보를 알려주세요</i>
+				</h4>
+				
+				<div class="col-6">
+					<label class="form-label"><i class="fa-solid fa-plus"></i> 지도 검색</label>
+					<div class="input-group has-validation">
+						<input type="text" class="form-control" id="keyword"
+							placeholder="" required>
+						<button class="btn btn-outline-secondary" onclick="keywordSearch()" type="button">검색</button>
+					</div>
+				</div>
+
+				<div class="col-12">
+					<div class="map_wrap my-3">
+						<div id="map" style="width: 900px; height: 500px; position: relative; overflow: hidden;"></div>
+						<label class="form-label my-2" id="clickLatlng">주소 :</label>
+						<!-- 주소 기록 -->
+					</div>
+				</div>
+				
+				<div class="col-7 my-2">
+					<label class="form-label">상세 주소 : </label>
+					<!-- 주소 기록 -->
+					<input type="text" class="form-control" id="detailAddress"
+						placeholder="" required>
+					<div class="invalid-feedback">Please enter a valid address.</div>
+				</div>
+				
+				<hr class="my-4 " style="width: 80%">
+
+				<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="same-address">위 입력사항이
+							정확히 기록되었는지 확인하셨나요?</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">제안하신 내용은
+							꿀비 요정이 검토 후 등록됨을 확인하셨나요?</label>
+					</div>
+
+					
+					<br >
+					
+				<div style="margin-left: 600px">
+					<input type="hidden" id="jsonByTalent" name="jsonByTalent"/>
+					<input type="hidden" id="folderName" name="folderName" />
+					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center" id="insertTalent">
+						꿀비팀에게 제안하기
+						<i class="fa-solid fa-hands-clapping"></i>
+					</button>
+				</div>
+			</form>
 		</div>
-		<label for="">메인사진</label> 
-		<br />
-		<a href="javascript:void(0);" onclick="$('#imgUpload').trigger('click')" class="imgUploadBtn">
-			<img src="${appRoot }/resources/600x400image.jpg" id="imgChange" alt="메인 사진 업로드" >
-		</a>
-		<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*">
-		<br />
-		
-		<label for="">게시글 제목</label> 
-		<input type="text" id="title"/> <br /> 
-		
-		<label for="">내용</label>
-		<textarea class="textarea"  id="summernote"> </textarea>
-		<br />
-		<label for="">판매 물품 이름</label>
-		<input type="text" id="productName"/>
-		<div>
-			<label>
-				<input type="radio" id="pay" name="pay" value="pay" onclick="showPriceSelect()">유료
-			</label>
-			<label>
-				<input type="radio" id="free" name="pay" value="free" onclick="showPriceSelect()">무료
-			</label>
-		</div>
-		<label for="">가격</label> 
-		<input class="d-none" type="number" id="price" value="0"/> <br />
-		<br />
-		<label for="">수업& 작업 내용</label><br />
-		<textarea id="" cols="30" rows="10"></textarea>
-		<br />
-        <div id="box">
-            <input type="text" class="classContent"> <input type="button" value="추가" onclick="add_textbox()">
-        </div>
-		<input type="button" onclick="add_click()">
+	</div>
 
 
-		<label for="">지도</label>
-		<input type="text" class="form-control" id="keyword"/>
-		<button type="button" onclick="keywordSearch()">검색</button>
-		<div class="map_wrap">
-			<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-			<p>주소 : </p><div id="clickLatlng"></div>  <!-- 주소 기록 -->
-		</div>
-		<br />
-		
-		​<br /> <br /> 
-		<p>옵션 선택</p>
-		<div>
-			<label>
-				<input type="radio" name="option" value="workDateFrom" onclick="showOptionSelect()">작업기간
-			</label>
-			<label>
-				<input type="radio" name="option" value="numberOfPeopleForm" onclick="showOptionSelect()">인원수
-			</label>
-		</div>
-		<div id="workDateFrom"   style="visibility: hidden;">
-			<label for="">작업기간</label>
-				<input type="number" id="workDate" />
-			</div>
-		<br />
-		<div id="numberOfPeopleForm"  style="visibility: hidden;">
-			<label for="">인원수</label> 
-				<input type="number" id="numberOfPeople"/>
-			</div>
-		<br /> 
-		
-		
-		<label for="">태그</label> 
-		<input type="text" name="hashTag" />
-		<br /> 
-		<label for="">자기소개</label> <br />
-		<textarea id="selfIntroduction" cols="30" rows="10"></textarea>
-		<br />
-		<input type="hidden" id="jsonByTalent" name="jsonByTalent"/>
-		<input type="hidden" id="folderName" name="folderName" />
-		<button id="insertTalent"  type="submit" value="저장">저장</button>
-	</form>
+
+	<!-- foot bar -->
+	<nav:footbar_kim></nav:footbar_kim>
+
+<!-- ?? -->
+	<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 	
-	
+	<!-- JavaScript Libraries -->
 	<!--Jquery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+	<script
+		src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="${appRoot }/resources/webContents/js/main.js"></script>
 	<!-- summer note  -->
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<!-- 다음 지도 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db07c80911dd129fb861fb567a80ab0c&libraries=services"></script>
-	<script>
+</body>
+<script>
+/* 폴더명 */
 		/* 폴더명 */
 		const randomNum = Math.floor(Math.random() * 1000000000);
 		$('#folderName').val('padding-' + randomNum);
-		//메인 카테고리 셋팅
-	    
-		const add_click = () => {
-			var classContentList = '';
-			var size = $("input[class='classContent']").length;
-			for(i = 0; i < size; i++){
-				console.log($("input[class='classContent']").eq(i).val());
-				classContentList += '/' + $("input[class='classContent']").eq(i).val();
-			}
-		};
-		
-		// 유료 & 무료 선택
-		function showPriceSelect(){
-			$('#price').removeClass('d-none')
-			var nameVal = $('input:radio[name=pay]:checked').val();
-			console.log(nameVal);
-			if(nameVal == 'free'){
-				$('#free').css("visibility", "visible");
-				$('#pay').css("visibility", "hidden");
-				$('#price').attr('readonly', true);
-				document.getElementById("price").value=0;
-			}else{
-				$('#pay').css("visibility", "visible");
-				$('#free').css("visibility", "hidden");
-				$("#price").attr('readonly', false);
-			}
-		}
-		
-		// 옵션 선택(작업일 & 인원수)
-		function showOptionSelect(){
-			var nameVal = $('input:radio[name=option]:checked').val();
-			console.log(nameVal);
-			if(nameVal == 'workDateFrom'){
-				$('#workDateFrom').css("visibility", "visible");
-				$('#numberOfPeopleForm').css("visibility", "hidden");
-			}else{
-				$('#numberOfPeopleForm').css("visibility", "visible");
-				$('#workDateFrom').css("visibility", "hidden");
-			}
-		}
-		
-		// 항목 생성
-		const add_textbox = () => {
-            const box = document.getElementById("box");
-            const newP = document.createElement('p');
-            newP.innerHTML = "<input type='text' class='classContent'> <input type='button' value='삭제' onclick='remove(this)'>";
-            box.appendChild(newP);
-            
-        }
-        const remove = (obj) => {
-        	document.getElementById('box').removeChild(obj.parentNode);
-        }
-           
-		
-		
-		
-		
-		
 
-		var mapLevel;
-		var address;
-		
-		function checks() {
-			var title = document.getElementById("title").value;
-			var content = document.getElementById("summernote").value;
-			var topic = document.getElementById("topic").value;
-			var price = document.getElementById("price").value;
-			//var hashTag = document.getElementById("").value;
-			if (title != "" && content != "" && topic != "" && price != "") {
-				console.log("1 : " + title);
-				return true;
-			} else {
-				alert("전부 입력해야 합니다..");
-				console.log("2 " + title);
-				return false;
-			}
-		}
-		$(document).ready(function(){
-			//서머노트---------------------------------------------------------------------------------
-			$('#summernote').summernote({
-				  height: 300,                 // 에디터 높이
-				  minHeight: null,             // 최소 높이
-				  maxHeight: null,             // 최대 높이
-				  focus: true,       
-				  // 에디터 로딩후 포커스를 맞출지 여부
-				  lang: "ko-KR",					// 한글 설정
-				  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-				  callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-						onImageUpload : function(images, editor, welEditable) {
-				            // 파일 업로드(다중업로드를 위해 반복문 사용)
-							for (let i = 0; i < images.length; i++) {
-								console.log(images[i]);
-	               		 		uploadImageToS3ForSummerNote(images[i]);
-	            			}
-						}
-				  }
-			});
-			
-	        function uploadImageToS3ForSummerNote(image) {
-	            data = new FormData(); // file를 담을 객체
-	            data.append("image", image); // file를 담고 ajax에서 넘겨줌
-	            data.append("folderId", 'padding-'+randomNum); // 폴더 난수 넘기기
-	            $.ajax({
-	                url: '${appRoot}/uploadImageToS3ForSummerNote/talent',
-	                data: data,
-	                type: "POST",
-	                cache: false,
-	                contentType: false,
-	                processData: false,
-	                enctype: 'multipart/form-data',
-	                success: function(data) {
-	                	console.log(data);
-	                	console.log(data.fileUrl);
-	                	
-	                    $('#summernote').summernote('editor.insertImage', data.url);  // aws s3에 저장한 이미지 url을 넘기므로 summernote에서 보이게 됨
-	                },
-	                error: function (data) {
-	                    alert(data.responseText);
-	                }
-	            });
-	        }
-			// 서머노트 끝----------------------------------------------------------------------
-			
-			// json 직렬화
-			$("#insertTalent").click(function(e) {
-				e.preventDefault();
-				console.log("여기까지 옴");
-				var classContentList = '';
-				var size = $("input[class='classContent']").length;
-				for(i = 0; i < size; i++){
-					console.log($("input[class='classContent']").eq(i).val());
-					classContentList += '/' + $("input[class='classContent']").eq(i).val();
+//메인 사진 이미지
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('imgChange').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    document.getElementById('imgChange').src = "";
+  }
+}
+
+const add_click = () => {
+	var classContentList = '';
+	var size = $("input[class='classContent']").length;
+	for(i = 0; i < size; i++){
+		console.log($("input[class='classContent']").eq(i).val());
+		classContentList += '/' + $("input[class='classContent']").eq(i).val();
+	}
+};
+
+// 유료 & 무료 선택
+function showPriceSelect(){
+	$('#price').removeClass('d-none')
+	var nameVal = $('input:radio[name=pay]:checked').val();
+	console.log(nameVal);
+	if(nameVal == 'free'){
+		$('#price').attr('readonly', true);
+		document.getElementById("price").value=0;
+	}else{
+		$("#price").attr('readonly', false);
+	}
+}
+
+// 항목 생성
+const add_textbox = () => {
+    const box = document.getElementById("box");
+    const newP = document.createElement('p');
+    newP.innerHTML = "<input type='text' class='form-control classContent mb-3'> <input type='button' value='삭제' class='btn btn-outline-secondary'  onclick='remove(this)'>";
+    box.appendChild(newP);
+    
+}
+const remove = (obj) => {
+	document.getElementById('box').removeChild(obj.parentNode);
+}
+
+
+var mapLevel;
+var address;
+
+function checks() {
+	var title = document.getElementById("title").value;
+	var content = document.getElementById("summernote").value;
+	var topic = document.getElementById("topic").value;
+	var price = document.getElementById("price").value;
+	//var hashTag = document.getElementById("").value;
+	if (title != "" && content != "" && topic != "" && price != "") {
+		console.log("1 : " + title);
+		return true;
+	} else {
+		alert("전부 입력해야 합니다..");
+		console.log("2 " + title);
+		return false;
+	}
+}
+
+$(document).ready(function(){
+	//서머노트---------------------------------------------------------------------------------
+	$('#summernote').summernote({
+		  height: 500,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,       
+		  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+		  callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+				onImageUpload : function(images, editor, welEditable) {
+		            // 파일 업로드(다중업로드를 위해 반복문 사용)
+					for (let i = 0; i < images.length; i++) {
+						console.log(images[i]);
+           		 		uploadImageToS3ForSummerNote(images[i]);
+        			}
 				}
-				console.log(classContentList);
-				
-				var data = {'title' : document.getElementById("title").value,
-						  'content' : document.getElementById("summernote").value,
-						  'topic' : document.getElementById("topic").value,
-						  'productName' : document.getElementById("productName").value,
-						  'price' : $('#price').val(),
-						  'mapLevel' : mapLevel,
-						  'address' : address,
-						  'workDate' : document.getElementById("workDate").value,
-						  'numberOfPeople' : document.getElementById("numberOfPeople").value,
-						  'selfIntroduction' : document.getElementById("selfIntroduction").value,
-						  'classContent' : classContentList
-						  }
-				console.log(data);
-				// json으로 바꿔줌
-				$('#jsonByTalent').val(JSON.stringify(data));
-				
-				let form1 = $("#talentWriteForm");
-				let actionAttr = "${appRoot }/talent/write";
-				form1.attr("action", actionAttr);
-				
-				form1.submit();
-
-			});
-		});
+		  }
+	});
+	
+    function uploadImageToS3ForSummerNote(image) {
+        data = new FormData(); // file를 담을 객체
+        data.append("image", image); // file를 담고 ajax에서 넘겨줌
+        data.append("folderId", 'padding-'+randomNum); // 폴더 난수 넘기기
+        $.ajax({
+            url: '${appRoot}/uploadImageToS3ForSummerNote/talent',
+            data: data,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            success: function(data) {
+            	console.log(data);
+            	console.log(data.fileUrl);
+            	
+                $('#summernote').summernote('editor.insertImage', data.url);  // aws s3에 저장한 이미지 url을 넘기므로 summernote에서 보이게 됨
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        });
+    }
+	// 서머노트 끝----------------------------------------------------------------------
+	
+	// json 직렬화
+	$("#insertTalent").click(function(e) {
+		e.preventDefault();
+		console.log("여기까지 옴");
+		var classContentList = '';
+		var size = $(".classContent").length;
+		for(i = 0; i < size; i++){
+			console.log($(".classContent").eq(i).val());
+			classContentList += '/' + $(".classContent").eq(i).val();
+		}
+		console.log(classContentList);
 		
-
+		var data = {'title' : document.getElementById("title").value,
+				  'content' : document.getElementById("summernote").value,
+				  'topic' : document.getElementById("topic").value,
+				  'productName' : document.getElementById("productName").value,
+				  'price' : $('#price').val(),
+				  'mapLevel' : mapLevel,
+				  'address' : address,
+				  'detailAddress' : document.getElementById("detailAddress").value,
+				  'workDate' : document.getElementById("workDate").value,
+				  'selfIntroduction' : document.getElementById("selfIntroduction").value,
+				  'classContent' : classContentList
+				  }
+		console.log(data);
+		// json으로 바꿔줌
+		$('#jsonByTalent').val(JSON.stringify(data));
 		
+		let form1 = $("#talentWriteForm");
+		let actionAttr = "${appRoot }/talent/write";
+		form1.attr("action", actionAttr);
+		
+		form1.submit();
+
+	});
+});
+
+
+
 		// 다음 지도 api 시작-----------------------------------------------------------------------------------------
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		mapOption = {
@@ -346,8 +662,7 @@
 				    // 지도의 현재 레벨을 얻어옵니다
 				    mapLevel = map.getLevel();
 				    
-				    var  message = '또 지도 레벨은' + mapLevel + '입니다.';
-				    message += '상세주소는 ' + detailAddr + '입니다';
+				    var  message = '주소 : ' + detailAddr;
 				    address= detailAddr;
 				    var resultDiv = document.getElementById('clickLatlng'); 
 				    resultDiv.innerHTML = message;
@@ -366,28 +681,6 @@
 
 		
 		// 지도 검색 표시---------------------------------------------------------------
-		function searchDaumPostcode() {
-			new daum.Postcode({
-						oncomplete : function(data) {
-							// 주소로 상세 정보를 검색
-							geocoder.addressSearch(data.address, function(results, status) {
-								// 정상적으로 검색이 완료됐으면
-								if (status === daum.maps.services.Status.OK) {
-									var result = results[0]; //첫번째 결과의 값을 활용
-									// 해당 주소에 대한 좌표를 받아서
-									var coords = new daum.maps.LatLng(result.y, result.x);
-									// 지도를 보여준다.
-									mapContainer.style.display = "block";
-									map.relayout();
-									// 지도 중심을 변경한다.
-									map.setCenter(coords);
-								}
-							});
-						}
-					}).open();
-		}
-		
-		
 		function keywordSearch(){
 			var keyword = $('#keyword').val();
 		    var places = new kakao.maps.services.Places(map);
@@ -419,8 +712,22 @@
 		    }
 		}
 		
-		
-	</script>
-</body>
+(function () {
+  'use strict'
+// forms 입력 유효성 검사 : 특정 항목을 다 입력하지 못하면 submit 이벤트가 발생되지 않는다. 
+  var forms = document.querySelectorAll('.needs-validation')
 
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 </html>

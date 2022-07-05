@@ -109,6 +109,12 @@
 		height: 47;
 	}
 	
+	.image {
+	object-fit: cover;
+	width: 100%;
+	height: 240px;
+	}
+	
 	.catagory-image{
 	width: 50px;
 	height: 50px;
@@ -199,14 +205,14 @@
  				</div>
  				<!-- 게시글 목록  -->
                 <c:forEach items="${boardList }" var="list">
-		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+		                <div class="col-md-6 col-lg-4 wow fadeInUp me-4" data-wow-delay="0.3s">
                 			<a href="${appRoot }/donation/board/${list.donationId }">
 			                    <div class="service-item rounded overflow-hidden">
 			                   		<c:if test="${empty list.MPhoto }">
 			  					  		<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
 			  					  	</c:if>
 			  					  	<c:if test="${not empty list.MPhoto }">
-			  					  		<img class="img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="">
+			  					  		<img class="image img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="">
 			  					  	</c:if> 
 			                        <div class="position-relative p-4 pt-0">
 			                            <div class="service-icon">

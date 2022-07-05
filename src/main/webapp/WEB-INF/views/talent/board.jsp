@@ -200,6 +200,13 @@ textarea {
 .dropdown-content a:hover {background-color: #f1f1f1;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #9B9B9B;}
+/* 후기 폰트  */
+.reviewTitle{
+	font-weight: bold;
+	font-size: 20px;
+	color : black;
+	margin-bottom: 6px;
+}
 </style>
 
 <body>
@@ -290,10 +297,11 @@ textarea {
                             <!-- Comment form-->
                             <form class="mb-4">
                             	<div>                            	
-                            		<div>후기 평가</div>
-                            		<div>실제 꿀비를 이용한 구매자들이 남긴 평가입니다.</div>
-
-                            		<span class="d-flex flex-row-reverse" data-bs-toggle="modal" data-bs-target="#modal1">나도 평점 주기</span>
+                            		<div class="reviewTitle">서비스 평가</div>
+                            		<div class="d-flex justify-content-between">
+                            			<div>실제 꿀비를 이용한 구매자들이 남긴 평가입니다.</div>
+                            			<span class="" data-bs-toggle="modal" data-bs-target="#modal1" style="background-color: orange;">나도 평점 주기</span>
+                            		</div>
                             	</div>
                             </form>
                             <hr />

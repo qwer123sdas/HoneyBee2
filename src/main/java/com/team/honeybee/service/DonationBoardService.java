@@ -183,7 +183,7 @@ public class DonationBoardService {
 			// 새로 업로드
 			saveMainPhotoAwsS3(mainPhoto, folderName);
 			// db 수정
-			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			int boardImageId = summerNoteMapper.selectDonationBoardImageId(oldMainPhoto, dto.getDonationId());
 			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
 		}
 		

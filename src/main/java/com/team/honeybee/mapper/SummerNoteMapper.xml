@@ -23,13 +23,15 @@
 	</delete>
 	
 	<!-- 메인 사진관련 image_id 거져오기 -->
+	<!-- 
 	<select id="selectBoardImageId" resultType="int">
 		SELECT image_id
 		FROM BoardImage
-		WHERE main_image_name = #{oldMainPhoto}
+		WHERE main_image_name = #{oldMainPhoto} AND 
 	</select>
-	
+	 -->
 	<!-- 메인 사진 수정 -->
+	
 	<update id="updateBoardImage">
 		UPDATE BoardImage 
 		SET main_image_name = #{originalFilename}
@@ -55,6 +57,13 @@
 		WHERE image_folder_id = #{imageFolderId}
 	</update>
 	
+	<!-- 메인 사진관련 image_id 거져오기 -->
+	<select id="selectDonationBoardImageId" resultType="int">
+		SELECT image_id
+		FROM BoardImage
+		WHERE main_image_name = #{oldMainPhoto} AND donation_id = #{donationId}
+	</select>
+	
 	<!-- Talent==================================================================================================== -->
 	<!-- 게시글 작성 까지, 업로드 될 이미지에 talent_id넣기  -->
 	<update id="setTalentIdByTalent">
@@ -62,4 +71,11 @@
 		SET talent_id = #{talentId}
 		WHERE image_folder_id = #{imageFolderId}
 	</update>
+	
+	<!-- 메인 사진관련 image_id 거져오기 -->
+	<select id="selectTalentBoardImageId" resultType="int">
+		SELECT image_id
+		FROM BoardImage
+		WHERE main_image_name = #{oldMainPhoto} AND talent_id = #{talent_id}
+	</select>
 </mapper>
