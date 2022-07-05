@@ -35,12 +35,12 @@ $(document).ready(function() {
 });
 </script>
 
-<title>Insert title here</title>
+<title>1대1문의 내용보기(관리자)</title>
 </head>
 <body>
 	<div id="wrapper">
 		
-		<nav:sidebar></nav:sidebar>
+		<nav:sidebar current="faq"></nav:sidebar>
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			
@@ -104,5 +104,15 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	
+	<!-- Bootstrap core JavaScript-->
+    <script src="${appRoot }/resources/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="${appRoot }/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="${appRoot }/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="${appRoot }/resources/admin/js/sb-admin-2.min.js"></script>
 </body>
 </html>

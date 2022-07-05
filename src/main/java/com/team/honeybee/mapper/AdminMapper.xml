@@ -43,6 +43,11 @@
 		DELETE FROM Auth
 		WHERE member_id = #{memberId}
 	</delete>
+	<!-- 회원이 작성한 모임후기 삭제하기 -->
+	<delete id="deleteMeetingCommentByMemberId">
+		DELETE FROM MeetingComment
+		WHERE meeting_id = #{meetingId}
+	</delete>
 	<!-- 회원삭제하기 -->
 	<delete id="deleteMember">
 		DELETE FROM Member
@@ -99,9 +104,9 @@
 	</select>
 	<!-- 기부게시판 서머노트이미지 가져오기 -->
 	<select id="selectFileNameByDonationId" resultType="String">
-		SELECT image_name image
+		SELECT image_url
 		FROM BoardImage
-		WHERE donation_id = #{donationId} AND image_name IS NOT NULL
+		WHERE donation_id = #{donationId} AND image_url IS NOT NULL
 	</select>
 	<!-- 기부게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByDonationId">
@@ -183,9 +188,9 @@
 	</select>
 	<!-- 재능판매게시판 서머노트사진 가져오기 -->
 	<select id="selectFileNameByTalentId" resultType="string">
-		SELECT image_name image
+		SELECT image_url
 		FROM BoardImage
-		WHERE talent_id = #{talentId} AND image_name IS NOT NULL
+		WHERE talent_id = #{talentId} AND image_url IS NOT NULL
 	</select>
 	<!-- 재능판매게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByTalentId">
@@ -252,9 +257,9 @@
 	</select>
 	<!-- 모임게시판 서머노트 가져오기 -->
 	<select id="selectFileNameByMeetingId" resultType="string">
-		SELECT image_name image
+		SELECT image_url
 		FROM BoardImage
-		WHERE meeting_id = #{meetingId} AND image_name IS NOT NULL
+		WHERE meeting_id = #{meetingId} AND image_url IS NOT NULL
 	</select>
 	<!-- 모임게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByMeetingId">
@@ -264,11 +269,6 @@
 	<!-- 모임게시판 게스트 삭제 -->
 	<delete id="deleteMeetingGuestByMeetingId">
 		DELETE FROM MeetingGuest
-		WHERE meeting_id = #{meetingId}
-	</delete>
-	<!-- 모임게시판 후기 삭제 -->
-	<delete id="deleteMeetingCommentByMeetingId">
-		DELETE FROM MeetingComment
 		WHERE meeting_id = #{meetingId}
 	</delete>
 	<!-- 모임게시판 댓글좋아요 삭제 -->

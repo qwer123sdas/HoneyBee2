@@ -43,13 +43,13 @@
 	});
 </script>
 
-<title>Insert title here</title>
+<title>기부마켓 내용(관리자)</title>
 </head>
 <body>
 
 	<div id="wrapper">
 
-		<nav:sidebar></nav:sidebar>
+		<nav:sidebar current="board"></nav:sidebar>
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 

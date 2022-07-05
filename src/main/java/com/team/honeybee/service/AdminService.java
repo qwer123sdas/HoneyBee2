@@ -69,6 +69,7 @@ public class AdminService {
 	@Transactional
 	public boolean deleteMember(String memberId) {
 		mapper.deleteAuthByMemberId(memberId);
+		mapper.deleteMeetingCommentByMemberId(memberId);
 		String fileName = mapper.selectProfileByMemberId(memberId);
 		deleteFromAwsS3Memeber(memberId, fileName);
 		return mapper.deleteMember(memberId) == 1;
@@ -222,6 +223,24 @@ public class AdminService {
 		s3.deleteObject(deleteObjectRequest);
 	}
 	
+	// ++ aws의 s3에서 summerNote에 없는 사진 삭제 메소드
+	private void deleteFromAwsS3(String imageUrl) {
+		System.out.println("삭제 가동");
+		// 내거 75
+		// 팀플 56
+		System.out.println(imageUrl.substring(56));
+		String key = imageUrl.substring(56);
+		System.out.println(key);
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteBucketRequest);
+		
+	}
+	
 	// AWS S3 1대1문의관련 파일 삭제하기
 	private void deleteFromAwsS3Faq(int id, String fileName) {
 		String key = "faq/" + id + "/" + fileName;
@@ -317,7 +336,7 @@ public class AdminService {
 		System.out.println(dto);
 		deleteFromAwsS3Donation(dto.getFolderName(), dto.getMPhoto());
 		for(String fileName : fileNames) {
-			deleteFromAwsS3Donation(dto.getFolderName(), fileName);
+			deleteFromAwsS3(fileName);
 		}
 		mapper.deleteBoardImageByDonationId(donationId);
 		mapper.deleteTagByDonationId(donationId);
@@ -334,7 +353,7 @@ public class AdminService {
 		deleteFromAwsS3Talent(dto.getFolderName(), dto.getMPhoto());
 		List<String> fileNames = mapper.selectFileNameByTalentId(talentId);
 		for(String fileName :fileNames) {
-			deleteFromAwsS3Talent(dto.getFolderName(), fileName);
+			deleteFromAwsS3(fileName);
 		}
 		mapper.deleteBoardImageByTalentId(talentId);
 		mapper.deleteTalentReviewByTalentId(talentId);
@@ -345,14 +364,14 @@ public class AdminService {
 	@Transactional
 	public void deleteMeeting(int meetingId) {
 		MeetingDto dto = mapper.selectFolderNameAndMainPhotoByMeetingId(meetingId);
-		mapper.deleteBoardImageByMeetingId(meetingId);
 		deleteFromAwsS3Meeting(dto.getFolderName(), dto.getMPhoto());
 		List<String> fileNames = mapper.selectFileNameByMeetingId(meetingId);
+		System.out.println(fileNames);
 		for(String fileName : fileNames) {
-			deleteFromAwsS3Meeting(dto.getFolderName(), fileName);
+			deleteFromAwsS3(fileName);
 		}
+		mapper.deleteBoardImageByMeetingId(meetingId);
 		mapper.deleteMeetingGuestByMeetingId(meetingId);
-		mapper.deleteMeetingCommentByMeetingId(meetingId);
 		mapper.deleteFavoriteByMeetingReplyId(meetingId);
 		mapper.deleteMeetingReplyByMeetingId(meetingId);
 		mapper.deleteTagByMeetingId(meetingId);
