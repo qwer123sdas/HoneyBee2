@@ -10,6 +10,9 @@
 		</layout>
 	</appender>
 	
+	
+	<!-- debug -->
+	
 	<!-- Application Loggers -->
 	<logger name="com.team.honeybee">
 		<level value="info" />

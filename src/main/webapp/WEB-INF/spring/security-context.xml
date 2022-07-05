@@ -7,7 +7,8 @@
 	
 	<!--  652 쪽 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-
+	
+	<!-- X-Frame-Options때문에 frame-options disabled="true" 추가함 -->
 	<security:http>
 		<security:csrf disabled="true"/>
 		<security:form-login always-use-default-target="true" login-page="/member/login" default-target-url="/member/loginSuccess"/>

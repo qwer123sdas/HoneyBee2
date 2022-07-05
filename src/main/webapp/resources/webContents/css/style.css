@@ -214,6 +214,7 @@
 .page-header {
     background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
+    margin-top : 75px;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -296,6 +297,10 @@
 
 
 /*** Project Portfolio ***/
+#MeetinglistContainer {
+	display:flex;
+	flex-direction: row; /* 가로배치 추가 */
+}
 #portfolio-flters li {
     display: inline-block;
     font-weight: 500;
@@ -309,6 +314,16 @@
 #portfolio-flters li.active {
     color: var(--primary);
     border-color: var(--primary);
+    
+}
+#portfolio-flters a {
+	display: block;
+	filter: grayscale(100%); 
+}
+/* 컬러이미지 */
+#portfolio-flters a.on{
+	filter: grayscale(0%);
+	font-family: KakaoBold;
 }
 
 .portfolio-img {

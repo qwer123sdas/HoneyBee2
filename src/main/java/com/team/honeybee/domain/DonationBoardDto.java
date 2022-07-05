@@ -1,10 +1,9 @@
 package com.team.honeybee.domain;
 
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,6 +17,7 @@ public class DonationBoardDto {
 	
 	private String title;
 	private String content;
+	private String productCode;
 	
 	private String topic;   // 카테고리 번호
 	private List<String> hashTag; // 해쉬테그
@@ -26,7 +26,8 @@ public class DonationBoardDto {
 	private List<String> image; // 서머노트 
 	private String folderName;
 	
-	private LocalDateTime inserted;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate inserted;
 	private String expired;
 	
 	private int goal;             // 목표 금액
@@ -35,6 +36,9 @@ public class DonationBoardDto {
 	
 	private int favorite;  // 좋아요
 	private int enable;   // 게재 권한
+	
+	// db에 없는 property
+	private int own;
 	
 	
 	// 달성률 계산
