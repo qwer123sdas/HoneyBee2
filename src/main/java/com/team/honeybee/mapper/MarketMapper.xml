@@ -85,6 +85,7 @@
 			   mem.nickname,
 			   m.price,
 			   m.product_name productName,
+			   m.product_code productCode,
 			   m.enable,
 			   f.file thumbNailImage
 		FROM Market m LEFT JOIN MarketFile f ON m.market_id = f.market_id
@@ -116,16 +117,15 @@
 			AND f.marketFile IS NOT NULL
 	</select>  -->
 	
-	<!-- 카카오페이 승인시 db저장  -->
-	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
-		INSERT INTO OrderPay(member_id, 
-							 product_name, 
-							 final_price, 
-							 quantity)
-			   VALUES(#{partner_user_id}, 
-			   		  #{item_name}, 
-			   		  #{amount.total},
-			   		  #{quantity})
-	</insert>
+	<!-- 마켓 관련 기타 정보 db에 저장  -->
+	<update id="insertKakaoPayETCData" parameterType="com.team.honeybee.vo.DonationReplyVO">
+		UPDATE OrderPay SET order_name= #{orderName}, 
+							 post_code =  #{postCode}, 
+							 address = #{address}, 
+							 detail_address =  #{detailAddress},
+							 phone =  #{phone},
+							 comment =#{comment}
+			   			WHERE order_id = #{orderId}
+	</update>
 	
 </mapper>

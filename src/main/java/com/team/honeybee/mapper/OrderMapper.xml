@@ -22,7 +22,8 @@
 	</select>
 	
 	<!-- 카카오페이 거래내역 저장 -->
-	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
+	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO"
+	useGeneratedKeys="true" keyColumn="order_id" keyProperty="orderId">
 		INSERT INTO OrderPay(member_id, 
 							 product_name, 
 							 final_price, 
@@ -36,4 +37,5 @@
 			   		  #{tid},
 			   		  #{productCode})
 	</insert>
+	
 </mapper>

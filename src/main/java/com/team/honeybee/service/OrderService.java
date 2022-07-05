@@ -26,9 +26,9 @@ public class OrderService {
 	}
 
 	// 카카오 페이 승인후, db에 저장
-	public void setKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo) {
+	public void setKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVO) {
 		System.out.println("카카오 페이 승인후, db에 저장");
-		mapper.insertKakaoPayData(kakaoPayApprovalVo);
+		mapper.insertKakaoPayData(kakaoPayApprovalVO);
 	}
 	
 

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class DonationReplyVO {
 	// 공동 property
+	private int orderId;
 	private String productName;
 	private String quantity;
 	private String totalAmount;  // finalPayment  ???

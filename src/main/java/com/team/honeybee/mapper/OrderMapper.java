@@ -14,4 +14,5 @@ public interface OrderMapper {
 	// 카카오 페이 승인후, db에 저장
 	void insertKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo);
 
+
 }

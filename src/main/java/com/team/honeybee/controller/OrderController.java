@@ -111,12 +111,15 @@ public class OrderController {
 		
 		if(replyVO.getBoardType() == 'D') {
 			// 기부 게시판
+			System.out.println("기부");
 			return "redirect:/donation/board/" + replyVO.getDonationId();
 		}else if(replyVO.getBoardType() == 'T') {
 			// 재능 판매 게시판
+			System.out.println("재능");
 			return "redirect:/order/success";
 		}
 		// 마켓 게시판
+		System.out.println("마켓");
 		return "redirect:/market/success";
 	}
 	
