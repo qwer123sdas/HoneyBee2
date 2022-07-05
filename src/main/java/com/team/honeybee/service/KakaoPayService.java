@@ -37,7 +37,10 @@ public class KakaoPayService {
 	
 	@Autowired
 	DonationReplyService replyService;
-
+	
+	@Autowired
+	MarketService marketService;
+	
 	@Value("${kakao.pay.admin}")
 	private String adminKey;
 	
@@ -136,12 +139,14 @@ public class KakaoPayService {
 			String comment;
 			if(replyVO.getBoardType() == 'D') {
 				comment = "기부금";
-			}else {
+			}else if(replyVO.getBoardType() == 'T') {
 				comment = "재능판매";
+			}else {
+				comment = "마켓";
 			}
 			// replyVO.getBoardType() == 'T'  replyVO.getBoardType() == 'M'은 "마켓"
 			
-			// 포인트 사용 여부 기록
+			// 포인트 사용 여부 기록 : 포인트 0이면 사용기록 안함
 			if(kakaoPayReadyVO.getPoint() != 0) {
 				pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_user_id(), kakaoPayReadyVO.getPoint(), comment);
 			}
@@ -169,9 +174,12 @@ public class KakaoPayService {
 				// 기부한 항목 db에 저장 
 				service.setKakaoPayData(kakaoPayApprovalVO);
 				// 총합 계산
-				
-			}else {
+			}else if(replyVO.getBoardType() == 'T') {
 				// 재능판매 구입항목 db에 저장
+				service.setKakaoPayData(kakaoPayApprovalVO);
+			}else {
+				// 마켓 관련 기타 정보 db에 저장
+				marketService.setKakaoPayData(kakaoPayApprovalVO);
 				service.setKakaoPayData(kakaoPayApprovalVO);
 			}
 			

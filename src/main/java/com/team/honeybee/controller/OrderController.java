@@ -108,15 +108,16 @@ public class OrderController {
 		
 		
 		// 아래 부분 서비스에 전부 처리하도록 하기
-		// 기부 게시판-------------------------------------------
+		
 		if(replyVO.getBoardType() == 'D') {
+			// 기부 게시판
 			return "redirect:/donation/board/" + replyVO.getDonationId();
 		}else if(replyVO.getBoardType() == 'T') {
-			
+			// 재능 판매 게시판
+			return "redirect:/order/success";
 		}
-		
-		
-		return "redirect:/order/success";
+		// 마켓 게시판
+		return "redirect:/market/success";
 	}
 	
 	

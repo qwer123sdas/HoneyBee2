@@ -25,8 +25,6 @@
 
 </head>
 <body>
-	<my:navbar></my:navbar>
-<my:market></my:market>
 <!-- Section-->
 
         <section class="py-5">
