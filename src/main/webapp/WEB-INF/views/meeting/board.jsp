@@ -338,7 +338,7 @@
 					<!-- Preview image -->
 					<figure class="mb-4">
 						<img class="img-fluid rounded"
-							src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+							src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="..." />
 					</figure>
 
 					<!-- Post content-->
@@ -382,7 +382,7 @@
 			</div>
 
 			<!-- 모임신청 진행 상태 -->
-			<div class="col-lg-4">
+			<div class="col-lg-3 ms-5">
 				<!-- Search widget-->
 				<div class="guestWiget">
 					<div
@@ -433,16 +433,16 @@
 								<!-- 게시글 수정버튼 추가 -->
 								<%-- <c:if test="${meeting.own == 1 }">
 				            	</c:if> --%>
-				            		<c:url value="/meeting/cart" var="buyUrl">
-										<c:param name="marketId" value="${market.marketId }"></c:param>
+				            		<%-- <c:url value="/meeting/modify" var="modifyUrl">
+										<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
 									</c:url>
-									<a type="button" class="btn btn-warning" href="${buyUrl}">구매</a>
-						            <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="get">
+									<a type="button" class="btn btn-warning" href="${modifyUrl}">모두의행동 수정</a> --%>
+						           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
 						            	<input type="hidden" name="meetingId" value="meetingId" />
 						            	<input type="hidden" name="memberId" value="memberId" />
-										<button type="button" id="modifyBtn1" class="btn btn-light mt-5 w-100">
-										<i class="fa-solid fa-list-ul">모두의행동 수정</i></button>
-						            </form>
+										<input type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100">
+										<i class="fa-solid fa-list-ul">모두의행동 수정</i></input>
+						            </form> 
 							</div>
 						</div>
 					</div>
@@ -454,7 +454,7 @@
 	</div>
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
@@ -664,8 +664,14 @@
 									<div class="ms-3 replyContent\${list[i].meetingReplyId}">
 									\${list[i].content }</div>
 								`;
+								
+								// 댓글 삭제시 답글달기 비활성화
+								let replyTextClassName="replyText";
+								
 								if (list[i].deleteInfo === "Y") {
 									replyContent = `<div class="ms-3 replyContentDelete\${list[i].meetingReplyId}"><i class="fa-solid fa-circle-exclamation"></i>삭제된 댓글입니다!</div>`;
+									// 댓글 삭제시 답글달기 비활성화
+									replyTextClassName="";
 								}			
 								
 								
@@ -686,9 +692,9 @@
 													<span style="font-weight: normal; font-size: 14px;">
 													\${list[i].inserted }</span>
 												</span>
-												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}">
+												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}" >
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-												  <div class="dropdown-content">
+												  <div class="dropdown-content" style="position: z-index: 2;">
 												    <a href="#!" class="replyUpdate"><span>수정</span></a>
 												    <a href="#!" class="replyDelete" 
 												    	data-reply-id="\${list[i].meetingReplyId}" 
@@ -701,14 +707,14 @@
 										
 										\${replyContent}
 										
-										<div class="replyUpdateArea d-none">
+										<div class="replyUpdateArea d-none" >
 											<form class="replyUpdateAreaForm">
 												<div class="input-group">
 													<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
 													<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
 													<input class="form-control ms-3 replyUpdateContent" 
 				      									type="text" name="content" placeholder="수정 내용을 입력하세요" />
-				      								<span class="btn btn-primary replyUpdateButton">
+				      								<span class="btn btn-primary replyUpdateButton"style="position: z-index: 1;">
 						      							<i class="fa-solid fa-circle-check "></i>
 						      						</span>
 						      					</div>
@@ -718,8 +724,8 @@
 										<div class="ms-3 replyTextContainer">
 											<div class="fw-bold d-flex justify-content-between">
 												<a class="small fw-medium" href="#!">
-													<span id="flip" class="replyText">답글 작성</span>
-														<span class="replyCnt" style="">0</span>
+													<span id="flip" class="\${replyTextClassName}">답글 작성</span>
+														<span class="replyCnt" style=""></span>
 												</a>
 												<a class="replyLike" href="#!">
 													<i class="fa-regular fa-heart"></i>
@@ -729,7 +735,6 @@
 										</div>
 										
 										<div id="panel" class="childReplyArea">
-											// for문 돌면서 계속 동일한 이름을 할당 받으므로 id가 아닌 class로
 											<form class="childReplyAreaForm">  
 												<div class="input-group">
 			      									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
@@ -738,9 +743,9 @@
 			      									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
 				      								<input id="insertReplyChildInput" class="form-control ms-3"
 					      									type="text" name="content" placeholder="답글을 작성해주세요" /><br>
-					      							<span class="btn btn-primary insertReplyChildButton">
+					      							<div type="button" class="btn btn-primary insertReplyChildButton">
 					      								<i class="fa-solid fa-circle-check"></i>
-					      							</span>
+					      							</div>
 			      								</div>
 			      							</form>
 	      								</div>

@@ -43,11 +43,13 @@
 		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
 						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
 									<!-- 나중에 파일 입력 추가 해야함 -->
+		
+		WHERE bi.main_image_name IS NOT NULL
 		<if test='topic != ""'>
-		WHERE mt.topic = #{topic} AND mt.enable = 1 
+		AND mt.topic = #{topic} AND mt.enable = 1 
 		</if>
 		<if test="topic == ''">
-		WHERE mt.enable = 1 
+		AND mt.enable = 1 
 		</if>
 		GROUP BY mt.meeting_id
 		<if test='sort == "" || sort=="1"'>
@@ -73,6 +75,8 @@
 				mt.end_date endDate,
 				mt.tag,
 				m.nickname,
+				mt.meeting_date meetingDate,
+				mt.guest_num guestNum,
 				bi.main_image_name MPhoto,
 				bi.image_folder_id folderName
 			<!-- 	g.member_id guest -->
@@ -106,5 +110,22 @@
 		INSERT INTO MeetingComment (member_id, content)
 		VALUES (#{memberId}, #{content})
 	</insert>
+	
+	<!-- 게시물 수정 -->
+	<update id="updateByMeetingBoard">
+		UPDATE Meeting 
+		   SET   title = #{title}
+		   	   , content = #{content}
+		   	   , meeting_date = #{meetingDate}
+		   	   , start_date = #{startDate}
+		   	   , end_date = #{endDate}
+		   	   , guest_num = #{guestNum}
+		   	   , address = #{address}
+		   	   , postcode = #{postcode}
+		   	   , topic = #{topic}
+		 WHERE meeting_id = #{meetingId}
+		
+	</update>
+	
 	
 </mapper>

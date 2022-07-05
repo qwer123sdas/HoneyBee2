@@ -45,6 +45,10 @@
     
 </head>
 	<style>
+	.row .g-4 #meetingList{
+		height: 150px;
+	}
+	
 	.group_catelist {
 	    width: 1000px;
 	    margin: 0 auto;
@@ -203,11 +207,11 @@
             </form>
             
             <!-- 게시물 리스트 -->
-            <div class="row g-4">
+            <div class="row g-4" id="meetingList">
           	<c:forEach items="${meetingList }" var="meeting">
 		 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
 				<div class="service-item rounded overflow-hidden">
-		            <img class="img-fluid" src="${appRoot}/resources/webContents/img/img-600x400-1.jpg" alt="">
+		            <img class="img-fluid" src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="">
 		                <div class="position-relative p-4 pt-0">
 		                    <div class="service-icon">
 		                         <i class="fa fa-wind fa-3x"></i>
@@ -220,6 +224,7 @@
 			                    	</div>
 		                        </div>
 		                    </div>
+		             
 		                </div> <!-- 요기까지 forEach가야함 -->
 		  			</c:forEach> 
 		        </div>
@@ -282,7 +287,7 @@
 
 	
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
     <!-- Footer End -->
 
     <!-- Back to Top -->

@@ -26,10 +26,10 @@ public interface MeetingSummerNoteMapper {
 	void setMeetingId(@Param("meetingId")int meetingId, @Param("imageFolderId")String imageFolderId);
 
 	// 게시글 수정시 메인사진 id 가져오기
-	int selectBoardImageId(String oldMainPhoto);
+	int selectBoardImageId(@Param("oldMainPhoto") String oldMainPhoto, @Param("meetingId") int meetingId);
 
 	// 게시글 메인 사진 db 수정
-	void updateBoardImage(int boardImageId, String originalFilename);
+	void updateBoardImage(@Param("boardImageId")int boardImageId, @Param("originalFilename")String originalFilename);
 	
 	
 

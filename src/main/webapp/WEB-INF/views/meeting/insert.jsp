@@ -388,7 +388,7 @@
 
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
 
 	<!-- JavaScript Libraries -->

@@ -188,15 +188,20 @@ public class MeetingService {
 
 		// 메인 사진 수정
 		System.out.println("메인사진 : " + mainPhoto.getOriginalFilename());
+		System.out.println(oldMainPhoto);
+		System.out.println(mainPhoto);
+		System.out.println(mainPhoto.isEmpty());
 		if (mainPhoto.getOriginalFilename() != oldMainPhoto && !mainPhoto.isEmpty()) {
+			System.out.println("사진 삭제 실행됨???");
 			// 기존 사진 삭제
-			deleteFromAwsS3FromNewMainPhoto(oldMainPhoto, folderName);
+			
+			deleteFromAwsS3FromNewMainPhoto(folderName, oldMainPhoto);
 			
 			// 새로운 사진 업로드
 			saveMainPhotoAwsS3(meeting.getMeetingId(), mainPhoto, folderName);
 			
 			// 게시글 사진 db 수정
-			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto, meeting.getMeetingId());
 			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
 		}
 
@@ -261,8 +266,11 @@ public class MeetingService {
 	}
 	
 	// 게시글 수정용, 기존 사진 삭제 메소드
-	private void deleteFromAwsS3FromNewMainPhoto(String oldMainPhoto, String folderName) {
+	private void deleteFromAwsS3FromNewMainPhoto(String folderName, String oldMainPhoto) {
 		String key = "meeting/" + folderName + "/" + oldMainPhoto;
+		
+		System.out.println("지울 키");
+		System.out.println(key);
 		
 		DeleteObjectRequest deleteBucketRequest;
 		deleteBucketRequest = DeleteObjectRequest.builder()
