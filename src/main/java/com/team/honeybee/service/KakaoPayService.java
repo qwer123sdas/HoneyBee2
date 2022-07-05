@@ -142,7 +142,10 @@ public class KakaoPayService {
 			// replyVO.getBoardType() == 'T'  replyVO.getBoardType() == 'M'은 "마켓"
 			
 			// 포인트 사용 여부 기록
-			pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_user_id(), kakaoPayReadyVO.getPoint(), comment);
+			if(kakaoPayReadyVO.getPoint() != 0) {
+				pointService.useMemberPointHistory(kakaoPayApprovalVO.getPartner_user_id(), kakaoPayReadyVO.getPoint(), comment);
+			}
+			
 			
 			// 포인트 적립
 			int resultPayment = kakaoPayApprovalVO.getAmount().getTotal();
