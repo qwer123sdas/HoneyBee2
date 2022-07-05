@@ -25,8 +25,7 @@
 
 </head>
 <body>
-	<my:navbar></my:navbar>
-<my:market></my:market>
+
 <!-- Section-->
 
         <section class="py-5">
@@ -72,7 +71,7 @@
                                 
                </div>
         </section>
-<my:footbar></my:footbar>
+
   
 
 </body>

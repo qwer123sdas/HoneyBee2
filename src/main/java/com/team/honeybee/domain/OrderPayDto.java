@@ -23,6 +23,7 @@ public class OrderPayDto {
 	private String comment;
 	@DateTimeFormat(iso = ISO.DATE_TIME, pattern="yyyy-MM-dd HH-mm-ss")
 	private LocalDateTime inserted;
+	private String productCode;
 	
 	
 	

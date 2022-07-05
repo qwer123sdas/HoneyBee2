@@ -161,14 +161,7 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <!-- Spinner End -->
 
-	<!-- Nav bar  -->
-		<my:navbar></my:navbar>
-		<my:market></my:market>
-	<!-- Page Header Start -->
-	
-	<!-- Page Header End -->
     <!-- Page content-->
     <div class="container mt-5">
         <div class="row">

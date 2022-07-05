@@ -78,8 +78,8 @@ textarea {
 }
 </style>
 <body>
-	<my:navbar></my:navbar>
-	<my:faq1tag></my:faq1tag>
+	
+
 	<div class="container">
 		<div class="row">
 			<my:faq></my:faq>
@@ -137,6 +137,6 @@ textarea {
 			</div>
 		</div>
 	</div>
-	<my:footbar></my:footbar>
+
 </body>
 </html>
