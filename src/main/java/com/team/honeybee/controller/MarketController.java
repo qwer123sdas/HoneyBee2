@@ -90,7 +90,7 @@ public class MarketController {
 		}*/
 		
 		
-		
+		/*
 	// 카카오 페이 요청
 		@GetMapping("kakaopay")
 		@ResponseBody
@@ -160,5 +160,6 @@ public class MarketController {
 		@RequestMapping("kakaoPayFail")
 		public void failPage() {
 		}
+		*/
 	
 }

@@ -433,6 +433,10 @@
 								<!-- 게시글 수정버튼 추가 -->
 								<%-- <c:if test="${meeting.own == 1 }">
 				            	</c:if> --%>
+				            		<c:url value="/meeting/cart" var="buyUrl">
+										<c:param name="marketId" value="${market.marketId }"></c:param>
+									</c:url>
+									<a type="button" class="btn btn-warning" href="${buyUrl}">구매</a>
 						            <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="get">
 						            	<input type="hidden" name="meetingId" value="meetingId" />
 						            	<input type="hidden" name="memberId" value="memberId" />

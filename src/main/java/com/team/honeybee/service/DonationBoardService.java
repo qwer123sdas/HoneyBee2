@@ -20,6 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,7 @@ public class DonationBoardService {
 	@Autowired
 	SummerNoteMapper summerNoteMapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
+	@Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 
