@@ -15,11 +15,8 @@ public interface MarketMapper {
 	List<String> selectFileNameByMarketId(int marketId);
 	//	마켓조회수
 	int updateViewCount(int id);
-	//주소 적는거 보내는거
-	int postMakret(MarketDto market);
-	//
-	int postMakret(int marketId);
-	
+
+		//마켓 카트
 	MarketDto getMarketById(int marketId);
 
 	// 구매할 게시판 정보를 결제 페이지로 보내기

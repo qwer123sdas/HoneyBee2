@@ -62,21 +62,7 @@
 	where market_id = #{marketId}
 	
 	</update>
-	<!--마켓상세 페이지  -->
-	<select id="postMakret" resultType="com.team.honeybee.domain.MarketDto">
-		SELECT market_id marketId,
-			   member_id memberId,
-			   title,
-			   content,
-			   inserted,
-			   price,
-			   product_name productName,
-			   total,
-			   view_count viewCount,
-			   enable
-		FROM Market
-		WHERE market_id = #{market_id}
-	</select>
+	
 	<!-- 마켓 카트 -->
 	<select id="getMarketById" resultType="com.team.honeybee.domain.MarketDto">
 		SELECT m.market_id marketId,
