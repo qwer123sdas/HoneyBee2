@@ -431,14 +431,14 @@
 								</button>
 								
 								<!-- 게시글 수정버튼 추가 -->
-								<c:if test="${meeting.own == 1 }">
-					            	<div class="backCircleImg">
-					            		<form action="${appRoot }/meeting/modify/${meeting.meetingId}">
-											<button type="button" id="modifyBtn1" class="btn btn-light mt-5 w-100">
-											<i class="fa-solid fa-list-ul">모두의행동 수정</i></button>
-					            		</form>
-					            	</div>
-				            	</c:if>
+								<%-- <c:if test="${meeting.own == 1 }">
+				            	</c:if> --%>
+						            <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="get">
+						            	<input type="hidden" name="meetingId" value="meetingId" />
+						            	<input type="hidden" name="memberId" value="memberId" />
+										<button type="button" id="modifyBtn1" class="btn btn-light mt-5 w-100">
+										<i class="fa-solid fa-list-ul">모두의행동 수정</i></button>
+						            </form>
 							</div>
 						</div>
 					</div>

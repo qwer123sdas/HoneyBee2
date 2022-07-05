@@ -139,7 +139,7 @@ public class MeetingController {
 	}
 	
 	// 게시판 수정
-	@PostMapping("modify1")
+	@PostMapping("modify")
 	public String updateByMeetingBoard(MeetingDto meeting, 
 										@RequestParam(name="hashTagRaw")String hashTagRaw, 
 										@RequestParam(name="mainPhoto")MultipartFile mainPhoto,
@@ -163,10 +163,11 @@ public class MeetingController {
 		
 	}
 	
-	@GetMapping("modify")
-	public void modify() {
-		
-	}
+	/*
+	 * @GetMapping("modify") public void modify() {
+	 * 
+	 * }
+	 */
 	
 	
 	
