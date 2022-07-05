@@ -15,6 +15,7 @@ public class TalentBoardDto {
 	
 	private String title;
 	private String content;
+	private String productCode;
 	
 	private String productName;
 	private String price;
@@ -34,12 +35,15 @@ public class TalentBoardDto {
 	
 	private int mapLevel;
 	private String address;
+	private String detailAddress;
 	
 	private int starRating; // 평점
 	private String topic;
 	
 	
 	// db에 없는 정보
+	private int own;
+	
     private int totalPrice; //총 가격(할인 적용된 가격 * 주문 수량)
     private double averageStarRating;
     

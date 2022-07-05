@@ -10,6 +10,7 @@ public class KakaoPayReadyVO {
     private String tid, next_redirect_pc_url;
     private String partner_order_id;
     private Date created_at;
+    
     //내가 필요해서 만든 property
-    private int point;
+    private int point;  // 적립금
 }

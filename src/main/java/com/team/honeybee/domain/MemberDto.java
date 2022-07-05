@@ -21,4 +21,8 @@ public class MemberDto {
 	private LocalDate birth;
 	private String phone;
 	private String detail;
+	
+	// db에 없는 것
+	private int totalPoint;
+	
 }

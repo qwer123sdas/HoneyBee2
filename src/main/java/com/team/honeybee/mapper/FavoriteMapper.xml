@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.FavoriteMapper">
+	<!-- Donation 좋아요 확인 -->
+	<select id="findFavoriteFromDonation" resultType="com.team.honeybee.domain.FavoriteDto">
+		SELECT id,
+				donation_id donationId,
+				member_id memberId,
+				heart
+		FROM Favorite
+		WHERE member_id = #{memberId}
+				AND
+			  donation_id = #{donationId}
+	</select>
+	<!-- Talent 좋아요 확인  -->
+	<select id="findFavoriteFromTalentId" resultType="com.team.honeybee.domain.FavoriteDto">
+		SELECT id,
+				talent_id talentId,
+				member_id memberId,
+				heart
+		FROM Favorite
+		WHERE member_id = #{memberId}
+				AND
+			  talent_id = #{talentId}
+	</select>	
+	
+	<!-- 좋아요 갯수 -->
+	<select id="countHeart" resultType="com.team.honeybee.domain.FavoriteDto">
+		SELECT COUNT(donation_id) count
+		FROM Favorite
+		WHERE donation_id = #{donationId}
+	</select>
+	
+	<!-- Donation 좋아요 저장 -->
+	<insert id="insertFavoriteFromDonation" parameterType="com.team.honeybee.domain.FavoriteDto">
+		INSERT INTO Favorite (member_id, donation_id, heart)
+				VALUES (#{memberId}, #{donationId}, 1)
+	</insert>
+	<!-- Talent 좋아요(찜하기) 저장 -->
+	<insert id="insertFavoriteFromTalent" parameterType="com.team.honeybee.domain.FavoriteDto">
+		INSERT INTO Favorite (member_id, talent_id, heart)
+				VALUES (#{memberId}, #{talentId}, 1)
+	</insert>
+	
+	<!-- 이미 있는 좋아요 삭제 -->
+	<!-- Donation  -->
+	<delete id="deleteFavoriteFromDonation" parameterType="com.team.honeybee.domain.FavoriteDto">
+		DELETE FROM Favorite 
+		WHERE donation_id = #{donationId}
+				AND
+			  member_id = #{memberId}
+	</delete>
+	<!-- Talent -->
+	<delete id="deleteFavoriteFromTalent" parameterType="com.team.honeybee.domain.FavoriteDto">
+		DELETE FROM Favorite 
+		WHERE talent_id = #{talentId}
+				AND
+			  member_id = #{memberId}
+	</delete>
+</mapper>

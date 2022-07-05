@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.DonationTagMapper">
+	<select id="getDonationBoardByhashTag" resultType="com.team.honeybee.domain.DonationBoardDto">
+		SELECT d.donation_id donationId,
+				d.title,
+				m.nickname,
+				d.goal,
+				d.current_amount currentAmount,
+				d.expired,
+				d.topic,
+				d.enable,
+				f.file MPhoto,
+				t.hash_tag hashTag
+		FROM Donation d LEFT JOIN Tag t ON t.donation_id = d.donation_id 
+						LEFT JOIN DonationFile f ON f.donation_id = d.donation_id
+						LEFT JOIN Member m ON d.member_id = m.member_id
+		<if test='sort == "" || sort=="1"'>  
+		WHERE t.hash_tag = #{hashTag}
+		</if>
+		<if test='sort == "2"'>
+		WHERE t.hash_tag = #{hashTag} AND d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d') AND d.enable = 1
+		</if>
+		<if test='sort == "3"'>
+		WHERE t.hash_tag = #{hashTag} AND NOT (d.expired >= DATE_FORMAT(NOW(), '%Y-%m-%d')) AND d.enable = 1
+		</if>
+		<if test='sort == "4"'>
+		WHERE t.hash_tag = #{hashTag} AND d.enable = 0
+		</if>
+		GROUP BY d.donation_id
+		ORDER BY d.donation_id DESC
+	</select>
+</mapper>

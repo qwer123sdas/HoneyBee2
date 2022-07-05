@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.OrderMapper">
+	<!-- 구매사이트 정보 가져오기 -->
+	<select id="selectTalentBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title,
+			   t.price,
+			   t.product_name productName,
+			   t.work_date workDate,
+			   t.class_content classContent,
+			   t.product_code productCode,
+			   m.member_id memberId,
+			   m.nickname,
+			   bi.main_image_name MPhoto,
+			   bi.image_folder_id folderName
+		FROM Talent t LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+					  LEFT JOIN Member m ON m.member_id = t.member_id
+		WHERE t.talent_id = ${talentId} 
+			AND bi.main_image_name IS NOT NULL
+	</select>
+	
+	<!-- 카카오페이 거래내역 저장 -->
+	<insert id="insertKakaoPayData" parameterType="com.team.honeybee.vo.KakaoPayApprovalVO">
+		INSERT INTO OrderPay(member_id, 
+							 product_name, 
+							 final_price, 
+							 quantity,
+							 tid,
+							 product_code)
+			   VALUES(#{partner_user_id}, 
+			   		  #{item_name}, 
+			   		  #{amount.total},
+			   		  #{quantity},
+			   		  #{tid},
+			   		  #{productCode})
+	</insert>
+</mapper>
