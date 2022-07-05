@@ -28,7 +28,7 @@ public class SummerNoteService {
 	@Autowired
 	SummerNoteMapper mapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 

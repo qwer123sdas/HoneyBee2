@@ -128,6 +128,9 @@ h3 {
 }
 </style>
 <body>
+	<c:url value="/market/get" var="getMarketUrl">
+		<c:param name="marketId" value="${market.marketId }"></c:param>
+	</c:url>
 	<!-- Spinner Start -->
 	<div id="spinner"
 		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -157,7 +160,7 @@ h3 {
 									주문번호 ｜ <strong>2022062359064601 </strong>
 								</div>
 								<div class="orderPageButton ">
-									<button class="btn btn-warning ">재구매</button>
+									<a href="${getMarketUrl }">재구매</a>
 								</div>
 							</div>
 						</div>

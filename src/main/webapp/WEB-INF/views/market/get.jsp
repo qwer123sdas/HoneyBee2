@@ -293,7 +293,7 @@
 
 
 	<!-- foot bar -->
-	<my:footbar></my:footbar>
+
     
 
 

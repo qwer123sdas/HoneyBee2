@@ -56,7 +56,7 @@ public class DonationBoardService {
 	@Autowired
 	SummerNoteMapper summerNoteMapper;
 	
-	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketNameTEAM}")
+	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
 	
 	private S3Client amazonS3; 
