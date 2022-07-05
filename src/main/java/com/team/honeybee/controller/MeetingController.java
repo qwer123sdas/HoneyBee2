@@ -84,7 +84,13 @@ public class MeetingController {
 		List<MeetingDto> list = service.meetingList(sort, topic);
 		System.out.println(list);
 		
+		// 후기리스트
+		List<MeetingCommentDto> commentList = service.getCommentList();
+		
+		
 		model.addAttribute("meetingList", list);
+		model.addAttribute("commentList", commentList);
+		
 		// sort, topic 추가
 		model.addAttribute("sort", sort);
 		model.addAttribute("topic", topic);
@@ -126,6 +132,7 @@ public class MeetingController {
 		
 		return "redirect:/meeting/main";
 	}
+
 	
 	// 게시판 수정전 기존 게시물 선택, 기존 해시태그
 	@PostMapping("modify/{meetingId}")
@@ -165,12 +172,7 @@ public class MeetingController {
 	public void login() {
 		
 	}
-	
-	/*
-	 * @GetMapping("modify") public void modify() {
-	 * 
-	 * }
-	 */
+
 	
 	
 	

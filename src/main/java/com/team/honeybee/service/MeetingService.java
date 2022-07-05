@@ -175,6 +175,12 @@ public class MeetingService {
 		
 	}
 	
+	// 후기 가져오기
+	public List<MeetingCommentDto> getCommentList() {
+		return mapper.getCommentList();
+
+	}
+	
 	// 게시판 수정
 	public void updateByMeetingBoard(MeetingDto meeting, String hashTagRaw, 
 										MultipartFile mainPhoto, String folderName,
@@ -297,6 +303,10 @@ public class MeetingService {
 		amazonS3.deleteObject(deleteBucketRequest);
 		
 	}
+
+	
+	
+	
 	
 	/* 데스크탑 저장용 메소드
 	// 파일 저장 메소드

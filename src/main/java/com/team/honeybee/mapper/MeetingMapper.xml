@@ -111,6 +111,15 @@
 		VALUES (#{memberId}, #{content})
 	</insert>
 	
+	<!-- 후기 가져오기 -->
+	<select id="getCommentList" resultType="com.team.honeybee.domain.MeetingCommentDto">
+		SELECT   meeting_comment_id meetingCommentId
+			   , member_id memberId
+			   , content
+			   , inserted 
+		  FROM MeetingComment
+	</select>
+	
 	<!-- 게시물 수정 -->
 	<update id="updateByMeetingBoard">
 		UPDATE Meeting 
@@ -124,7 +133,6 @@
 		   	   , postcode = #{postcode}
 		   	   , topic = #{topic}
 		 WHERE meeting_id = #{meetingId}
-		
 	</update>
 	
 	

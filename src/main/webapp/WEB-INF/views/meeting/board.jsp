@@ -170,8 +170,8 @@
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 600px;
-	height: 400px;
+	width: 500px;
+	height: 330px;
 	position: relative;
 	top: -100px;
 	padding: 10px;
@@ -323,15 +323,18 @@
 						<div class="text-muted fst-italic mb-2">${meeting.startDate }
 							~ ${meeting.endDate }</div>
 						<!-- 해쉬 태그 -->
-						<c:forEach items="${meeting.hashTag }" var="hashTag">
-							<a href="${appRoot}/meeting/tags/${hashTag}">
-								<span class="badge rounded-pill bg-warning text-dark">#
-									${hashTag }</span>
-							</a>
-						</c:forEach>
-						<!-- 해쉬태그 -->
-						<a class="badge bg-secondary text-decoration-none link-light"
-							href="#!">${meeting.tag }</a>
+						<div class="">
+							<c:forEach items="${meeting.hashTag }" var="hashTag">
+								<a href="${appRoot}/meeting/tags/${hashTag}">
+									<span class="badge rounded-pill bg-warning text-dark">#
+										${hashTag }</span>
+								</a>
+							</c:forEach>
+							<!-- 해쉬태그 -->
+							<a class="badge bg-secondary text-decoration-none link-light"
+								href="#!">${meeting.tag }</a>
+							<p class="fs-5 mb-4">host by. ${meeting.memberId }</p>
+						</div>
 					</header>
 					<!-- Post title End -->
 
@@ -340,26 +343,41 @@
 						<img class="img-fluid rounded"
 							src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="..." />
 					</figure>
-
+					<!-- 화면 분활용 네브탭 -->
+					<ul class="nav nav-tabs nav-fill justify-content-center ">
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center active" id="meetingMainContentNav" aria-current="page">모두의행동</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center" id="meetingInfoNav">모임정보</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center" id="meetingReplyNav">커뮤니티</a>
+					  </li>
+					</ul>
+				
+				</article>
+				
 					<!-- Post content-->
-					<section class="mb-5">
-						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
-						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
-						<h4
-							class="fw-bolder border mb-2 mt-2 shadow-none p-2 mb-2 bg-light rounded text-center">*꿀비
+					<section class="mb-5 " id="meetingMainContent">
+						<p class="fw-bolder fs-5 mb-4" style="margin-top: 30px;">${meeting.content }</p>
+					</section>
+					
+					<section class="mb-5 d-none" id="meetingInfo" style="margin-top: 30px;" >
+						<h4 class="fw-bolder border mb-2 mt-2 shadow-none 
+									p-2 mb-2 bg-light rounded text-center" >*꿀비
 							모임 장소 : ${meeting.address } ${meeting.detailAddress }</h4>
 						<!-- 카카오 지도 api -->
 						<div class="border mb-3 container shadow p-3 mb-3 bg-body rounded">
 							<div id="map"
-								style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
+								style="width: 700 px; height: 700px; margin: auto; margin-top: 10px;"></div>
 						</div>
 					</section>
-				</article>
-
 
 				<!-- 댓글, 대댓글 -->
-				<section class="replyForm">
-					<h4>커뮤니티</h4>
+				<section class="mb-5 replyForm d-none" id="meetingReply">
+					<h4 style="margin-top: 30px;">커뮤니티</h4>
+					<p>*모임에 대해 궁금한 사항이나 다양한 스토리를 나누고 싶다면 작성해주세요!</p>
 					<div class="card bg-light">
 						<div class="card-body">
 							<!-- 댓글 입력 form 출력 ajax 처리-->
@@ -382,12 +400,14 @@
 			</div>
 
 			<!-- 모임신청 진행 상태 -->
-			<div class="col-lg-3 ms-5">
+			<div class="col-lg-3 ms-4 ">
 				<!-- Search widget-->
 				<div class="guestWiget">
-					<div
-						class="guestWiget-header d-flex justify-content-center align-middle">
-						<h4>
+					<div class="guestWiget-header d-flex justify-content-center align-middle"
+						style="margin-top: 180px;">
+						<hr />
+						<h4 style="margin-top: 15px;">
+							<i class="fa-solid fa-address-card"></i>
 							꿀비 모임
 							<span id="numOfGuest"></span>
 							명 등록
@@ -430,18 +450,37 @@
 									함께할께요!
 								</button>
 								
+								<hr>
+								
+								<h5 style="text-align: center;">모두의행동 안내</h5>
+								<ul class="meetingGuestInfo ">
+									<li>주최자 : ${meeting.memberId }</li>
+									<li>모임일시 : ${meeting.meetingDate }</li>
+									<li>모임장소 : <br>
+										${meeting.address }<br>${meeting.detailAddress }</li>
+								</ul>
+								
+								<hr>
+								
+								<h5 style="text-align: center;">참여신청/취소 안내</h5>
+								<ul class="guestInfo ">
+									<li>모임의 신청/취소는<br/>참여신청 기간 내에만 가능합니다.</li>
+									<li>모임 또는 그룹의 설정,<br/>모집정원 초과 여부에 따라<br/>대기자로 선정될 수 있습니다.</li>
+									<li>꿀비는 참여신청 기능을 제공하는 회사로 모임개설자(주최측)이 아닙니다.</li>
+									<li>모임 내용과 관련한 사항은<br/>모임 개설자에게 문의 바랍니다.</li>
+								</ul>
+								
+								<hr>
+								
 								<!-- 게시글 수정버튼 추가 -->
 								<%-- <c:if test="${meeting.own == 1 }">
 				            	</c:if> --%>
-				            		<%-- <c:url value="/meeting/modify" var="modifyUrl">
-										<c:param name="meetingId" value="${meeting.meetingId }"></c:param>
-									</c:url>
-									<a type="button" class="btn btn-warning" href="${modifyUrl}">모두의행동 수정</a> --%>
 						           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
 						            	<input type="hidden" name="meetingId" value="meetingId" />
 						            	<input type="hidden" name="memberId" value="memberId" />
-										<input type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100">
-										<i class="fa-solid fa-list-ul">모두의행동 수정</i></input>
+										<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100" >
+										 <i class="fa-solid fa-list-ul">모두의행동 수정</i>
+										</button>
 						            </form> 
 							</div>
 						</div>
@@ -461,10 +500,9 @@
 
 
 <script>
-	$(document).ready(function() {
+$(document).ready(function() {
 
 	/* 카카오 지도 api 시작 */
-	
 	var Container = document.getElementById('map'), // 지도를 표시할 div 
 		Option = {
 			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -500,9 +538,44 @@
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        map.setCenter(coords);
 	    } 
-	}); 
+	}); /* 카카오 지도 api 끝남 */
 	
-	/* 카카오 지도 api 끝남 */
+	
+	/* 메인 컨텐츠 */
+	$("#meetingMainContentNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingMainContentNav').addClass('active');
+		$("#meetingInfoNav").removeClass("active");
+		$("#meetingReplyNav").removeClass("active");
+		/* 아이디 이벤트*/
+		$('#meetingMainContent').removeClass("d-none");
+		$("#meetingInfo").addClass("d-none");
+		$("#meetingReply").addClass("d-none");
+	});
+	
+	/* 모임정보 */
+	$("#meetingInfoNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingInfoNav').addClass('active');
+		$("#meetingMainContentNav").removeClass("active");
+		$("#meetingReplyNav").removeClass("active");
+		/* 아이디 이벤트*/
+		$('#meetingInfo').removeClass("d-none");
+		$("#meetingMainContent").addClass("d-none");
+		$("#meetingReply").addClass("d-none");
+	});
+	
+	/* 대댓글 커뮤니티 */
+	$("#meetingReplyNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingReplyNav').addClass('active');
+		$("#meetingMainContentNav").removeClass("active");
+		$("#meetingInfoNav").removeClass("active");
+		
+		$('#meetingReply').removeClass("d-none");
+		$("#meetingMainContent").addClass("d-none");
+		$("#meetingInfo").addClass("d-none");
+	});
 		 
 	/* 게스트 입출력 부분 시작 */
 	var modal = document.getElementById("insertGuestModal1");
@@ -635,6 +708,23 @@
 	
 	 // 게스트 리스트 가져오는 함수 실행
 	 guestList();
+	 /*
+	 // 게스트 인원 다 차면 버튼 비활성화
+	 let guestNum = ${meeting.guestNum};
+	 let guestCnt = guestList.length;
+	 // console.log(guestNum);
+	 //console.log(guestCnt);
+	 
+	 ${"#insertGuestBtn1"}.click(function(e) {
+		 e.preventDefault();
+		 
+		 if(guestNum == guestCnt) {
+			 document.getElementById('insertGuestBtn1').attr('disabled');
+			 
+			 alert("꿀비 모임신청이 마감되었습니다.")
+		 } 
+	 });*/
+	 
 	 
 	 /* 게스트 입출력 부분 끝남 */
 
@@ -928,28 +1018,29 @@
 </script>
 
 	<!-- 모임신청 모달창 -->
-	<div id="insertGuestModal1" class="modal-overlay">
+	<div id="insertGuestModal1" class="modal-overlay" >
 		<div class="modal-window">
-			<div class="title">
-				<h4>꿀비 모임을 신청하시겠습니까?</h4>
+			<div class="title" style="text-align: center; margin-top: 15px;">
+				<h4><i class="fa-solid fa-paper-plane"></i>꿀비 모임을 신청하시겠습니까?</h4>
 				<hr />
 			</div>
 			<div class="content">
-				<ul>
+				<ul style="color: #000000;">
 					<li>모임에 적극적인 참여 부탁드립니다!</li>
 					<li>모임 장소를 잘 확인하시고 늦지않게 오세요!</li>
 					<li>문의 사항은 댓글을 남겨주세요</li>
 					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
 				</ul>
-				<p>모임일시:${meeting.meetingDate }</p>
-				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
+				<p style="color: #000000;">모임일시:${meeting.meetingDate }</p>
+				<p style="color: #000000;">모임장소:${meeting.address } ${meeting.detailAddress }</p>
 				<form id="guestInsertForm1"
 					action="${appRoot }/meeting/board/addGuest" method="post">
 					<span class="d-flex flex-row-reverse">
-						<button type="button" class="btn btn-secondary">취소</button>
+						<button type="button" class="btn btn-secondary"
+							style="margin-left: 10px;">취소</button>
 						<input type="hidden" name="meetingId"
 							value="${meeting.meetingId }" />
-						<button class="btn btn-primary " id="guestSubmitBtn1">신청</button>
+						<button class="btn btn-primary" id="guestSubmitBtn1" style="background-color: #09ab60;">신청</button>
 					</span>
 				</form>
 			</div>
