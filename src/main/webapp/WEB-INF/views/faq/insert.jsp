@@ -67,10 +67,6 @@ td.insertTable3 {
 	height: 400px;
 }
 
-h1 {
-	color: #ffc107;
-}
-
 textarea {
 	height: 400px;
 	border: none;
@@ -79,12 +75,12 @@ textarea {
 </style>
 <body>
 	
-
+<my:mainNavBar></my:mainNavBar>
 	<div class="container">
 		<div class="row">
 			<my:faq></my:faq>
 			<div class="col-8 mt-3 ms-5">
-				<h1>1대1 문의</h1>
+				<h1 style="color:#ffc107;">1대1 문의</h1>
 				<form action="${appRoot }/faq/insert" method="post"
 					enctype="multipart/form-data">
 					<table class="insertTable">
@@ -137,6 +133,6 @@ textarea {
 			</div>
 		</div>
 	</div>
-
+	<my:footbar_kim></my:footbar_kim>
 </body>
 </html>

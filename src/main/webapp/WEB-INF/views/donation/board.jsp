@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
@@ -365,8 +366,7 @@
 
 
 	<!-- Nav bar  -->
-	<nav:navbar_kim></nav:navbar_kim>
-
+	<my:mainNavBar></my:mainNavBar>
 
 <%-- 	<!-- Page Header Start -->
 	<div class="container-fluid page-header py-5 mb-5">

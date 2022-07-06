@@ -28,6 +28,7 @@
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
 <c:url value="/market/list" var="marketListUrl"></c:url>
 
+
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal" />
@@ -172,13 +173,11 @@
 
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<div class="navbar-nav ms-auto p-4 p-lg-0">
-			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<a
 						class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
 						href="${mainPageUrl }">홈</a>
 				</li>
-			</sec:authorize>
 			
 				<li class="nav-item">
 					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
@@ -200,11 +199,10 @@
 						href="${marketListUrl }">마켓</a>
 				</li>
 				
-			<sec:authorize access="isAuthenticated()">
+				
 				<li class="nav-item">
 					<a class="nav-item nav-link" ${current == 'donationMain' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
 				</li>
-			</sec:authorize>
 			
 			
 

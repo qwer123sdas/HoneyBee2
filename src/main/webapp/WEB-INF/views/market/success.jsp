@@ -34,6 +34,6 @@
 	
 </body>
 <script>
-	top.location="http://localhost:8080/honeybee/market/list";
+	top.location="http://13.125.243.126/honeybee/market/list";
 </script>
 </html>
