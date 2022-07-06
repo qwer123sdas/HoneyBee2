@@ -55,7 +55,7 @@ thead tr{
 	<a:boardNavBar current="myBoard"></a:boardNavBar>
 	<div class="main-container">
 		<div class="row">
-			<div class="col">
+			<div class="col-lg-7" style="margin:auto;">
 				<table class="table caption-top table-hover" id="donationBoard" style="width: 100%">
 					<caption>&#60;기부 게시판&#62;</caption>
 					<thead>
