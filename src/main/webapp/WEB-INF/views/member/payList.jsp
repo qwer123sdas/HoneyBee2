@@ -36,7 +36,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 주문 : 꿀비</title>
 
 </head>
 
@@ -113,6 +113,25 @@ margin: auto;
 			</div>
 		</div>
 	</form>
+	
+	<!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+	
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/wow/wow.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/easing/easing.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/waypoints/waypoints.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/counterup/counterup.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="${appRoot }/resources/webContents/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="${appRoot }/resources/webContents/js/main.js"></script>
+	
 	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

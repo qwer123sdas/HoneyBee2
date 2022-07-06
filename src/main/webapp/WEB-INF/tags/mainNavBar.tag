@@ -24,10 +24,12 @@
 <c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
 <%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
+<c:url value="/donation/write" var="donationWriteUrl"></c:url>
 <c:url value="/talent/main" var="talentMainUrl"></c:url>
+<c:url value="/talent/write" var="talentWriteUrl"></c:url>
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
+<c:url value="/meeting/insert" var="meetingInsertUrl"></c:url>
 <c:url value="/market/list" var="marketListUrl"></c:url>
-
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -113,6 +115,26 @@
 	
 .d-none{
 	color: #fff !important;
+	}
+}
+
+#honeybeeMainNavBar .navbar-nav .dropdown-submenu .dropdown-menu {
+	display: none;
+	top: 0;
+	left: 100%;	
+}
+
+.dropdown-submenu {
+	position: relative;
+}
+
+#honeybeeMainNavBar .navbar-nav .dropdown-submenu:hover .dropdown-menu {
+	display: block;
+}
+
+.dropdown-menu a{
+	text-align: center;
+	margin: 0 auto;
 }
 </style>
 
@@ -159,7 +181,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
 
-<nav
+<nav id="honeybeeMainNavBar"
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="${mainPageUrl }"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
@@ -178,34 +200,48 @@
 						class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
 						href="${mainPageUrl }">홈</a>
 				</li>
-			
+				
 				<li class="nav-item">
 					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
 						href="${aboutUrl }">About 꿀비</a>
 				</li>
 				
 				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'meetingMain' ? 'active' : '' }"
-						href="${meetingMainUrl }">모두의행동</a>
-				</li>
-				
-				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'talentMain' ? 'active' : '' }"
-						href="${talentMainUrl }">재능판매</a>
-				</li>
-				
-				<li class="nav-item">
 					<a class="nav-item nav-link ${current == 'marketList' ? 'active' : '' }"
 						href="${marketListUrl }">마켓</a>
 				</li>
-				
-				
-				<li class="nav-item">
-					<a class="nav-item nav-link" ${current == 'donationMain' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
-				</li>
 			
-			
-
+				<!-- 이중 dropdown -->
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">메인메뉴</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-submenu">
+							<a href="" class="dropdown-item">모두의행동</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="${meetingInsertUrl }">&nbsp;&nbsp;&nbsp;&nbsp;모임 제안하기</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu">
+							<a href="" class="dropdown-item">재능기부</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="${talentWriteUrl }">&nbsp;&nbsp;&nbsp;&nbsp;재능 제안하기</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu">
+							<a href="#" class="dropdown-item">기부하기</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="${donationWriteUrl }">&nbsp;&nbsp;&nbsp;&nbsp;기부 제안하기</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
 					<a

@@ -34,7 +34,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>재능 판매 리스트 : 꿀비</title>
 </head>
 <style>
 table{

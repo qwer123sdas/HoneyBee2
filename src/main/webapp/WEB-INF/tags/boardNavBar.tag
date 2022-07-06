@@ -200,21 +200,15 @@
 						href="${meetingMainUrl }">모두의행동</a>
 				</li>
 				
-				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'talentMain' ? 'active' : '' }"
-						href="${talentMainUrl }">재능판매</a>
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">제안하기</a>
+					
+					<div class="dropdown-menu">
+						<a href="${meetingMainUrl }" class="dropdown-item">모두의행동</a>
+						<a href="${talentMainUrl }" class="dropdown-item">재능기부</a>
+						<a href="${donationMainUrl }" class="dropdown-item">기부하기</a>
+					</div>
 				</li>
-				
-				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'marketList' ? 'active' : '' }"
-						href="${marketListUrl }">마켓</a>
-				</li>
-				
-				<li class="nav-item">
-					<a class="nav-item nav-link" ${current == 'donationMain' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
-				</li>
-			
-			
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
