@@ -502,43 +502,46 @@
 <script>
 $(document).ready(function() {
 
-	/* 카카오 지도 api 시작 */
-	var Container = document.getElementById('map'), // 지도를 표시할 div 
-		Option = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
-		};  
-	
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(Container, Option); 
-	console.log("111111111111111111111111111111111111")
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	console.log('${meeting.address}')
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('${meeting.address}', function(result, status) {
-		console.log("22222222222222222222222222222222222222")
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === kakao.maps.services.Status.OK) {
-	    	 console.log("33333333333333333333333333333333333333")
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	        
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
-	        });
-	        infowindow.open(map, marker);
-	
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    } 
-	}); /* 카카오 지도 api 끝남 */
+	function showMap() {
+		
+		/* 카카오 지도 api 시작 */
+		var Container = document.getElementById('map'), // 지도를 표시할 div 
+			Option = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(Container, Option); 
+		console.log("111111111111111111111111111111111111")
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		console.log('${meeting.address}')
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${meeting.address}', function(result, status) {
+			console.log("22222222222222222222222222222222222222")
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		    	 console.log("33333333333333333333333333333333333333")
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		        
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		}); /* 카카오 지도 api 끝남 */
+	}
 	
 	
 	/* 메인 컨텐츠 */
@@ -563,6 +566,9 @@ $(document).ready(function() {
 		$('#meetingInfo').removeClass("d-none");
 		$("#meetingMainContent").addClass("d-none");
 		$("#meetingReply").addClass("d-none");
+		
+		// 모임 정보 누르면 지도 보이게 수정
+		showMap();
 	});
 	
 	/* 대댓글 커뮤니티 */
