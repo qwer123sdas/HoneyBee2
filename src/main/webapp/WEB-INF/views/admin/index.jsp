@@ -25,7 +25,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-		<nav:sidebar></nav:sidebar>
+		<nav:sidebar current="index"></nav:sidebar>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

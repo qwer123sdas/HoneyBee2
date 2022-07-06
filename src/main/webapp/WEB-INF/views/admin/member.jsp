@@ -95,7 +95,7 @@
 	});
 </script>
 
-<title>Insert title here</title>
+<title>회원목록(관리자)</title>
 </head>
 <body>
 	<div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,7 +143,7 @@
 	
 	<div id="wrapper">
 
-		<nav:sidebar></nav:sidebar>
+		<nav:sidebar current="member"></nav:sidebar>
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 

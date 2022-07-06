@@ -87,8 +87,6 @@ public interface AdminMapper {
 
 	void deleteMeetingGuestByMeetingId(int meetingId);
 
-	void deleteMeetingCommentByMeetingId(int meetingId);
-
 	void deleteMeetingReplyByMeetingId(int meetingId);
 
 	void deleteMeetingByMeetingId(int meetingId);
@@ -116,6 +114,8 @@ public interface AdminMapper {
 	void deleteTagByMeetingId(int meetingId);
 
 	List<String> selectGuestInfo(int meetingId);
+
+	void deleteMeetingCommentByMemberId(String memberId);
 
 
 

@@ -1,6 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ attribute name="current"%>
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -16,7 +16,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ${current == 'index' ? 'active' : '' }">
                 <a class="nav-link" href="index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -31,14 +31,14 @@
             </div>
 
             <!-- Member -->
-            <li class="nav-item">
+            <li class="nav-item ${current == 'member' ? 'active' : '' }">
                 <a class="nav-link" href="${appRoot }/admin/member">
                     <i class="fas fa-fw fa-user"></i>
                     <span>회원관리</span></a>
             </li>
 
             <!-- Board -->
-            <li class="nav-item">
+            <li class="nav-item ${current == 'board' ? 'active' : '' }">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-clipboard"></i>
@@ -65,7 +65,7 @@
             </div>
 
             <!-- FAQ -->
-            <li class="nav-item">
+            <li class="nav-item ${current == 'faq' ? 'active' : '' }">
                 <a class="nav-link" href="${appRoot }/admin/faq">
                     <i class="fas fa-fw fa-q"></i>
                     <span>1:1문의</span></a>

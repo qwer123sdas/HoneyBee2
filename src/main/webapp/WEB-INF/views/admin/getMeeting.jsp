@@ -74,13 +74,13 @@
 		/* 카카오 지도 api 끝남 */
 </script>
 
-<title>Insert title here</title>
+<title>모임게시판 내용(관리자)</title>
 </head>
 <body>
 
 	<div id="wrapper">
 
-		<nav:sidebar></nav:sidebar>
+		<nav:sidebar current="board"></nav:sidebar>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -156,7 +156,7 @@
 								<div class="col-lg-4">
 									<!-- Search widget-->
 									<div class="guestWiget">
-										<div class="guestWiget-header"><h4>꿀비 모임 ${meeting.cntNum }명 등록</h4><hr/></div>
+										<div class="guestWiget-header"><h4>꿀비 모임 0명 등록</h4><hr/></div>
 										<div class="guestWigetBody">
 											<div class="row">
 												<div class="col">
