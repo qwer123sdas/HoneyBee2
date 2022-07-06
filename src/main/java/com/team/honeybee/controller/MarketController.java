@@ -68,8 +68,14 @@ public class MarketController {
 	}
 	// 마켓 구매 페이지
 	@GetMapping("cart")
-	public void getMarketbuy(@RequestParam("marketId") int marketId, Model model) {
+	public void getMarketbuy(@RequestParam("marketId") int marketId, Model model, Principal principal) {
+		// 마켓 정보 가져오기
 		MarketDto market = service.getMarketById(marketId);
+		// 회원 총 포인트 가져오기
+		int memberTotalPoint = pointService.getSUMPoint(principal.getName());
+		
+		model.addAttribute("memberId", principal.getName());
+		model.addAttribute("memberPoint", memberTotalPoint);
 		model.addAttribute("market",market);
 	}
 	
@@ -152,15 +158,15 @@ public class MarketController {
 			return "redirect:/market/success";
 		}
 		
+		*/
 		
-		// 카카오페이 승인 완료시 갈 사이트
 		@RequestMapping("success")
 		public void successPage() {
+			System.out.println("마켓 success");
 		}
 		// 카카오페이 취소 시 갈 사이트
 		@RequestMapping("kakaoPayFail")
 		public void failPage() {
 		}
-		*/
 	
 }

@@ -173,14 +173,15 @@ public class KakaoPayService {
 				replyService.addReply(replyVO);
 				// 기부한 항목 db에 저장 
 				service.setKakaoPayData(kakaoPayApprovalVO);
-				// 총합 계산
 			}else if(replyVO.getBoardType() == 'T') {
 				// 재능판매 구입항목 db에 저장
 				service.setKakaoPayData(kakaoPayApprovalVO);
 			}else {
-				// 마켓 관련 기타 정보 db에 저장
-				marketService.setKakaoPayData(kakaoPayApprovalVO);
+				//기부한 항목 db에 저장 
 				service.setKakaoPayData(kakaoPayApprovalVO);
+				
+				// 마켓 관련 기타 정보 db에 저장
+				marketService.setKakaoPayETCData(replyVO, kakaoPayApprovalVO.getOrderId());
 			}
 			
 			// replyVO.getBoardType() == 'M' 이면 

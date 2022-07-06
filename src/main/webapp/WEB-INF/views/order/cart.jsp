@@ -248,7 +248,7 @@ td {
 	                    		<h3 class="OrderTitle mb-4">주문 내역</h3>
 	                    		<div class="row Order-wrapper">
 	                    			<div class="col-2">
-	                    				<img class="mainImg" width="80px" height="auto" src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="" />
+	                    				<img class="mainImg" width="80px" height="auto" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/talent/${board.folderName }/${board.MPhoto}" alt="" />
 	                    			</div>
 	                    			<div class="col-10">
 	                    				<h4>${board.title }</h4>
@@ -491,6 +491,7 @@ td {
     						'quantity' : $('#amount').text(),
     						'totalAmount' : Number($('#finalPayment').text()),
     						'point' : $('#pointTotal').text(),
+    						'boardType' : 'T',
     						'productCode' : $('#productCode').val()
     					  }
     			payment();

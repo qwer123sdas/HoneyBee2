@@ -44,10 +44,11 @@
 	</update>
 	
 	<!-- 게시글 수정시 메인사진 id 가져오기 -->
-	<select id="selectBoardImageId">
+	<select id="selectBoardImageId" resultType="int">
 		SELECT image_id
 		  FROM BoardImage
 		 WHERE main_image_name = #{oldMainPhoto}
+		   AND meeting_id = #{meetingId}
 	</select>
 	
 	<!-- 게시글 메인 사진 db 수정 -->

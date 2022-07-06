@@ -335,6 +335,7 @@ td {
 								</div>
 							</div>
 						</div>
+						
 
 
 						<!-- 주문 옵션 테이블 I-->
@@ -382,7 +383,7 @@ td {
 
 				</div>
 			</div>
-
+		
 
 			<!-- Side widgets-->
 			<div class="col-lg-4">
@@ -395,9 +396,9 @@ td {
 							<span>총 금액</span> <span class="priceTotal" id="priceTotal">${market.price }</span>원
 
 						</h5>
-						<h5
-							class="OrderSummary-price-wrapper d-flex justify-content-between">
-							<span>쿠폰 할인</span> <span class="">0</span>원
+						<h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
+							<span class="me-auto">포인트 할인</span>
+					        <span class="me-1" id="pointTotal">0</span>원
 						</h5>
 
 						<div class="OrderSummary-divider"></div>
@@ -436,6 +437,33 @@ td {
 
 				</div>
 			</div>
+			<!-- 포인트 사용 -->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div class="card mb-4">
+                
+                	<section class="OrderInfo">
+	                 	<!-- 주문 INFO  -->
+	                 	<div>
+	                 		<h3 class="OrderTitle mb-4">포인트 사용</h3>
+	                 		<div class="row">
+	                 			<div class="col-2">
+	                 				<h5>포인트</h5>
+	                 			</div>
+	                 			<div class="col-10">
+	                 				<div class="input-group mb-2" style="width: 400px">
+								<input class="form-control" type="number" value="" id="usePoint"/> 
+								<button class="btn btn-outline-dark" id="usePointButton">사용하기</button>
+							</div>
+							<p style="font-size: 13px;">꿀비 보유포인트 : ${memberPoint }</p>
+	                 			</div>
+	                 		</div>
+	                 	</div>
+        			</section>
+          
+                </div>
+            </div>
+			
 			<div class="col-lg-8">
 				<!-- Featured blog post-->
 				<div class="card mb-4">
@@ -450,7 +478,7 @@ td {
 							<th>주소</th>
 							<td><input size="50" class="address1_input" id="postCode"
 								readonly="readonly"> <a class="address_search_btn"
-								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black;">주소찾기</a><br> <input
+								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black; border: 1px solid #444444;">주소찾기</a><br> <input
 								size="50" class="address2_input" id="address"
 								readonly="readonly"><br> <input size="50"
 								class="address3_input" id="detailAddress" readonly="readonly">
@@ -512,14 +540,21 @@ td {
 	let payment = function(){
         var finalPayment = $('#finalPayment').text();
         var priceTotal = $('#priceTotal').text();
-        //var point = document.getElementById('usePoint').value;
+        var point = document.getElementById('usePoint').value;
         console.log(finalPayment);
         console.log(priceTotal);
        // console.log(point);
-       // var result = (Number(priceTotal) - Number(point));
-       var result = (Number(priceTotal));
+       var result = (Number(priceTotal) - Number(point));
         $("#finalPayment").text(result);
     }
+    
+	/* 포인트 */
+    /*버튼 누르면 포인트 적용*/
+    $('#usePointButton').click(function(){
+    	var point = document.getElementById('usePoint').value;
+    	 document.getElementById('pointTotal').innerText = point;
+    	 payment();
+    })
     
     /*물품 수량 증감*/
 		var sellPrice = ${market.price};
@@ -576,6 +611,8 @@ td {
 	    					    'detailAddress':$('#detailAddress').val(),
 	    					    'phone' :$('#phone').val(),
 	    					    'comment' :$('#comment').val(),
+	    					    'point' : $('#pointTotal').text(),
+	    					    'boardType' : 'M',
 	    					    'productCode' :'${market.productCode}'
 	    					  }
 	    			//강사님 이걸 로그로 찍었을 때 값이나오게 하라는데

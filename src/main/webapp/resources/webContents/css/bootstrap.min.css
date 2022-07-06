@@ -4410,7 +4410,7 @@ textarea.form-control-lg {
 		transition: none
 	}
 }
-
+/* 아코디언 글자 색이랑 배경색 변경 (글자:검,배경:노랑)*/
 .accordion-button:not(.collapsed) {
 	color: #212529;
 	background-color: #fbc02d;

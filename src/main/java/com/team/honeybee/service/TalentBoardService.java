@@ -256,7 +256,7 @@ public class TalentBoardService {
 			// 새로 업로드
 			saveMainPhotoAwsS3(mainPhoto, folderName);
 			// db 수정
-			int boardImageId = summerNoteMapper.selectBoardImageId(oldMainPhoto);
+			int boardImageId = summerNoteMapper.selectTalentBoardImageId(oldMainPhoto, dto.getTalentId());
 			summerNoteMapper.updateBoardImage(boardImageId, mainPhoto.getOriginalFilename());
 		}
 		

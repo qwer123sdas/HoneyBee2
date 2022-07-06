@@ -5,6 +5,7 @@
 <% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -43,69 +44,104 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     
+<style>
+.row .g-4 #meetingList {
+	height: 150px;
+}
+
+.group_catelist {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.group_catelist .inner_catelist {
+	display: inline-block;
+}
+
+.group_catelist .inner_catelist ul {
+	overflow: hidden;
+	padding: 57px 17px 48px;
+	text-align: center;
+}
+
+.group_catelist .inner_catelist li {
+	float: left;
+	width: 80px;
+}
+
+.group_catelist .inner_catelist a {
+	display: block;
+	filter: grayscale(100%);
+}
+
+/* 컬러이미지 */
+.group_catelist .inner_catelist a.on {
+	/*filter: grayscale(0%);   */
+	font-family: KakaoBold;
+}
+
+/* 최신순, 오래된 순 */
+.group_fundlist {
+	position: relative;
+	width: 1300px;
+	margin: 0 auto 10px;
+}
+
+.group_fundlist .sort_cate {
+	text-align: right;
+}
+
+.group_fundlist .sort_cate .inner_sort_cate {
+	padding-right: 16px;
+	display: inline-block;
+}
+
+.group_fundlist .sort_cate .box_sorting {
+	margin-left: 24px;
+	float: left;
+	font-size: 16px;
+	padding-left: 19px;
+	color: #aaa;
+	font-family: KakaoBold;
+	cursor: pointer;
+}
+
+.group_fundlist .sort_cate .box_sorting.on {
+	color: #444;
+}
+
+.mainImage {
+	object-fit: cover;
+	width: 100%;
+	height: 240px;
+}
+
+.catagory-image {
+	width: 50px;
+	height: 50px;
+}
+
+.meetingCurrent {
+	color: FF7400; font-family : KakaoBold;
+	font-weight: 800;
+	font-size: 150%;
+	font-family: KakaoBold;
+}
+
+.meetingStatus {
+	margin: -50px 0 -14px 0;
+}
+
+.mainTitle {
+	color: black;
+	font-weight: 800;
+	font-size: 180%;
+	width: 250;
+	height: 50;
+}
+</style>
 </head>
-	<style>
-	.group_catelist {
-	    width: 1000px;
-	    margin: 0 auto;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist {
-		display:inline-block;
-	}
-	
-	.group_catelist .inner_catelist ul {
-	    overflow: hidden;
-	    padding: 57px 17px 48px;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist li {
-	    float: left;
-	    width: 80px;
-	}
-	
-	.group_catelist .inner_catelist a {
-		display: block;
-		filter: grayscale(100%); 
-	}
-	
-	/* 컬러이미지 */
-	.group_catelist .inner_catelist a.on{
-		/*filter: grayscale(0%);   */
-		font-family: KakaoBold;
-	}
-	
-	/* 최신순, 오래된 순 */
-	.group_fundlist {
-	    position: relative;
-	    width: 1300px;
-	    margin: 0 auto 10px;
-	}
-	
-	.group_fundlist .sort_cate {
-		text-align: right;
-	}
-	
-	.group_fundlist .sort_cate .inner_sort_cate {
-		padding-right: 16px;
-		display: inline-block;
-	}
-	.group_fundlist .sort_cate .box_sorting {
-		margin-left: 24px;
-		float: left;
-		font-size: 16px;
-	    padding-left: 19px;
-	    color: #aaa;
-	    font-family: KakaoBold;
-	    cursor: pointer;
-	}
-	
-	.group_fundlist .sort_cate .box_sorting.on {
-		color: #444;
-	}
-	</style>
 
 <body>
     <!-- Spinner Start -->
@@ -119,18 +155,23 @@
 
    	<!-- Nav bar  -->
 	<my:mainNavBar current="meetingMain"></my:mainNavBar>
+	
+	<!-- 후기 관련 내용 form 전송 -->
+	<form id="commentAddForm1" action="${appRoot }/meeting/commentAdd"
+		method="post">
+		<input type="hidden" name="content" id="content" />
+	</form>
 
-
-    <!-- Page Header Start -->
+	<!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">꿀비모임</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown text-center">모두의행동</h1>
             <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-white" href="${appRoot }/meeting/insert">모임제안</a></li>
+                <ol class="breadcrumb" style="margin-left: 490px; font-size: 150%">
+                    <li class="breadcrumb-item"><a class="text-white" href="${appRoot }/meeting/insert">꿀비에게 제안하기</a></li>
                     <li class="breadcrumb-item"><a class="text-white" href="#" id="commentAdd"  >후기작성</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Projects</li>
                 </ol>
+                
             </nav>
         </div>
     </div>
@@ -198,89 +239,66 @@
  					</div>
  				</div>
             
-            <form id="commentAddForm1" action="${appRoot }/meeting/commentAdd" method="post">
-            	<input type="hidden" name="content" id="content"  />
-            </form>
-            
-            <!-- 게시물 리스트 -->
-            <div class="row g-4">
-          	<c:forEach items="${meetingList }" var="meeting">
-		 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-				<div class="service-item rounded overflow-hidden">
-		            <img class="img-fluid" src="${appRoot}/resources/webContents/img/img-600x400-1.jpg" alt="">
-		                <div class="position-relative p-4 pt-0">
-		                    <div class="service-icon">
-		                         <i class="fa fa-wind fa-3x"></i>
-		                    </div>
-		                            <p class="mb-2">${meeting.nickname }</p>
-		                            <h4>${meeting.title }</h4>
-		                            <a class="small fw-medium" href="${appRoot }/meeting/board/${meeting.meetingId}" >모임신청<i class="fa fa-arrow-right ms-2"></i></a>
-			                    	<div>
-				                    	<p class="timeLimit" style="margin:10px 0px; text-align:right; font-weight: 600;"><i class="fa-solid fa-clock"></i>${meeting.endDate }까지 신청하세요</p>
-			                    	</div>
-		                        </div>
-		                    </div>
-		                </div> <!-- 요기까지 forEach가야함 -->
-		  			</c:forEach> 
-		        </div>
-		  	</div>
-   		 </div>
-   	</div>
-    <!-- Projects End -->
+            <!-- 게시물 리스트 start -->
+            <div class="row g-4" id="meetingList">
+	          <c:forEach items="${meetingList }" var="meeting">
+			 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+					<div class="service-item rounded overflow-hidden h-100">
+			            <img class="mainImage img-fluid"  src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="">
+			                <div class="position-relative p-4 pt-0">
+			                    <div class="meetingStatus service-icon">
+			                         <span class="meetingCurrent"><i class="fa-solid fa-temperature-three-quarters">모여라</i></span>
+			                    </div><!-- 
+			                    <div class="service-icon">
+			                         <span class="meetingCurrent"><i class="fa-solid fa-temperature-empty">종료</i></span>
+			                    </div>
+			                             --><p class="mb-2" style="font-weight: 600; font-size:18px; text-align:right;">${meeting.nickname }</p>
+			                            <h4 class=" mb-3 mainTitle">${meeting.title }</h4>
+			                            <a class="small fw-medium" href="${appRoot }/meeting/board/${meeting.meetingId}" ><span  style="font-weight: 600; font-size:18px;" >모임신청<i class="fa fa-arrow-right ms-2"></i></span></a>
+				                    	<div>
+					                    	<p class="timeLimit" style="margin:5px 0px; text-align:right; font-weight: 600;"><i class="fa-solid fa-clock"></i>${meeting.endDate }까지 신청하세요</p>
+				                    	</div>
+			                        </div>
+			                    </div>
+				            </div> <!-- 요기까지 forEach가야함 -->
+				  		</c:forEach> 
+			        </div>
+			  	</div>
+	   		 </div>
+	   	</div>
+    <!-- 게시물리스트 End -->
+    
+	<!-- 후기 Start -->
+	<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center mx-auto mb-5 wow fadeInUp"
+				data-wow-delay="0.1s" style="max-width: 600px;">
+				<h6 class="text-primary">꿀비 윙윙</h6>
+				<h1 class="mb-4">꿀비 모임 생생한 행복나눔!</h1>
+			</div>
+			<div class="owl-carousel testimonial-carousel wow fadeInUp"
+				data-wow-delay="0.1s">
+				<c:forEach items="${commentList }" var="comment">
+					<div class="testimonial-item text-center">
+						<div class="testimonial-img position-relative">
+							<img class="img-fluid rounded-circle mx-auto mb-5"
+								src="${appRoot}/resources/webContents/img/user_profile.png">
+							<div class="btn-square bg-primary rounded-circle">
+								<i class="fa fa-quote-left text-white"></i>
+							</div>
+						</div>
+						<div class="testimonial-text text-center rounded p-4">
+							<p>${comment.content }</p>
+							<h5 class="mb-1">${comment.memberId }</h5>
+						</div>
+					</div>
+				</c:forEach>
+				=
+			</div>
+		</div>
+	</div>
+	<!-- 후기 End -->
 
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">꿀비 윙윙</h6>
-                <h1 class="mb-4">꿀비 모임 생생한 행복나눔!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="${appRoot }/resources/webContents/img/testimonial-1.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">${member.nickname }</h5>
-                        <span class="fst-italic">${meeting.title }</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="${appRoot }/resources/webContents/img/testimonial-2.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="${appRoot }/resources/webContents/img/testimonial-3.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
-	
 	<!-- foot bar -->
 	<my:footbar_kim></my:footbar_kim>
     <!-- Footer End -->
@@ -304,7 +322,7 @@
     <script src="${appRoot }/resources/webContents/js/main.js"></script>
 <script>
 $(document).ready(function() {
-
+	// 후기 작성
 	$("#commentAdd").click(function(e) {
 		e.preventDefault();
 		

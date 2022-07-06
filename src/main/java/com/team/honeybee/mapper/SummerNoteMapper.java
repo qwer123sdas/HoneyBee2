@@ -18,7 +18,7 @@ public interface SummerNoteMapper {
 	
 	// 게시글 수정할 때,
 	// 메인사진 image_id 가져오기
-	int selectBoardImageId(String oldMainPhoto);
+	// int selectBoardImageId(String oldMainPhoto);
 	// 메인 이미지 db 수정
 	void updateBoardImage(@Param("boardImageId")int boardImageId, @Param("originalFilename")String originalFilename);
 	
@@ -31,11 +31,19 @@ public interface SummerNoteMapper {
 	void deleteImage(String imageUrl);
 	//게시글 작성 까지, 업로드 될 이미지에 id넣기
 	void setDonationId(@Param("donationId")int donationId, @Param("imageFolderId")String imageFolderId);
-
 	
+	// 게시글 수정할 때,
+	// 메인사진 image_id 가져오기
+	int selectDonationBoardImageId(@Param("oldMainPhoto")String oldMainPhoto, @Param("donationId")int donationId);
 	//Talent---------------------------------------------------------------------------
 	// 게시글 작성 까지, 업로드 될 이미지에 id넣기
 	void setTalentIdByTalent(@Param("talentId")int talentId, @Param("imageFolderId")String imageFolderId);
+	
+	// 게시글 수정할 때,
+	// 메인사진 image_id 가져오기
+	int selectTalentBoardImageId(@Param("oldMainPhoto")String oldMainPhoto, @Param("talentId")int talentId);
+
+	
 
 	
 	

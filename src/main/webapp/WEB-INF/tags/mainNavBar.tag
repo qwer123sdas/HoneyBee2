@@ -19,6 +19,8 @@
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
 <c:url value="/member/payList" var="payUrl"></c:url>
+<c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
+<%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
 <c:url value="/talent/main" var="talentMainUrl"></c:url>
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
@@ -224,6 +226,9 @@
 						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
 						<a href="payList" class="dropdown-item">구매 내역</a>
 						<a href="faqList" class="dropdown-item">상담 내역</a>
+						<a href="talentPayList" class="dropdown-item">재능 구매 내역</a>
+						<%--구매내역 상담내역 재능구매내역 추가.  --%>
+						
 					</div>
 				</li>
 			</sec:authorize>

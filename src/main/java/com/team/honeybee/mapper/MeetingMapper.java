@@ -41,6 +41,11 @@ public interface MeetingMapper {
 	
 	// 게시글 업데이트
 	void updateByMeetingBoard(MeetingDto meeting);
+
+	// 후기 가져오기
+	List<MeetingCommentDto> getCommentList();
+	
+	
 	
 	
 

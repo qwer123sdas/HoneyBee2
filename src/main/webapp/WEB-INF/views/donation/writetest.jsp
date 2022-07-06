@@ -57,8 +57,10 @@
 /* 폴더명 */
 const randomNum = Math.floor(Math.random() * 1000000000);
 $('#folderName').val('padding-' + randomNum);
+
 $(document).ready(function() {
 		//여기 아래 부분
+
 		$('#summernote').summernote({
 			  height: 300,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
@@ -89,7 +91,7 @@ $(document).ready(function() {
                 cache: false,
                 contentType: false,
                 processData: false,
-                enctype: 'multipart/form-data',
+                enctype: 'multipart/form-data',
                 success: function(data) {
                 	console.log(data);
                 	console.log(data.fileUrl);

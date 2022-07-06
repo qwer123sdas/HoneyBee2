@@ -47,20 +47,22 @@ vertical-align:middle;
 
 
 }
+.divList{
+margin: auto;
+}
 </style>
 <body>
 <my:mainNavBar current="payList"></my:mainNavBar>
 	<form action="${appRoot }/member/payList" method="post">
 		<div class="container">
 			<div class="row">
-				<div class="col-8 mt-5 ms-5">
-				
+				<div class="divList">
 					<table class="table">
 						<colgroup>
+							<col style="width: 20%">
+							<col style="width: 50%">
 							<col style="width: 10%">
-							<col style="width: 40%">
-							<col style="width: 20%">
-							<col style="width: 20%">
+							<col style="width: 10%">
 							<col style="width: 10%">
 						</colgroup>
 						<thead>

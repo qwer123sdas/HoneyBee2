@@ -290,7 +290,7 @@ public class MemberService {
 	public boolean deleteMeetingCommentByMeetingCommentId(String meetingCommentId) {
 		return mapper.deleteMeetingCommentByMeetingCommentId(meetingCommentId);
 	}
-	//구매 리스트 불러오기
+		//구매 리스트 불러오기
 		public List<OrderPayDto> payList(String memberId) {
 			// TODO Auto-generated method stub
 			return mapper.paylist(memberId);

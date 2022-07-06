@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team.honeybee.domain.MarketDto;
 import com.team.honeybee.domain.OrderPayDto;
+import com.team.honeybee.vo.DonationReplyVO;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 
 public interface MarketMapper {
@@ -15,18 +16,15 @@ public interface MarketMapper {
 	List<String> selectFileNameByMarketId(int marketId);
 	//	마켓조회수
 	int updateViewCount(int id);
-	//주소 적는거 보내는거
-	int postMakret(MarketDto market);
-	//
-	int postMakret(int marketId);
-	
+
+		//마켓 카트
 	MarketDto getMarketById(int marketId);
 
 	// 구매할 게시판 정보를 결제 페이지로 보내기
     OrderPayDto selectMarketBoard(int orderId);
 		
-		// 카카오 페이 승인후, db에 저장
-	void insertKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo);
+	// 마켓 관련 기타 정보 db에 저장
+	void insertKakaoPayETCData(DonationReplyVO donationReplyVO);
 	
 
 

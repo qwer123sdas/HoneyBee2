@@ -25,6 +25,9 @@ import com.team.honeybee.service.*;
 public class MemberController {
 
 	@Autowired
+	private TalentBoardService talentBoardService;
+	
+	@Autowired
 	private MemberService service;
 
 	@Autowired
@@ -340,12 +343,14 @@ public class MemberController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		System.out.println("User has authorities: " + userDetails.getAuthorities());
 		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
+		
+		/*
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
 				return "redirect:/admin/index";
 			}
 		}
+		*/
 
 		return "redirect:/main";
 	}
@@ -377,5 +382,12 @@ public class MemberController {
 			model.addAttribute("market", market);
 //				model.addAttribute("talent", talent);
 		}
+		@GetMapping("talentPayList")
+		public void TalentPay(Model model) {
+		List<TalentBoardDto> myTalentList = talentBoardService.findBoardList("", "");
+		model.addAttribute("myTalentList", myTalentList);
+		
 	
+}
+		
 }

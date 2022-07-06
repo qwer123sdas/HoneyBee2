@@ -247,7 +247,7 @@
 		       inserted,
 		       product_code productCode
 		  FROM OrderPay
-			 WHERE order_id = #{orderId}
+	     WHERE order_id = #{orderId}
 	</select>
 	<!-- 프로덕트코드로 마켓 내용 가져오기 -->
 	<select id="selectMarket" resultType="com.team.honeybee.domain.MarketDto">
@@ -261,5 +261,6 @@
 		WHERE m.product_code = #{productCode}
 		GROUP BY marketId
 	</select>
+	
 	
 </mapper> 
