@@ -26,6 +26,7 @@
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
 <c:url value="/market/list" var="marketListUrl"></c:url>
 
+
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal" />

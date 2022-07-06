@@ -65,18 +65,18 @@ h1 {
 	color: #ffc107;
 }
 
-h2 {
+.h2 {
 	color: #ffc107;
 }
 </style>
 <body>
-
+<my:mainNavBar></my:mainNavBar>
 	<div class="container">
 		<!-- Row -->
 		<div class="row">
 			<my:faq></my:faq>
 			<div class="col-8 mt-4 ms-5">
-				<h1>고객 센터</h1>
+				<h1 style="color:#ffc107;">고객 센터</h1>
 				<br />
 
 				<p align="left">
@@ -157,7 +157,7 @@ h2 {
 				<!-- 기부 관련-->
 				<section class="mb-5" id="mainContentContainer">
 
-					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
+					<h2 class="fw-bolder mb-4 mt-5" style="color:#ffc107;">자주 묻는 질문</h2>
 					<br />
 					<div class="accordion" id="accordionExample">
 						<div class="accordion-item">
@@ -242,7 +242,7 @@ h2 {
 				<!-- 마켓 -->
 				<section class="mb-5 d-none" id="cancleAndRefundConatiner">
 
-					<h2 class="fw-bolder mb-4 mt-5">자주 묻는 질문</h2>
+					<h2 class="fw-bolder mb-4 mt-5" style="color:#ffc107;">자주 묻는 질문</h2>
 					<br />
 					<div class="accordion" id="accordionExample1">
 						<div class="accordion-item">
@@ -395,6 +395,6 @@ h2 {
 		});
 	</script>
 
-
+<my:footbar_kim></my:footbar_kim>
 </body>
 </html>
