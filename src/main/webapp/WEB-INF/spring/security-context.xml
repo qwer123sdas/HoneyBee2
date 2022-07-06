@@ -22,6 +22,16 @@
 		<security:intercept-url pattern="/member/faqList" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/member/myBoard" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/member/myReview" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/meeting/insert" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/meeting/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/order/cart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/donation/write" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/donation/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/talent/write" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/talent/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/faq/insert" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/market/cart" access="isAuthenticated()"/>
+		
 		
 		<security:headers>
        		<security:frame-options disabled="true"></security:frame-options>
