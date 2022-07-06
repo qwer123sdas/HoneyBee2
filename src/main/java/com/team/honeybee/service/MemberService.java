@@ -311,4 +311,8 @@ public class MemberService {
 		public int countMember() {
 			return mapper.countMember();
 		}
+
+		public TalentBoardDto getTalent(String productCode) {
+			return mapper.selectTalent(productCode);
+		}
 }

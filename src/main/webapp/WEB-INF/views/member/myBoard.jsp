@@ -57,12 +57,18 @@ thead tr{
 		<div class="row">
 			<div class="col-lg-7" style="margin:auto;">
 				<table class="table caption-top table-hover" id="donationBoard" style="width: 100%">
+					<colgroup>
+							<col style="width: 15%">
+							<col style="width: 60%">
+							<col style="width: 15%">
+							<col style="width: 10%">
+						</colgroup>
 					<caption>&#60;기부 게시판&#62;</caption>
 					<thead>
 						<tr class="headDonation">
 							<th scope="col">#</th>
-							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
 							<th scope="col">enable</th>
 						</tr>
 					</thead>

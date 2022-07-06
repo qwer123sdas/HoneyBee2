@@ -100,4 +100,6 @@ public interface MemberMapper {
 
 	int countMember();
 
+	TalentBoardDto selectTalent(String productCode);
+
 }
