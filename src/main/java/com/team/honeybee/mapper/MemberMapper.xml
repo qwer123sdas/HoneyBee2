@@ -173,7 +173,7 @@
 		GROUP BY donation_id
 		ORDER BY donation_id DESC
 	</select>
-	
+	<!--재능기부 게시글-->
 	<select id="getTalentByMemberId" resultType="com.team.honeybee.domain.TalentBoardDto">
 		SELECT talent_id talentId, member_id memberId, title, enable
 		FROM Talent
@@ -181,7 +181,7 @@
 		GROUP BY talent_id
 		ORDER BY talent_id DESC
 	</select>
-	
+	<!-- 모임 게시글 -->
 	<select id="getMeetingByMemberId" resultType="com.team.honeybee.domain.MeetingDto">
 		SELECT meeting_id meetingId, member_id memberId, title, enable
 		FROM Meeting
@@ -245,7 +245,13 @@
 		       final_price finalPayment,
 		       quantity amount,
 		       inserted,
-		       product_code productCode
+		       product_code productCode,
+		       order_name orderName,
+		       post_code postCode,
+		       address,
+		       detail_address detailAddress,
+		       phone,
+		       comment
 		  FROM OrderPay
 	     WHERE order_id = #{orderId}
 	</select>
