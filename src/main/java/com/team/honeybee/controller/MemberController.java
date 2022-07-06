@@ -359,14 +359,19 @@ public class MemberController {
 			List<OrderPayDto> list = service.payList(principal.getName());
 			System.out.println(list);
 			List<MarketDto> marketList = new ArrayList<>();
+			List<TalentBoardDto> talentList = new ArrayList<>();
 			for (OrderPayDto opd : list) {
 				System.out.println(opd.getProductCode());
 				MarketDto market = service.getMarket(opd.getProductCode());
+				TalentBoardDto talent = service.getTalent(opd.getProductCode());
 				marketList.add(market);
+				talentList.add(talent);
 			}
 			System.out.println(marketList);
 			model.addAttribute("payList", list);
 			model.addAttribute("marketList", marketList);
+			model.addAttribute("talentList", talentList);
+			System.out.println(talentList);
 		}
 
 		// 마이페이지 주문 상세 내용 불러오기
@@ -383,11 +388,11 @@ public class MemberController {
 		}
 		//마이페이지 재능 리스트
 		@GetMapping("talentPayList")
-		public void TalentPay(Model model) {
+		public void TalentPay(Model model, Principal principal) {
 		List<TalentBoardDto> myTalentList = talentBoardService.findBoardList("", "");
 		model.addAttribute("myTalentList", myTalentList);
 		
 	
-}
+		}
 		
 }

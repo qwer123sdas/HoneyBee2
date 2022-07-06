@@ -76,7 +76,7 @@ margin: auto;
 						</thead>
 						<tbody>
 							<c:forEach items="${payList}" var="pay" varStatus="status">
-								<c:if test="${not empty marketList }"> <!-- 필요하면 변경 marketList[status.index].marketId -->
+								<c:if test="${not empty marketList[status.index] }"> <!-- 필요하면 변경 marketList[status.index].marketId -->
 									<%-- <h1>${payList[status.index] }</h1>
 									<h1>${marketList[status.index] }</h1>
 									<h1>${status.index }</h1> --%>
@@ -84,6 +84,29 @@ margin: auto;
 										<td><img width="150px" height="auto" src="${imageUrl }/market/${marketList[status.index].marketId }/${marketList[status.index].thumbNailImage }" alt="" /></td>
 										<td style ="vertical-align:middle"><c:url value="/member/payGet" var="getUrl">
 												<c:param name="orderId" value="${pay.orderId }"></c:param>
+											</c:url> <a href="${getUrl }"> <c:out value="${pay.productName }" />
+										</a></td>
+										<td>${pay.amount }</td>
+										<td>${pay.finalPayment}원</td>
+										<td>${pay.inserted }</td>
+										<!--<c:if test="${faq.enable == 0 }">
+											<td>답변중</td>
+										</c:if>
+										<c:if test="${faq.enable == 1  }">
+											<td>답변완료</td>
+										</c:if>-->
+	
+										<!--  -->
+	
+									</tr>
+								</c:if>
+								<c:if test="${not empty talentList[status.index] }"> <!-- 필요하면 변경 marketList[status.index].marketId -->
+									<%-- <h1>${payList[status.index] }</h1>
+									<h1>${marketList[status.index] }</h1>
+									<h1>${status.index }</h1> --%>
+									<tr>
+										<td><img width="150px" height="auto" src="${imageUrl }/talent/${talentList[status.index].folderName }/${talentList[status.index].MPhoto }" alt="" /></td>
+										<td style ="vertical-align:middle"><c:url value="/talent/board/${talentList[status.index].talentId }" var="getUrl">
 											</c:url> <a href="${getUrl }"> <c:out value="${pay.productName }" />
 										</a></td>
 										<td>${pay.amount }</td>
