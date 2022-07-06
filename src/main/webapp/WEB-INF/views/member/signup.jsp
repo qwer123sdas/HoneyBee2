@@ -88,7 +88,6 @@ html, body {
     padding: 9px 20px;
     border: 1px solid #f9c22d;
     outline: 0;
-    border-radius: 6px;
     background-color: #fff;
     font-size: 15px;
     font-weight: 300;
@@ -151,6 +150,8 @@ html, body {
 #form1 input {
 	border-radius : 14px;
 }
+
+
 
 .input-group {
 	justify-content: center;
@@ -384,12 +385,14 @@ html, body {
 								<input type="text" name="detail" placeholder="상세주소" />
 							</div>
 							<br />
-							<div class="col-md-12">
-								<!-- 생년월일 -->
-								생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="date" name="birth" placeholder="생년월일" />
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="col-md-12" style="width: 363.19px; height: 42.5px; border: 1px solid #f9c22d; border-radius: 14px; margin: 0 auto; text-align: left">
+									<!-- 생년월일 -->
+									<p style="margin-top: 3px;">
+									&nbsp;&nbsp;&nbsp;&nbsp;생년월일&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="date" name="birth" placeholder="생년월일" />
+									</p>
 							</div>
 							<br />
 							
