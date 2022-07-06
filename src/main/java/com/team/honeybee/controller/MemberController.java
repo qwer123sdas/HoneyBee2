@@ -345,13 +345,11 @@ public class MemberController {
 		System.out.println("User has authorities: " + userDetails.getAuthorities());
 		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
 		
-		
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
 				return "redirect:/admin/index";
 			}
 		}
-		
 
 		return "redirect:/main";
 	}
