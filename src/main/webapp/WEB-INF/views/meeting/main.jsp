@@ -45,6 +45,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     
 <style>
+.page-header-main {
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), 
+    url("https://mud-kage.kakaocdn.net/dn/bSZlKT/btrDghJRjqh/KWJPi7zbvmb7K7ncVvhkQK/c360.jpg") center center no-repeat;
+    background-size: cover;
+}
+
 .row .g-4 #meetingList {
 	height: 150px;
 }
@@ -163,7 +169,7 @@
 	</form>
 
 	<!-- Page Header Start -->
-    <div class="container-fluid page-header py-5" style="margin-top: 0px;">
+    <div class="container-fluid page-header-main py-5" style="margin-top: 0px;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown text-center">모두의행동</h1>
             <nav aria-label="breadcrumb animated slideInDown text-center" style="margin-left: 490px; font-size: 150%">
@@ -246,10 +252,10 @@
 					<div class="service-item rounded overflow-hidden h-100">
 								<img class="img-fluid mainImage1"
 									src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}"
-									style="width: 350px; height: 190px;" alt="">
+									style="width: 500px; height: 200px;" alt="">
 								<div class="position-relative p-4 pt-0">
 			                    <div class="meetingStatus service-icon">
-			                         <span class="meetingCurrent"><i class="fa-solid fa-temperature-three-quarters">모여라</i></span>
+			                         <span class="meetingCurrent"><i class="fa-solid fa-handshake-simple fa-2xl"></i></span>
 			                    </div><!-- 
 			                    <div class="service-icon">
 			                         <span class="meetingCurrent"><i class="fa-solid fa-temperature-empty">종료</i></span>
@@ -295,7 +301,6 @@
 						</div>
 					</div>
 				</c:forEach>
-				=
 			</div>
 		</div>
 	</div>

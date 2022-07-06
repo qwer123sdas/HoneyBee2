@@ -371,7 +371,7 @@
 
 
 				<br>
-				<div style="margin-left: 450px">
+				<div style="margin-left: 600px">
 					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center">
 						꿀비팀에게 제안하기
 						<i class="fa-solid fa-hands-clapping"></i>
@@ -385,7 +385,8 @@
 
 
 	<!-- foot bar -->
-	<nav:footbar_kim></nav:footbar_kim>
+	<my:footbar_kim></my:footbar_kim>
+    <!-- Footer End -->
 	
 	<!-- summernote  -->
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">

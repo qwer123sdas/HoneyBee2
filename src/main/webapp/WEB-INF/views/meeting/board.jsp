@@ -79,6 +79,12 @@
 		}
 	    
  */
+ /* 메인 사진 */
+.page-header-main {
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), 
+    url("https://mud-kage.kakaocdn.net/dn/bSZlKT/btrDghJRjqh/KWJPi7zbvmb7K7ncVvhkQK/c360.jpg") center center no-repeat;
+    background-size: cover;
+}
 .container, .container-fluid, .container-xxl, .container-xl,
 	.container-lg, .container-md, .container-sm {
 	width: 100%;
@@ -306,7 +312,7 @@
 
 
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-5 mb-5" style="margin-top: 0px;">
+	<div class="container-fluid page-header-main py-5 mb-5" style="margin-top: 0px;">
 		<div class="container py-5">
 			<h1 class="display-3 text-white mb-3 animated slideInDown">기부 모임</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
@@ -344,11 +350,11 @@
 					<!-- Post title End -->
 
 					<!-- Preview image -->
-					<figure class="mb-4">
-						<img class="img-fluid rounded"
+					<figure class="mb-4 center">
+						<img class="img-fluid rounded shadow"
 							src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="..." />
 					</figure>
-					<p class="fs-5 mb-4 " style=" padding-left: 700px;">host by. ${meeting.memberId }</p>
+					<%-- <p class="fs-5 mb-4 " style=" padding-left: 700px;">host by. ${meeting.memberId }</p> --%>
 					
 					<!-- 화면 분활용 네브탭 -->
 					<ul class="nav nav-tabs nav-fill justify-content-center ">
@@ -412,7 +418,7 @@
 				<!-- Search widget-->
 				<div class="guestWiget">
 					<div class="guestWiget-header d-flex justify-content-center align-middle"
-						style="margin-top: 180px;">
+						style="margin-top: 115px;">
 						<hr />
 						<h4 style="margin-top: 15px;">
 							<i class="fa-solid fa-address-card"></i>
@@ -438,18 +444,20 @@
 									--%>
 								</ul>
 								<%-- 신청자만 신청완료 버튼 보임 --%>
-								
-											<button type="button" id="insertGuestBtn1"
-												class="btn btn-lg btn-primary mt-5 w-100">
+										
+											<button type="button" id="insertGuestBtn1" onclick="addGuest_click()"
+												class="btn btn-lg btn-primary mt-5 w-100 shadow">
 												<i class="fa-solid fa-heart-circle-check"></i>
 												함께할께요!
 											</button>
+								
 
 
 								
 								<hr>
 								
-								<h5 style="text-align: center;">모두의행동 안내</h5>
+								<h5 style="text-align: center; margin-top: 20px;"><i class="fa-solid fa-bell"></i>
+									 모두의행동 안내서</h5>
 								<ul class="meetingGuestInfo ">
 									<li>주최자 : ${meeting.memberId }</li>
 									<li>모임인원 : ${meeting.guestNum }명</li>
@@ -460,7 +468,7 @@
 								
 								<hr>
 								
-								<h5 style="text-align: center;">참여신청/취소 안내</h5>
+								<h5 style="text-align: center; margin-top: 20px;">참여신청/취소 안내</h5>
 								<ul class="guestInfo ">
 									<li>모임의 신청/취소는<br/>참여신청 기간 내에만 가능합니다.</li>
 									<li>모임 또는 그룹의 설정,<br/>모집정원 초과 여부에 따라<br/>대기자로 선정될 수 있습니다.</li>
@@ -470,7 +478,7 @@
 								
 								<hr>
 								
-							<!-- 작성자만 버튼 볼 수 있도록 수정 -->
+							<!-- 작성자만 게시물 수정 버튼 볼 수 있도록 -->
 							<sec:authorize access="isAuthenticated()">
 								<!-- el에서 사용가능하도록 변수(page영역)에 담아주기 -->
 								<sec:authentication property="principal" var="principal"/>
@@ -478,7 +486,7 @@
 							           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
 							            	<input type="hidden" name="meetingId" value="meetingId" />
 							            	<input type="hidden" name="memberId" value="memberId" />
-											<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100" >
+											<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100 shadow" >
 											 <i class="fa-solid fa-list-ul">모두의행동 수정</i>
 											</button>
 							            </form> 
@@ -504,7 +512,17 @@
 <sec:authorize access="not isAuthenticated()">
 <script type="text/javascript">
 	function insertReply_click() {
-		alert('로그인해야 커뮤니티 이용이 가능합니다.');
+		alert('로그인한 후 커뮤니티 이용이 가능합니다.');
+		location.href = "${appRoot }/member/login";
+	}
+</script>
+</sec:authorize>
+
+<!-- 로그인 안한 회원 모임신청 막기 -->
+<sec:authorize access="not isAuthenticated()">
+<script type="text/javascript">
+	function addGuest_click() {
+		alert('로그인한 후 모임 신청이 가능합니다.');
 		location.href = "${appRoot }/member/login";
 	}
 </script>
@@ -594,7 +612,8 @@ $(document).ready(function() {
 		$("#meetingMainContent").addClass("d-none");
 		$("#meetingInfo").addClass("d-none");
 	});
-		 
+	
+	
 	/* 게스트 입출력 부분 시작 */
 	var modal = document.getElementById("insertGuestModal1");
 	var btnModal = document.getElementById("insertGuestBtn1");
@@ -605,7 +624,7 @@ $(document).ready(function() {
 		 e.stopPropagation();
 		 modal.style.display = "flex";
 		 fadeDuration: 500;
-	 })
+	 });
 	 
 	 // 취소 누르면 모달창 닫힘
 	 const closeBtn = modal.querySelector(".btn.btn-secondary")
@@ -621,7 +640,7 @@ $(document).ready(function() {
 		    if(eventTarget.classList.contains("modal-overlay")) {
 		        modal.style.display = "none"
 		    }
-		})
+		});
 	
 	// guestList 가져오는 ajax 요청
 	const guestList = function() {
@@ -636,7 +655,7 @@ $(document).ready(function() {
 				 console.log(list);
 				 
 				 const guestListElement = $("#guestList");
-				 
+			
 				 // 초기화
 				 guestListElement.empty();
 				 
@@ -667,28 +686,71 @@ $(document).ready(function() {
 						success : function(data) {
 							alert("꿀비 모임을 취소하셨습니다.");
 							console.log("취소 성공");
-							guestList();
-						},
-						error :function() {
-							console.log("취소 실패");
-						}
+							
+							// 게스트 취소로 자리생기면 다시 활성화
+							 const guestNum = '${meeting.guestNum}';
+							 const guestCnt = list.length;
+							 console.log(guestCnt);
+							 console.log(guestNum);
+							 const target = document.getElementById('insertGuestBtn1');
+							 
+							 if(guestNum == guestCnt) {
+								 alert("꿀비 모임신청이 취소되었습니다.");
+								 document.getElementById('insertGuestBtn1');
+								  target.disabled = false;
+								  guestList(); // 게스트 리스트 업데이트
+								} // if end
+						
+							 }, // guestList ajax success end
+							error :function(xhr, error, text) {
+								console.log("취소 실패");
+								if (xhr.status == '500') {
+									alert('모임을 취소할 권한이 없습니다.');
+									
+								}// if end
+							} // error end
 					
 					
 				 	}); // ajax end 
 				
-				});
+				}); // 모임취소 end
+				
+			
+				 // 게스트 인원 다 차면 버튼 비활성화
+				 const guestNum = '${meeting.guestNum}';
+				 const guestCnt = list.length;
+				 console.log(guestCnt);
+				 console.log(guestNum);
+				 const target = document.getElementById('insertGuestBtn1');
 				 
-			 }
+				 if(guestNum == guestCnt) {
+					 alert("꿀비 모임신청이 마감되었습니다.");
+					 document.getElementById('insertGuestBtn1');
+					  target.disabled = true;
+					} // if end
+			
+				 } // guestList ajax success end
 			 
-		 });
+		 }); // guestList 가져오는 ajax end
 		 console.log("22222222222222222222")
 		
-	 }
+	 }// guestList 가져오는 ajax 요청 end
+	
 	// 모임 신청버튼 누르면 submit
 	$("#guestSubmitBtn1").click(function(e) {
 		e.preventDefault();
 		
 		const data = {meetingId : '${meeting.meetingId}'};
+		
+		// 중복신청 방지용 
+		// 반환 유형이-1보다 크면 true, 아니면 false
+		//let prinUser = {'${principal.username}'};
+		/* if (list.indexOf('${principal.username}') > -1)  {
+			alert("이미 신청하신 모임입니다.")
+	 	} */
+		
+	
+		
 		
 		$.ajax({ 
 			url : "${appRoot }/meeting/board/guest/addGuest",
@@ -711,38 +773,21 @@ $(document).ready(function() {
 				if (xhr.status == '401') {
 					alert('로그인해야 신청 가능합니다.');
 					location.href = "${appRoot }/member/login";
-				}
-			}
+				} // if end
+				
+				
+			}// error end
 			
 			
 		}); // ajax end
 		
-			
-	});
-	
+	  }); // 모임 신청버튼 누르면 submit end
+
 	 // 게스트 리스트 가져오는 함수 실행
 	 guestList();
-	 /*
-	 // 게스트 인원 다 차면 버튼 비활성화
-	 let guestNum = ${meeting.guestNum};
-	 let guestCnt = guestList.length;
-	 // console.log(guestNum);
-	 //console.log(guestCnt);
-	 
-	 ${"#insertGuestBtn1"}.click(function(e) {
-		 e.preventDefault();
-		 
-		 if(guestNum == guestCnt) {
-			 document.getElementById('insertGuestBtn1').attr('disabled');
-			 
-			 alert("꿀비 모임신청이 마감되었습니다.")
-		 } 
-	 });*/
-	 
-	 
 	 /* 게스트 입출력 부분 끝남 */
 
-
+				/* 대댓글 부분 시작*/
 				console.log("333333333333333333333")
 				// 댓글 처리
 				const parentsReplyList = function() {
@@ -1036,8 +1081,10 @@ $(document).ready(function() {
 	
 			});
 		 console.log("666666666666666");
-		
-});
+		 /* 대댓글 부분 끝남 */
+		 
+		 
+});// document ready end 
 	    
 </script>
 

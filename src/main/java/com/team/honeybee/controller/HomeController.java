@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.honeybee.domain.DonationBoardDto;
+import com.team.honeybee.domain.MeetingDto;
 import com.team.honeybee.domain.TalentBoardDto;
 import com.team.honeybee.service.*;
 
@@ -58,7 +59,7 @@ public class HomeController {
 			model.addAttribute("boardList", boardList);
 			System.out.println(boardList);
 		}else{
-			List<TalentBoardDto> boardList = meetingService.selectMeetingBoardBySearch("%" + keyword + "%");
+			List<MeetingDto> boardList = meetingService.selectMeetingBoardBySearch("%" + keyword + "%");
 			model.addAttribute("boardList", boardList);
 		}
 		

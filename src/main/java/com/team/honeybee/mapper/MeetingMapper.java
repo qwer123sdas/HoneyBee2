@@ -47,7 +47,7 @@ public interface MeetingMapper {
 	List<MeetingCommentDto> getCommentList();
 
 	// 검색 기능
-	List<TalentBoardDto> selectMeetingBoardBySearch(String keyword);
+	List<MeetingDto> selectMeetingBoardBySearch(String keyword);
 	
 	
 	

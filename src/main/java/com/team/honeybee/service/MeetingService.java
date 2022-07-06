@@ -306,7 +306,7 @@ public class MeetingService {
 	}
 	
 	// 검색 기능 
-	public List<TalentBoardDto> selectMeetingBoardBySearch(String keyword) {
+	public List<MeetingDto> selectMeetingBoardBySearch(String keyword) {
 		return  mapper.selectMeetingBoardBySearch(keyword);
 	}
 
