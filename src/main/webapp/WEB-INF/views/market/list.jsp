@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,14 +96,14 @@
 							</c:url>
                             <a class="mt-auto stretched-link" href="${getUrl}"></a>
                        	</div>
-                       	
                       </c:forEach>
                     </div>
-                                
+                    <!-- 마켓 아랫부분에 코멘트 추가. -->
+                    <div style="float: right;"> * 위 마켓의 상품의 수익금은 꿀비의 운영비 및 기부에 사용됩니다.</div>
                </div>
         </section>
-
+		
   
-
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

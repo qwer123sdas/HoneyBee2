@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <%--<html>
 <head>
@@ -172,6 +173,7 @@
 </style>
 
 <body>
+<my:mainNavBar></my:mainNavBar>
 	<!-- Spinner Start -->
 	<div id="spinner"
 		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -384,5 +386,6 @@
 
 		});
 	</script>
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

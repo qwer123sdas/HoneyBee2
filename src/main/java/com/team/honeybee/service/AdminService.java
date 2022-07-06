@@ -72,6 +72,7 @@ public class AdminService {
 		mapper.deleteMeetingCommentByMemberId(memberId);
 		String fileName = mapper.selectProfileByMemberId(memberId);
 		deleteFromAwsS3Memeber(memberId, fileName);
+		mapper.deleteOrderPayByMemberId(memberId);
 		return mapper.deleteMember(memberId) == 1;
 	}
 

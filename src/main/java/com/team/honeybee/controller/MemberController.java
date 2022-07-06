@@ -283,6 +283,7 @@ public class MemberController {
 	@GetMapping("faqGet")
 	public void faqGet(int questionId, Model model) {
 		FaqDto faq = service.getFaqById(questionId);
+		System.out.println(faq);
 		model.addAttribute("faq", faq);
 	}
 
@@ -344,11 +345,13 @@ public class MemberController {
 		System.out.println("User has authorities: " + userDetails.getAuthorities());
 		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
 		
+		
 		for (GrantedAuthority auth : authorities) {
 			if (auth.getAuthority().equals("ROLE_ADMIN")) {
 				return "redirect:/admin/index";
 			}
 		}
+		
 
 		return "redirect:/main";
 	}
@@ -380,6 +383,7 @@ public class MemberController {
 			model.addAttribute("market", market);
 //				model.addAttribute("talent", talent);
 		}
+		//마이페이지 재능 리스트
 		@GetMapping("talentPayList")
 		public void TalentPay(Model model) {
 		List<TalentBoardDto> myTalentList = talentBoardService.findBoardList("", "");
