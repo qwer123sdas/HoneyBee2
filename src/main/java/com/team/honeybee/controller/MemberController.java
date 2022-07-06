@@ -25,6 +25,9 @@ import com.team.honeybee.service.*;
 public class MemberController {
 
 	@Autowired
+	private TalentBoardService talentBoardService;
+	
+	@Autowired
 	private MemberService service;
 
 	@Autowired
@@ -379,5 +382,12 @@ public class MemberController {
 			model.addAttribute("market", market);
 //				model.addAttribute("talent", talent);
 		}
+		@GetMapping("talentPayList")
+		public void TalentPay(Model model) {
+		List<TalentBoardDto> myTalentList = talentBoardService.findBoardList("", "");
+		model.addAttribute("myTalentList", myTalentList);
+		
 	
+}
+		
 }

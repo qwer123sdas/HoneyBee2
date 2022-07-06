@@ -478,7 +478,7 @@ td {
 							<th>주소</th>
 							<td><input size="50" class="address1_input" id="postCode"
 								readonly="readonly"> <a class="address_search_btn"
-								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black;">주소찾기</a><br> <input
+								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black; border: 1px solid #444444;">주소찾기</a><br> <input
 								size="50" class="address2_input" id="address"
 								readonly="readonly"><br> <input size="50"
 								class="address3_input" id="detailAddress" readonly="readonly">
