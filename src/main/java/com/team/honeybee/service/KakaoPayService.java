@@ -72,9 +72,9 @@ public class KakaoPayService {
         params.add("quantity", replyVO.getQuantity()); // 상품 수량
         params.add("total_amount", replyVO.getTotalAmount()); // 총 금액
         params.add("tax_free_amount", "20"); // 부가세
-        params.add("approval_url", "http://localhost:8080/honeybee/order/kakaoPaySuccess?partner_user_id=" + partner_user_id);	// 결제 성공 시 가야할 approval_url
-        params.add("cancel_url", "http://localhost:8080/honeybee/order/kakaoPayFail");// 결제 실패 시
-        params.add("fail_url", "http://localhost:8080/honeybee/order/kakaoPayCancel/");// 결제 취소 시
+        params.add("approval_url", "http://13.125.243.126/honeybee/order/kakaoPaySuccess?partner_user_id=" + partner_user_id);	// 결제 성공 시 가야할 approval_url
+        params.add("cancel_url", "http://13.125.243.126/honeybee/order/kakaoPayFail");// 결제 실패 시
+        params.add("fail_url", "http://13.125.243.126/honeybee/order/kakaoPayCancel/");// 결제 취소 시
  
         // 요청할 부분을 담는 객체
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);

@@ -18,6 +18,6 @@
 	<h1>결제 취소 눌렀습니다.</h1>
 </body>
 <script>
-	top.location="http://localhost:8080/honeybee/talent/main";
+	top.location="http://13.125.243.126/honeybee/talent/main";
 </script>
 </html>
