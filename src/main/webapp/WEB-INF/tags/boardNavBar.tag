@@ -4,7 +4,7 @@
 <%@ attribute name="current"%>
 
 <c:url value="/board/list" var="listUrl"></c:url>
-<c:url value="/member/index" var="mainPageUrl"></c:url>
+<c:url value="/main" var="mainPageUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
 <c:url value="/member/info" var="pwInfoUrl"></c:url>
 <c:url value="/member/info" var="memberInfoUrl" scope='request'></c:url>
@@ -15,11 +15,17 @@
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
 <c:url value="/member/updatePw" var="updatePwUrl"></c:url>
 <c:url value="/member/changePw" var="changePwUrl"></c:url>
+<c:url value="/member/myBoard" var="myBoardUrl"></c:url>
+<c:url value="/member/myReview" var="myReviewUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
+<c:url value="/member/payList" var="payUrl"></c:url>
+<c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
+<%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
+<c:url value="/talent/main" var="talentMainUrl"></c:url>
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
-<c:url value="/meeting/login" var="loginUrl"></c:url>
+<c:url value="/market/list" var="marketListUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -166,12 +172,9 @@
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-	<a href="index"
+	<a href="${mainPageUrl }"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-		<h2 class="m-0 text-primary">
-			<img src="${appRoot }/resources/webContents/img/honeybee1.jpg"
-				style="width: 200px; height: 75.6px;" />
-		</h2>
+		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
 	</a>
 
 	<button type="button" class="navbar-toggler me-4"
@@ -184,24 +187,34 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<a
-						class="nav-item active nav-link ${current == 'index' ? 'active' : '' }"
+						class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
 						href="${mainPageUrl }">홈</a>
 				</li>
 			</sec:authorize>
-
-			<li class="nav-item">
+			
+				<li class="nav-item">
 					<a class="nav-item nav-link ${current == 'about' ? 'active' : '' }"
 						href="${aboutUrl }">About 꿀비</a>
 				</li>
 				
 				<li class="nav-item">
-					<a class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
+					<a class="nav-item nav-link ${current == 'meetingMain' ? 'active' : '' }"
 						href="${meetingMainUrl }">모두의행동</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'talentMain' ? 'active' : '' }"
+						href="${talentMainUrl }">재능판매</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'marketList' ? 'active' : '' }"
+						href="${marketListUrl }">마켓</a>
 				</li>
 				
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link" ${current == 'main' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
+					<a class="nav-item nav-link" ${current == 'donationMain' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
 				</li>
 			</sec:authorize>
 			
@@ -223,10 +236,13 @@
 					
 					<div class="dropdown-menu">
 						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
-						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
-						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
-						<a href="payList" class="dropdown-item">구매 내역</a>
-						<a href="faqList" class="dropdown-item">상담 내역</a>
+						<a href="${myBoardUrl }" class="dropdown-item">내가 쓴 글</a>
+						<a href="${myReviewUrl }" class="dropdown-item">내가 쓴 후기</a>
+						<a href="${payUrl }" class="dropdown-item">구매 내역</a>
+						<a href="${faqUrl }" class="dropdown-item">상담 내역</a>
+						<a href="${talentPayUrl }" class="dropdown-item">재능 구매 내역</a>
+						<%--구매내역 상담내역 재능구매내역 추가.  --%>
+						
 					</div>
 				</li>
 			</sec:authorize>
@@ -237,6 +253,10 @@
 				</li>
 			</sec:authorize>
 
+			<div class="d-none">
+				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
+			</div>
+			
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<button class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" type="submit"
@@ -244,9 +264,6 @@
 				</li>
 			</sec:authorize>
 			
-			<div class="d-none">
-				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
-			</div>
 		</div>
 	</div>
 </nav>

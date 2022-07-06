@@ -12,7 +12,7 @@
 	<security:http>
 		<security:csrf disabled="true"/>
 		<security:form-login always-use-default-target="true" login-page="/member/login" default-target-url="/member/loginSuccess"/>
-		<security:logout logout-success-url="/member/login"/>
+		<security:logout logout-success-url="/main"/>
 		<security:remember-me/>
 		
 		<security:intercept-url pattern="/admin/*" access="hasRole('ADMIN')"/>
