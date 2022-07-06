@@ -48,6 +48,11 @@
 		DELETE FROM MeetingComment
 		WHERE meeting_id = #{meetingId}
 	</delete>
+	<!-- 회원이 산 구매내역 삭제 -->
+	<delete id="deleteOrderPayByMemberId">
+		DELETE FROM OrderPay
+		WHERE member_id = #{memberId}
+	</delete>
 	<!-- 회원삭제하기 -->
 	<delete id="deleteMember">
 		DELETE FROM Member

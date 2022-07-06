@@ -117,6 +117,8 @@ public interface AdminMapper {
 
 	void deleteMeetingCommentByMemberId(String memberId);
 
+	void deleteOrderPayByMemberId(String memberId);
+
 
 
 }
