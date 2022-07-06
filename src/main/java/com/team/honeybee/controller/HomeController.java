@@ -39,7 +39,6 @@ public class HomeController {
 		int count = memberService.countMember();
 		model.addAttribute("sum", sumAmount);
 		model.addAttribute("count", count);
-		
 	}
 	@RequestMapping("search")
 	public void serach(@RequestParam(name="keyword", defaultValue = "")String keyword, 
