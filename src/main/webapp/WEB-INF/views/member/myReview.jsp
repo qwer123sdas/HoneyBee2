@@ -93,7 +93,7 @@ thead tr{
 	<a:boardNavBar current="myReview"></a:boardNavBar>
 	<div class="main-container">
 		<div class="row">
-			<div class="col">
+			<div class="col-lg-7" style="margin:auto;">
 				<form action="deleteDonationReply" method="post">
 					<input type="hidden" name="replyId" id="replyIdResult" />
 					<div class="d-flex flex-row-reverse">

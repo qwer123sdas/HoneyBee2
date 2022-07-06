@@ -125,18 +125,6 @@
 			</div>
 		</div>
 	</form>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
 	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>
