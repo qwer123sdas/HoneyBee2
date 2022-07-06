@@ -146,7 +146,7 @@ h3 {
 	<div class="container">
 		<div class="row">
 		
-			<div class="col-8 mt-5 ms-5">
+			<div  style="margin:auto ;">
 				<article>
 					<section>
 						<!-- 주문 상세정보 -->
