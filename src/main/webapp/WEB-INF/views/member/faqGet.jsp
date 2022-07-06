@@ -74,7 +74,7 @@
 					</c:forEach>
 				</c:if>
 				<div>
-					<label for="email" class="form-label"> 이메일 :</label>
+					<label for="email" class="form-label"> 이메일 </label>
 					<input class="form-control" id="email"
 						value="${faq.email }" readonly />
 					<br />
