@@ -300,8 +300,8 @@ body{
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Our Services</h6>
-                <h1 class="mb-4">We Are Pioneers In The World Of Renewable Energy</h1>
+                <h6 class="text-primary">꿀비 컨텐츠</h6>
+                <h1 class="mb-4">여러분도 동참해보세요~!</h1>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.1s" id="card">
@@ -340,6 +340,19 @@ body{
                             <h4 class="mb-3">마켓</h4>
                             <p>즐거운 쇼핑! 기부도 함께!</p>
                             <a class="small fw-medium" href="${appRoot }/market/list">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.3s" id="card">
+                    <div class="service-item rounded overflow-hidden" id="card">
+                        <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
+                        <div class="position-relative p-4 pt-0">
+                            <div class="service-icon">
+                               <i class="fa-solid fa-hand-holding-dollar fa-2xl text-white"></i>
+                            </div>
+                            <h4 class="mb-3">모임</h4>
+                            <p>작고 소중한 꿀비들의 모임터♥</p>
+                            <a class="small fw-medium" href="${appRoot }/meeting/main">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>

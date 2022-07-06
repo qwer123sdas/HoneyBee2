@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar_kim></nav:navbar_kim>
+	<my:mainNavBar></my:mainNavBar>
 	    <!-- Service Start -->
 	<!-- Page Header Start -->
 	
@@ -137,7 +138,7 @@
 	
 	
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
