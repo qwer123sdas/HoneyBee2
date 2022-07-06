@@ -175,11 +175,11 @@
 					더 많은 분들이 관심을 갖고 참여할 수 있도록 제안 캠페인을 진행하고 있습니다.
 				</h3>
 			</div>
-		<div id="donationContentInfo" style="margin-left: 220px;">
-			<form class="needs-validation" novalidate action="" method="get" enctype="multipart/form-data">
+		<div id="meetingContentInfo" style="margin-left: 220px;">
+			<form class="needs-validation" action="${appRoot}/meeting/modify" method="post" enctype="multipart/form-data" novalidate >
 				<div class="col-10">
 						<h3 class="col-10 text-center ">
-							프로젝트 모두의행동 제안
+							모두의행동 제안서 스토리 변경
 							<i class="fa-solid fa-feather"></i>
 						</h3>
 
@@ -215,7 +215,7 @@
 							</label>
 							<!-- maxlength : 글자수 제한  -->
 							<input type="text" class="form-control" name="title" value="${meeting.title }"
-								placeholder="최대 30자까지 작성 가능합니다." maxlength="30" required>
+								placeholder="최대 30자까지 작성 가능합니다." maxlength="30" onfocus="this.value=''" required>
 							<div class="invalid-feedback">필수 선택사항 입니다.</div>
 						</div>
 						
@@ -228,8 +228,8 @@
 									.태그로 모두의행동 표현하기
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="address1" value="${meeting.hashTag }"
-								name="hashTagRaw" placeholder="#을 붙여 해시테그를 입력해주세요" required>
+							<input type="text" class="form-control" id="address1" value="${hashTags }"
+								name="hashTagRaw" placeholder="#을 붙여 해시테그를 입력해주세요" onfocus="this.value=''" required>
 							<!-- <input type="hidden" id="folderName" name="folderName" / -->
 							<div class="invalid-feedback">필수 입력사항 입니다.</div>
 						</div>
@@ -249,15 +249,16 @@
 									src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/meeting/${meeting.folderName }/${meeting.MPhoto}"  
 									alt="메인 사진 업로드"  style="width: 600px;">
 							</a>
-							<input type="file" id="imgUpload"  name="mainPhoto" style="display:none"  accept="image/*" onchange="readURL(this);">
+							<input type="file" id="imgUpload"  name="mainPhoto" style="display:none" accept="image/*" onchange="readURL(this);">
 							<div id="image_container"></div>
-							
-							<!-- <input class="form-control" type="file" id="formFile"
-								name="mainPhoto" accept="image/*" required> -->
-							<input type="hidden" id="folderName" name="folderName" />
 							<div class="invalid-feedback">메인 사진 등록은 필수입니다.</div>
 						</div>
-					
+						
+						<!-- 사진관련 hiden 넘기기 -->
+						<input type="hidden" name="meetingId" value="${meeting.meetingId }"/>
+						<input type="hidden" name="folderName" id="folderName" value="${meeting.folderName}"/>
+						<input type="hidden" name="oldMainPhoto" id="oldMainPhoto" value="${meeting.MPhoto}"/>
+						<br />
 						<br />
 					
 						<div class="col-15">
@@ -266,7 +267,7 @@
 									<i class="fa-regular fa-5"></i>
 									.꿀비들의 마음을 움직이는 모두의행동 스토리를 작성해 보세요
 								</h3>
-								<small class="text-muted">꿀비들에게 보여줄 사진은 드래그로 추가하세요!</small>
+								<small class="text-muted">*꿀비들에게 보여줄 사진은 드래그로 추가하세요!</small>
 							</label>
 							<textarea class="textarea" id="summernote" name="content"
 								required>${meeting.content } </textarea>
@@ -304,7 +305,7 @@
 									.모임 날짜
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="meetingDate" value="${meeting.meetingDate }"
+							<input type="text" class="form-control" id="meetingDate" value="${meeting.meetingDate }" 
 								pattern="|d{4}-|d{2}-|d{2}" name="meetingDate" required
 								th:field="*{meetingDate}" value="">
 							<small class="text-muted">모두의행동 시작일 확인</small>
@@ -320,9 +321,9 @@
 									.모집 시작일
 								</h3>
 							</label> <!-- type="date가 아님" -->
-							<input type="text" class="form-control" id="startDate" value="${meeting.startDate }"
+							<input type="text" class="form-control" id="startDate" value="${meeting.startDate }" 
 								pattern="|d{4}-|d{2}-|d{2}" name="startDate" required
-								th:field="*{startDate}" value="">
+								th:field="*{startDate}" >
 							<small class="text-muted">모집 시작 입력일 확인</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
 						</div>
@@ -334,9 +335,9 @@
 									.모집 종료일
 								</h3>
 							</label>
-							<input type="text" class="form-control" id="endDate" value="${meeting.endDate }"
+							<input type="text" class="form-control" id="endDate" value="${meeting.endDate }" 
 								pattern="|d{4}-|d{2}-|d{2}" name="endDate" required
-								th:field="*{endDate}" value="">
+								th:field="*{endDate}" >
 							<small class="text-muted">모임 종료 입력일 확인</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
 						</div>
@@ -356,7 +357,7 @@
 								</h3>
 							</label>
 							<div class="input-group">
-								<input class="form-control " type="text" name="postcode" id="postcode" value="${meeting.postcode }" placeholder="우편번호" required>
+								<input class="form-control " type="text" name="postcode" id="postcode" value="${meeting.postcode }" onfocus="this.value=''" placeholder="우편번호" required>
 								<input class="form-control" type="button" onclick="daumPostCode()" value="우편번호 찾기"><br/>
 							</div>
 								<small class="text-muted">검색한 우편번호를 확인해주세요.</small>
@@ -364,8 +365,8 @@
 						</div>
 						
 						<div class="col-md-10">
-							<input class="form-control" type="text" id="address" name="address" value="${meeting.address }" placeholder="주소" required>
-							<input class="form-control" type="text" id="detailAddress" name="detailAddress"  value="${meeting.detailAddress }"
+							<input class="form-control" type="text" id="address" name="address" value="${meeting.address }" onfocus="this.value=''" placeholder="주소" required>
+							<input class="form-control" type="text" id="detailAddress" name="detailAddress"  value="${meeting.detailAddress }" onfocus="this.value=''"
 								placeholder="상세주소" required>
 							<small class="text-muted">입력된 주소를 확인해주세요</small>
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
@@ -409,9 +410,8 @@
 	</div>
 
 
-
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
 
 	<!-- JavaScript Libraries -->
@@ -440,6 +440,24 @@
 	
 </body>
 <script>
+/* 폴더명 */
+$('#folderName').val('${meeting.folderName}');
+$('#oldMainPhoto').val('${meeting.MPhoto}');
+
+//메인 사진 이미지
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('imgChange').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    document.getElementById('imgChange').src = "";
+  }
+}
+
+
 //다음 주소검색
 console.log(2)
 function daumPostCode() {
@@ -515,8 +533,8 @@ $(document).ready(function() {
 		//서머노트
 		// 서머노트 파일명 랜덤값으로
 		//여기 아래 부분
-		const randomNum = Math.floor(Math.random() * 1000000000);
-		$('#folderName').val('padding-' + randomNum);
+//		const randomNum = Math.floor(Math.random() * 1000000000);
+//		$('#folderName').val('padding-' + randomNum); 기존 난수값 가져오기
 		$('#summernote').summernote({
 			  height: 700,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
@@ -539,7 +557,7 @@ $(document).ready(function() {
         function uploadImageToS3ForSummerNote(image) {
             data = new FormData(); // file를 담을 객체
             data.append("image", image); // file를 담고 ajax에서 넘겨줌
-            data.append("folderId", 'padding-'+ randomNum); // 폴더 난수 넘기기
+            data.append("folderId", "${meeting.folderName}"); // 폴더 난수 넘기기
             $.ajax({
                 url: '${appRoot}/uploadImageToS3ForSummerNote/meeting',
                 data: data,
@@ -563,6 +581,11 @@ $(document).ready(function() {
 	});
 	
 	//  flatpickr 달력 기본 설정
+	var fp = flatpickr(document.getElementById("meetingDate"), {
+		'monthSelectorType' : 'static',
+		"locale" : "ko"
+	});
+	
 	var fp = flatpickr(document.getElementById("startDate"), {
 				'monthSelectorType' : 'static',
 				"locale" : "ko"
@@ -573,10 +596,6 @@ $(document).ready(function() {
 		"locale" : "ko"
 	});
 	
-	var fp = flatpickr(document.getElementById("meetingDate"), {
-		'monthSelectorType' : 'static',
-		"locale" : "ko"
-	});
 
 (function () {
   'use strict'

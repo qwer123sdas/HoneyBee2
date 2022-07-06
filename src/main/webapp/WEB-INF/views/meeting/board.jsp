@@ -170,8 +170,8 @@
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 600px;
-	height: 400px;
+	width: 500px;
+	height: 330px;
 	position: relative;
 	top: -100px;
 	padding: 10px;
@@ -323,43 +323,61 @@
 						<div class="text-muted fst-italic mb-2">${meeting.startDate }
 							~ ${meeting.endDate }</div>
 						<!-- 해쉬 태그 -->
-						<c:forEach items="${meeting.hashTag }" var="hashTag">
-							<a href="${appRoot}/meeting/tags/${hashTag}">
-								<span class="badge rounded-pill bg-warning text-dark">#
-									${hashTag }</span>
-							</a>
-						</c:forEach>
-						<!-- 해쉬태그 -->
-						<a class="badge bg-secondary text-decoration-none link-light"
-							href="#!">${meeting.tag }</a>
+						<div class="">
+							<c:forEach items="${meeting.hashTag }" var="hashTag">
+								<a href="${appRoot}/meeting/tags/${hashTag}">
+									<span class="badge rounded-pill bg-warning text-dark">#
+										${hashTag }</span>
+								</a>
+							</c:forEach>
+							<!-- 해쉬태그 -->
+							<a class="badge bg-secondary text-decoration-none link-light"
+								href="#!">${meeting.tag }</a>
+							<p class="fs-5 mb-4">host by. ${meeting.memberId }</p>
+						</div>
 					</header>
 					<!-- Post title End -->
 
 					<!-- Preview image -->
 					<figure class="mb-4">
 						<img class="img-fluid rounded"
-							src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+							src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="..." />
 					</figure>
-
+					<!-- 화면 분활용 네브탭 -->
+					<ul class="nav nav-tabs nav-fill justify-content-center ">
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center active" id="meetingMainContentNav" aria-current="page">모두의행동</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center" id="meetingInfoNav">모임정보</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link flex-md-fill text-sm-center" id="meetingReplyNav">커뮤니티</a>
+					  </li>
+					</ul>
+				
+				</article>
+				
 					<!-- Post content-->
-					<section class="mb-5">
-						<p class="fw-bolder fs-5 mb-4">${meeting.content }</p>
-						<p class="fs-5 mb-4">host by. ${meeting.nickname }</p>
-						<h4
-							class="fw-bolder border mb-2 mt-2 shadow-none p-2 mb-2 bg-light rounded text-center">*꿀비
+					<section class="mb-5 " id="meetingMainContent">
+						<p class="fw-bolder fs-5 mb-4" style="margin-top: 30px;">${meeting.content }</p>
+					</section>
+					
+					<section class="mb-5 d-none" id="meetingInfo" style="margin-top: 30px;" >
+						<h4 class="fw-bolder border mb-2 mt-2 shadow-none 
+									p-2 mb-2 bg-light rounded text-center" >*꿀비
 							모임 장소 : ${meeting.address } ${meeting.detailAddress }</h4>
 						<!-- 카카오 지도 api -->
 						<div class="border mb-3 container shadow p-3 mb-3 bg-body rounded">
 							<div id="map"
-								style="width: 690 px; height: 400px; margin: auto; margin-top: 10px;"></div>
+								style="width: 700 px; height: 700px; margin: auto; margin-top: 10px;"></div>
 						</div>
 					</section>
-				</article>
-
 
 				<!-- 댓글, 대댓글 -->
-				<section class="replyForm">
-					<h4>커뮤니티</h4>
+				<section class="mb-5 replyForm d-none" id="meetingReply">
+					<h4 style="margin-top: 30px;">커뮤니티</h4>
+					<p>*모임에 대해 궁금한 사항이나 다양한 스토리를 나누고 싶다면 작성해주세요!</p>
 					<div class="card bg-light">
 						<div class="card-body">
 							<!-- 댓글 입력 form 출력 ajax 처리-->
@@ -382,12 +400,14 @@
 			</div>
 
 			<!-- 모임신청 진행 상태 -->
-			<div class="col-lg-4">
+			<div class="col-lg-3 ms-4 ">
 				<!-- Search widget-->
 				<div class="guestWiget">
-					<div
-						class="guestWiget-header d-flex justify-content-center align-middle">
-						<h4>
+					<div class="guestWiget-header d-flex justify-content-center align-middle"
+						style="margin-top: 180px;">
+						<hr />
+						<h4 style="margin-top: 15px;">
+							<i class="fa-solid fa-address-card"></i>
 							꿀비 모임
 							<span id="numOfGuest"></span>
 							명 등록
@@ -430,19 +450,38 @@
 									함께할께요!
 								</button>
 								
+								<hr>
+								
+								<h5 style="text-align: center;">모두의행동 안내</h5>
+								<ul class="meetingGuestInfo ">
+									<li>주최자 : ${meeting.memberId }</li>
+									<li>모임일시 : ${meeting.meetingDate }</li>
+									<li>모임장소 : <br>
+										${meeting.address }<br>${meeting.detailAddress }</li>
+								</ul>
+								
+								<hr>
+								
+								<h5 style="text-align: center;">참여신청/취소 안내</h5>
+								<ul class="guestInfo ">
+									<li>모임의 신청/취소는<br/>참여신청 기간 내에만 가능합니다.</li>
+									<li>모임 또는 그룹의 설정,<br/>모집정원 초과 여부에 따라<br/>대기자로 선정될 수 있습니다.</li>
+									<li>꿀비는 참여신청 기능을 제공하는 회사로 모임개설자(주최측)이 아닙니다.</li>
+									<li>모임 내용과 관련한 사항은<br/>모임 개설자에게 문의 바랍니다.</li>
+								</ul>
+								
+								<hr>
+								
 								<!-- 게시글 수정버튼 추가 -->
 								<%-- <c:if test="${meeting.own == 1 }">
 				            	</c:if> --%>
-				            		<c:url value="/meeting/cart" var="buyUrl">
-										<c:param name="marketId" value="${market.marketId }"></c:param>
-									</c:url>
-									<a type="button" class="btn btn-warning" href="${buyUrl}">구매</a>
-						            <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="get">
+						           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
 						            	<input type="hidden" name="meetingId" value="meetingId" />
 						            	<input type="hidden" name="memberId" value="memberId" />
-										<button type="button" id="modifyBtn1" class="btn btn-light mt-5 w-100">
-										<i class="fa-solid fa-list-ul">모두의행동 수정</i></button>
-						            </form>
+										<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100" >
+										 <i class="fa-solid fa-list-ul">모두의행동 수정</i>
+										</button>
+						            </form> 
 							</div>
 						</div>
 					</div>
@@ -454,55 +493,95 @@
 	</div>
 
 	<!-- foot bar -->
-	<nav:footbar></nav:footbar>
+	<nav:footbar_kim></nav:footbar_kim>
 
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
 
 
 <script>
-	$(document).ready(function() {
+$(document).ready(function() {
 
-	/* 카카오 지도 api 시작 */
+	function showMap() {
+		
+		/* 카카오 지도 api 시작 */
+		var Container = document.getElementById('map'), // 지도를 표시할 div 
+			Option = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(Container, Option); 
+		console.log("111111111111111111111111111111111111")
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		console.log('${meeting.address}')
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${meeting.address}', function(result, status) {
+			console.log("22222222222222222222222222222222222222")
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		    	 console.log("33333333333333333333333333333333333333")
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		        
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		}); /* 카카오 지도 api 끝남 */
+	}
 	
-	var Container = document.getElementById('map'), // 지도를 표시할 div 
-		Option = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
-		};  
 	
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(Container, Option); 
-	console.log("111111111111111111111111111111111111")
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	console.log('${meeting.address}')
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('${meeting.address}', function(result, status) {
-		console.log("22222222222222222222222222222222222222")
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === kakao.maps.services.Status.OK) {
-	    	 console.log("33333333333333333333333333333333333333")
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	/* 메인 컨텐츠 */
+	$("#meetingMainContentNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingMainContentNav').addClass('active');
+		$("#meetingInfoNav").removeClass("active");
+		$("#meetingReplyNav").removeClass("active");
+		/* 아이디 이벤트*/
+		$('#meetingMainContent').removeClass("d-none");
+		$("#meetingInfo").addClass("d-none");
+		$("#meetingReply").addClass("d-none");
+	});
 	
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	        
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">꿀비모여!</div>'
-	        });
-	        infowindow.open(map, marker);
+	/* 모임정보 */
+	$("#meetingInfoNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingInfoNav').addClass('active');
+		$("#meetingMainContentNav").removeClass("active");
+		$("#meetingReplyNav").removeClass("active");
+		/* 아이디 이벤트*/
+		$('#meetingInfo').removeClass("d-none");
+		$("#meetingMainContent").addClass("d-none");
+		$("#meetingReply").addClass("d-none");
+		
+		// 모임 정보 누르면 지도 보이게 수정
+		showMap();
+	});
 	
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    } 
-	}); 
-	
-	/* 카카오 지도 api 끝남 */
+	/* 대댓글 커뮤니티 */
+	$("#meetingReplyNav").click(function(){
+		/* 네브바 이벤트*/
+		$('#meetingReplyNav').addClass('active');
+		$("#meetingMainContentNav").removeClass("active");
+		$("#meetingInfoNav").removeClass("active");
+		
+		$('#meetingReply').removeClass("d-none");
+		$("#meetingMainContent").addClass("d-none");
+		$("#meetingInfo").addClass("d-none");
+	});
 		 
 	/* 게스트 입출력 부분 시작 */
 	var modal = document.getElementById("insertGuestModal1");
@@ -635,6 +714,23 @@
 	
 	 // 게스트 리스트 가져오는 함수 실행
 	 guestList();
+	 /*
+	 // 게스트 인원 다 차면 버튼 비활성화
+	 let guestNum = ${meeting.guestNum};
+	 let guestCnt = guestList.length;
+	 // console.log(guestNum);
+	 //console.log(guestCnt);
+	 
+	 ${"#insertGuestBtn1"}.click(function(e) {
+		 e.preventDefault();
+		 
+		 if(guestNum == guestCnt) {
+			 document.getElementById('insertGuestBtn1').attr('disabled');
+			 
+			 alert("꿀비 모임신청이 마감되었습니다.")
+		 } 
+	 });*/
+	 
 	 
 	 /* 게스트 입출력 부분 끝남 */
 
@@ -664,8 +760,14 @@
 									<div class="ms-3 replyContent\${list[i].meetingReplyId}">
 									\${list[i].content }</div>
 								`;
+								
+								// 댓글 삭제시 답글달기 비활성화
+								let replyTextClassName="replyText";
+								
 								if (list[i].deleteInfo === "Y") {
 									replyContent = `<div class="ms-3 replyContentDelete\${list[i].meetingReplyId}"><i class="fa-solid fa-circle-exclamation"></i>삭제된 댓글입니다!</div>`;
+									// 댓글 삭제시 답글달기 비활성화
+									replyTextClassName="";
 								}			
 								
 								
@@ -686,9 +788,9 @@
 													<span style="font-weight: normal; font-size: 14px;">
 													\${list[i].inserted }</span>
 												</span>
-												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}">
+												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}" >
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-												  <div class="dropdown-content">
+												  <div class="dropdown-content" style="position: z-index: 2;">
 												    <a href="#!" class="replyUpdate"><span>수정</span></a>
 												    <a href="#!" class="replyDelete" 
 												    	data-reply-id="\${list[i].meetingReplyId}" 
@@ -701,14 +803,14 @@
 										
 										\${replyContent}
 										
-										<div class="replyUpdateArea d-none">
+										<div class="replyUpdateArea d-none" >
 											<form class="replyUpdateAreaForm">
 												<div class="input-group">
 													<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
 													<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
 													<input class="form-control ms-3 replyUpdateContent" 
 				      									type="text" name="content" placeholder="수정 내용을 입력하세요" />
-				      								<span class="btn btn-primary replyUpdateButton">
+				      								<span class="btn btn-primary replyUpdateButton"style="position: z-index: 1;">
 						      							<i class="fa-solid fa-circle-check "></i>
 						      						</span>
 						      					</div>
@@ -718,8 +820,8 @@
 										<div class="ms-3 replyTextContainer">
 											<div class="fw-bold d-flex justify-content-between">
 												<a class="small fw-medium" href="#!">
-													<span id="flip" class="replyText">답글 작성</span>
-														<span class="replyCnt" style="">0</span>
+													<span id="flip" class="\${replyTextClassName}">답글 작성</span>
+														<span class="replyCnt" style=""></span>
 												</a>
 												<a class="replyLike" href="#!">
 													<i class="fa-regular fa-heart"></i>
@@ -729,7 +831,6 @@
 										</div>
 										
 										<div id="panel" class="childReplyArea">
-											// for문 돌면서 계속 동일한 이름을 할당 받으므로 id가 아닌 class로
 											<form class="childReplyAreaForm">  
 												<div class="input-group">
 			      									<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
@@ -738,9 +839,9 @@
 			      									<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
 				      								<input id="insertReplyChildInput" class="form-control ms-3"
 					      									type="text" name="content" placeholder="답글을 작성해주세요" /><br>
-					      							<span class="btn btn-primary insertReplyChildButton">
+					      							<div type="button" class="btn btn-primary insertReplyChildButton">
 					      								<i class="fa-solid fa-circle-check"></i>
-					      							</span>
+					      							</div>
 			      								</div>
 			      							</form>
 	      								</div>
@@ -923,28 +1024,29 @@
 </script>
 
 	<!-- 모임신청 모달창 -->
-	<div id="insertGuestModal1" class="modal-overlay">
+	<div id="insertGuestModal1" class="modal-overlay" >
 		<div class="modal-window">
-			<div class="title">
-				<h4>꿀비 모임을 신청하시겠습니까?</h4>
+			<div class="title" style="text-align: center; margin-top: 15px;">
+				<h4><i class="fa-solid fa-paper-plane"></i>꿀비 모임을 신청하시겠습니까?</h4>
 				<hr />
 			</div>
 			<div class="content">
-				<ul>
+				<ul style="color: #000000;">
 					<li>모임에 적극적인 참여 부탁드립니다!</li>
 					<li>모임 장소를 잘 확인하시고 늦지않게 오세요!</li>
 					<li>문의 사항은 댓글을 남겨주세요</li>
 					<li>꿀비들이 모여 아름다운 세상을 만듭니다.</li>
 				</ul>
-				<p>모임일시:${meeting.meetingDate }</p>
-				<p>모임장소:${meeting.address } ${meeting.detailAddress }</p>
+				<p style="color: #000000;">모임일시:${meeting.meetingDate }</p>
+				<p style="color: #000000;">모임장소:${meeting.address } ${meeting.detailAddress }</p>
 				<form id="guestInsertForm1"
 					action="${appRoot }/meeting/board/addGuest" method="post">
 					<span class="d-flex flex-row-reverse">
-						<button type="button" class="btn btn-secondary">취소</button>
+						<button type="button" class="btn btn-secondary"
+							style="margin-left: 10px;">취소</button>
 						<input type="hidden" name="meetingId"
 							value="${meeting.meetingId }" />
-						<button class="btn btn-primary " id="guestSubmitBtn1">신청</button>
+						<button class="btn btn-primary" id="guestSubmitBtn1" style="background-color: #09ab60;">신청</button>
 					</span>
 				</form>
 			</div>

@@ -40,7 +40,13 @@ public class MeetingController {
 	
 	@Autowired 
 	private MeetingGuestService guestService;
-	 
+	
+	// 제안하기로 이동함
+	@GetMapping("insert")
+	public void meetingInsert() {
+		
+	}
+	
 	@PostMapping("insert")
 	public String meetingInsertProcess(MeetingDto meeting, 
 										MeetingGuestDto guest,
@@ -56,7 +62,8 @@ public class MeetingController {
 		meeting.setMemberId(memberId);
 		// 게스트 인원 넣기
 		guest.setGuestNum(guestNum);
-
+		System.out.println("게스트모임 " + meeting.getMeetingDate());
+		System.out.println("게스트인원 " + meeting.getGuestNum());
 		boolean success = service.insertBoard(meeting, mainPhoto, hashTagRaw, folderName); 
 		
 		if (success) {
@@ -65,7 +72,7 @@ public class MeetingController {
 			rttr.addFlashAttribute("message", "새 글이 등록되지 않았습니다.");
 		}
 		
-		return "redirect:/meeting/insert";
+		return "redirect:/meeting/main";
 	}
 	
 	// 기부모임 메인(topic추가함)
@@ -77,7 +84,13 @@ public class MeetingController {
 		List<MeetingDto> list = service.meetingList(sort, topic);
 		System.out.println(list);
 		
+		// 후기리스트
+		List<MeetingCommentDto> commentList = service.getCommentList();
+		
+		
 		model.addAttribute("meetingList", list);
+		model.addAttribute("commentList", commentList);
+		
 		// sort, topic 추가
 		model.addAttribute("sort", sort);
 		model.addAttribute("topic", topic);
@@ -119,9 +132,10 @@ public class MeetingController {
 		
 		return "redirect:/meeting/main";
 	}
+
 	
 	// 게시판 수정전 기존 게시물 선택, 기존 해시태그
-	@RequestMapping("modify/{meetingId}")
+	@PostMapping("modify/{meetingId}")
 	public String getMeetingBoardModify(@PathVariable int meetingId, Model model) {
 		
 		MeetingDto board = service.getBoardByMeetingId(meetingId);
@@ -146,28 +160,19 @@ public class MeetingController {
 										@RequestParam(name="folderName")String folderName,
 										@RequestParam(name="oldMainPhoto")String oldMainPhoto) {
 		
-		
+		System.out.println("올드포토"+ oldMainPhoto);
 		service.updateByMeetingBoard(meeting, hashTagRaw, mainPhoto, folderName, oldMainPhoto);
 		
 		return "redirect:/meeting/board/" + meeting.getMeetingId();
 	}
 	
-	// 입력위해 만듬 나중에 제안하기로 이동함
-	@GetMapping("insert")
-	public void meetingInsert() {
-		
-	}
+
 	
 	@GetMapping("login")
 	public void login() {
 		
 	}
-	
-	/*
-	 * @GetMapping("modify") public void modify() {
-	 * 
-	 * }
-	 */
+
 	
 	
 	

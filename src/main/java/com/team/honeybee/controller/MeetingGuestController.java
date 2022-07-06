@@ -101,7 +101,7 @@ public class MeetingGuestController {
 
 		// 로그인 회원 아이디값 넣기
 		String memberId = principal.getName();
-		// 널일때 로그인 페이지(나중에 )
+		// 널일때 로그인 페이지(jsp에서 처리함 )
 
 		if (StringUtils.isEmpty(memberId)) {
 
