@@ -22,7 +22,7 @@
 			</ul>
 			<h2>입니다.</h2>
 			<button type="button" class="btn btn-primary" onclick="location.href='/member/login'">로그인하기</button>
-			<button type="button" class="btn btn-primary" onclick="location.href='/member/index'">메인페이지로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/main'">메인페이지로</button>
 		</div>
 	</div>
 </body>

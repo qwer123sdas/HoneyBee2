@@ -10,6 +10,11 @@
 		VALUES (#{memberId}, #{pw}, #{name}, #{email}, #{nickname}, #{postcode}, #{address}, #{detail}, #{birth}, #{phone})
 	</insert>
 	
+	<select id="countMember" resultType="int">
+		SELECT COUNT(member_id)
+		FROM Member
+	</select>
+	
 	<!-- 아이디 체크 -->
 	<select id="countMemberId" resultType="int">
 		SELECT COUNT(member_id) 

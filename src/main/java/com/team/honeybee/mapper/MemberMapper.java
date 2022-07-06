@@ -98,6 +98,6 @@ public interface MemberMapper {
 	// 프로덕트 코드로 사진 불러오기
 	MarketDto selectMarket(String productCode);
 
-	
+	int countMember();
 
 }

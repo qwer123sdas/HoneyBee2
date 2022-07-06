@@ -5,7 +5,7 @@
 <%@ attribute name="current"%>
 
 <c:url value="/board/list" var="listUrl"></c:url>
-<c:url value="/member/index" var="mainPageUrl"></c:url>
+<c:url value="/main" var="mainPageUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
 <c:url value="/member/info" var="pwInfoUrl"></c:url>
 <c:url value="/member/info" var="memberInfoUrl" scope='request'></c:url>
@@ -21,6 +21,10 @@
 <c:url value="/member/payList" var="payUrl"></c:url>
 <c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
 <%-- payList,faqList,talentPayList 넣어둠.  --%>
+<c:url value="/donation/main" var="donationMainUrl"></c:url>
+<c:url value="/talent/main" var="talentMainUrl"></c:url>
+<c:url value="/meeting/main" var="meetingMainUrl"></c:url>
+<c:url value="/market/list" var="marketListUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -107,7 +111,6 @@
 .d-none{
 	color: #fff !important;
 }
-}
 </style>
 
 <link rel="stylesheet"
@@ -155,7 +158,7 @@
 
 <nav
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-	<a href="index"
+	<a href="${mainPageUrl }"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
 		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
 	</a>
@@ -170,7 +173,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
 					<a
-						class="nav-item active nav-link ${current == 'index' ? 'active' : '' }"
+						class="nav-item nav-link ${current == 'main' ? 'active' : '' }"
 						href="${mainPageUrl }">홈</a>
 				</li>
 			</sec:authorize>
@@ -180,11 +183,28 @@
 						href="${aboutUrl }">About 꿀비</a>
 				</li>
 				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'meetingMain' ? 'active' : '' }"
+						href="${meetingMainUrl }">모두의행동</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'talentMain' ? 'active' : '' }"
+						href="${talentMainUrl }">재능판매</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-item nav-link ${current == 'marketList' ? 'active' : '' }"
+						href="${marketListUrl }">마켓</a>
+				</li>
+				
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link" href="#">기부하기</a>
+					<a class="nav-item nav-link" ${current == 'donationMain' ? 'active' : '' }" href="${donationMainUrl }">기부하기</a>
 				</li>
 			</sec:authorize>
+			
+			
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
@@ -211,69 +231,27 @@
 						
 					</div>
 				</li>
-				
-				<!-- 
-				<ul class="">
-					<li class="dropdown-item">회원 정보 수정</li>
-					<li class="dropdown-item">1:1 문의</li>
-					<li class="dropdown-item">내가 쓴 리뷰</li>
-					<li class="dropdown-item">내가 쓴 기부</li>
-				</ul>
-				 -->
 			</sec:authorize>
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-item nav-link" href="${loginUrl }">로그인</a>
+					<a class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" href="${loginUrl }">로그인<i class="fa fa-arrow-right ms-3"></i></a>
 				</li>
 			</sec:authorize>
 
-			<sec:authorize access="isAuthenticated()">
-				<li class="nav-item">
-					<button class="btn btn-link nav-link" type="submit"
-						form="logoutForm1">로그아웃</button>
-				</li>
-			</sec:authorize>
-			<!-- 
-			<sec:authorize access="isAuthenticated()">
-				<li class="nav-item">
-					<c:if test="">
-					</c:if>
-				</li>
-			</sec:authorize>
-			
-			 -->
 			<div class="d-none">
 				<form action="${logoutUrl }" id="logoutForm1" method="post"></form>
 			</div>
-			<a href=""
-				class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
-				둘러보기
-				<i class="fa fa-arrow-right ms-3"></i>
-			</a>
+			
+			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item">
+					<button class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" type="submit"
+						form="logoutForm1">로그아웃 <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+				</li>
+			</sec:authorize>
+			
 		</div>
 	</div>
-
-	<!-- form.d-flex>input.form-control.me-2[type=search]+button.btn.btn-outline-success -->
-	<!--
-				<form action="${listUrl }" class="d-flex">
-					<div class="input-group">
-						<select name="type" id="" class="form-select"
-							style="flex: 0 0 100px;">
-							<option value="all"
-								${param.type != 'title' && param.type != 'body' ? 'selected' : '' }>전체</option>
-							<option value="title" ${param.type == 'title' ? 'selected' : '' }>제목</option>
-							<option value="body" ${param.type == 'body' ? 'selected' : ''}>본문</option>
-						</select>
-
-						<input type="search" class="form-control" name="keyword" />
-						<button class="btn btn-outline-success">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-					</div>
-				</form>
- -->
-
 </nav>
 
 

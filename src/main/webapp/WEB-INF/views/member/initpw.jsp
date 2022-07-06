@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,6 +72,6 @@ article .inputId{
 			</div>
 		</div>
 	</div>
-
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -50,18 +52,31 @@
 	referrerpolicy="no-referrer"></script>
 
 </head>
+
 <style>
- .center{
- 	display: flex;
+body{
+	color: #000000 !important
+}
+.center{
+	display: flex;
 	align-items: center;
 	justify-content: center;
- }
+}
+#tagName1{
+	font-size: 1.25rem;
+	font-weight: 700;
+}
 .temp{
-	width: 165px;
+	width: 165px !important;
 	height: 70px;
-	background: blue;
-	margin-right: 10px;
+	background: #fff;
+	border: 2px solid #f48fb1;
 	border-radius: 100px;
+	font-family: sans-serif;
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	vertical-align: 20%;
 	
 }
 .right{
@@ -75,14 +90,45 @@
 	padding-right : 50px;
 	padding-bottom: 30px;
 }
-.btn-outline-success{
-	border-color: white;
-}
 .input-outline-success{
-	border-color: white;
 	border: 2px;
 }
+
+.team-item{
+	margin 0px auto;
+	overflow: hidden;
+	transition: all 0.2s linear;
+}
+
+.team-item:hover{
+	transform: scale(1.1);
+}
+
+.service-icon{
+	background-color: orange !important;
+	margin 0px auto;
+	overflow: hidden;
+	transition: all 0.2s linear;
+}
+
+.service-icon:hover{
+	transform: scale(1.4);
+}
+
+#card{
+	margin 0px auto;
+	transition: all 0.2s linear;
+}
+
+#card:hover{
+	transform: scale(1.1);
+}
+
+#hashTag{
+	opacity: 0.8;
+}
 </style>
+
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -92,90 +138,29 @@
     </div>
     <!-- Spinner End -->
 
+	<!-- navbar -->
+	<my:mainNavBar current="main"></my:mainNavBar>
 
-    <!-- Topbar Start -->
-    <div class="container-fluid bg-dark p-0">
-        <div class="row gx-0 d-none d-lg-flex">
-            <div class="col-lg-7 px-5 text-start">
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                    <small>123 Street, New York, USA</small>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center">
-                    <small class="far fa-clock text-primary me-2"></small>
-                    <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
-                </div>
-            </div>
-            <div class="col-lg-5 px-5 text-end">
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="fa fa-phone-alt text-primary me-2"></small>
-                    <small>+012 345 6789</small>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center mx-n2">
-                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-square btn-link rounded-0" href=""><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
-
-
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-            <h2 class="m-0 text-primary">Solartec</h2>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Service</a>
-                <a href="project.html" class="nav-item nav-link">Project</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu bg-light m-0">
-                        <a href="feature.html" class="dropdown-item">Feature</a>
-                        <a href="quote.html" class="dropdown-item">Free Quote</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
-                    </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-
-    
 	<!-- About Start -->
-    <div class="container-fluid overflow-hidden px-lg-0" style="background-color: #fbc02d">
+    <div class="container-fluid overflow-hidden px-lg-0" style="background-color: #fff">
         <div class="container about px-lg-0">
             <div class="row g-0 mx-lg-0">
                 
-                <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s" id="hashTag">
                     <div class="p-lg-5 pe-lg-0">
                         <h1 class="mb-4">기부 마켓 No.1 꿀비에서 원하는 기부를 찾아보세요!</h1>
                         <form action="${appRoot }/search"class="d-flex" role="search">
                        		<div class="input-group mb-2" style="width: 600px">
                        			<input type="hidden" name="type" value="donation" />
-					     		<input class="form-control input-outline-success" type="search" name="keyword" placeholder="Search" aria-label="Search">
-					     		<button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: white"></i></button>
+					     		<input class="form-control input-secondary" type="search" name="keyword" placeholder="Search" aria-label="Search">
+					     		<button class="btn btn-warning" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: white"></i></button>
 					     	</div>
 					    </form>
-                        <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#우크라이나</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시1" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시1</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시2" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시2</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시3" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시3</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시4" class="btn  rounded-pill py-1 px-3 mt-3" style="opacity: 0.8; color:white; border-color: white;">#임시4</a>
+                        <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn  rounded-pill py-1 px-3 mt-3" style="color:red; border-color: red;">#우크라이나</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시1" class="btn  rounded-pill py-1 px-3 mt-3" style="color:pink; border-color: pink;">#임시1</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시2" class="btn  rounded-pill py-1 px-3 mt-3" style="color:green; border-color: green;">#임시2</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시3" class="btn  rounded-pill py-1 px-3 mt-3" style="color:orange; border-color: orange;">#임시3</a>
+                        <a href="${appRoot }/search?type=donation&keyword=임시4" class="btn  rounded-pill py-1 px-3 mt-3" style="color:brown; border-color: brown;">#임시4</a>
                     </div>
                 </div>
                 
@@ -192,18 +177,18 @@
 
 
 	<!-- Feature Start -->
-    <div class="py-5 " style="background: gray;">
+    <div class="py-5 " style="background: #fbc02d;">
     	
         <div class="container right">
-        	<div class="">
-	            <div class="row">
+        	<div>
+	            <div class="row" >
 
-	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3" >
+	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-	                            <i class="fa fa-users text-white"></i>
+	                            <i class="fa-solid fa-hand-holding-dollar text-white"></i>
 	                        </div>
-	                        <h1 class="mb-0" data-toggle="counter-up">3453</h1>
+	                        <h1 class="mb-0" data-toggle="counter-up">${sum }</h1>
 	                    </div>
 	                    <h5 class="mb-3">우리가 함께 모은 기부금</h5>
 	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
@@ -213,9 +198,9 @@
 	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-	                            <i class="fa fa-check text-white"></i>
+	                            <i class="fa-solid fa-people-group text-white"></i>
 	                        </div>
-	                        <h1 class="mb-0" data-toggle="counter-up">4234</h1>
+	                        <h1 class="mb-0" data-toggle="counter-up">${count }</h1>
 	                    </div>
 	                    <h5 class="mb-3">꿀비를 이용하고 있는 고객분들</h5>
 	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
@@ -229,31 +214,87 @@
 
 	 <!-- Feature Start -->
     <div class="container-xxl py-5">
-    	<div class="row ">인기 있는 기부 태그</div>
-        <div class="container center">
-        	
-            <div class="row g-5">
-            
-                <div class="temp">
+    	<div class="row" id="tagName1">인기 있는 기부 #태그</div>
+	        <div class="container center">
+	        	
+	            <div class="row g-5">
+	            
+	                <div class="temp">
+	                	<a href="/honeybee/donation/main">#기부</a>
+	                </div>
+	                &nbsp;&nbsp;
+	                <div class="temp">
+	                	<a href="">#강좌</a>
+	                </div>
+	                &nbsp;&nbsp;
+	                <div class="temp">
+	                	<a href="">#유튜브</a>
+	                </div>
+	                &nbsp;&nbsp;
+	                <div class="temp">
+	                	<a href="">#고먐미</a>
+	                </div>
+	                &nbsp;&nbsp;
+	                <div class="temp">
+	                	<a href="">#댕댕이</a>
+	                </div>
+	                
+	            </div>
+	        </div>
+    </div>
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h6 class="text-primary">인기 급상승!</h6>
+                <h1 class="mb-4">진행중인 인기 컨텐츠</h1>
+            </div>
+            <div class="row g-4" id="contents">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item">
+                        <div class="d-flex">
+                            <img class="img-fluid w-75" src="https://cdn.class101.net/images/ad53f654-9f05-4050-a68c-c876869992d5/375xauto.webp" alt="">
+                            <div class="team-social w-25">
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h5>신사임당</h5>
+                            <span>가장 빠르게 돈 버는 유튜브 채널 만드는 방법</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="temp">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item">
+                        <div class="d-flex">
+                            <img class="img-fluid w-75" src="https://cdn.class101.net/images/cf96702c-677f-4c37-951d-69c9d40376ed/750xauto.webp" alt="">
+                            <div class="team-social w-25">
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h5>선한부자 오가닉</h5>
+                            <span>자동으로 매달 천만원씩 통장에 들어오는 &nbsp; &#60;구글 온라인 자동화수익 만들기&#62;</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="temp">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item">
+                        <div class="d-flex">
+                            <img class="img-fluid w-75" src="https://cdn.class101.net/images/d106f91b-e912-4d39-ae86-83c6907ce964/750xauto.webp" alt="">
+                            <div class="team-social w-25">
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h5>라이프해커 자청</h5>
+                            <span>월 999만원 자동수익, 경제적 자유 얻는 구체적 가이드 라인</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="temp">
-                </div>
-                
-                <div class="temp">
-                </div>
-                
             </div>
         </div>
     </div>
+    <!-- Team End -->
+    
     <!-- Feature Start -->
-
 
     <!-- Service Start -->
     <div class="container-xxl py-5">
@@ -263,81 +304,42 @@
                 <h1 class="mb-4">We Are Pioneers In The World Of Renewable Energy</h1>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-solar-panel fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Solar Panels</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-2.jpg" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-wind fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Wind Turbines</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-3.jpg" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-lightbulb fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Hydropower Plants</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
+                <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.1s" id="card">
+                    <div class="service-item rounded overflow-hidden" id="card">
                         <img class="img-fluid" src="img/img-600x400-4.jpg" alt="">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
-                                <i class="fa fa-solar-panel fa-3x"></i>
+                                <i class="fa-solid fa-hands-holding-circle fa-2xl text-white"></i>
                             </div>
-                            <h4 class="mb-3">Solar Panels</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3">재능 판매</h4>
+                            <p>꿀비와 함께라면 여러분도 강사님!</p>
+                            <a class="small fw-medium" href="${appRoot }/talent/main">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
+                <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.3s" id="card">
+                    <div class="service-item rounded overflow-hidden" id="card">
                         <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
-                                <i class="fa fa-wind fa-3x"></i>
+                               <i class="fa-solid fa-hand-holding-dollar fa-2xl text-white"></i>
                             </div>
-                            <h4 class="mb-3">Wind Turbines</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3">기부</h4>
+                            <p>여러분의 행복한 나눔을 통해 어려운 이웃들을 보살펴주세요.</p>
+                            <a class="small fw-medium" href="${appRoot }/donation/main">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded overflow-hidden">
+                <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.5s" id="card">
+                    <div class="service-item rounded overflow-hidden" id="card">
                         <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
-                                <i class="fa fa-lightbulb fa-3x"></i>
+                                <i class="fa-solid fa-store fa-2xl text-white"></i>
                             </div>
-                            <h4 class="mb-3">Hydropower Plants</h4>
-                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3">마켓</h4>
+                            <p>즐거운 쇼핑! 기부도 함께!</p>
+                            <a class="small fw-medium" href="${appRoot }/market/list">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -354,8 +356,8 @@
                 <div class="col-lg-6 feature-text py-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="p-lg-5 ps-lg-0">
                         <h6 class="text-primary">Why Choose Us!</h6>
-                        <h1 class="mb-4">Complete Commercial & Residential Solar Systems</h1>
-                        <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
+                        <h1 class="mb-4">내게 필요한 모든 전문가를 만날 수 있는 꿀비!</h1>
+                        <p class="mb-4 pb-2">여러가지 카테고리, 서비스에서 여러분에게 필요한 모든 전문가를 만나보세요.</p>
                         <div class="row g-4">
                             <div class="col-6">
                                 <div class="d-flex align-items-center">
@@ -363,8 +365,8 @@
                                         <i class="fa fa-check text-white"></i>
                                     </div>
                                     <div class="ms-4">
-                                        <p class="mb-0">Quality</p>
-                                        <h5 class="mb-0">Services</h5>
+                                        <p class="mb-0">강의</p>
+                                        <h5 class="mb-0">THE BEST 강좌 모음</h5>
                                     </div>
                                 </div>
                             </div>
@@ -374,8 +376,8 @@
                                         <i class="fa fa-user-check text-white"></i>
                                     </div>
                                     <div class="ms-4">
-                                        <p class="mb-0">Expert</p>
-                                        <h5 class="mb-0">Workers</h5>
+                                        <p class="mb-0">전문가</p>
+                                        <h5 class="mb-0">검증된 선생님들</h5>
                                     </div>
                                 </div>
                             </div>
@@ -385,8 +387,8 @@
                                         <i class="fa fa-drafting-compass text-white"></i>
                                     </div>
                                     <div class="ms-4">
-                                        <p class="mb-0">Free</p>
-                                        <h5 class="mb-0">Consultation</h5>
+                                        <p class="mb-0">무료</p>
+                                        <h5 class="mb-0">다양한 무료 강의들</h5>
                                     </div>
                                 </div>
                             </div>
@@ -396,8 +398,8 @@
                                         <i class="fa fa-headphones text-white"></i>
                                     </div>
                                     <div class="ms-4">
-                                        <p class="mb-0">Customer</p>
-                                        <h5 class="mb-0">Support</h5>
+                                        <p class="mb-0">고객</p>
+                                        <h5 class="mb-0">서포트</h5>
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +408,7 @@
                 </div>
                 <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/feature.jpg" style="object-fit: cover;" alt="">
+                        <img class="position-absolute img-fluid w-100 h-100" src="https://cdn.pixabay.com/photo/2020/08/04/08/10/woman-5462074_960_720.jpg" style="object-fit: cover;" alt="">
                     </div>
                 </div>
             </div>
@@ -414,353 +416,45 @@
     </div>
     <!-- Feature End -->
 
-
-    <!-- Projects Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Our Projects</h6>
-                <h1 class="mb-4">Visit Our Latest Solar And Renewable Energy Projects</h1>
-            </div>
-            <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="col-12 text-center">
-                    <ul class="list-inline mb-5" id="portfolio-flters">
-                        <li class="mx-2 active" data-filter="*">All</li>
-                        <li class="mx-2" data-filter=".first">Solar Panels</li>
-                        <li class="mx-2" data-filter=".second">Wind Turbines</li>
-                        <li class="mx-2" data-filter=".third">Hydropower Plants</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Solar Panels</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Wind Turbines</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item third">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-4.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Hydropower Plants</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-3.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Solar Panels</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-2.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Wind Turbines</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item third">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Hydropower Plants</p>
-                        <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Projects End -->
-
-
-    <!-- Quote Start -->
-    <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
-        <div class="container quote px-lg-0">
-            <div class="row g-0 mx-lg-0">
-                <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/quote.jpg" style="object-fit: cover;" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 quote-text py-5 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="p-lg-5 pe-lg-0">
-                        <h6 class="text-primary">Free Quote</h6>
-                        <h1 class="mb-4">Get A Free Quote</h1>
-                        <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Mobile" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control border-0" placeholder="Special Note"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quote End -->
-
-
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Team Member</h6>
-                <h1 class="mb-4">Experienced Team Members</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item rounded overflow-hidden">
-                        <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-1.jpg" alt="">
-                            <div class="team-social w-25">
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
-                        <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-2.jpg" alt="">
-                            <div class="team-social w-25">
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item rounded overflow-hidden">
-                        <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-3.jpg" alt="">
-                            <div class="team-social w-25">
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
-
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Testimonial</h6>
-                <h1 class="mb-4">What Our Clients Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-1.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-2.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-3.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Address</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Quick Links</h5>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Our Services</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">Support</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Project Gallery</h5>
-                    <div class="row g-2">
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-1.jpg" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-2.jpg" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-3.jpg" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-4.jpg" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-5.jpg" alt="">
-                        </div>
-                        <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-6.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="copyright">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
-
+<!-- 슬라이드 -->
+	<div id="carouselExampleInterval" class="carousel slide"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active" data-bs-interval="10000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/cI8SiF/btqjFmjZaut/2R9mbQpxuxVKlt7R8lkJGk/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/NbtUx/btqjAdPaCaj/hG6waxVbS0Ya62xcILA2W1/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/h7DcA/btqjJbIJvZy/auLAPsDnLXcQEMUs32GK11/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/ccnkLH/btqjGVl7Q9p/gSvibw8pJMDdihTCB9aFw1/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">이전</span>
+		</button>
+		<button class="carousel-control-next" type="button"
+			data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">다음</span>
+		</button>
+	</div>
+	
+	<nav:footbar_kim></nav:footbar_kim>
+    
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>

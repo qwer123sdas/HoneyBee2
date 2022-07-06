@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+
+<c:url value="/main" var="mainPageUrl"></c:url>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +134,7 @@ body{
 						<br />
 
 						<div class="shift-a-wrap">
-							<a class="btn btn-secondary" href="index" class="small">메인페이지로 이동</a>
+							<a class="btn btn-secondary" href="${mainPageUrl }" class="small">메인페이지로 이동</a>
 						</div>
 					</div>
 				</div>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -112,5 +113,6 @@ margin: auto;
 			</div>
 		</div>
 	</form>
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

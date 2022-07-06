@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@
 <link href="${appRoot }/resources/webContents/css/style.css"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FAQ : 꿀비</title>
 </head>
 <body>
 	<div class="container">
@@ -70,5 +71,6 @@
 
 		</div>
 	</div>
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>
