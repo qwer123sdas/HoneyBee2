@@ -1,6 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -291,6 +293,7 @@ td {
 	
 </style>
 <body>
+<my:mainNavBar></my:mainNavBar>
 	<!-- Navbar Start -->
 	<nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5"
 		style="background-color: #c49000;">
@@ -649,5 +652,6 @@ td {
 	    
 		
 	</script>
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

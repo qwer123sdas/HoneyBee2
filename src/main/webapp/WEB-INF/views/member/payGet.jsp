@@ -133,6 +133,7 @@ h3 {
 }
 </style>
 <body>
+<my:mainNavBar></my:mainNavBar>
 	<c:url value="/market/get" var="getMarketUrl">
 		<c:param name="marketId" value="${market.marketId }"></c:param>
 	</c:url>
@@ -317,5 +318,7 @@ h3 {
 
 		});
 	</script>
+	
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

@@ -38,6 +38,7 @@
 <title>FAQ : 꿀비</title>
 </head>
 <body>
+<my:mainNavBar></my:mainNavBar>
 	<div class="container">
 		<div class="row">
 			<div class="col">
