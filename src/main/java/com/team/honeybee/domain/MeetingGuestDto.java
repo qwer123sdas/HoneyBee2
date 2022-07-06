@@ -20,6 +20,9 @@ public class MeetingGuestDto {
 	
 	private int cntNum; // 현재 게스트 인원
 	private int guestNum; // 게스트 인원
-	private boolean own; // 신청자만 취소 가능하도록 추가함
+	
+	// 작성자만 수정 가능하도록 추가함
+	// 작성자면 Y , 아니면 N
+	private String own; 
 	
 }

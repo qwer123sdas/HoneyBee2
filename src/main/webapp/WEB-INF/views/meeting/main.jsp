@@ -111,7 +111,7 @@
 	color: #444;
 }
 
-.mainImage {
+.mainImage1 {
 	object-fit: cover;
 	width: 100%;
 	height: 240px;
@@ -163,11 +163,11 @@
 	</form>
 
 	<!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5">
+    <div class="container-fluid page-header py-5" style="margin-top: 0px;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown text-center">모두의행동</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb" style="margin-left: 490px; font-size: 150%">
+            <nav aria-label="breadcrumb animated slideInDown text-center" style="margin-left: 490px; font-size: 150%">
+                <ol class="breadcrumb text-center" >
                     <li class="breadcrumb-item"><a class="text-white" href="${appRoot }/meeting/insert">꿀비에게 제안하기</a></li>
                     <li class="breadcrumb-item"><a class="text-white" href="#" id="commentAdd"  >후기작성</a></li>
                 </ol>
@@ -244,8 +244,10 @@
 	          <c:forEach items="${meetingList }" var="meeting">
 			 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
 					<div class="service-item rounded overflow-hidden h-100">
-			            <img class="mainImage img-fluid"  src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="">
-			                <div class="position-relative p-4 pt-0">
+								<img class="img-fluid mainImage1"
+									src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}"
+									style="width: 350px; height: 190px;" alt="">
+								<div class="position-relative p-4 pt-0">
 			                    <div class="meetingStatus service-icon">
 			                         <span class="meetingCurrent"><i class="fa-solid fa-temperature-three-quarters">모여라</i></span>
 			                    </div><!-- 

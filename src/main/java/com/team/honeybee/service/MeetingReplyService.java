@@ -31,15 +31,14 @@ public class MeetingReplyService {
 	
 	// 부모 댓글 입력
 	public boolean insertMeetingReply(MeetingReplyDto reply) {
-		
+
 		int cnt = mapper.insertMeetingReply(reply);
 		return cnt == 1;
 	}
 
 	// 자식 댓글 입력 
 	public void insertMeetingReplyChild(MeetingReplyDto reply) {
-		// TODO Auto-generated method stub
-		
+
 		System.out.println("getRefNum == " + reply.getRefNum());
 		System.out.println("getMeetingId == " + reply.getMeetingId());
 		System.out.println("getMeetingReplyId == " + reply.getMeetingReplyId());

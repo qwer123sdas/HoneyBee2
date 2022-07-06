@@ -29,6 +29,8 @@ public class MeetingReplyDto {
 	
 	// 댓글별 좋아요 갯수
 	private int favoriteCount; // 좋아요 디비
+	
+	private boolean own; 
 
 	public String refineInserted() {
 		// 24시간 이내면 시간만

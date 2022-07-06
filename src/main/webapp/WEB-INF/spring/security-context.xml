@@ -23,6 +23,16 @@
 		<security:intercept-url pattern="/member/myBoard" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/member/myReview" access="isAuthenticated()"/>
 		
+		<!-- meetingBoard 제안서, 수정 권한 -->
+		<security:intercept-url pattern="/meeting/insert" access="isAuthenticated()"/> 
+		<security:intercept-url pattern="/meeting/modify" access="isAuthenticated()"/> 
+		<!-- meetingReply 작성, 수정, 삭제 권한 -->
+		<security:intercept-url pattern="/meeting/reply/insertReplyP" access="isAuthenticated()"/> 
+		<security:intercept-url pattern="/meeting/reply/insertReplyC" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/meeting/reply/updateReply" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/meeting/reply/deleteReply" access="isAuthenticated()"/>
+		<!-- meetingBoardGuest 수정, 삭제 권한 ResponseEntity로 처리함 -->
+		
 		<security:headers>
        		<security:frame-options disabled="true"></security:frame-options>
     	</security:headers>

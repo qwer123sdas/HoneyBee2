@@ -117,7 +117,7 @@ public class MeetingController {
 		
 		// 게스트 ajax처리
 		// model.addAttribute("meetingGuest", guest);
-		
+		System.out.println();
 		return "/meeting/board";
 	}
 	
@@ -136,17 +136,22 @@ public class MeetingController {
 	
 	// 게시판 수정전 기존 게시물 선택, 기존 해시태그
 	@PostMapping("modify/{meetingId}")
-	public String getMeetingBoardModify(@PathVariable int meetingId, Model model) {
+	public String getMeetingBoardModify(@PathVariable int meetingId, Principal principal, Model model) {
 		
-		MeetingDto board = service.getBoardByMeetingId(meetingId);
+		// 수정 게시물 정보얻기
+		MeetingDto oldBoard = service.getBoardByMeetingId(meetingId);
 		
-		String hashTags = "";
-		for(int i = 0; i < board.getHashTag().size(); i++) {
-			hashTags += "#" + board.getHashTag().get(i);
+		// 게시물 작성자와 principal과 비교해서 같을때만 진행
+		if(oldBoard.getMemberId().equals(principal.getName())) {
+			
+			String hashTags = "";
+			for(int i = 0; i < oldBoard.getHashTag().size(); i++) {
+				hashTags += "#" + oldBoard.getHashTag().get(i);
+			}
+			
+			model.addAttribute("hashTags", hashTags);
+			model.addAttribute("meeting", oldBoard);
 		}
-		
-		model.addAttribute("hashTags", hashTags);
-		model.addAttribute("meeting", board);
 		
 		return "meeting/modify";
 		

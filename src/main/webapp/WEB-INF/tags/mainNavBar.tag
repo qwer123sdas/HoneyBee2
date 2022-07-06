@@ -23,8 +23,10 @@
 <%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
 <c:url value="/talent/main" var="talentMainUrl"></c:url>
-<c:url value="/meeting/main" var="meetingMainUrl"></c:url>
 <c:url value="/market/list" var="marketListUrl"></c:url>
+<%-- meeting --%>
+<c:url value="/meeting/main" var="meetingMainUrl"></c:url>
+<c:url value="/meeting/board" var="meetingBoardUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 <sec:authorize access="isAuthenticated()">
@@ -160,7 +162,7 @@
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="${mainPageUrl }"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
+		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeyBeeLogo.png" style="width: 80px; height: 80px;" />HoneyBee</h2>
 	</a>
 
 	<button type="button" class="navbar-toggler me-4"
