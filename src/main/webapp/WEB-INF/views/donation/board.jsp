@@ -447,7 +447,7 @@
 										value="${board.donationId }" />
 									<textarea class="form-control loginConfirm" rows="0" cols="80"
 										name="content" placeholder="댓글만 써도 큰 힘이 됩니다. 같이 응원해요♥"></textarea>
-									<button class="rounded loginConfirm">등록</button>
+									<button class="rounded btn btn-warning loginConfirm " style="height:34px; margin-top:4px; color : white;">등록</button>
 								</form>
 							</div>
 							<hr />

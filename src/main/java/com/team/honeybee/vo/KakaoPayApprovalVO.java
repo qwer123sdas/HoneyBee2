@@ -17,6 +17,6 @@ public class KakaoPayApprovalVO {
     
     // 내가 추가
     private String productCode;
-    
+    private int orderId;
 
 }

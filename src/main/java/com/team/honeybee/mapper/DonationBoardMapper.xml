@@ -63,7 +63,7 @@
 		WHERE donation_id = #{donationId}
 	</select>
 	
-	
+	<!-- 메인 게시판 검색 -->
 	<select id="selectDonationBoardBySearch" resultType="com.team.honeybee.domain.DonationBoardDto">
 		SELECT d.donation_id donationId,
 				d.title,

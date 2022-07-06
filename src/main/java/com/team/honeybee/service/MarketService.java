@@ -20,6 +20,7 @@ import com.team.honeybee.domain.MemberDto;
 import com.team.honeybee.domain.OrderPayDto;
 import com.team.honeybee.mapper.MarketMapper;
 import com.team.honeybee.mapper.PointMapper;
+import com.team.honeybee.vo.DonationReplyVO;
 import com.team.honeybee.vo.KakaoPayApprovalVO;
 
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -84,10 +85,15 @@ public class MarketService {
 			return order;
 		}*/
 
-		// 카카오 페이 승인후, db에 저장
-		public void setKakaoPayData(KakaoPayApprovalVO kakaoPayApprovalVo) {
-			mapper.insertKakaoPayData(kakaoPayApprovalVo);
-		}
+	// 마켓 관련 기타 정보 db에 저장
+	public void setKakaoPayETCData(DonationReplyVO donationReplyVO, int orderId) {
+		System.out.println("setKakaoPayETCData");
+		System.out.println(donationReplyVO);
+		System.out.println(orderId);
+		
+		donationReplyVO.setOrderId(orderId);
+		mapper.insertKakaoPayETCData(donationReplyVO);
+	}
 		
 	
 	

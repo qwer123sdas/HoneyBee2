@@ -3,10 +3,13 @@ package com.team.honeybee.controller;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,6 +87,11 @@ public class DonationBoardController {
 		int count =  favoriteService.countHeart(board.getDonationId());
 		model.addAttribute("count", count);
 		
+		
+		// 기간 말료 되면 enable 0으로 바꾸기
+		
+		
+		
 		return "donation/board";
 	}
 	
@@ -100,7 +108,7 @@ public class DonationBoardController {
 		
 	}
 	*/
-	// [임시] 입력 게시판
+	// 입력 게시판
 	@GetMapping("write")
 	public void wirte() {
 

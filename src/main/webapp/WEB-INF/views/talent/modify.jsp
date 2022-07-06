@@ -500,7 +500,7 @@ function showPriceSelect(){
 const add_textbox = () => {
     const box = document.getElementById("box");
     const newP = document.createElement('p');
-    newP.innerHTML = "<input type='text' class='form-control classContent mb-3'> <input type='button' value='삭제' class='btn btn-secondary mb-3' onclick='remove(this)'>";
+    newP.innerHTML = "<input type='text' class='form-control classContent mb-3'> <input type='button' value='삭제' class='btn btn-outline-secondary'  onclick='remove(this)'>";
     box.appendChild(newP);
     
 }

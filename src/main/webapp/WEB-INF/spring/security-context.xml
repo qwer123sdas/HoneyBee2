@@ -22,6 +22,10 @@
 		<security:intercept-url pattern="/member/faqList" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/member/myBoard" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/member/myReview" access="isAuthenticated()"/>
+		
+		<security:headers>
+       		<security:frame-options disabled="true"></security:frame-options>
+    	</security:headers>
 	</security:http>
 	
 	<security:authentication-manager>

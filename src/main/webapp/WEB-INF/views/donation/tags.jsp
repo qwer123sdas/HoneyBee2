@@ -36,7 +36,14 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
 <style>
+	body{
+		font-size: 15px;
+	}
+	a{
+		color : black;
+	}
 	/* 최신순, 오래된 순  */
+
 	.group_fundlist {
 	    position: relative;
 	    width: 1300px;
@@ -63,6 +70,19 @@
 	
 	.group_fundlist .sort_cate .box_sorting.on {
 		color: #444;
+	}
+	
+	.main-title{
+		color : black;
+		font-weight: bold;
+		font-size: 18px;
+		width: 250;
+		height: 47;
+	}
+	.image {
+	object-fit: cover;
+	width: 100%;
+	height: 240px;
 	}
 </style>
 <body>
@@ -122,22 +142,22 @@
          		
                 <c:forEach items="${boardList }" var="list">
 
-		                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+		                <div class="col-md-6 col-lg-4 wow fadeInUp me-4" data-wow-delay="0.3s">
                 			<a href="${appRoot }/donation/board/${list.donationId }">
 			                    <div class="service-item rounded overflow-hidden">
 			                   		<c:if test="${empty list.MPhoto }">
 			  					  		<img class="img-fluid" src="${appRoot }/resources/webContents/img/재능사진1.png" alt="">
 			  					  	</c:if>
 			  					  	<c:if test="${not empty list.MPhoto }">
-			  					  		<img class="img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/mainPhoto/${list.donationId }/${list.MPhoto}" alt="">
+			  					  		<img class="image img-fluid" src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="">
 			  					  	</c:if> 
 			                        <div class="position-relative p-4 pt-0">
 			                            <div class="service-icon">
 			                                <img class="mb-3" src="${appRoot}/resources/webContents/img/donation_${list.topic }.png">
 			                            </div>
-			                            <h4 class="mb-3">${list.title }</h4>
-			                            <p>${list.nickname }</p>
-			                            <p>현재 모금액 : ${list.currentAmount}</p>
+			                            <h4 class="main-title mb-3">${list.title }</h4>
+			                            <p style="color: black;">${list.nickname }</p>
+			                            <p style="color: black;">현재 모금액 : ${list.currentAmount}</p>
 			                            <div class="progress">
 										  <div class="progress-bar bg-warning" role="progressbar" style="width: ${list.achievementRate}%" aria-valuenow="${list.achievementRate}" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
