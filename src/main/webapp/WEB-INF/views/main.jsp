@@ -313,7 +313,7 @@ body{
                             </div>
                             <h4 class="mb-3">재능 판매</h4>
                             <p>꿀비와 함께라면 여러분도 강사님!</p>
-                            <a class="small fw-medium" href="">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="${appRoot }/talent/main">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -326,7 +326,7 @@ body{
                             </div>
                             <h4 class="mb-3">기부</h4>
                             <p>여러분의 행복한 나눔을 통해 어려운 이웃들을 보살펴주세요.</p>
-                            <a class="small fw-medium" href="">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="${appRoot }/donation/main">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -339,7 +339,7 @@ body{
                             </div>
                             <h4 class="mb-3">마켓</h4>
                             <p>즐거운 쇼핑! 기부도 함께!</p>
-                            <a class="small fw-medium" href="">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="${appRoot }/market/list">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>

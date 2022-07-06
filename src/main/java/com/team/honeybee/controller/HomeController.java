@@ -28,6 +28,11 @@ public class HomeController {
 	@Autowired
 	TalentBoardService talentService;
 	
+	@RequestMapping("/")
+	public String index() {
+		return "redirect:/main";
+	}
+	
 	@RequestMapping(value = "main")
 	public void home(Model model) {
 		int sumAmount = service.sumDonationAll();
