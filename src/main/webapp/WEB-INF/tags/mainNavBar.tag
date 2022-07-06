@@ -16,6 +16,8 @@
 <c:url value="/member/initpw" var="initPasswordUrl"></c:url>
 <c:url value="/member/updatePw" var="updatePwUrl"></c:url>
 <c:url value="/member/changePw" var="changePwUrl"></c:url>
+<c:url value="/member/myBoard" var="myBoardUrl"></c:url>
+<c:url value="/member/myReview" var="myReviewUrl"></c:url>
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
 <c:url value="/member/payList" var="payUrl"></c:url>
@@ -223,11 +225,11 @@
 					
 					<div class="dropdown-menu">
 						<a href="${memberInfoUrl }" class="dropdown-item">회원 정보 변경</a>
-						<a href="myBoard" class="dropdown-item">내가 쓴 글</a>
-						<a href="myReview" class="dropdown-item">내가 쓴 후기</a>
-						<a href="payList" class="dropdown-item">구매 내역</a>
-						<a href="faqList" class="dropdown-item">상담 내역</a>
-						<a href="talentPayList" class="dropdown-item">재능 구매 내역</a>
+						<a href="${myBoardUrl }" class="dropdown-item">내가 쓴 글</a>
+						<a href="${myReviewUrl }" class="dropdown-item">내가 쓴 후기</a>
+						<a href="${payUrl }" class="dropdown-item">구매 내역</a>
+						<a href="${faqUrl }" class="dropdown-item">상담 내역</a>
+						<a href="${talentPayUrl }" class="dropdown-item">재능 구매 내역</a>
 						<%--구매내역 상담내역 재능구매내역 추가.  --%>
 						
 					</div>

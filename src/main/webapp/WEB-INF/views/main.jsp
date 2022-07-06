@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>Solartec - Renewable Energy Website Template</title>
+    <title>꿀비 : 기부 마켓 재능 모임을 한곳에!</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -330,25 +330,12 @@ body{
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.5s" id="card">
-                    <div class="service-item rounded overflow-hidden" id="card">
-                        <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa-solid fa-store fa-2xl text-white"></i>
-                            </div>
-                            <h4 class="mb-3">마켓</h4>
-                            <p>즐거운 쇼핑! 기부도 함께!</p>
-                            <a class="small fw-medium" href="${appRoot }/market/list">더 알아보기<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
                  <div class="col-md-6 col-lg-4 h-100 wow fadeInUp" data-wow-delay="0.3s" id="card">
                     <div class="service-item rounded overflow-hidden" id="card">
                         <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
-                               <i class="fa-solid fa-hand-holding-dollar fa-2xl text-white"></i>
+                               <i class="fa-solid fa-handshake-simple fa-2xl text-white"></i>
                             </div>
                             <h4 class="mb-3">모임</h4>
                             <p>작고 소중한 꿀비들의 모임터♥</p>
