@@ -119,12 +119,19 @@ thead tr{
 					</div>
 				</form>
 					<table class="table caption-top table-hover" id="donationReply" style="width: 100%">
+						<colgroup>
+							<col style="width: 15%">
+							<col style="width: 50%">
+							<col style="width: 15%">
+							<col style="width: 10%">
+							<col style="width: 10%">
+						</colgroup>
 						<caption>&#60;내가 쓴 기부 댓글&#62;</caption>
 						<thead>
 							<tr class="headDonationReply">
 								<th scope="col">#</th>
-								<th scope="col">작성자</th>
 								<th scope="col">댓글</th>
+								<th scope="col">작성자</th>
 								<th scope="col">기부금</th>
 								<th scope="col">작성일</th>
 							</tr>
@@ -136,13 +143,13 @@ thead tr{
 										<c:out value="${donationReply.replyId }"></c:out>
 									</td>
 									<td>
-										<c:out value="${donationReply.memberId }"></c:out>
-									</td>
-									<td>
 										<c:out value="${donationReply.content }"></c:out>
 									</td>
 									<td>
-										<c:out value="${donationReply.amount }"></c:out>
+										<c:out value="${donationReply.memberId }"></c:out>
+									</td>
+									<td>
+										<c:out value="${donationReply.amount }"></c:out>원
 									</td>
 									<td>
 										<c:out value="${donationReply.inserted }"></c:out>
@@ -179,12 +186,18 @@ thead tr{
 					</div>
 				</form>
 				<table class="table caption-top table-hover" id="meetingComment" style="width: 100%">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 55%">
+						<col style="width: 20%">
+						<col style="width: 10%">
+					</colgroup>
 					<caption>&#60;내가 쓴 모임 댓글&#62;</caption>
 					<thead>
 						<tr class="headMeetingComment">
 							<th scope="col">#</th>
-							<th scope="col">작성자</th>
 							<th scope="col">후기</th>
+							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
 						</tr>
 					</thead>
@@ -195,10 +208,10 @@ thead tr{
 									<c:out value="${meetingComment.meetingCommentId }"></c:out>
 								</td>
 								<td>
-									<c:out value="${meetingComment.memberId }"></c:out>
+									<c:out value="${meetingComment.content }"></c:out>
 								</td>
 								<td>
-									<c:out value="${meetingComment.content }"></c:out>
+									<c:out value="${meetingComment.memberId }"></c:out>
 								</td>
 								<td>
 									<c:out value="${meetingComment.inserted }"></c:out>

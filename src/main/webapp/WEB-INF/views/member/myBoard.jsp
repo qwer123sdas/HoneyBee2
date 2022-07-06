@@ -8,28 +8,35 @@
 <head>
 <meta charset="UTF-8">
 <!-- dataTable style -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
 <!-- bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <!-- dataTable -->
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <!-- dataTable bootstrap5 -->
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <!-- for drop down animation -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 
 <!-- initializing dataTable -->
 <script>
-	$(document).ready(function () {
-	    $('#donationBoard').DataTable();
+	$(document).ready(function() {
+		$('#donationBoard').DataTable();
 	});
-	$(document).ready(function () {
-	    $('#talentBoard').DataTable();
+	$(document).ready(function() {
+		$('#talentBoard').DataTable();
 	});
-	$(document).ready(function () {
-	    $('#meetingBoard').DataTable();
+	$(document).ready(function() {
+		$('#meetingBoard').DataTable();
 	});
 </script>
 
@@ -38,12 +45,14 @@ body {
 	height: 1600px;
 	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
-caption{
+
+caption {
 	color: #53a0c1;
 	font-weight: bold;
 	font-size: 25px;
 }
-thead tr{
+
+thead tr {
 	color: #fff;
 	background-color: #87d1f4;
 }
@@ -55,14 +64,15 @@ thead tr{
 	<a:boardNavBar current="myBoard"></a:boardNavBar>
 	<div class="main-container">
 		<div class="row">
-			<div class="col-lg-7" style="margin:auto;">
-				<table class="table caption-top table-hover" id="donationBoard" style="width: 100%">
+			<div class="col-lg-7" style="margin: auto;">
+				<table class="table caption-top table-hover" id="donationBoard"
+					style="width: 100%">
 					<colgroup>
-							<col style="width: 15%">
-							<col style="width: 60%">
-							<col style="width: 15%">
-							<col style="width: 10%">
-						</colgroup>
+						<col style="width: 15%">
+						<col style="width: 60%">
+						<col style="width: 15%">
+						<col style="width: 10%">
+					</colgroup>
 					<caption>&#60;기부 게시판&#62;</caption>
 					<thead>
 						<tr class="headDonation">
@@ -75,18 +85,10 @@ thead tr{
 					<tbody>
 						<c:forEach items="${donation }" var="donation">
 							<tr>
-								<td>
-									<c:out value="${donation.donationId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${donation.memberId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${donation.title }"></c:out>
-								</td>
-								<td>
-									<c:out value="${donation.enable }"></c:out>
-								</td>
+								<td><c:out value="${donation.donationId }"></c:out></td>
+								<td><c:out value="${donation.title }"></c:out></td>
+								<td><c:out value="${donation.memberId }"></c:out></td>
+								<td><c:out value="${donation.enable }"></c:out></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -94,31 +96,30 @@ thead tr{
 
 				<hr />
 
-				<table class="table caption-top table-hover" id="talentBoard" style="width: 100%">
+				<table class="table caption-top table-hover" id="talentBoard"
+					style="width: 100%">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 60%">
+						<col style="width: 15%">
+						<col style="width: 10%">
+					</colgroup>
 					<caption>&#60;재능판매 게시판&#62;</caption>
 					<thead>
 						<tr class="headTalent">
 							<th scope="col">#</th>
-							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
 							<th scope="col">enable</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${talent }" var="talent">
 							<tr>
-								<td>
-									<c:out value="${talent.talentId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${talent.memberId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${talent.title }"></c:out>
-								</td>
-								<td>
-									<c:out value="${talent.enable }"></c:out>
-								</td>
+								<td><c:out value="${talent.talentId }"></c:out></td>
+								<td><c:out value="${talent.title }"></c:out></td>
+								<td><c:out value="${talent.memberId }"></c:out></td>
+								<td><c:out value="${talent.enable }"></c:out></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -126,31 +127,30 @@ thead tr{
 
 				<hr />
 
-				<table class="table caption-top table-hover" id="meetingBoard" style="width: 100%">
+				<table class="table caption-top table-hover" id="meetingBoard"
+					style="width: 100%">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 60%">
+						<col style="width: 15%">
+						<col style="width: 10%">
+					</colgroup>
 					<caption>&#60;모임 게시판&#62;</caption>
 					<thead>
 						<tr class="headMeeting">
 							<th scope="col">#</th>
-							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
 							<th scope="col">enable</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${meeting }" var="meeting">
 							<tr>
-								<td>
-									<c:out value="${meeting.meetingId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${meeting.memberId }"></c:out>
-								</td>
-								<td>
-									<c:out value="${meeting.title }"></c:out>
-								</td>
-								<td>
-									<c:out value="${meeting.enable }"></c:out>
-								</td>
+								<td><c:out value="${meeting.meetingId }"></c:out></td>
+								<td><c:out value="${meeting.title }"></c:out></td>
+								<td><c:out value="${meeting.memberId }"></c:out></td>
+								<td><c:out value="${meeting.enable }"></c:out></td>
 							</tr>
 						</c:forEach>
 					</tbody>
