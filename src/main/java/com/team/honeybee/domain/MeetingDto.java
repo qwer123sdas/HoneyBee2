@@ -42,7 +42,8 @@ public class MeetingDto{
 	private String folderName;
 	
 	// 작성자만 수정 가능하도록 추가함
-	private boolean own; 
+	// 작성자면 Y , 아니면 N
+	private String own; 
 
 	private int enable;
 

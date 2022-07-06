@@ -1,10 +1,12 @@
 package com.team.honeybee.controller;
 
+import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,17 +37,18 @@ public class MeetingGuestController {
 	
 	// 꿀비 모임 정해진 인원수 만큼 게스트 등록받기
 	@Transactional
-	@PostMapping("addGuest")
+	@RequestMapping("addGuest")
 	public ResponseEntity<String> meeintGuestInfo(MeetingGuestDto guest,
 			@RequestParam(value = "meetingId", defaultValue = "0") int meetingId,
 			Principal principal) {
 
-		if (principal == null) { // 로그인 페이지로 이동하기로 변경하기
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		} else {
+		if (principal != null) {
 			// 로그인 회원 아이디값 넣기
 			List<String> guestList = new ArrayList<>();
 			guestList.add(principal.getName());
+		} else {  // 로그인 페이지로 이동하기로 변경하기
+			
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
 		}
 		System.out.println("로그인 회원" + principal.getName());

@@ -95,6 +95,7 @@
 		   SET content = #{content}
 		 WHERE meeting_id = #{meetingId}
 		   AND meeting_reply_id = #{meetingReplyId}
+		   AND member_id = #{memberId}
 	</update>
 	
 	<!-- 댓글 삭제(화면에만 삭제처리, DB에는 남아있음) -->
@@ -102,6 +103,7 @@
 		UPDATE MeetingReply 
 		   SET delete_info = 'Y' <!-- 삭제된 상태는 Y 할당 -->
 		 WHERE meeting_reply_id = #{meetingReplyId}
+		   AND member_id = #{memberId}
 	</update>
 	
 

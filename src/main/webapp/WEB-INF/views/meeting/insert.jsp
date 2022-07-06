@@ -67,9 +67,6 @@
 
 <!-- daum 주소검색 api 추가 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- summernote  -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <style>
 .is-invalid ~.invalid-feedback, .is-invalid ~.invalid-tooltip,
@@ -148,7 +145,7 @@
 
 
 	<!-- Page Header Start -->
-	<div class="container-fluid bg-warning bg-gradient py-5 mt-4">
+	<div class="container-fluid bg-warning bg-gradient py-5">
 		<div class="container bg-warning bg-gradient text-dark ">
 			<h1 class="display-2 text-dark mt-5 animated slideInDown text-center" >모두의행동을 제안해주세요!</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
@@ -279,7 +276,7 @@
 							<div class="invalid-feedback">필수 입력 사항입니다.</div>
 						</div>
 					
-						<div class="col-md-5" style="margin-left: 130px;">
+						<div class="col-md-5" style="margin-left: 155px;">
 							<label for="expired" class="form-label">
 								<h3 class="lead">
 									<i class="fa-regular fa-7"></i>
@@ -389,8 +386,11 @@
 
 	<!-- foot bar -->
 	<nav:footbar_kim></nav:footbar_kim>
-
-
+	
+	<!-- summernote  -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	
 	<!-- JavaScript Libraries -->
 	<!--Jquery -->
 	<script

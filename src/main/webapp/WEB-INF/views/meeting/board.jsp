@@ -2,11 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<!-- security tag 설정 -->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+
 
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -301,7 +306,7 @@
 
 
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-5 mb-5">
+	<div class="container-fluid page-header py-5 mb-5" style="margin-top: 0px;">
 		<div class="container py-5">
 			<h1 class="display-3 text-white mb-3 animated slideInDown">기부 모임</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
@@ -332,8 +337,8 @@
 							</c:forEach>
 							<!-- 해쉬태그 -->
 							<a class="badge bg-secondary text-decoration-none link-light"
-								href="#!">${meeting.tag }</a>
-							<p class="fs-5 mb-4">host by. ${meeting.memberId }</p>
+								 href="#!">${meeting.tag }</a>
+							
 						</div>
 					</header>
 					<!-- Post title End -->
@@ -343,6 +348,8 @@
 						<img class="img-fluid rounded"
 							src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}" alt="..." />
 					</figure>
+					<p class="fs-5 mb-4 " style=" padding-left: 700px;">host by. ${meeting.memberId }</p>
+					
 					<!-- 화면 분활용 네브탭 -->
 					<ul class="nav nav-tabs nav-fill justify-content-center ">
 					  <li class="nav-item">
@@ -383,7 +390,8 @@
 							<!-- 댓글 입력 form 출력 ajax 처리-->
 								<div class="input-group mb-4">
 									<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
-									<input id="insertReplyParentsInput" class="form-control"
+									<!-- onclick="insertReply_click()" 로그인 안한 회원 자바스크립트로 막기 -->
+									<input id="insertReplyParentsInput" class="form-control" onclick="insertReply_click()"
 										type="text" name="content" placeholder="댓글을 작성하시려면 로그인 해주세요." />
 									<button class="btn btn-primary" id="insertReplyParentsButton" > <!-- style="display: none" -->
 										<i class="fa-solid fa-circle-check"></i>
@@ -429,32 +437,22 @@
 									</c:forEach> 
 									--%>
 								</ul>
-								<%-- 신청자만 신청완료 버튼 보임 
-								<sec:authorize access="isAuthenticated()">
-									<sec:authentication property="principal" var="principal"/>
-										<c:if test="${principal.username == meeting.guest }" >
+								<%-- 신청자만 신청완료 버튼 보임 --%>
+								
 											<button type="button" id="insertGuestBtn1"
 												class="btn btn-lg btn-primary mt-5 w-100">
-											<i class="fa-solid fa-heart-circle-check"></i>
-												신청했어요!
+												<i class="fa-solid fa-heart-circle-check"></i>
+												함께할께요!
 											</button>
-										</c:if>
-								</sec:authorize>
-								--%>
-								<c:if test="${not empty message }">
-									<div class="alert alert-primary">${message }</div>
-								</c:if>
-								<button type="button" id="insertGuestBtn1"
-									class="btn btn-lg btn-primary mt-5 w-100">
-									<i class="fa-solid fa-heart-circle-check"></i>
-									함께할께요!
-								</button>
+
+
 								
 								<hr>
 								
 								<h5 style="text-align: center;">모두의행동 안내</h5>
 								<ul class="meetingGuestInfo ">
 									<li>주최자 : ${meeting.memberId }</li>
+									<li>모임인원 : ${meeting.guestNum }명</li>
 									<li>모임일시 : ${meeting.meetingDate }</li>
 									<li>모임장소 : <br>
 										${meeting.address }<br>${meeting.detailAddress }</li>
@@ -472,16 +470,20 @@
 								
 								<hr>
 								
-								<!-- 게시글 수정버튼 추가 -->
-								<%-- <c:if test="${meeting.own == 1 }">
-				            	</c:if> --%>
-						           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
-						            	<input type="hidden" name="meetingId" value="meetingId" />
-						            	<input type="hidden" name="memberId" value="memberId" />
-										<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100" >
-										 <i class="fa-solid fa-list-ul">모두의행동 수정</i>
-										</button>
-						            </form> 
+							<!-- 작성자만 버튼 볼 수 있도록 수정 -->
+							<sec:authorize access="isAuthenticated()">
+								<!-- el에서 사용가능하도록 변수(page영역)에 담아주기 -->
+								<sec:authentication property="principal" var="principal"/>
+					            	<c:if test="${principal.username == meeting.memberId}" >
+							           <form action="${appRoot }/meeting/modify/${meeting.meetingId}" method="post">
+							            	<input type="hidden" name="meetingId" value="meetingId" />
+							            	<input type="hidden" name="memberId" value="memberId" />
+											<button type="submit" id="modifyBtn1" class="btn btn-light mt-5 w-100" >
+											 <i class="fa-solid fa-list-ul">모두의행동 수정</i>
+											</button>
+							            </form> 
+									</c:if>
+								</sec:authorize>
 							</div>
 						</div>
 					</div>
@@ -498,8 +500,18 @@
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
 
+<!-- 로그인 안한 회원 댓글 입력 막기 -->
+<sec:authorize access="not isAuthenticated()">
+<script type="text/javascript">
+	function insertReply_click() {
+		alert('로그인해야 커뮤니티 이용이 가능합니다.');
+		location.href = "${appRoot }/member/login";
+	}
+</script>
+</sec:authorize>
 
 <script>
+
 $(document).ready(function() {
 
 	function showMap() {
@@ -610,19 +622,7 @@ $(document).ready(function() {
 		        modal.style.display = "none"
 		    }
 		})
-		
-	// 로그인 하지 않은 회원 댓글 입력시 로그인 창으로 이동
-	$("#insertReplyPContentInput1").click(function(e) {
-		e.preventDefault();
-		if('${meeting.memberId}' == null) {
-			$("#insertReplyPContentInput1").attr("disabled");
-			alert("로그인 후 작성하세요") // 나중에 로그인창 경로로 이동해야함
-			
-		} 
-	});
 	
-
-		
 	// guestList 가져오는 ajax 요청
 	const guestList = function() {
 		 const data = {meetingId : '${meeting.meetingId}'};
@@ -702,8 +702,16 @@ $(document).ready(function() {
 				
 				// $("#guestWiget").load("${appRoot }/meeting/board/addGuest #guestWiget");
 			},
-			error :function() {
+			error :function(xhr, error, text) {
+				console.log(xhr.status);
+				console.log(error);
+				console.log(text);
 				console.log("신청실패");
+				
+				if (xhr.status == '401') {
+					alert('로그인해야 신청 가능합니다.');
+					location.href = "${appRoot }/member/login";
+				}
 			}
 			
 			
@@ -770,6 +778,18 @@ $(document).ready(function() {
 									replyTextClassName="";
 								}			
 								
+								// 댓글 수정, 삭제시 권한처리
+								// ""; 빈스트링으로 시작하면 false가 기본값이다.
+								let deleteModifyLink = "";
+								// own으로 댓글작성자 판별하여 true일때만 값이 변경되서 보이게됨
+								if (list[i].own) {
+									deleteModifyLink = `
+									    <a href="#!" class="replyUpdate"><span>수정</span></a>
+									    <a href="#!" class="replyDelete"
+									    	data-reply-id="\${list[i].meetingReplyId}" 
+									    	data-reply-status="\${list[i].deleteInfo}"><span>삭제</span></a>
+									`;
+								}
 								
 								const replyElement = $(`<div class='d-flex mb-4 replyForm1\${list[i].meetingReplyId }' style='margin-left: \${leftMargin}'/>`);
 								replyElement.html(`
@@ -791,11 +811,7 @@ $(document).ready(function() {
 												<div class="dropdown moreReplySelect\${list[i].meetingReplyId}" >
 												  <span class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></span>
 												  <div class="dropdown-content" style="position: z-index: 2;">
-												    <a href="#!" class="replyUpdate"><span>수정</span></a>
-												    <a href="#!" class="replyDelete" 
-												    	data-reply-id="\${list[i].meetingReplyId}" 
-												    	data-reply-status="\${list[i].deleteInfo}"><span>삭제</span></a>
-												    <a href="#!">신고</a>
+													\${deleteModifyLink}
 												  </div>
 												</div>
 											</div>
@@ -825,7 +841,7 @@ $(document).ready(function() {
 												</a>
 												<a class="replyLike" href="#!">
 													<i class="fa-regular fa-heart"></i>
-													<em class="replyLikeCnt">0</em>
+													<em class="replyLikeCnt"></em>
 												</a>
 											</div>
 										</div>
@@ -909,22 +925,23 @@ $(document).ready(function() {
                     				
                     				const data = $(this).closest(".replyUpdateAreaForm").serialize();
                     					
-                    					$.ajax({
-                    						url : "${appRoot}/meeting/reply/updateReply",
-                    						type : "post",
-                    						data : data,
-                    						success : function(data) {
-                    							alert("댓글 수정이 완료되었습니다!");
-                    	        				console.log("댓글 수정 성공");
-                    	        				// 댓글 목록 실행 
-                    	        				parentsReplyList(); 
-                    						},
-                    						error : function() {
-                    							alert("댓글을 수정할 수 없습니다.");
-                    							console.log("댓글 수정 실패");
-                    						}
-                    					}); // 댓글 수정 ajax end 
-                    				
+                 
+	                    					$.ajax({
+	                    						url : "${appRoot}/meeting/reply/updateReply",
+	                    						type : "post",
+	                    						data : data,
+	                    						success : function(data) {
+		                    							alert("댓글 수정이 완료되었습니다!");
+		                    	        				console.log("댓글 수정 성공");
+		                    	        				// 댓글 목록 실행 
+		                    	        				parentsReplyList(); 
+	                    						},
+	                    						error : function() {
+	                    							alert("댓글을 수정할 권한이 없습니다.");
+	                    							console.log("댓글 수정 실패");
+	                    						}
+	                    					}); // 댓글 수정 ajax end 
+                    			
                     			}); // 댓글 수정 update end
 								
                     			console.log("여기가 삭제야");
@@ -935,7 +952,8 @@ $(document).ready(function() {
 									
 									const data = { meetingId : '${meeting.meetingId}',
 													meetingReplyId : $(this).attr("data-reply-id"),
-													deleteInfo : $(this).attr("data-reply-status")};
+													deleteInfo : $(this).attr("data-reply-status"),
+													own : '${meeting.own}'};
 					
 									console.log(data);	
 									if(confirm("삭제하시겠습니까?")) {
