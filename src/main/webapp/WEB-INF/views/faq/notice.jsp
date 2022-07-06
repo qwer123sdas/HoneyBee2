@@ -48,13 +48,13 @@ color: #ffc107;
 
 </style>
 <body>
-
+<my:mainNavBar></my:mainNavBar>
 	<div class="container">
 		<div class="row">
 			<my:faq></my:faq>
 			<div class="col-8 mt-5 ms-5">
 			
-			<h1>공지사항</h1>
+			<h1  style="color:#ffc107;">공지사항</h1>
 			<table class="table">
 			<colgroup>
 							<col style="width: 10%">
@@ -84,6 +84,7 @@ color: #ffc107;
 			</div>
 		</div>
 	</div>
-
+	<my:footbar_kim></my:footbar_kim>
 	</body>
+	
 </html>
