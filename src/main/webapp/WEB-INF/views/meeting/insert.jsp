@@ -5,7 +5,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -143,6 +143,8 @@
 	</div>
 	<!-- Spinner End -->
 
+	<!-- Nav bar -->
+	<my:mainNavBar current="meetingMain"></my:mainNavBar>
 
 
 	<!-- Page Header Start -->
@@ -154,8 +156,6 @@
 	</div>
 	<!-- Page Header End -->
 
-	<!-- Nav bar -->
-	<nav:navbar></nav:navbar>
 
 		<div class="container col-15">
 			<div class="py-5 text-center">

@@ -5,6 +5,7 @@
 <% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -43,7 +44,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     
-</head>
 <style>
 .row .g-4 #meetingList {
 	height: 150px;
@@ -141,6 +141,7 @@
 	height: 50;
 }
 </style>
+</head>
 
 <body>
     <!-- Spinner Start -->
@@ -154,7 +155,6 @@
 
    	<!-- Nav bar  -->
 	<my:mainNavBar current="meetingMain"></my:mainNavBar>
-	<nav:navbar></nav:navbar>
 	
 	<!-- 후기 관련 내용 form 전송 -->
 	<form id="commentAddForm1" action="${appRoot }/meeting/commentAdd"

@@ -4,7 +4,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("utf-8"); %>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <head>
@@ -297,7 +297,7 @@
 
 
 	<!-- Nav bar  -->
-	<nav:navbar></nav:navbar>
+	<my:mainNavBar current="meetingMain"></my:mainNavBar>
 
 
 	<!-- Page Header Start -->
