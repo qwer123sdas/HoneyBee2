@@ -208,7 +208,7 @@ td {
 }
 
 .OrderHeadr {
-	margin: 32px 0px;
+	margin-top: 0px;
 }
 
 .OrderHeadr-Text {
@@ -269,7 +269,7 @@ td {
 
 .container2 {
 	position: relative;
-	top: 120px;
+	top: 30px;
 }
 
 .container3 {
@@ -517,6 +517,7 @@ td {
 			</div>
 		</div>
 	</div>
+
 	<script>
     /* 최종 금액 */	
 	let payment = function(){

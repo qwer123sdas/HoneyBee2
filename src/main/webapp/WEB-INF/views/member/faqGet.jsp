@@ -61,12 +61,25 @@
 						name="content" readonly>${faq.content }</textarea>
 				</div>
 				<br />
+				<c:if test="${not empty faq.fileName }">
+					<c:forEach items="${faq.fileName }" var="image">
+							<%
+							String file = (String) pageContext.getAttribute("image");
+							String encodedFileName = java.net.URLEncoder.encode(file, "utf-8");
+							pageContext.setAttribute("encodedFileName", encodedFileName);
+							%>
+							<img
+								src="${imageUrl }/faq/${faq.questionId }/${encodedFileName }"
+								class="d-block w-100" alt="Card image cap">
+					</c:forEach>
+				</c:if>
 				<div>
-					<label for="form-label" class="form-label"> 이메일 :</label>
-					<input type="form-control" id="email" cols="30"
+					<label for="email" class="form-label"> 이메일 :</label>
+					<input class="form-control" id="email"
 						value="${faq.email }" readonly />
 					<br />
 				</div>
+				
 
 			</div>
 
