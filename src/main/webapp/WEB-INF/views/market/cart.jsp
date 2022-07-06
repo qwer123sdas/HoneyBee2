@@ -1,6 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +123,6 @@
 }
 	</script>
 <style>
-
 .mainImg {
 	display: block;
 	width: 120px;
@@ -207,19 +208,17 @@ td {
 }
 
 .OrderHeadr {
-	margin: 32px 0px;
+	margin-top: 0px;
 }
 
 .OrderHeadr-Text {
 	font-weight: bold;
 	font-size: 24px;
-
 }
 
 .OrderTitle {
 	font-size: 18px;
 	font-weight: bold;
-	
 }
 
 .Order-wrapper {
@@ -270,7 +269,7 @@ td {
 
 .container2 {
 	position: relative;
-	top: 120px;
+	top: 30px;
 }
 
 .container3 {
@@ -287,31 +286,14 @@ td {
 	width: 100%;
 	height: 100%;
 }
-
-	
 </style>
 <body>
-	<!-- Navbar Start -->
-	<nav class="navbar navbar-expand-lg fixed-top py-lg-0 px-lg-5"
-		style="background-color: #c49000;">
-		<a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-			<h1 class="text-primary m-0">Baker</h1>
-		</a>
-		<button type="button" class="navbar-toggler me-4"
-			data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-	</nav>
-
-
+	<my:mainNavBar></my:mainNavBar>
 	<!-- Page content-->
 	<div class="container container2">
 
 		<div class="OrderHeadr">
-			<h1 class="OrderHeadr-Text">
-				결제하기
-				</h1>
+			<h1 class="OrderHeadr-Text">결제하기</h1>
 		</div>
 
 		<div class="row">
@@ -335,7 +317,7 @@ td {
 								</div>
 							</div>
 						</div>
-						
+
 
 
 						<!-- 주문 옵션 테이블 I-->
@@ -383,7 +365,7 @@ td {
 
 				</div>
 			</div>
-		
+
 
 			<!-- Side widgets-->
 			<div class="col-lg-4">
@@ -396,9 +378,10 @@ td {
 							<span>총 금액</span> <span class="priceTotal" id="priceTotal">${market.price }</span>원
 
 						</h5>
-						<h5 class="OrderSummary-price-wrapper d-flex justify-content-between">
-							<span class="me-auto">포인트 할인</span>
-					        <span class="me-1" id="pointTotal">0</span>원
+						<h5
+							class="OrderSummary-price-wrapper d-flex justify-content-between">
+							<span class="me-auto">포인트 할인</span> <span class="me-1"
+								id="pointTotal">0</span>원
 						</h5>
 
 						<div class="OrderSummary-divider"></div>
@@ -432,54 +415,53 @@ td {
 			<!-- 구매자 정보 -->
 			<div class="col-lg-8">
 				<!-- Featured blog post-->
+				<div class="card mb-4"></div>
+			</div>
+			<!-- 포인트 사용 -->
+			<div class="col-lg-8">
+				<!-- Featured blog post-->
 				<div class="card mb-4">
-					
+
+					<section class="OrderInfo">
+						<!-- 주문 INFO  -->
+						<div>
+							<h3 class="OrderTitle mb-4">포인트 사용</h3>
+							<div class="row">
+								<div class="col-2">
+									<h5>포인트</h5>
+								</div>
+								<div class="col-10">
+									<div class="input-group mb-2" style="width: 400px">
+										<input class="form-control" type="number" value=""
+											id="usePoint" />
+										<button class="btn btn-outline-dark" id="usePointButton">사용하기</button>
+									</div>
+									<p style="font-size: 13px;">꿀비 보유포인트 : ${memberPoint }</p>
+								</div>
+							</div>
+						</div>
+					</section>
 
 				</div>
 			</div>
-			<!-- 포인트 사용 -->
-            <div class="col-lg-8">
-                <!-- Featured blog post-->
-                <div class="card mb-4">
-                
-                	<section class="OrderInfo">
-	                 	<!-- 주문 INFO  -->
-	                 	<div>
-	                 		<h3 class="OrderTitle mb-4">포인트 사용</h3>
-	                 		<div class="row">
-	                 			<div class="col-2">
-	                 				<h5>포인트</h5>
-	                 			</div>
-	                 			<div class="col-10">
-	                 				<div class="input-group mb-2" style="width: 400px">
-								<input class="form-control" type="number" value="" id="usePoint"/> 
-								<button class="btn btn-outline-dark" id="usePointButton">사용하기</button>
-							</div>
-							<p style="font-size: 13px;">꿀비 보유포인트 : ${memberPoint }</p>
-	                 			</div>
-	                 		</div>
-	                 	</div>
-        			</section>
-          
-                </div>
-            </div>
-			
+
 			<div class="col-lg-8">
 				<!-- Featured blog post-->
 				<div class="card mb-4">
 					<section class="OrderInfo">
-						<h3 >주문자 정보</h3>
+						<h3>주문자 정보</h3>
 						<table class="type05">
 							<tr>
 								<th scope="row">받으시는 분</th>
-								<td><label class="form-label" for="input1"></label> 
-								<input class="form-control" type="text" id="orderName" /></td>
+								<td><label class="form-label" for="input1"></label> <input
+									class="form-control" type="text" id="orderName" /></td>
 							</tr>
 							<th>주소</th>
 							<td><input size="50" class="address1_input" id="postCode"
 								readonly="readonly"> <a class="address_search_btn"
-								onclick="execution_daum_address()" style="background-color:#fbc02d; color:black; border: 1px solid #444444;">주소찾기</a><br> <input
-								size="50" class="address2_input" id="address"
+								onclick="execution_daum_address()"
+								style="background-color: #fbc02d; color: black; border: 1px solid #444444;">주소찾기</a><br>
+								<input size="50" class="address2_input" id="address"
 								readonly="readonly"><br> <input size="50"
 								class="address3_input" id="detailAddress" readonly="readonly">
 							</td>
@@ -535,6 +517,7 @@ td {
 			</div>
 		</div>
 	</div>
+
 	<script>
     /* 최종 금액 */	
 	let payment = function(){
@@ -649,5 +632,6 @@ td {
 	    
 		
 	</script>
+	<nav:footbar_kim></nav:footbar_kim>
 </body>
 </html>

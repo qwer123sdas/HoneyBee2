@@ -256,7 +256,10 @@ public class MemberService {
 	
     //상담 내용 불러오기
 	public FaqDto getFaqById(int questionId) {
-		return mapper.getFaq(questionId);
+		FaqDto faq = mapper.getFaq(questionId);
+		List<String> fileNames = mapper.selectFileNameById(questionId);
+		faq.setFileName(fileNames);
+		return faq;
 	}
 	
 	// 기부 게시글

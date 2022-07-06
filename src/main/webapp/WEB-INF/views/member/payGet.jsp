@@ -128,11 +128,12 @@ table.productProfile {
 	border-right: 1px solid #444444;
 }
 
-h3 {
-	color: #ffc107;
-}
+
+	
+
 </style>
 <body>
+<my:mainNavBar></my:mainNavBar>
 	<c:url value="/market/get" var="getMarketUrl">
 		<c:param name="marketId" value="${market.marketId }"></c:param>
 	</c:url>
@@ -156,7 +157,7 @@ h3 {
 				<article>
 					<section>
 						<!-- 주문 상세정보 -->
-						<h3 class="text">주문 상세정보</h3>
+						<h3 class="text" style="color: #ffc107;">주문 상세정보</h3>
 						<div class="orderPage">
 							<div class="orderPageTitle d-flex justify-content-around">
 								<div class="orderPageSub">
@@ -211,7 +212,7 @@ h3 {
 					<br />
 					<section>
 						<!-- 구매/거래 정보 -->
-						<h3>주문/결제 금액 정보</h3>
+						<h3 style="color: #ffc107;">주문/결제 금액 정보</h3>
 						<table class="productProfile">
 							<thead>
 								<tr>
@@ -234,9 +235,9 @@ h3 {
 											<div>꿀비</div>
 										</div>
 									</td>
-									<td style="border: 1px solid #444444; width: 180px">구매적립
+									<td style="border: 1px solid #444444; width: 170px">구매적립
 										｜포인트</td>
-									<td class="table-left" style="width: 160px">${opd.finalPayment}원</td>
+									<td class="table-left" style="width: 145px">${opd.finalPayment}원</td>
 								</tr>
 							</tbody>
 						</table>
@@ -246,7 +247,7 @@ h3 {
 					<section>
 						<div>
 							<!-- 배송지 정보-->
-							<h3>배송지 정보</h3>
+							<h3 style="color: #ffc107;">배송지 정보</h3>
 							
 							<table class="jh-table">
 								<tr>
@@ -317,5 +318,7 @@ h3 {
 
 		});
 	</script>
+	
+
 </body>
 </html>

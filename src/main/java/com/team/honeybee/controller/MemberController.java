@@ -283,6 +283,7 @@ public class MemberController {
 	@GetMapping("faqGet")
 	public void faqGet(int questionId, Model model) {
 		FaqDto faq = service.getFaqById(questionId);
+		System.out.println(faq);
 		model.addAttribute("faq", faq);
 	}
 
