@@ -256,8 +256,6 @@
 .page-header-main {
     background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${board.folderName }/${board.MPhoto}) center center no-repeat;
     background-size: cover;
-    margin-top : 75px;
-    opacity: 0.85;
 }
 .display-3{
 	font-size: 40px;
@@ -294,7 +292,7 @@
 	font-family:"Roboto",sans-serif;
     font-weight: 700;
     line-height: 1.2;
-    font-size:17px;
+    font-size:15px;
     margin-top : 20px;
     margin-left : 3px;
     color: #1A2A36;
@@ -306,7 +304,6 @@
 	background-color: red;
 }
 /* 대댓글 토글버튼 */
-
 .mondy-wide{
  width: 100px;
 }
@@ -440,9 +437,9 @@
 							<!-- 댓글 등록-->
 							<div class="d-flex mb-4">
 								<div class="flex-shrink-0">
-									<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+									<img class="rounded-circle" src="${appRoot}/resources/user_profile_kim.png" alt="..." />
 								</div>
-								<form class="ms-3" action="${appRoot }/donation/reply/add" method="POST">
+								<form class="ms-3" action="${appRoot }/donation/reply/add" method="POST" onsubmit="return checks()">
 									<input type="hidden" name="donationId"
 										value="${board.donationId }" />
 									<textarea class="form-control loginConfirm" rows="0" cols="80"
@@ -485,10 +482,10 @@
 	</c:if>
 	
 	<c:if test="${board.enable ==  1}">
-		<div class="container mt-5" id="wrap_cnt_prom">
+		<div class="container footerbar mt-5" id="wrap_cnt_prom" >
 			<div class="row">
 				<!-- 응원하기 하단바 -->
-				<div class="fund_float loginConfirm">
+				<div class="fund_float loginConfirm" style=" width: 730px;">
 					<a class="btn_c heart"> 
 						<span class="ico_cheer">
 							<img id="heart" src="${appRoot }/resources/heart.png" style="margin-bottom: 15px"/>
@@ -503,7 +500,7 @@
 							공유
 						</span>
 					</a> 
-					<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1">
+					<a class="btn_d" data-bs-toggle="modal" data-bs-target="#modal1" >
 						<span>기부하기</span>
 					</a>
 				</div>
@@ -520,7 +517,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="donationModalForm" method="post">
+					<form id="donationModalForm" method="post" >
 						<input type="hidden" name="donationId" value="${board.donationId }" /> 
 						<input type="hidden" value="${member.id }" name="id" /> 
 						<label for="" class="form-label">결제금액</label> 
@@ -617,6 +614,9 @@
 			        	} else {
 		                	$('#heart').prop("src", '${appRoot }/resources/heart.png');
 			        	}
+		             },
+		             error : function(){
+		            	 alert("로그인을 해야 합니다.");
 		             }
 			    });
 	        });
@@ -732,7 +732,8 @@
     	    			
     	    			}).fail(function(error){
     	    				console.log("error2");
-    	    				alert(JSON.stringify(error));
+    	    				//alert(JSON.stringify(error));
+    	    				alert("로그인을 해야 합니다.");
     	    			}); 
     	    			
     	    		},
@@ -757,6 +758,8 @@
     			})
     		} */
     		// 로그인 여부 확인
+    		
+    		
 /*     		$('.loginConfirm').click(function(e){
     			e.preventDefault();
     			

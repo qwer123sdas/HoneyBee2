@@ -59,20 +59,24 @@
 	    <!-- Service Start -->
 	<!-- Page Header Start -->
 	
-    <div class="container-fluid  py-5 mb-5">
+    <div class="container-fluid mb-5">
         <div class="container py-5">
+        	<form action="${appRoot }/search"class="d-flex" role="search">
+	            <div class="input-group mb-2" style="width: 600px">
+                    <input type="hidden" name="type" value="${type }" />
+	     			<input class="form-control input-secondary" type="search" name="keyword" value="${keyword }" aria-label="Search">
+	     			<button class="btn btn-warning" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: white"></i></button>
+		     	</div>
+		    </form>
             <ul class="nav nav-tabs nav-fill">
 			  <li class="nav-item">
-			    <a <c:if test="${type=='talent'}"> class="active"</c:if> class="nav-link active" aria-current="page" href="${appRoot }/search?type=donation&keyword=${keyword}">기부</a>
+			    <a <c:if test="${type=='donation'}"> class="active"</c:if> class="nav-link" aria-current="page" href="${appRoot }/search?type=donation&keyword=${keyword}">기부</a>
 			  </li>
 			  <li class="nav-item">
 			    <a <c:if test="${type=='talent'}"> class="active"</c:if>class="nav-link" href="${appRoot }/search?type=talent&keyword=${keyword}">재능판매</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link">기부 번개</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link">꿀비 마켓</a>
+			    <a <c:if test="${type=='meeting'}"> class="active"</c:if>class="nav-link" href="${appRoot }/search?type=meeting&keyword=${keyword}">모두의 행동</a>
 			  </li>
 			</ul>
         </div>
@@ -91,42 +95,60 @@
 	           <c:if test='${type == "donation" }'>
 		           <c:forEach items="${boardList }" var="list">
 			           <div class="col mb-5">
-				            <div class="card border-0  h-100">
-				                <!-- Product image-->
-				               	<img class="image card-img-top rounded-4"  src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="..." />
-				                <!-- Product details-->
-				                <div class="card-body">
-				                    <div class="text">
-				                    	<div class="nickName-body">${list.nickname }</div>
-				                        <!-- Product name-->
-				                        <h5 class="title-body">${list.title }</h5>
-				                        <!-- Product price-->
-				                        
-				                        <!-- 별점 -->
-				                    </div>
-				                </div>
-				            </div>
+			           		<a href="${appRoot }/donation/board/${list.donationId }">
+					            <div class="card border-0  h-100">
+					                <!-- Product image-->
+					               	<img class="image card-img-top rounded-4"  src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/donation/${list.folderName }/${list.MPhoto}" alt="..." />
+					                <!-- Product details-->
+					                <div class="card-body">
+					                    <div class="text">
+					                    	<div class="nickName-body">${list.nickname }</div>
+					                        <!-- Product name-->
+					                        <h5 class="title-body">${list.title }</h5>
+					                    </div>
+					                </div>
+					            </div>
+				            </a>
 			         	</div>
 		         	</c:forEach>
 		         </c:if>
 		        <c:if test='${type == "talent" }'>
 		           <c:forEach items="${boardList }" var="list">
 			           <div class="col mb-5">
-				            <div class="card border-0  h-100">
-				                <!-- Product image-->
-				               	<img class="image card-img-top rounded-4"  src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/talent/${list.folderName }/${list.MPhoto}" alt="..." />
-				                <!-- Product details-->
-				                <div class="card-body">
-				                    <div class="text">
-				                    	<div class="nickName-body">${list.nickname }</div>
-				                        <!-- Product name-->
-				                        <h5 class="title-body">${list.title }</h5>
-				                        <!-- Product price-->
-				                        
-				                        <!-- 별점 -->
-				                    </div>
-				                </div>
-				            </div>
+			           		<a href="${appRoot }/talent/board/${list.talnetId }">
+					            <div class="card border-0  h-100">
+					                <!-- Product image-->
+					               	<img class="image card-img-top rounded-4"  src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/talent/${list.folderName }/${list.MPhoto}" alt="..." />
+					                <!-- Product details-->
+					                <div class="card-body">
+					                    <div class="text">
+					                    	<div class="nickName-body">${list.nickname }</div>
+					                        <!-- Product name-->
+					                        <h5 class="title-body">${list.title }</h5>
+					                    </div>
+					                </div>
+					            </div>
+				            </a>
+			         	</div>
+		         	</c:forEach>
+		         </c:if>
+		         <c:if test='${type == "meeting" }'>
+		           <c:forEach items="${boardList }" var="list">
+			           <div class="col mb-5">
+			           		<a href="${appRoot }/talent/board/${list.meetingId }">
+					            <div class="card border-0  h-100">
+					                <!-- Product image-->
+					               	<img class="image card-img-top rounded-4"  src="https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com/meeting/${list.folderName }/${list.MPhoto}" alt="..." />
+					                <!-- Product details-->
+					                <div class="card-body">
+					                    <div class="text">
+					                    	<div class="nickName-body">${list.nickname }</div>
+					                        <!-- Product name-->
+					                        <h5 class="title-body">${list.title }</h5>
+					                    </div>
+					                </div>
+					            </div>
+				            </a>
 			         	</div>
 		         	</c:forEach>
 		         </c:if>

@@ -88,7 +88,7 @@
 	</select>
 	
 	
-	<!-- [임시] 작성 게시판 -->
+	<!-- 작성 게시판 -->
 	<insert useGeneratedKeys="true" id="dontaionBoardWrite" parameterType="com.team.honeybee.domain.DonationBoardDto"
 			keyColumn="donation_id" keyProperty="donationId">
 		INSERT INTO Donation(title,

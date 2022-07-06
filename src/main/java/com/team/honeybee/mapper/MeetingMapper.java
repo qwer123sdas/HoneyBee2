@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.team.honeybee.domain.MeetingCommentDto;
 import com.team.honeybee.domain.MeetingDto;
+import com.team.honeybee.domain.TalentBoardDto;
 
 public interface MeetingMapper {
 	
@@ -44,6 +45,9 @@ public interface MeetingMapper {
 
 	// 후기 가져오기
 	List<MeetingCommentDto> getCommentList();
+
+	// 검색 기능
+	List<TalentBoardDto> selectMeetingBoardBySearch(String keyword);
 	
 	
 	

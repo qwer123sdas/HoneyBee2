@@ -28,6 +28,9 @@ public class HomeController {
 	@Autowired
 	TalentBoardService talentService;
 	
+	@Autowired
+	MeetingService meetingService;
+	
 	@RequestMapping("/")
 	public String index() {
 		return "redirect:/main";
@@ -50,10 +53,13 @@ public class HomeController {
 		if(type.equals("donation")) {
 			List<DonationBoardDto> boardList = donationService.selectDonationBoardBySearch("%" + keyword + "%");
 			model.addAttribute("boardList", boardList);
-		}else {
+		}else if(type.equals("talent")){
 			List<TalentBoardDto> boardList = talentService.selectTalentBoardBySearch("%" + keyword + "%");
 			model.addAttribute("boardList", boardList);
 			System.out.println(boardList);
+		}else{
+			List<TalentBoardDto> boardList = meetingService.selectMeetingBoardBySearch("%" + keyword + "%");
+			model.addAttribute("boardList", boardList);
 		}
 		
 		
