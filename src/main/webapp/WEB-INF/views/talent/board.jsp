@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -219,7 +220,7 @@ textarea {
     <!-- Spinner End -->
 
 	<!-- Nav bar  -->
-	<nav:navbar_kim></nav:navbar_kim>
+	<my:mainNavBar></my:mainNavBar>
 	<!-- Page Header Start -->
 	<div class="container-fluid page-header-main py-5 mb-5">
 		<div class="container py-5">
