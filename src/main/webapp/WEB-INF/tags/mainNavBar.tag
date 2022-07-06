@@ -216,15 +216,15 @@
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">메인메뉴</a>
 					<ul class="dropdown-menu">
 						<li class="dropdown-submenu">
-							<a href="" class="dropdown-item">모두의행동</a>
+							<a href="${donationMainUrl }" class="dropdown-item">기부하기</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="${meetingInsertUrl }">&nbsp;&nbsp;&nbsp;&nbsp;모임 제안하기</a>
+									<a href="${donationWriteUrl }">&nbsp;&nbsp;&nbsp;&nbsp;기부 제안하기</a>
 								</li>
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a href="" class="dropdown-item">재능기부</a>
+							<a href="${talentMainUrl }" class="dropdown-item">재능기부</a>
 							<ul class="dropdown-menu">
 								<li>
 									<a href="${talentWriteUrl }">&nbsp;&nbsp;&nbsp;&nbsp;재능 제안하기</a>
@@ -232,10 +232,10 @@
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-item">기부하기</a>
+							<a href="${meetingMainUrl }" class="dropdown-item">모두의행동</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="${donationWriteUrl }">&nbsp;&nbsp;&nbsp;&nbsp;기부 제안하기</a>
+									<a href="${meetingInsertUrl }">&nbsp;&nbsp;&nbsp;&nbsp;모임 제안하기</a>
 								</li>
 							</ul>
 						</li>
