@@ -1,7 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ attribute name="current"%>
 
 <c:url value="/board/list" var="listUrl"></c:url>
@@ -21,8 +20,6 @@
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
 <c:url value="/member/payList" var="payUrl"></c:url>
-<c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
-<%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
 <c:url value="/donation/write" var="donationWriteUrl"></c:url>
 <c:url value="/talent/main" var="talentMainUrl"></c:url>
@@ -136,6 +133,13 @@
 	text-align: center;
 	margin: 0 auto;
 }
+
+.btn-primary:first-child{
+	color: #9B9B9B;
+	border-color: #fff59d !important;
+	outline: 0;
+}
+
 </style>
 
 <link rel="stylesheet"
@@ -262,7 +266,6 @@
 						<a href="${myReviewUrl }" class="dropdown-item">내가 쓴 후기</a>
 						<a href="${payUrl }" class="dropdown-item">구매 내역</a>
 						<a href="${faqUrl }" class="dropdown-item">상담 내역</a>
-						<a href="${talentPayUrl }" class="dropdown-item">재능 구매 내역</a>
 						<%--구매내역 상담내역 재능구매내역 추가.  --%>
 						
 					</div>
@@ -271,7 +274,7 @@
 
 			<sec:authorize access="not isAuthenticated()">
 				<li class="nav-item">
-					<a class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" href="${loginUrl }">로그인<i class="fa fa-arrow-right ms-3"></i></a>
+					<a id="loginLink" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" href="${loginUrl }">로그인<i class="fa fa-arrow-right ms-3"></i></a>
 				</li>
 			</sec:authorize>
 

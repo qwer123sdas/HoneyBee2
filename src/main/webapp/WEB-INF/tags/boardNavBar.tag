@@ -20,11 +20,12 @@
 <c:url value="/member/about" var="aboutUrl"></c:url>
 <c:url value="/member/faqList" var="faqUrl"></c:url>
 <c:url value="/member/payList" var="payUrl"></c:url>
-<c:url value="/member/talentPayList" var="talentPayUrl"></c:url>
-<%-- payList,faqList,talentPayList 넣어둠.  --%>
 <c:url value="/donation/main" var="donationMainUrl"></c:url>
+<c:url value="/donation/write" var="donationWriteUrl"></c:url>
 <c:url value="/talent/main" var="talentMainUrl"></c:url>
+<c:url value="/talent/write" var="talentWriteUrl"></c:url>
 <c:url value="/meeting/main" var="meetingMainUrl"></c:url>
+<c:url value="/meeting/insert" var="meetingInsertUrl"></c:url>
 <c:url value="/market/list" var="marketListUrl"></c:url>
 
 <%-- 회원정보링크 --%>
@@ -178,6 +179,7 @@
 }
 .over{
 	color: #000000 !important;
+	background-color: #b0bec5;
 }
 </style>
 
@@ -298,8 +300,6 @@
 						<a href="${myReviewUrl }" class="dropdown-item">내가 쓴 후기</a>
 						<a href="${payUrl }" class="dropdown-item">구매 내역</a>
 						<a href="${faqUrl }" class="dropdown-item">상담 내역</a>
-						<a href="${talentPayUrl }" class="dropdown-item">재능 구매 내역</a>
-						<%--구매내역 상담내역 재능구매내역 추가.  --%>
 						
 					</div>
 				</li>

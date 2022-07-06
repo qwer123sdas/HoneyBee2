@@ -186,7 +186,7 @@ body{
 	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-	                            <i class="fa-solid fa-hand-holding-dollar text-white"></i>
+	                            <i class="fa-solid fa-hand-holding-dollar fa-2xl text-white"></i>
 	                        </div>
 	                        <h1 class="mb-0" data-toggle="counter-up">${sum }</h1>
 	                    </div>
@@ -198,7 +198,7 @@ body{
 	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
-	                            <i class="fa-solid fa-people-group text-white"></i>
+	                            <i class="fa-solid fa-people-group fa-2xl text-white"></i>
 	                        </div>
 	                        <h1 class="mb-0" data-toggle="counter-up">${count }</h1>
 	                    </div>

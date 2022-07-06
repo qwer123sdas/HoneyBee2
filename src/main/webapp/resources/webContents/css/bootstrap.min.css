@@ -2067,7 +2067,7 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-	border-color: #99e1b6;
+	border-color: #fff59d;
 	outline: 0;
 	box-shadow: 0 0 0 .25rem rgba(50, 195, 108, 0.25)
 }
@@ -2492,7 +2492,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-control:valid, .form-control.is-valid {
-	border-color: #198754;
+	border-color: #fbc02d;
 	padding-right: calc(1.5em + .75rem);
 	background-image:
 		url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
@@ -4691,13 +4691,13 @@ textarea.form-control-lg {
 }
 
 .alert-primary {
-	color: #1e7541;
-	background-color: #d6f3e2;
-	border-color: #c2edd3
+	color: #fbc02d;
+	background-color: #fff59d;
+	border-color: #fff59d
 }
 
 .alert-primary .alert-link {
-	color: #185e34
+	color: #fbc02d;
 }
 
 .alert-secondary {
@@ -4711,9 +4711,9 @@ textarea.form-control-lg {
 }
 
 .alert-success {
-	color: #0f5132;
-	background-color: #d1e7dd;
-	border-color: #badbcc
+	color: #fbc02d;
+	background-color: #fff59d;
+	border-color: #fff59d;
 }
 
 .alert-success .alert-link {
@@ -5063,20 +5063,20 @@ keyframes progress-bar-stripes { 0%{
 }
 
 .list-group-item-primary {
-	color: #1e7541;
-	background-color: #d6f3e2
+	color: #fbc02d;
+	background-color: #fff59d
 }
 
 .list-group-item-primary.list-group-item-action:hover,
 	.list-group-item-primary.list-group-item-action:focus {
-	color: #1e7541;
-	background-color: #c1dbcb
+	color: #fbc02d;
+	background-color: #fff59d
 }
 
 .list-group-item-primary.list-group-item-action.active {
 	color: #fff;
-	background-color: #1e7541;
-	border-color: #1e7541
+	background-color: #fbc02d;
+	border-color: #fbc02d
 }
 
 .list-group-item-secondary {
@@ -5097,25 +5097,25 @@ keyframes progress-bar-stripes { 0%{
 }
 
 .list-group-item-success {
-	color: #0f5132;
-	background-color: #d1e7dd
+	color: #fbc02d;
+	background-color: #fff59d
 }
 
 .list-group-item-success.list-group-item-action:hover,
 	.list-group-item-success.list-group-item-action:focus {
-	color: #0f5132;
-	background-color: #bcd0c7
+	color: #fbc02d;
+	background-color: #fff59d
 }
 
 .list-group-item-success.list-group-item-action.active {
 	color: #fff;
-	background-color: #0f5132;
-	border-color: #0f5132
+	background-color: #fbc02d;
+	border-color: #fbc02d
 }
 
 .list-group-item-info {
 	color: #055160;
-	background-color: #cff4fc
+	background-color: #fff59d
 }
 
 .list-group-item-info.list-group-item-action:hover,
