@@ -137,7 +137,9 @@
 			<header>
 				<div class="logo-wrap">
 					<!-- 로고 -->
-					<img src="${appRoot }/resources/webContents/img/honeybee1.jpg" alt="" />
+					<img src="${appRoot }/resources/webContents/img/honeyBeeLogo.png" 
+						style="width: 150px; height: 150px;" alt="" />
+					<h1 style="font-weight: 900; color: #fbc02d;" >HoneyBee</h1>
 				</div>
 			</header>
 			

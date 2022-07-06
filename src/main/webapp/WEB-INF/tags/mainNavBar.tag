@@ -189,7 +189,8 @@
 	class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
 	<a href="${mainPageUrl }"
 		class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeybee1.jpg" style="width: 200px; height: 75.6px;" /></h2>
+		<h2 class="m-0 text-primary"><img src="${appRoot }/resources/webContents/img/honeyBeeLogo.png" 
+			style="width: 80px; height: 80px;" /><span style="font-weight: 700; color: #fbc02d;">HoneyBee</span></h2>
 	</a>
 
 	<button type="button" class="navbar-toggler me-4"
