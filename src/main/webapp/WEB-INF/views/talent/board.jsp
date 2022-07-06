@@ -39,9 +39,8 @@
 </head>
 <style>
 .page-header-main {
-    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(/honeybee/resources/webContents/img/carousel-2.jpg) center center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(/honeybee/resources/webContents/img/carousel-4.jpg) center center no-repeat;
     background-size: cover;
-    margin-top : 75px;
 }
 .map_wrap {
 	position: relative;
@@ -301,7 +300,7 @@ textarea {
                             		<div class="reviewTitle">서비스 평가</div>
                             		<div class="d-flex justify-content-between">
                             			<div>실제 꿀비를 이용한 구매자들이 남긴 평가입니다.</div>
-                            			<span class="" data-bs-toggle="modal" data-bs-target="#modal1" style="background-color: orange;">나도 평점 주기</span>
+                            			<span class="badge rounded-pill bg-warning text-dark" data-bs-toggle="modal" data-bs-target="#modal1" style="height: 25px;">나도 평점 주기</span>
                             		</div>
                             	</div>
                             </form>
@@ -318,12 +317,6 @@ textarea {
                             
                             <!-- Comment with nested comments-->
                             <div class="d-flex mb-4">
-                                <!-- Parent comment-->
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                </div>
                             </div>
                             <!-- 댓글 끝 -->
                         </div>
@@ -372,8 +365,8 @@ textarea {
                 		</div>
                 		<div class="card-body pt-1">
 	                		<div class="d-grid gap-2">
-								<form action="${appRoot }/order/cart/${board.talentId}" method="Get">
-									<button type="submit" class="btn btn-warning buyButton" >구매하기</button>
+								<form action="${appRoot }/order/cart/${board.talentId}" method="Get" id="buyButtonForm">
+									<button type="submit" class="btn btn-warning buyButton buyButton" >구매하기</button>
 								</form>
 							</div>
 						</div>
@@ -582,10 +575,26 @@ textarea {
 		        	} else {
 		        		 document.getElementById('heart').className = 'fa-regular fa-heart';
 		        	}
+	             },
+	             error : function(){
+	            	 alert("로그인을 해야 합니다.");
 	             }
 		    });
         });
-		
+		$('.buyButton').click(function(e){
+			e.preventDefault();
+			var id = '${principal.name}';
+			if(id == ''){
+				alert("로그인을 해야 합니다.");
+			}else{
+				let form1 = $("#buyButtonForm");
+				let actionAttr = "${appRoot }/order/cart/${board.talentId}";
+				form1.attr("action", actionAttr);
+				
+				form1.submit();
+			}
+			
+		})
 		
 		/* 별점 주기 */
 		var star = 0;

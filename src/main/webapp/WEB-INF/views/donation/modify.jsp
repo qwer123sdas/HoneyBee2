@@ -150,7 +150,8 @@
 	</div>
 	<!-- Spinner End -->
 
-
+	<!-- Nav bar -->
+	<my:mainNavBar></my:mainNavBar>
 
 	<!-- Page Header Start -->
 	<div class="container-fluid bg-warning bg-gradient py-5 mt-4">
@@ -161,8 +162,7 @@
 	</div>
 	<!-- Page Header End -->
 
-	<!-- Nav bar -->
-	<my:mainNavBar></my:mainNavBar>
+	
 
 		<div class="container col-15">
 			<div class="py-5 text-center">

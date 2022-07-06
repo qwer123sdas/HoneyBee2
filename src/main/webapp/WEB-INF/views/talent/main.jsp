@@ -14,9 +14,6 @@
     
     <!--font-awesome  -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,57 +35,56 @@
     <link href="${appRoot }/resources/webContents/css/style.css" rel="stylesheet">
 </head>
 <style>
-	body{
-		font-size: 15px;
-	}
-	a{
-	color : #c49000;
-	}
-/* 카테고리 */
-	.group_catelist {
-	    width: 1000px;
-	    margin: 0 auto;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist {
-		display:inline-block;
-	}
-	
-	.group_catelist .inner_catelist ul {
-	    overflow: hidden;
-	    padding: 57px 5px 48px;
-	    text-align: center;
-	}
-	
-	.group_catelist .inner_catelist li {
-	    float: left;
-	    width: 80px;
-	}
-	
-	.group_catelist .inner_catelist a {
-		display: block;
-		filter: grayscale(100%); 
-	}
-	/*  */
-.page-header-main {
-    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../resources/webContents/img/carousel-2.jpg) center center no-repeat;
-    background-size: cover;
-    margin-top : 75px;
+body{
+	font-size: 15px;
 }
-.image {
+#talentMainSection a{
+color : #c49000;
+}
+/* 카테고리 */
+#talentMainSection .group_catelist {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#talentMainSection .group_catelist .inner_catelist {
+	display:inline-block;
+}
+
+#talentMainSection .group_catelist .inner_catelist ul {
+    overflow: hidden;
+    padding: 57px 5px 48px;
+    text-align: center;
+}
+
+#talentMainSection .group_catelist .inner_catelist li {
+    float: left;
+    width: 80px;
+}
+
+ .group_catelist .inner_catelist a {
+	display: block;
+	filter: grayscale(100%); 
+}
+/*  */
+.page-header-main {
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../resources/webContents/img/carousel-4.jpg) center center no-repeat;
+    background-size: cover;
+}
+#talentMainSection .image {
 	object-fit: cover;
 	width: 100%;
 	height: 150px;
 }
-.nickName-body{
+#talentMainSection .nickName-body{
 	font-size : 14px;
 }
-.title-body{
+#talentMainSection .title-body{
 	font-size : 20px;
 	display: flex;
 }
-.price-body{
+#talentMainSection .price-body{
 	font-size : 17px;
 	font-weight: bold;
 	color : rgb(48, 52, 65);
@@ -96,7 +92,7 @@
 	justify-content: flex-end; 
 }
 /* 별점 */
-.star-body {
+#talentMainSection .star-body {
   font-size: 12px;
   font-family: Times;
   line-height: 1;
@@ -104,16 +100,17 @@
   display: flex;
 	justify-content: flex-end; 
 }
-.catagory-image{
+#talentMainSection .catagory-image{
 	width: 50px;
 	height: 50px;
 }
-	/* 최신순, 오래된 순  */
-	.group_fundlist {
-	    text-align : right;
-	    width: 1300px;
-	    margin: 0 auto 10px;
-	}
+/* 최신순, 오래된 순  */
+
+#talentMainSection .group_fundlist {
+    text-align : right;
+    width: 1300px;
+    margin: 0 auto 10px;
+}
 
 
 </style>
@@ -129,14 +126,14 @@
 	<!-- Nav bar  -->
 	<my:mainNavBar></my:mainNavBar>
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header-main py-5">
+	<div class="container-fluid page-header-main py-5 mb-5">
 		<div class="container py-5">
 			<h1 class="display-3 text-white mb-3 animated slideInDown">재능 공유 게시판</h1>
 			<nav aria-label="breadcrumb animated slideInDown"></nav>
 		</div>
 	</div>
     <!-- Section-->
-  	<section class="py-5">
+  	<section id="talentMainSection" class="py-5">
        <div class="container px-4 px-lg-5">
            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
            

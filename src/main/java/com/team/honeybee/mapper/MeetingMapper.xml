@@ -135,5 +135,35 @@
 		 WHERE meeting_id = #{meetingId}
 	</update>
 	
+	<!-- 검색 기능  -->
+	<select id="selectMeetingBoardBySearch" resultType="com.team.honeybee.domain.MeetingDto">
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.meeting_date meetingDate,
+				mt.guest_num guestNum,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.topic, 
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName
+		FROM Meeting mt LEFT JOIN Member m ON mt.member_id = m.member_id
+						LEFT JOIN BoardImage bi ON mt.meeting_id = bi.meeting_id
+		<if test="keyword == ''">
+		WHERE bi.main_image_name IS NOT NULL AND mt.enable = 1 
+		</if>
+		<if test="keyword != ''">
+		WHERE mt.title LIKE #{keyword} AND bi.main_image_name IS NOT NULL AND mt.enable = 1 
+		</if>
+		GROUP BY mt.meeting_id
+		ORDER BY mt.meeting_id DESC
+	</select>
+	
 	
 </mapper>
