@@ -54,19 +54,23 @@ table.jh-table {
 	border: 1px solid #444444;
 	width: 100%;
 	height: 300px;
+
 }
 
 td.jh-table {
 	padding: 20px;
+	
 }
 
 .jh-table td:first-child {
 	background-color: #ffc107;
 	width: 10%;
+	word-break:break-all;
 }
 
 .jh-table td:nth-child(3) {
 	border: 1px solid #444444;
+	word-break:break-all;
 }
 
 table.jh1-table {
@@ -148,6 +152,7 @@ h3 {
 		<div class="row">
 		
 			<div  style="margin:auto ;">
+			
 				<article>
 					<section>
 						<!-- 주문 상세정보 -->
@@ -242,36 +247,37 @@ h3 {
 						<div>
 							<!-- 배송지 정보-->
 							<h3>배송지 정보</h3>
+							
 							<table class="jh-table">
 								<tr>
 									<td style="text-align: center;">수령인</td>
-									<td>Ipsum</td>
+									<td style="width:850px">${opd.orderName}</td>
 									<td style="text-align: center;">주문자 정보</td>
 								</tr>
 								<tr>
 									<td style="vertical-align: top; text-align: center;">연락처</td>
-									<td style="vertical-align: top;">Lorem Ipsum Dolor Lorem
-										Ipsum Dolor</td>
+									<td style="vertical-align: top;">${opd.phone}</td>
 									<td rowspan="3">
-										<p style="text-align: center;">이름</p>
-										<p style="text-align: center;">휴대폰번호</p>
-										<p style="text-align: center;">이메일</p>
+										<p style="text-align: center;">${opd.orderName}</p>
+										<p style="text-align: center;">${opd.phone}</p>
+								
 
 									</td>
 								</tr>
 								<tr style="height: 90px;">
 									<td style="vertical-align: top; text-align: center;">배송지</td>
-									<td style="vertical-align: top;">Lorem Ipsum Dolor Lorem
-										Ipsum Dolor</td>
+									<td style="vertical-align: top;"><p>${opd.address}</p><p>${opd.detailAddress }</p><p>${opd.postCode }</p></td>
 
 								</tr>
 								<tr>
 									<td style="text-align: center;">배송메모</td>
-									<td>Lorem Ipsum Dolor Lorem Ipsum Dolor</td>
+									<td>${opd.comment}</td>
 
 								</tr>
 							</table>
+						
 						</div>
+					
 					</section>
 				</article>
 			</div>

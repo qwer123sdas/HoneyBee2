@@ -382,6 +382,7 @@ public class MemberController {
 			model.addAttribute("market", market);
 //				model.addAttribute("talent", talent);
 		}
+		//마이페이지 재능 리스트
 		@GetMapping("talentPayList")
 		public void TalentPay(Model model) {
 		List<TalentBoardDto> myTalentList = talentBoardService.findBoardList("", "");

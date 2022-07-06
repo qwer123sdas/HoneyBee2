@@ -70,7 +70,7 @@
 	<form action="${appRoot }/member/removeFaq" method="post">
 		<div class="container">
 			<div class="row">
-				<div class="col-8 mt-5 ms-5">
+				<div style="margin:auto;">
 					<table class="table">
 						<colgroup>
 							<col style="width: 10%">
