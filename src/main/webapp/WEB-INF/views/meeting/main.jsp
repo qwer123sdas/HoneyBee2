@@ -250,6 +250,7 @@
 	          <c:forEach items="${meetingList }" var="meeting">
 			 	 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
 					<div class="service-item rounded overflow-hidden h-100">
+						
 								<img class="img-fluid mainImage1"
 									src="${imageUrl }/meeting/${meeting.folderName}/${meeting.MPhoto}"
 									style="width: 500px; height: 200px;" alt="">
