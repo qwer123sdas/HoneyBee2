@@ -445,7 +445,7 @@
 								</ul>
 								<%-- 신청자만 신청완료 버튼 보임 --%>
 										
-											<button type="button" id="insertGuestBtn1" onclick="addGuest_click()"
+											<button type="button" id="insertGuestBtn1" 
 												class="btn btn-lg btn-primary mt-5 w-100 shadow">
 												<i class="fa-solid fa-heart-circle-check"></i>
 												함께할께요!
@@ -508,6 +508,17 @@
 <!-- 카카오지도 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
 
+<!-- 로그인 안한 회원 모임신청 막기 (오류발견 ajax처리로 변경함)
+<sec:authorize access="not isAuthenticated()">
+<script type="text/javascript">
+	function addGuest_click() {
+		alert('로그인한 후 모임 신청이 가능합니다.');
+		location.href = "${appRoot }/member/login";
+	}
+</script>
+</sec:authorize>
+-->
+
 <!-- 로그인 안한 회원 댓글 입력 막기 -->
 <sec:authorize access="not isAuthenticated()">
 <script type="text/javascript">
@@ -518,15 +529,6 @@
 </script>
 </sec:authorize>
 
-<!-- 로그인 안한 회원 모임신청 막기 -->
-<sec:authorize access="not isAuthenticated()">
-<script type="text/javascript">
-	function addGuest_click() {
-		alert('로그인한 후 모임 신청이 가능합니다.');
-		location.href = "${appRoot }/member/login";
-	}
-</script>
-</sec:authorize>
 
 <script>
 
@@ -690,8 +692,7 @@ $(document).ready(function() {
 							// 게스트 취소로 자리생기면 다시 활성화
 							 const guestNum = '${meeting.guestNum}';
 							 const guestCnt = list.length;
-							 console.log(guestCnt);
-							 console.log(guestNum);
+							 
 							 const target = document.getElementById('insertGuestBtn1');
 							 
 							 if(guestNum == guestCnt) {
@@ -742,16 +743,6 @@ $(document).ready(function() {
 		
 		const data = {meetingId : '${meeting.meetingId}'};
 		
-		// 중복신청 방지용 
-		// 반환 유형이-1보다 크면 true, 아니면 false
-		//let prinUser = {'${principal.username}'};
-		/* if (list.indexOf('${principal.username}') > -1)  {
-			alert("이미 신청하신 모임입니다.")
-	 	} */
-		
-	
-		
-		
 		$.ajax({ 
 			url : "${appRoot }/meeting/board/guest/addGuest",
 			type : "post",
@@ -785,6 +776,8 @@ $(document).ready(function() {
 
 	 // 게스트 리스트 가져오는 함수 실행
 	 guestList();
+	  
+	  
 	 /* 게스트 입출력 부분 끝남 */
 
 				/* 대댓글 부분 시작*/
@@ -970,7 +963,6 @@ $(document).ready(function() {
                     				
                     				const data = $(this).closest(".replyUpdateAreaForm").serialize();
                     					
-                 
 	                    					$.ajax({
 	                    						url : "${appRoot}/meeting/reply/updateReply",
 	                    						type : "post",
@@ -1109,8 +1101,7 @@ $(document).ready(function() {
 					<span class="d-flex flex-row-reverse">
 						<button type="button" class="btn btn-secondary"
 							style="margin-left: 10px;">취소</button>
-						<input type="hidden" name="meetingId"
-							value="${meeting.meetingId }" />
+						<input type="hidden" name="meetingId" value="${meeting.meetingId }" />
 						<button class="btn btn-primary" id="guestSubmitBtn1" style="background-color: #09ab60;">신청</button>
 					</span>
 				</form>
