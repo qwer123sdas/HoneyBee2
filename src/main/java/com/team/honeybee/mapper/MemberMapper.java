@@ -48,7 +48,7 @@ public interface MemberMapper {
 	String selectEmailById(String memberId);
 
 	// 회원 프로필 사진 업로드
-	void updateFile(@Param("memberId") String memberId, @Param("profile") String profile);
+//	void updateFile(@Param("memberId") String memberId, @Param("profile") String profile);
 
 	// 상담내용 가져오기
 	List<FaqDto> Faqlist(String memberId);

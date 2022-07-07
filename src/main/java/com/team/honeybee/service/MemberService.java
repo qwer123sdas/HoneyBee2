@@ -125,18 +125,24 @@ public class MemberService {
 
 	// 회원 정보 수정
 	@Transactional
-	public boolean modifyMember(MemberDto dto, String oldPw, MultipartFile profile) {
+	public boolean modifyMember(MemberDto dto, String oldPw) {
 		// DB에서 member 읽어오기
 		MemberDto oldMember = mapper.memberInfo(dto.getMemberId());
-
-		dto.setPw(oldMember.getPw());
-		int cnt = mapper.updateMember(dto);
- 
-		// 프로필 사진 업로드
-		if (profile.getSize() > 0) {
-			mapper.updateFile(dto.getMemberId(), profile.getOriginalFilename());
-			saveProfile(dto.getMemberId(), profile);
+		
+		int cnt = 0;
+		String encodedPW = oldMember.getPw();
+		System.out.println(encodedPW);
+		
+		if(passwordEncoder.matches(oldPw, encodedPW)) {			
+			dto.setPw(oldMember.getPw());
+			cnt = mapper.updateMember(dto);
 		}
+ 
+//		// 프로필 사진 업로드
+//		if (profile.getSize() > 0) {
+//			mapper.updateFile(dto.getMemberId(), profile.getOriginalFilename());
+//			saveProfile(dto.getMemberId(), profile);
+//		}
 
 		return cnt == 1;
 

@@ -325,15 +325,19 @@ form input #profileFile:file-selector-button{
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="form3" action="${appRoot }/member/modify" method="post">
+					<form id="form3" action="${appRoot }/member/modify" method="post" enctype="multipart/form-data">
 						<input type="hidden" value="${memberInfo.memberId }"
 							name="memberId" />
-						비밀번호 :
-						<input type="password" name="pw" />
+						<input type="hidden" name="pw" />
+						<label for="passwordInput4" class="form-label">
+		        			기존 암호 
+	        			</label>
+	        
+	        			<input class="form-control" id="passwordInput4" type="text" name="oldPw" />
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button id="modifySubmitButton2" form="form1" type="submit"
+					<button id="modifySubmitButton2" form="form3" type="submit"
 						class="btn btn-warning">정보 수정</button>
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">취소</button>
