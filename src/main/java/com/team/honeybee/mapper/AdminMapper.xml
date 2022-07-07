@@ -46,7 +46,7 @@
 	<!-- 회원이 작성한 모임후기 삭제하기 -->
 	<delete id="deleteMeetingCommentByMemberId">
 		DELETE FROM MeetingComment
-		WHERE meeting_id = #{meetingId}
+		WHERE member_id = #{memberId}
 	</delete>
 	<!-- 회원이 산 구매내역 삭제 -->
 	<delete id="deleteOrderPayByMemberId">
