@@ -5,7 +5,7 @@
 <mapper namespace="com.team.honeybee.mapper.AdminMapper">
 	<!-- 현재 모인 기부금 합계 -->
 	<select id="sumDonationAll" resultType="int">
-		SELECT SUM(current_amount)
+		SELECT IFNULL(SUM(current_amount), 0)
 		FROM Donation
 	</select>
 	<!-- 회원목록 가져오기 -->
@@ -46,7 +46,7 @@
 	<!-- 회원이 작성한 모임후기 삭제하기 -->
 	<delete id="deleteMeetingCommentByMemberId">
 		DELETE FROM MeetingComment
-		WHERE meeting_id = #{meetingId}
+		WHERE member_id = #{memberId}
 	</delete>
 	<!-- 회원이 산 구매내역 삭제 -->
 	<delete id="deleteOrderPayByMemberId">
