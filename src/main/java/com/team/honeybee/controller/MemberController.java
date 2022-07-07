@@ -126,7 +126,7 @@ public class MemberController {
 			return "/member/findIdView";
 		}
 	}
-
+	
 	// 회원 정보
 	@GetMapping("info")
 	public void infoPage(String memberId, Model model) {
