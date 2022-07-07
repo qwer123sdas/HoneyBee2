@@ -119,6 +119,8 @@ public interface AdminMapper {
 
 	void deleteOrderPayByMemberId(String memberId);
 
+	void deleteFavoriteByTalentId(int talentId);
+
 
 
 }

@@ -5,7 +5,7 @@
 <mapper namespace="com.team.honeybee.mapper.AdminMapper">
 	<!-- 현재 모인 기부금 합계 -->
 	<select id="sumDonationAll" resultType="int">
-		SELECT SUM(current_amount)
+		SELECT IFNULL(SUM(current_amount), 0)
 		FROM Donation
 	</select>
 	<!-- 회원목록 가져오기 -->
@@ -200,6 +200,11 @@
 	<!-- 재능판매게시판 사진 삭제 -->
 	<delete id="deleteBoardImageByTalentId">
 		DELETE FROM BoardImage
+		WHERE talent_id = #{talentId}
+	</delete>
+	<!-- 재능판매게시판 좋아요 삭제 -->
+	<delete id="deleteFavoriteByTalentId">
+		DELETE FROM Favorite
 		WHERE talent_id = #{talentId}
 	</delete>
 	<!-- 재능판매게시판 후기 삭제 -->
