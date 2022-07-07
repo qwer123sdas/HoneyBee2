@@ -6,8 +6,8 @@
 	<!-- 공용===============================================================================================  -->
 	<!-- 서머노트 작성 중 사진 등록  -->
 	<insert  useGeneratedKeys="true"  id="insertImage" keyColumn="image_id" keyProperty="imageId">
-		INSERT INTO BoardImage(image_name, member_id, image_folder_id)
-		VALUES (#{imageName}, #{memberId}, #{imageFolderId})
+		INSERT INTO BoardImage(image_name, memberId, image_folder_id)
+		VALUES (#{imageName}, #{member_id}, #{imageFolderId})
 	</insert>
 	<!-- 서머노트 유효성 검사 -->
 	<update id="uploadImageUrl">
