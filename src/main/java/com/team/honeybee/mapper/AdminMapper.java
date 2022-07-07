@@ -121,6 +121,4 @@ public interface AdminMapper {
 
 	void deleteFavoriteByTalentId(int talentId);
 
-
-
 }

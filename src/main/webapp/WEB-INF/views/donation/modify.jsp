@@ -85,7 +85,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- summernote  -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 .is-invalid ~.invalid-feedback, .is-invalid ~.invalid-tooltip,
 .was-validated :invalid ~.invalid-feedback, .was-validated :invalid ~.invalid-tooltip {
@@ -347,6 +346,7 @@
 
 
 	<!-- JavaScript Libraries -->
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<!--Jquery -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
