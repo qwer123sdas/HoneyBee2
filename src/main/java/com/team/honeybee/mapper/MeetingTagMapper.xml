@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.MeetingTagMapper">
+	<!-- 해쉬태그별 게시글 가져오기 -->
+	<select id="getMeetingBoardByHashTag" resultType="com.team.honeybee.domain.MeetingReplyDto">
+		SELECT mt.meeting_id meetingId,
+				mt.member_id memberId,
+				mt.title,
+				mt.content,
+				mt.postcode,
+				mt.address,
+				mt.detailAddress,
+				mt.inserted,
+				mt.meeting_date meetingDate,
+				mt.guest_num guestNum,
+				mt.start_date startDate,
+				mt.end_date endDate,
+				mt.hashtag,
+				mt.topic,
+				m.nickname,
+				t.hash_tag hashTag
+		FROM Meeting mt LEFT JOIN Tag t ON t.member_id = m.member_id
+						LEFT JOIN MeetingFile f ON f.meeting_id = d.meeting_id
+						LEFT JOIN Member m ON mt.member_id = m.member_id
+									<!-- 나중에 파일 입력 추가 해야함 -->
+		<if test='sort == "" || sort=="1"'>  
+		WHERE t.hash_tag = #{hashTag}
+		</if>
+		<if test='sort == "2"'>
+		WHERE t.hash_tag = #{hashTag}
+		</if>
+		<if test='sort == "3"'>
+		WHERE t.hash_tag = #{hashTag} 
+		</if>
+		<if test='sort == "4"'>
+		WHERE t.hash_tag = #{hashTag} 
+		</if>
+		GROUP BY mt.meeting_id
+		ORDER BY mt.meeting_id DESC
+	</select>
+
+</mapper>

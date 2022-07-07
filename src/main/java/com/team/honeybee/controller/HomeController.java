@@ -1,39 +1,70 @@
 package com.team.honeybee.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Handles requests for the application home page.
- */
+import com.team.honeybee.domain.DonationBoardDto;
+import com.team.honeybee.domain.MeetingDto;
+import com.team.honeybee.domain.TalentBoardDto;
+import com.team.honeybee.service.*;
+
 @Controller
 public class HomeController {
+	@Autowired
+	DonationBoardService donationService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	AdminService service;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	TalentBoardService talentService;
+	
+	@Autowired
+	MeetingService meetingService;
+	
+	@RequestMapping("/")
+	public String index() {
+		return "redirect:/main";
 	}
 	
+	@RequestMapping(value = "main")
+	public void home(Model model) {
+		int sumAmount = service.sumDonationAll();
+		int count = memberService.countMember();
+		model.addAttribute("sum", sumAmount);
+		model.addAttribute("count", count);
+	}
+	@RequestMapping("search")
+	public void serach(@RequestParam(name="keyword", defaultValue = "")String keyword, 
+						@RequestParam(name="type", defaultValue = "donation")String type,
+						Model model) {
+		System.out.println(type);
+		System.out.println(keyword);
+		System.out.println(type == "donation");
+		if(type.equals("donation")) {
+			List<DonationBoardDto> boardList = donationService.selectDonationBoardBySearch("%" + keyword + "%");
+			model.addAttribute("boardList", boardList);
+		}else if(type.equals("talent")){
+			List<TalentBoardDto> boardList = talentService.selectTalentBoardBySearch("%" + keyword + "%");
+			model.addAttribute("boardList", boardList);
+			System.out.println(boardList);
+		}else{
+			List<MeetingDto> boardList = meetingService.selectMeetingBoardBySearch("%" + keyword + "%");
+			model.addAttribute("boardList", boardList);
+		}
+		
+		
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+	}
 }

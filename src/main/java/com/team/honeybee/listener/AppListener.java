@@ -3,7 +3,6 @@ package com.team.honeybee.listener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 /**
  * Application Lifecycle Listener implementation class AppListener
@@ -35,10 +34,10 @@ public class AppListener implements ServletContextListener {
          application.setAttribute("appRoot", application.getContextPath());
          
          /* 복붙 주의, 경로 각자 다름 */
-         /*
+         
          String imageUrl = "https://bucket0207-4885.s3.ap-northeast-2.amazonaws.com";
          application.setAttribute("imageUrl", imageUrl);
-    	*/
+    	
     }
 	
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.TalentBoardMapper">
+	<!-- 게시물 리스트 가져오기 -->
+	<select id="findBoardList" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title,
+				t.talent_id talentId,
+				t.price,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
+				tr.star_rating starRating
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+					  LEFT JOIN TalentReview tr ON tr.talent_id = t.talent_id
+					  LEFT JOIN Favorite f ON f.talent_id = t.talent_id
+		<if test="topic == ''">
+		WHERE bi.main_image_name IS NOT NULL
+		</if>
+		<if test="topic != ''">
+		WHERE t.topic = #{topic} AND bi.main_image_name IS NOT NULL
+		</if>
+		<if test='sort == ""'>
+		GROUP BY t.talent_id
+		ORDER BY t.talent_id DESC
+		</if>
+		<if test='sort == "1"'>
+		GROUP BY f.heart
+		ORDER BY COUNT(f.heart) DESC
+		</if>
+		<if test='sort == "2"'>
+		GROUP BY t.talent_id
+		ORDER BY t.talent_id ASC
+		</if>
+	</select>
+	
+	<!-- 특정 게시물 정보 가져오기 -->
+	<select id="getBoard" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT  t.talent_id talentId,
+		      	t.title, 
+				t.content,
+				t.price, 
+				t.topic, 
+				t.map_level mapLevel, 
+				t.address,
+				t.detail_address detailAddress,
+				t.product_name productName,
+				t.work_date workDate,
+				t.number_people numberOfPeople,
+				t.self_introduction selfIntroduction,
+				t.class_content classContent,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
+				IF(m.member_id = #{memberId}, 1, 0) own
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+					  
+		WHERE t.talent_id = #{talentId} AND bi.main_image_name IS NOT NULL;
+	</select>
+	<!-- 검색 select -->
+	<select id="selectTalentBoardBySearch" resultType="com.team.honeybee.domain.TalentBoardDto">
+		SELECT t.title,
+				t.talent_id talentId,
+				t.price,
+				m.nickname,
+				bi.main_image_name MPhoto,
+				bi.image_folder_id folderName,
+				tr.star_rating starRating
+		FROM Talent t LEFT JOIN Member m ON t.member_id = m.member_id
+					  LEFT JOIN BoardImage bi ON t.talent_id = bi.talent_id
+					  LEFT JOIN TalentReview tr ON tr.talent_id = t.talent_id
+					  LEFT JOIN Favorite f ON f.talent_id = t.talent_id
+		<if test="keyword != ''">
+		WHERE t.title LIKE #{keyword} AND bi.main_image_name IS NOT NULL
+		</if>
+		<if test="keyword == ''">
+		WHERE bi.main_image_name IS NOT NULL
+		</if>
+		GROUP BY t.talent_id
+		ORDER BY t.talent_id DESC
+	</select>
+	
+	<!-- 게시물 쓰기 -->
+	<insert  useGeneratedKeys="true"  id="setTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto"
+				keyColumn="talent_id" keyProperty="talentId">
+		INSERT INTO Talent(member_id, 
+							title, 
+							content,
+							 price, 
+							 product_name,
+							 topic,
+							 map_level,
+							 address,
+							 detail_address,
+							 work_date,
+							 self_introduction,
+							 class_content,
+							 product_code)
+		VALUES (#{memberId}, 
+				#{title}, 
+				#{content}, 
+				#{price}, 
+				#{productName},
+				#{topic},
+				#{mapLevel},
+				#{address},
+				#{detailAddress},
+				#{workDate},
+				#{selfIntroduction},
+				#{classContent},
+				#{productCode})
+	</insert>
+	<insert id="insertMainPhoto">
+		INSERT INTO BoardImage(talent_id, main_image_name, member_id, image_folder_id)
+		VALUES(#{talentId}, #{mainPhoto}, #{memberId}, #{folderName})
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateTalentBoard" parameterType="com.team.honeybee.domain.TalentBoardDto">
+		UPDATE Talent SET title = #{title}, 
+						  content = #{content},
+						  price = #{price}, 
+						  product_name = #{productName},
+						  topic = #{topic},
+						  map_level = #{mapLevel},
+						  address = #{address},
+						  detail_address = #{detailAddress},
+						  work_date = #{workDate},
+						  self_introduction = #{selfIntroduction},
+						  class_content = #{classContent}
+					WHERE talent_id = #{talentId}
+	</update>
+	
+	
+
+</mapper>	

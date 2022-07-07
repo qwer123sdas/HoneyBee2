@@ -10,8 +10,11 @@
 		</layout>
 	</appender>
 	
+	
+	<!-- debug -->
+	
 	<!-- Application Loggers -->
-	<logger name="com.team1.movie">
+	<logger name="com.team.honeybee">
 		<level value="info" />
 	</logger>
 	

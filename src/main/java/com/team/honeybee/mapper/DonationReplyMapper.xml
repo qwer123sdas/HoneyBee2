@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.honeybee.mapper.DonationReplyMapper">
+	<!-- 댓글 목록  -->
+	<select id="listReplyByBoardId" resultType="com.team.honeybee.domain.DonationReplyDto">
+		SELECT r.reply_id replyId,
+				r.member_id memberId,
+				m.nickname,
+				r.donation_id donationId,
+				r.content,
+				r.inserted,
+				p.amount
+
+		FROM DonationReply r JOIN Member m ON r.member_id = m.member_id
+							 LEFT JOIN DonationPay p ON p.reply_id = r.reply_id 
+		WHERE r.donation_id = #{donationId}
+		ORDER BY r.reply_id DESC
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert useGeneratedKeys="true"  id="addReply" 
+			keyColumn="reply_id" keyProperty="replyId">
+		INSERT INTO DonationReply (donation_id, content, member_id)
+		VALUE(#{donationId}, #{content}, #{memberId})
+	</insert>
+</mapper>
