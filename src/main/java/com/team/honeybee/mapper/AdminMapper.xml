@@ -202,6 +202,11 @@
 		DELETE FROM BoardImage
 		WHERE talent_id = #{talentId}
 	</delete>
+	<!-- 재능판매게시판 좋아요 삭제 -->
+	<delete id="deleteFavoriteByTalentId">
+		DELETE FROM Favorite
+		WHERE talent_id = #{talentId}
+	</delete>
 	<!-- 재능판매게시판 후기 삭제 -->
 	<delete id="deleteTalentReviewByTalentId">
 		DELETE FROM TalentReview

@@ -357,6 +357,7 @@ public class AdminService {
 			deleteFromAwsS3(fileName);
 		}
 		mapper.deleteBoardImageByTalentId(talentId);
+		mapper.deleteFavoriteByTalentId(talentId);
 		mapper.deleteTalentReviewByTalentId(talentId);
 		mapper.deleteTalentByTalentId(talentId);
 	}
