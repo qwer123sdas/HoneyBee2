@@ -54,7 +54,7 @@ margin: auto;
 <body>
 <my:mainNavBar current="payList"></my:mainNavBar>
 	<form action="${appRoot }/member/payList" method="post">
-		<div class="container">
+		<div class="container"  style="margin-top:50px;">
 			<div class="row">
 				<div class="divList">
 					<table class="table">
@@ -65,6 +65,7 @@ margin: auto;
 							<col style="width: 10%">
 							<col style="width: 10%">
 						</colgroup>
+						<h3><구매 내역></h3>
 						<thead>
 							<tr>
 								<th scope="col">상품</th>

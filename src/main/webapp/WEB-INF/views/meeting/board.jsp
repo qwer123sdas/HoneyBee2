@@ -677,8 +677,8 @@ $(document).ready(function() {
 				 
 				 // 모임 취소 누르면 submit
 				 $(".deleteGuest").click(function(e) {
-					 e.preventDefault();
-					 console.log("여기까지");
+					e.preventDefault();
+					console.log("여기까지");
 					const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
 			
 					$.ajax({ 
@@ -686,37 +686,24 @@ $(document).ready(function() {
 						type : "post",
 						data : data,
 						success : function(data) {
-							alert("꿀비 모임을 취소하셨습니다.");
+							alert("꿀비 모임신청이 취소되었습니다.");
 							console.log("취소 성공");
+							guestList(); 
 							
-							// 게스트 취소로 자리생기면 다시 활성화
-							 const guestNum = '${meeting.guestNum}';
-							 const guestCnt = list.length;
-							 
-							 const target = document.getElementById('insertGuestBtn1');
-							 
-							 if(guestNum == guestCnt) {
-								 alert("꿀비 모임신청이 취소되었습니다.");
-								 document.getElementById('insertGuestBtn1');
-								  target.disabled = false;
-								  guestList(); // 게스트 리스트 업데이트
-								} // if end
-						
-							 }, // guestList ajax success end
-							error :function(xhr, error, text) {
-								console.log("취소 실패");
-								if (xhr.status == '500') {
-									alert('모임을 취소할 권한이 없습니다.');
+						}, // guestList ajax success end
+						error :function(xhr, error, text) {
+							console.log("취소 실패");
+							if (xhr.status == '500') {
+							alert('모임을 취소할 권한이 없습니다.');
 									
-								}// if end
-							} // error end
+							}// if end
+						} // error end
 					
 					
 				 	}); // ajax end 
 				
 				}); // 모임취소 end
-				
-			
+					
 				 // 게스트 인원 다 차면 버튼 비활성화
 				 const guestNum = '${meeting.guestNum}';
 				 const guestCnt = list.length;
@@ -728,7 +715,9 @@ $(document).ready(function() {
 					 alert("꿀비 모임신청이 마감되었습니다.");
 					 document.getElementById('insertGuestBtn1');
 					  target.disabled = true;
-					} // if end
+				 } else {
+					 target.disabled = false;
+				 } // if end
 			
 				 } // guestList ajax success end
 			 
@@ -736,6 +725,8 @@ $(document).ready(function() {
 		 console.log("22222222222222222222")
 		
 	 }// guestList 가져오는 ajax 요청 end
+	 
+
 	
 	// 모임 신청버튼 누르면 submit
 	$("#guestSubmitBtn1").click(function(e) {
