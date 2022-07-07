@@ -73,7 +73,7 @@ body{
 	border: 2px solid #f48fb1;
 	border-radius: 100px;
 	font-family: sans-serif;
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: 700;
 	text-align: center;
 	vertical-align: 20%;
@@ -148,7 +148,7 @@ body{
                 
                 <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s" id="hashTag">
                     <div class="p-lg-5 pe-lg-0">
-                        <h1 class="mb-4">기부 마켓 No.1 꿀비에서 원하는 기부를 찾아보세요!</h1>
+                        <h1 class="mb-4">기부 마켓 No.1 꿀비에서<br> 원하는 기부를 찾아보세요!</h1>
                         <form action="${appRoot }/search"class="d-flex" role="search">
                        		<div class="input-group mb-2" style="width: 600px">
                        			<input type="hidden" name="type" value="donation" />
@@ -157,10 +157,13 @@ body{
 					     	</div>
 					    </form>
                         <a href="${appRoot }/search?type=donation&keyword=우크라이나" class="btn  rounded-pill py-1 px-3 mt-3" style="color:red; border-color: red;">#우크라이나</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시1" class="btn  rounded-pill py-1 px-3 mt-3" style="color:pink; border-color: pink;">#임시1</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시2" class="btn  rounded-pill py-1 px-3 mt-3" style="color:green; border-color: green;">#임시2</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시3" class="btn  rounded-pill py-1 px-3 mt-3" style="color:orange; border-color: orange;">#임시3</a>
-                        <a href="${appRoot }/search?type=donation&keyword=임시4" class="btn  rounded-pill py-1 px-3 mt-3" style="color:brown; border-color: brown;">#임시4</a>
+                        <a href="${appRoot }/search?type=donation&keyword=어린이" class="btn  rounded-pill py-1 px-3 mt-3" style="color:pink; border-color: pink;">#어린이</a>
+                        <a href="${appRoot }/search?type=donation&keyword=소외된 이웃" class="btn  rounded-pill py-1 px-3 mt-3" style="color:green; border-color: green;">#소외된 이웃</a>
+                        <a href="${appRoot }/search?type=donation&keyword=환경살리기" class="btn  rounded-pill py-1 px-3 mt-3" style="color:orange; border-color: orange;">#환경살리기</a>
+                        <a href="${appRoot }/search?type=donation&keyword=같이의 가치" class="btn  rounded-pill py-1 px-3 mt-3" style="color:brown; border-color: brown;">#같이의 가치</a>
+                        <a href="${appRoot }/search?type=donation&keyword=수해복구" class="btn  rounded-pill py-1 px-3 mt-3" style="color:red; border-color: red;">#수해복구</a>
+                        <a href="${appRoot }/search?type=donation&keyword=더나은 사회" class="btn  rounded-pill py-1 px-3 mt-3" style="color:pink; border-color: pink;">#더나은사회</a>
+                        <a href="${appRoot }/search?type=donation&keyword=생계지원" class="btn  rounded-pill py-1 px-3 mt-3" style="color:green; border-color: green;">#생계지원</a>
                     </div>
                 </div>
                 
@@ -177,33 +180,33 @@ body{
 
 
 	<!-- Feature Start -->
-    <div class="py-5 " style="background: #fbc02d;">
+    <div class="py-5 " style="background: #fbc02d; margin-left: 0px;">
     	
-        <div class="container right">
+        <div class="container center">
         	<div>
-	            <div class="row" >
+	            <div class="row" style="margin-top: 100px;">
 
-	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
+	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3" style="height:200px; width: 400px;">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
 	                            <i class="fa-solid fa-hand-holding-dollar fa-2xl text-white"></i>
 	                        </div>
 	                        <h1 class="mb-0" data-toggle="counter-up">${sum }</h1>
 	                    </div>
-	                    <h5 class="mb-3">우리가 함께 모은 기부금</h5>
-	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+	                    <h2 class="mb-3">우리가 함께 모은 기부금</h2>
+	                    <span>기부금은 선한 쓰임새로 세상을 빛나게 합니다.</span>
 	                </div>
 	                
 	                
-	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3">
+	                <div class="col-md-6 col-lg-4 wow fadeIn mx-3" style="visibility: visible;animation-name: fadeIn;height: 230px;width: 324px;"">
 	                    <div class="d-flex align-items-center mb-4">
 	                        <div class="btn-lg-square bg-primary rounded-circle me-3">
 	                            <i class="fa-solid fa-people-group fa-2xl text-white"></i>
 	                        </div>
 	                        <h1 class="mb-0" data-toggle="counter-up">${count }</h1>
 	                    </div>
-	                    <h5 class="mb-3">꿀비를 이용하고 있는 고객분들</h5>
-	                    <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+	                    <h4 class="mb-3">HoneyBee 꿀비들</h4>
+	                    <span>많은 꿀비들의 동참을 기다리고 있습니다.</span>
 	                </div>
 	                
 	            </div>
@@ -212,9 +215,9 @@ body{
     </div>
     <!-- Feature Start -->
 
-	 <!-- Feature Start -->
+	 <!-- Feature Start 
     <div class="container-xxl py-5">
-    	<div class="row" id="tagName1">인기 있는 기부 #태그</div>
+    	<div class="row" id="tagName1">인기 있는 꿀비 #태그</div>
 	        <div class="container center">
 	        	
 	            <div class="row g-5">
@@ -224,25 +227,63 @@ body{
 	                </div>
 	                &nbsp;&nbsp;
 	                <div class="temp">
-	                	<a href="">#강좌</a>
+	                	<a href="">#재능기부</a>
 	                </div>
 	                &nbsp;&nbsp;
 	                <div class="temp">
-	                	<a href="">#유튜브</a>
+	                	<a href="">#기부마켓</a>
 	                </div>
 	                &nbsp;&nbsp;
 	                <div class="temp">
-	                	<a href="">#고먐미</a>
+	                	<a href="">#모두의행동</a>
 	                </div>
 	                &nbsp;&nbsp;
 	                <div class="temp">
-	                	<a href="">#댕댕이</a>
+	                	<a href="">#선한영향력</a>
 	                </div>
 	                
 	            </div>
 	        </div>
     </div>
-    <!-- Team Start -->
+    -->
+    <!-- 슬라이드 -->
+	<div id="carouselExampleInterval" class="carousel slide"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active" data-bs-interval="10000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/cI8SiF/btqjFmjZaut/2R9mbQpxuxVKlt7R8lkJGk/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/NbtUx/btqjAdPaCaj/hG6waxVbS0Ya62xcILA2W1/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/h7DcA/btqjJbIJvZy/auLAPsDnLXcQEMUs32GK11/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item" data-bs-interval="8000">
+				<img
+					src="https://mud-kage.kakaocdn.net/dn/ccnkLH/btqjGVl7Q9p/gSvibw8pJMDdihTCB9aFw1/img.png"
+					class="d-block w-100" alt="...">
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">이전</span>
+		</button>
+		<button class="carousel-control-next" type="button"
+			data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">다음</span>
+		</button>
+	</div>
+    
+    <!-- Team Start 
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -292,7 +333,7 @@ body{
             </div>
         </div>
     </div>
-    <!-- Team End -->
+ 	Team End -->
     
     <!-- Feature Start -->
 
@@ -416,42 +457,6 @@ body{
     </div>
     <!-- Feature End -->
 
-<!-- 슬라이드 -->
-	<div id="carouselExampleInterval" class="carousel slide"
-		data-bs-ride="carousel">
-		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="10000">
-				<img
-					src="https://mud-kage.kakaocdn.net/dn/cI8SiF/btqjFmjZaut/2R9mbQpxuxVKlt7R8lkJGk/img.png"
-					class="d-block w-100" alt="...">
-			</div>
-			<div class="carousel-item" data-bs-interval="8000">
-				<img
-					src="https://mud-kage.kakaocdn.net/dn/NbtUx/btqjAdPaCaj/hG6waxVbS0Ya62xcILA2W1/img.png"
-					class="d-block w-100" alt="...">
-			</div>
-			<div class="carousel-item" data-bs-interval="8000">
-				<img
-					src="https://mud-kage.kakaocdn.net/dn/h7DcA/btqjJbIJvZy/auLAPsDnLXcQEMUs32GK11/img.png"
-					class="d-block w-100" alt="...">
-			</div>
-			<div class="carousel-item" data-bs-interval="8000">
-				<img
-					src="https://mud-kage.kakaocdn.net/dn/ccnkLH/btqjGVl7Q9p/gSvibw8pJMDdihTCB9aFw1/img.png"
-					class="d-block w-100" alt="...">
-			</div>
-		</div>
-		<button class="carousel-control-prev" type="button"
-			data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">이전</span>
-		</button>
-		<button class="carousel-control-next" type="button"
-			data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">다음</span>
-		</button>
-	</div>
 	
 	<nav:footbar_kim></nav:footbar_kim>
     

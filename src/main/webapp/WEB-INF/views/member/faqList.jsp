@@ -68,7 +68,7 @@
 <body>
 	<my:mainNavBar current="faqList"></my:mainNavBar>
 	<form action="${appRoot }/member/removeFaq" method="post">
-		<div class="container">
+		<div class="container" style="margin-top:50px;">
 			<div class="row">
 				<div style="margin:auto;">
 					<table class="table">
@@ -79,6 +79,7 @@
 							<col style="width: 10%">
 							<col style="width: 10%">
 						</colgroup>
+						<h3><상담 내역></h3>
 						<thead>
 							<tr>
 								<th>번호</th>
