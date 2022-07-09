@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.honeybee.domain.MeetingReplyDto;
@@ -89,9 +90,14 @@ public class MeetingReplyController {
 
 	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
 	@PostMapping(path = "deleteReply", produces = "text/plain;charset=UTF-8")
-	public String deleteMeetingReply(MeetingReplyDto reply, Principal principal) {
+	public String deleteMeetingReply(MeetingReplyDto reply,
+										@RequestParam("meetingReplyId") int meetingReplyId,
+										Principal principal) {
 		
-		replyService.deleteMeetingReply(reply);
+		System.out.println("요기확인" + meetingReplyId);
+		String memberId = principal.getName();
+		System.out.println("요기확인" + memberId);
+		replyService.deleteMeetingReply(meetingReplyId, memberId);
 		
 		return "redirect:/meeting/board/" + reply.getMeetingId();
 	}

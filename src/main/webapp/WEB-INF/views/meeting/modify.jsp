@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
+<% request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -353,6 +352,8 @@
 									.모임 장소
 								</h3>
 							</label>
+							
+							
 							<div class="input-group">
 								<input class="form-control " type="text" name="postcode" id="postcode" value="${meeting.postcode }" onfocus="this.value=''" placeholder="우편번호" required>
 								<input class="form-control" type="button" onclick="daumPostCode()" value="우편번호 찾기"><br/>
@@ -395,7 +396,7 @@
 
 
 				<br>
-				<div style="margin-left: 450px">
+				<div style="margin-left: 600px">
 					<button class="w-40 btn btn-primary btn-lg" type="submit" style="center">
 						모두의행동 수정!
 						<i class="fa-solid fa-hands-clapping"></i>

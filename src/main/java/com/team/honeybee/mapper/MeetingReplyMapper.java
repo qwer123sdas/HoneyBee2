@@ -24,14 +24,14 @@ public interface MeetingReplyMapper {
 	// 댓글 자식 댓글 모두 출력
 	List<MeetingReplyDto> selectChildByParentId(int meetingReplyId);
 	
-	
 	// 댓글 수정
 	void updateMeetingReply(MeetingReplyDto reply);
-		
-	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
-	void deleteMeetingReply(MeetingReplyDto reply);
 
+	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
+	void deleteMeetingReply(@Param("meetingReplyId") int meetingReplyId, @Param("memberId") String memberId);
+	
 	List<MeetingReplyDto> selectAllChildrenByParentReplyId(@Param("meetingId") int meetingId);
+
 	
 
 }

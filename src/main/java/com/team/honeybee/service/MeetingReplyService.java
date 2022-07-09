@@ -52,13 +52,12 @@ public class MeetingReplyService {
 		mapper.updateMeetingReply(reply);
 	}
 	
+	
 	// 로그인 회원 댓글 삭제(댓글 삭제시 DB에 deleteInfo update됨)
-	public void deleteMeetingReply(MeetingReplyDto reply) {
-		
-		mapper.deleteMeetingReply(reply);
+	public void deleteMeetingReply(int meetingReplyId, String memberId) {
+		mapper.deleteMeetingReply(meetingReplyId, memberId);
 	}
 	
-
 	// 댓글 가져오기
 	public List<MeetingReplyDto> listReplyByMeetingId(int meetingId) {
 		// 부모의 댓글 0, 0, 0을 먼저 가져온다
@@ -74,6 +73,7 @@ public class MeetingReplyService {
 		
 		return parents;
 	}
+	
 }
 
 

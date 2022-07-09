@@ -505,20 +505,9 @@
 	<!-- foot bar -->
 	<nav:footbar_kim></nav:footbar_kim>
 
-<!-- 카카오지도 라이브러리 불러오기 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
-
-<!-- 로그인 안한 회원 모임신청 막기 (오류발견 ajax처리로 변경함)
-<sec:authorize access="not isAuthenticated()">
-<script type="text/javascript">
-	function addGuest_click() {
-		alert('로그인한 후 모임 신청이 가능합니다.');
-		location.href = "${appRoot }/member/login";
-	}
-</script>
-</sec:authorize>
--->
-
+	<!-- 카카오지도 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85d045c455e66b45c873d8a3ab36b2ed&libraries=services"></script>
+	
 <!-- 로그인 안한 회원 댓글 입력 막기 -->
 <sec:authorize access="not isAuthenticated()">
 <script type="text/javascript">
@@ -575,7 +564,6 @@ $(document).ready(function() {
 		}); /* 카카오 지도 api 끝남 */
 	}
 	
-	
 	/* 메인 컨텐츠 */
 	$("#meetingMainContentNav").click(function(){
 		/* 네브바 이벤트*/
@@ -613,8 +601,11 @@ $(document).ready(function() {
 		$('#meetingReply').removeClass("d-none");
 		$("#meetingMainContent").addClass("d-none");
 		$("#meetingInfo").addClass("d-none");
+		
+	/* 	parentsReplyList(); */
+		
 	});
-	
+
 	
 	/* 게스트 입출력 부분 시작 */
 	var modal = document.getElementById("insertGuestModal1");
@@ -680,27 +671,30 @@ $(document).ready(function() {
 					e.preventDefault();
 					console.log("여기까지");
 					const data = {meetingId : '${meeting.meetingId}'}; //리스트의 벨류값으로 넣기 int 아님 
-			
-					$.ajax({ 
-						url : "${appRoot}/meeting/board/guest/deleteGuest",
-						type : "post",
-						data : data,
-						success : function(data) {
-							alert("꿀비 모임신청이 취소되었습니다.");
-							console.log("취소 성공");
-							guestList(); 
-							
-						}, // guestList ajax success end
-						error :function(xhr, error, text) {
-							console.log("취소 실패");
-							if (xhr.status == '500') {
-							alert('모임을 취소할 권한이 없습니다.');
-									
-							}// if end
-						} // error end
 					
-					
-				 	}); // ajax end 
+					if(confirm("모임 신청을 취소하시겠습니까?")) {
+						
+						$.ajax({ 
+							url : "${appRoot}/meeting/board/guest/deleteGuest",
+							type : "post",
+							data : data,
+							success : function(data) {
+								alert("꿀비 모임신청이 취소되었습니다.");
+								console.log("취소 성공");
+								guestList(); 
+								
+							}, // guestList ajax success end
+							error :function(xhr, error, text) {
+								console.log("취소 실패");
+								if (xhr.status == '500') {
+								alert('모임을 취소할 권한이 없습니다.');
+										
+								}// if end
+							} // error end
+						
+						
+					 	}); // ajax end 
+					} // 모임취소 if
 				
 				}); // 모임취소 end
 					
@@ -801,8 +795,9 @@ $(document).ready(function() {
 								// 댓글 삭제시 답글달기 비활성화
 								let replyTextClassName="replyText";
 								
-								if (list[i].deleteInfo === "Y") {
-									replyContent = `<div class="ms-3 replyContentDelete\${list[i].meetingReplyId}"><i class="fa-solid fa-circle-exclamation"></i>삭제된 댓글입니다!</div>`;
+								if (list[i].deleteInfo === "Y") { // 댓글 삭제시 삭제된 댓글입니다 표시함
+									replyContent = `<div class="ms-3 replyContentDelete\${list[i].meetingReplyId}" >
+									<i class="fa-solid fa-circle-exclamation"></i>삭제된 댓글입니다!</div>`;
 									// 댓글 삭제시 답글달기 비활성화
 									replyTextClassName="";
 								}			
@@ -814,9 +809,10 @@ $(document).ready(function() {
 								if (list[i].own) {
 									deleteModifyLink = `
 									    <a href="#!" class="replyUpdate"><span>수정</span></a>
-									    <a href="#!" class="replyDelete"
-									    	data-reply-id="\${list[i].meetingReplyId}" 
-									    	data-reply-status="\${list[i].deleteInfo}"><span>삭제</span></a>
+									    <a href="#!" class='replyDelete'
+									    	data-reply-id='\${list[i].meetingReplyId}'
+									    	data-reply-status="\${list[i].deleteInfo}"
+									    	><span>삭제</span></a>
 									`;
 								}
 								
@@ -853,6 +849,8 @@ $(document).ready(function() {
 												<div class="input-group">
 													<input type="hidden" name="meetingReplyId" value="\${list[i].meetingReplyId }" />
 													<input type="hidden" name="meetingId" value="\${list[i].meetingId }" />
+													<input type="hidden" name="memberId" value="\${list[i].memberId }" />
+													<input type="hidden" name="own" value="\${list[i].own }" />
 													<input class="form-control ms-3 replyUpdateContent" 
 				      									type="text" name="content" placeholder="수정 내용을 입력하세요" />
 				      								<span class="btn btn-primary replyUpdateButton"style="position: z-index: 1;">
@@ -973,17 +971,16 @@ $(document).ready(function() {
                     			}); // 댓글 수정 update end
 								
                     			console.log("여기가 삭제야");
+							
                     	
 								// 댓글 삭제 
 								replyElement.find(".replyDelete").click(function() {
 									
-									
 									const data = { meetingId : '${meeting.meetingId}',
 													meetingReplyId : $(this).attr("data-reply-id"),
-													deleteInfo : $(this).attr("data-reply-status"),
-													own : '${meeting.own}'};
+								    				deleteInfo : $(this).attr("data-reply-status")
+													};
 					
-									console.log(data);	
 									if(confirm("삭제하시겠습니까?")) {
 										
 										console.log("삭제까지 오고있니?");
@@ -1022,8 +1019,6 @@ $(document).ready(function() {
 						error : function() {
 							console.log("댓글 가져오기 실패");
 						}
-						
-						
 						
 						
 					}); // 댓글 목록 ajax end
@@ -1065,7 +1060,9 @@ $(document).ready(function() {
 			});
 		 console.log("666666666666666");
 		 /* 대댓글 부분 끝남 */
-		 
+
+
+			
 		 
 });// document ready end 
 	    
