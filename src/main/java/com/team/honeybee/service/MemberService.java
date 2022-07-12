@@ -135,6 +135,7 @@ public class MemberService {
 		
 		if(passwordEncoder.matches(oldPw, encodedPW)) {			
 			dto.setPw(oldMember.getPw());
+			System.out.println(dto);
 			cnt = mapper.updateMember(dto);
 		}
  

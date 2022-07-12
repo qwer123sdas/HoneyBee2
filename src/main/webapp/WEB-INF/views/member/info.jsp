@@ -191,6 +191,9 @@ form input #profileFile:file-selector-button{
 				}
 			});
 		});
+		$("#modifySubmitButton2").click(function() {
+			
+		});
 	});
 </script>
 
@@ -329,6 +332,12 @@ form input #profileFile:file-selector-button{
 						<input type="hidden" value="${memberInfo.memberId }"
 							name="memberId" />
 						<input type="hidden" name="pw" />
+						<input type="hidden" name="email" />
+						<input type="hidden" name="nickname" />
+						<input type="hidden" name="postcode" />
+						<input type="hidden" name="address" />
+						<input type="hidden" name="detail" />
+						<input type="hidden" name="phone" />
 						<label for="passwordInput4" class="form-label">
 		        			기존 암호 
 	        			</label>
