@@ -160,6 +160,7 @@ public class MemberController {
 //		if (profileFile.getSize() > 0) {
 //			dto.setProfile(profileFile.getOriginalFilename());
 //		}
+		System.out.println(dto);
 		System.out.println(oldPw);
 		boolean success = service.modifyMember(dto, oldPw);
 		if (success) {

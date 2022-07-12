@@ -191,7 +191,9 @@ form input #profileFile:file-selector-button{
 				}
 			});
 		});
-		$("#modifySubmitButton2").click(function() {
+		$("#modifySubmitButton2").click(function(e) {
+			e.preventDefault();
+			
 			
 		});
 	});
@@ -213,6 +215,7 @@ form input #profileFile:file-selector-button{
 					<div class="col-md-3 border-center" id="profile">
 						<div class="d-flex flex-column align-items-center text-left p-3 py-5">
 							<input type="hidden" name="memberId" value="${memberInfo.memberId }" readonly />
+							<input type="hidden" name="pw" value="${memberInfo.pw }" />
 							<label class="labels">프로필 사진</label>
 							<div>
 								<img class="rounded-circle mt-5" id="target_img"
